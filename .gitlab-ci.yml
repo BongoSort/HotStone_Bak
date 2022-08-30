@@ -1,0 +1,39 @@
+image: gradle:jdk17-alpine
+stages:
+  - build
+  - test
+  - deploy
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+build:
+  stage: build
+  script:
+    - gradle assemble
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 1 week
+test:
+  stage: test
+  script:
+    - gradle test
+    - gradle jacocoTestReport
+  artifacts:
+    paths:
+      - build/reports/jacoco/
+    reports:
+      junit: build/test-results/test/TEST-*.xml
+pages:
+  stage: deploy
+  dependencies:
+  - test
+  script:
+  - mkdir public
+  - mv build/reports/jacoco/test/html/* public
+  artifacts:
+    paths:
+    - public

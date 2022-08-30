@@ -1,0 +1,53 @@
+/*
+ * Copyright (C) 2022. Henrik Bærbak Christensen, Aarhus University.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+plugins {
+    // Tell Gradle that this is a java project
+    id 'java'
+    // and to use JaCoCo for code coverage computation
+    id 'jacoco'
+}
+
+repositories {
+    // Tell where to get libraries: from 'mvnrepository.com'
+    mavenCentral()
+}
+
+dependencies {
+    // Use JUnit Jupiter API for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    // Use JUnit Jupiter Engine for testing.
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+
+    // Use the Hamcrest matcher library
+    testImplementation group: 'org.hamcrest',
+            name: 'hamcrest-library', version: '2.2'
+}
+
+test {
+    // Use junit platform for unit tests
+    useJUnitPlatform()
+}
+
+// Use gradle v 7
+wrapper {
+  gradleVersion = '7.4'
+}
+
+// Use latest Jacoco test coverage tool
+jacoco {
+  toolVersion = "0.8.8"
+}
