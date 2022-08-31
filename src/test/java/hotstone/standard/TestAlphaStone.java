@@ -55,9 +55,11 @@ public class TestAlphaStone {
     game = new StandardHotStoneGame();
   }
 
-  // Asserts the first player is Findus
+
   @Test
   public void firstPlayerShouldBeFindus() {
+    // Given a new HotStone game
+    // Then check if the player in turn is Findus.
     assertThat(game.getPlayerInTurn(), is(Player.FINDUS));
   }
 
@@ -66,14 +68,20 @@ public class TestAlphaStone {
    */
   @Test
   public void findusEndsTurnPeddersenInTurn() {
+    // Given a HotStone game
+    // When second turn starts
     game.endTurn();
+    // Then check if the player in turn is Peddersen.
     assertThat(game.getPlayerInTurn(), is(Player.PEDDERSEN));
   }
 
   @Test
   public void peddersenEndsHisTurnNowItsFindusTurn() {
-    game.endTurn(); //When game starts it is Findus turn, then we end game, so it is Peddersens turn
-    game.endTurn(); //when Peddersen ends his turn, it should be Findus turn
+    // Given a HotStone game
+    // When the third turn starts
+    game.endTurn();
+    game.endTurn();
+    // Then check of the player in turn is Findus
     assertThat(game.getPlayerInTurn(), is(Player.FINDUS));
   }
 
@@ -104,6 +112,7 @@ public class TestAlphaStone {
     Card card1 = game.getCardInHand(Player.FINDUS, 1);
     // Then it is Dos
     assertThat(card1.getName(), is(GameConstants.DOS_CARD));
+
     // Given card 2 in the hand
     Card card2 = game.getCardInHand(Player.FINDUS, 2);
     // Then it is Uno
