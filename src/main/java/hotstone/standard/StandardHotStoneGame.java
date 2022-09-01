@@ -31,7 +31,7 @@ import java.util.List;
  * test case about hand management.
  *
  * Start solving the AlphaStone exercise by
- * following the TDD rythm: pick a one-step-test
+ * following the TDD rhythm: pick a one-step-test
  * from your test list, quickly add a test,
  * run it to see it fail, and then modify this
  * implementing class (and supporting classes)
@@ -54,7 +54,6 @@ public class StandardHotStoneGame implements Game {
     cards.add(new StandardHotStoneCard(GameConstants.DOS_CARD));
     cards.add(new StandardHotStoneCard(GameConstants.UNO_CARD));
   }
-
 
   @Override
   public Player getPlayerInTurn() {
@@ -118,7 +117,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status playCard(Player who, Card card) {
-    return Status.OK;
+    return Status.OK; //TODO: This is FAKE-IT code
   }
 
   @Override

@@ -30,6 +30,17 @@ package hotstone.standard;
  *      Aarhus University
  */
 
+/**
+ *
+ *    Further developed by:
+ *      Mai Ricaplaza
+ *      Timmi Andersen
+ *      Rune Schuster
+ *      DAT3
+ *      Aarhus University
+ *
+ */
+
 import hotstone.framework.Card;
 import hotstone.framework.Player;
 import hotstone.framework.Status;
@@ -57,7 +68,6 @@ public class TestAlphaStone {
     game = new StandardHotStoneGame();
   }
 
-
   @Test
   public void firstPlayerShouldBeFindus() {
     // Given a new HotStone game
@@ -65,9 +75,6 @@ public class TestAlphaStone {
     assertThat(game.getPlayerInTurn(), is(Player.FINDUS));
   }
 
-  /**
-   *
-   */
   @Test
   public void findusEndsTurnPeddersenInTurn() {
     // Given a HotStone game
@@ -81,11 +88,9 @@ public class TestAlphaStone {
   public void peddersenEndsHisTurnNowItsFindusTurn() {
     // Given a HotStone game
     // When the third turn starts
-    game.endTurn();
-    game.endTurn();
-    // Then check of the player in turn is Findus
+    game.endTurn(); game.endTurn();
+    // Then check if the player in turn is Findus
     assertThat(game.getPlayerInTurn(), is(Player.FINDUS));
-    //yufuhk
   }
 
   // The HotStone specs are quite insisting on how

@@ -15,11 +15,26 @@ Siete (3, 2, 4)
         At start of player's turn, they get 3 mana
 - Winning
         Findus wins after 4 rounds (each have 4 turns completed)
+- Refactor:
+        - StandardHotStoneGame() needs refactoring.
 
 
+        In cardUnoShouldHaveManaCostOneAttackOneHealthOne() we have a lot of duplicate kode, lets make a method; Q for instructor.
+            assertThat(card0.getManaCost(), is(2));
+            assertThat(card0.getAttack(),is(2));
+            assertThat(card0.getHealth(), is(2));
+
+        Could become:
+
+        smartMethod(card, manaCostShouldBe, attackShouldBe, healthShouldBe) {
+                    assertThat(card.getManaCost(), is(manaCostShouldBe));
+                    assertThat(card.getAttack(),is(attackShouldBe));
+                    assertThat(card.getHealth(), is(healthShouldBe));
+        }
 
 
 Spørgsmål til Instruktor:
 er det en god idé at skrive javaDoc til de metoder som er oprettet efter et interface.
+refactoring testcode??
 
 BACKLOG -- Hvad skal vi lave i næste uge/hvad mangler?

@@ -15,9 +15,17 @@
 
     When Findus plays Uno, Then it is allowed (Status.OK) (OK HERTIL), and Then minion Uno appears at index 0 on the field. (TODO)
 
+    When Findus plays Uno, he should have only 2 cards left in hand.
+
     When Peddersen plays Dos, Then the mana available is two less.
 
+    When Peddersen plays Dos, he should have only 2 cards left in hand.
+
     When Findus plays a card, Then Peddersen still has 3 cards in his hand. (til at komme til getHandsize??? )
+
+    When Findus starts his second turn, he should draw a new card
+
+    When Peddersen starts his second turn, he should draw a new card
 
     Test computeOpponent somethingsomething
 
