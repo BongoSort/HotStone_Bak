@@ -7,6 +7,8 @@
 
     Findus should have three cards in hand, Tres at index 0, Dos at index 1, and Uno at index 2. (OK)
 
+    Peddersen should have three cards in hand, Tres at index 0, Dos at index 1, and Uno at index 2.
+
     Card Uno has attributes (1,1,1) (OK)
 
     Card Dos has attributes (2,2,2) (OK)
