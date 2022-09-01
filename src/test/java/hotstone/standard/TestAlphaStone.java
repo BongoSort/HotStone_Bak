@@ -98,7 +98,7 @@ public class TestAlphaStone {
   // and pushing the rest of the cards 1 position
   // 'down'
   @Test
-  public void shouldHaveUnoDosTresCardsInitially() {
+  public void findusShouldHaveUnoDosTresCardsInitially() {
     // Given a game, Findus has 3 cards in hand
     int count = game.getHandSize(Player.FINDUS);
     assertThat(count, is(3));

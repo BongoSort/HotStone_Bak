@@ -5,6 +5,9 @@ import hotstone.framework.Player;
 
 public class StandardHotStoneCard implements Card {
     private String cardName;
+    private int manaCost;
+    private int attack;
+    private int health;
 
     public StandardHotStoneCard(String cardName) {
         this.cardName = cardName;
