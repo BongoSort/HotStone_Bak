@@ -83,6 +83,7 @@ public class TestAlphaStone {
     game.endTurn();
     // Then check of the player in turn is Findus
     assertThat(game.getPlayerInTurn(), is(Player.FINDUS));
+    //yufuhk
   }
 
   // The HotStone specs are quite insisting on how
