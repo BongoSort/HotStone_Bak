@@ -13,7 +13,7 @@
 
     When Peddersen plays Dos, Then the mana available is two less.
 
-    When Findus plays a card, Then Peddersen still has 3 cards in his hand.
+    When Findus plays a card, Then Peddersen still has 3 cards in his hand. (til at komme til getHandsize??? )
 
     Test computeOpponent somethingsomething
 

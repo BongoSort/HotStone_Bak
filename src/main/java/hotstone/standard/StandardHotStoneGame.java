@@ -55,6 +55,7 @@ public class StandardHotStoneGame implements Game {
     cards.add(new StandardHotStoneCard(GameConstants.UNO_CARD));
   }
 
+
   @Override
   public Player getPlayerInTurn() {
     return playerInTurn;
@@ -117,7 +118,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status playCard(Player who, Card card) {
-    return null;
+    return Status.OK;
   }
 
   @Override

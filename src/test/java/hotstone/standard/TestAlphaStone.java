@@ -32,6 +32,8 @@ package hotstone.standard;
 
 import hotstone.framework.Card;
 import hotstone.framework.Player;
+import hotstone.framework.Status;
+import hotstone.utility.TestHelper;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -117,6 +119,45 @@ public class TestAlphaStone {
     Card card2 = game.getCardInHand(Player.FINDUS, 2);
     // Then it is Uno
     assertThat(card2.getName(), is(GameConstants.UNO_CARD));
+  }
+
+
+  @Test
+  public void cardUnoShouldHaveManaCostOneAttackOneHealthOne() {
+    //given a game, and a Card Uno
+    //Then card Uno has the attributes (1,1,1)
+    Card card0 = new StandardHotStoneCard(GameConstants.UNO_CARD);
+    assertThat(card0.getManaCost(), is(1));
+    assertThat(card0.getAttack(),is(1));
+    assertThat(card0.getHealth(), is(1));
+  }
+  @Test
+  public void cardDosShouldHaveManaCostTwoAttackTwoHealthTwo() {
+    //given a game, and a Card Dos
+    //Then card Dos has the attributes (2,2,2) (Mana cost, Attack, Health)
+    Card card0 = new StandardHotStoneCard(GameConstants.DOS_CARD);
+    assertThat(card0.getManaCost(), is(2));
+    assertThat(card0.getAttack(),is(2));
+    assertThat(card0.getHealth(), is(2));
+  }
+
+  @Test
+  public void cardTresShouldHaveManaCostThreeAttackThreeHealthThree() {
+    //given a game, and a Card Tres
+    //Then card Dos has the attributes (3,3,3)
+    Card card0 = new StandardHotStoneCard(GameConstants.TRES_CARD);
+    assertThat(card0.getManaCost(),is(3));
+    assertThat(card0.getAttack(), is(3));
+    assertThat(card0.getHealth(),is(3));
+  }
+
+  @Test
+  public void findusIsAllowedToPlayUnoCardANDMinionAppearOnField() {
+    // Given a game, and card UNO
+    Card card0 = new StandardHotStoneCard(GameConstants.UNO_CARD);
+    // When UNO card is played
+    // Then it is allowed (Status.ok)
+    assertThat(game.playCard(Player.FINDUS, card0), is(Status.OK));
   }
 
   /** REMOVE ME. Not a test of HotStone, just an example of the

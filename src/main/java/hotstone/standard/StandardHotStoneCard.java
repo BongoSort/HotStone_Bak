@@ -8,6 +8,23 @@ public class StandardHotStoneCard implements Card {
 
     public StandardHotStoneCard(String cardName) {
         this.cardName = cardName;
+        switch (cardName) {
+            case GameConstants.UNO_CARD -> {
+                this.manaCost = 1;
+                this.attack = 1;
+                this.health = 1;
+            }
+            case GameConstants.DOS_CARD -> {
+                this.manaCost = 2;
+                this.attack = 2;
+                this.health = 2;
+            }
+            case GameConstants.TRES_CARD -> {
+                this.manaCost = 3;
+                this.attack = 3;
+                this.health = 3;
+            }
+        }
     }
 
     @Override
@@ -17,17 +34,17 @@ public class StandardHotStoneCard implements Card {
 
     @Override
     public int getManaCost() {
-        return 0;
+        return manaCost;
     }
 
     @Override
     public int getAttack() {
-        return 0;
+        return attack;
     }
 
     @Override
     public int getHealth() {
-        return 0;
+        return health;
     }
 
     @Override
