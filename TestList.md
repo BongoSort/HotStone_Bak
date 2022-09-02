@@ -1,11 +1,6 @@
-
-
-* Test computeOpponent somethingsomething 
-* vi skal få tests getHandSize()
-
-* In turn 3 findus should get Card "Cuatro" From deck
-* In turn 4 peddersen should get Card "Cuatro" From deck
-* at start of turn 8 the game ends.
+THIS IS OUR TEST LIST. 
+YES YES IT IS VERY GOOD c:
+I HEREBY DECLARE IT!!!
 
 Game Start tests
 * **OK** At start of game Findus should have three cards in hand, Tres at index 0, Dos at index 1, and Uno at index 2. (OK)
@@ -27,14 +22,22 @@ Turn tests
 * **OK** at start of turn 8 the game ends.
 
 DECK tests
-* After a game is started (1 turn), each players deck size is 4
-* In turn 2 Findus deck size should be 3 while Peddersens deck size is 4
-* In turn 3 Findus deck size should be 3 while Peddersens deck size is 3
-* In turn 4 Findus deck size should be 2 while Peddersens deck size is 3
-* In turn 5 Findus deck size should be 2 while Peddersens deck size is 2
-* In turn 6 Findus deck size should be 1 while Peddersens deck size is 2
-* In turn 7 Findus deck size should be 1 while Peddersens deck size is 1
+* After a game is started (turn 1/turncount 0), each players deck size is 4
+* In turn 2 Findus deck size should be 4 while Peddersens deck size is 4
+* In turn 3 Findus deck size should be 3 while Peddersens deck size is 4
+* In turn 4 Findus deck size should be 3 while Peddersens deck size is 3
+* In turn 5 Findus deck size should be 2 while Peddersens deck size is 3
+* In turn 6 Findus deck size should be 2 while Peddersens deck size is 2
+* In turn 7 Findus deck size should be 1 while Peddersens deck size is 2
+* In turn 8 Findus deck size should be 1 while Peddersens deck size is 1
+
 * etc.
+
+CARD DRAW TESTS
+* In turn 3 findus should get Card "Cuatro" From deck
+* In turn 4 peddersen should get Card "Cuatro" From deck
+* When Findus starts his second turn, he should draw a new card
+* When Peddersen starts his second turn, he should draw a new card
 
 CARD Tests
 * **OK** Card Uno has attributes (1,1,1)
@@ -44,7 +47,6 @@ CARD Tests
 * **OK** Card Cinco has attributes (3,5,1)
 * **OK** Card Seis has attributes (2,1,3)
 * **OK** Card Siete has attributes (3,2,4)
-
 
 HAND tests
 * **OK** When Findus plays a Card, then his hand size is 2 and his field size is 1.

@@ -18,7 +18,6 @@
 package hotstone.standard;
 
 import hotstone.framework.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class StandardHotStoneGame implements Game {
   private List<Card> findusHand = new ArrayList<>();
   private List<Card> peddersenHand = new ArrayList<>();
   private List<Card> findusField = new ArrayList<>();
-  //private List<Card> peddersenField = new ArrayList<>();
+  private List<Card> peddersenField = new ArrayList<>();
   private int turnCounter;
 
   public StandardHotStoneGame() {
@@ -135,9 +134,11 @@ public class StandardHotStoneGame implements Game {
   }
   @Override
   public Card getCardInField(Player who, int indexInField) {
-    //Card card = new StandardHotStoneCard(GameConstants.UNO_CARD);
-    //return card;
-    return findusField.get(indexInField);
+    if(who == Player.FINDUS) {
+      return findusField.get(indexInField);
+    } else {
+      return peddersenField.get(indexInField);
+    }
   }
 
   @Override
@@ -158,14 +159,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status playCard(Player who, Card card) {
-    if (who == playerInTurn) {
-      if(who == Player.FINDUS) {
-        int cardIndex = findusHand.indexOf(card);
-        Card temp = findusHand.remove(cardIndex);
-        findusField.add(temp);
-      }
-      return Status.OK;
-    } else {
+    if (who != playerInTurn) {
       return Status.NOT_PLAYER_IN_TURN;
     }
   }

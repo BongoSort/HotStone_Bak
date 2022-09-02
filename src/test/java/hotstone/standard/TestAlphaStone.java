@@ -85,7 +85,7 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void peddersenEndsHisTurnNowItsFindusTurn() {
+  public void peddersenEndsTurnNowItIsFindusTurn() {
     // Given a HotStone game
     // When the third turn starts
     game.endTurn(); game.endTurn();
@@ -220,14 +220,14 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void firstTurnIsTurnCounter0() {
+  public void firstTurnIsTurnCount0() {
     // Given a new game
     // Then the first turn is turn 0
     assertThat(game.getTurnNumber(),is(0));
   }
 
   @Test
-  public void secondTurnIsTurnCounter1() {
+  public void secondTurnIsTurnCount1() {
     // Given a new game
     // When a turn has passed
     game.endTurn();
@@ -236,7 +236,7 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void findusWinsGameWhenTurnCounterIs8() {
+  public void findusWinsGameWhenTurnCount8() {
     //given a game
     //when turn eight starts, Findus wins game;
     TestHelper.advanceGameNRounds(game, 4);
@@ -253,6 +253,52 @@ public class TestAlphaStone {
     assertThat(findusPlaysCard, is(Status.OK));
     // Then the card in Findus' Field at index 0 should be Uno.
     assertThat(game.getCardInField(Player.FINDUS, 0), is(card0));
+  }
+
+  @Test
+  public void peddersenIsAllowedToPlayDosCardANDMinionAppearOnField() {
+    // Given a game
+    // When it becomes Peddersens turn.
+    game.endTurn();
+    Card card0 = game.getCardInHand(Player.PEDDERSEN,1); //Dos card is on index 1 in turn 1.
+    // When Dos card is played
+    Status peddersenPlaysCard = game.playCard(Player.PEDDERSEN, card0);
+    // Then it is allowed (Status.ok)
+    assertThat(peddersenPlaysCard, is(Status.OK));
+    // Then the card in Peddersen's Field at index 0 should be Dos.
+    assertThat(game.getCardInField(Player.PEDDERSEN, 0), is(card0));
+  }
+  @Test
+  public void peddersenPlaysACardHandSize2FieldSize1() {
+    //Given a new Game
+    // When it is peddersens turn
+    game.endTurn();
+    // Then peddersen chooses and plays card Tres (at index 0)
+    Card chosenCard = game.getCardInHand(Player.PEDDERSEN, 0);
+    game.playCard(Player.PEDDERSEN, chosenCard);
+    //then his handsize is reduced by 1 and fieldsize is increased by one
+    assertThat(game.getHandSize(Player.PEDDERSEN), is(2));
+    assertThat(game.getFieldSize(Player.PEDDERSEN),is(1));
+  }
+
+  @Test
+  public void eachDeckShouldHaveSize4AtStartOfGame() {
+    // Given a new game
+    // When the decks have been initialized
+    // Then size of both decks is 4
+    assertThat(game.getDeckSize(Player.FINDUS), is(4));
+    assertThat(game.getDeckSize(Player.PEDDERSEN), is(4));
+  }
+
+
+
+  @Disabled
+  @Test
+  public void inTurnThreeFindusShouldDrawCardCuatro() {
+    // Given a game, findus turn first
+    // Turn three
+    game.endTurn(); // now peddersen
+    game.endTurn(); // findus again
   }
 
   @Test
