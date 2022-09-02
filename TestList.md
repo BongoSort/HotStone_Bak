@@ -18,7 +18,9 @@ Turn tests
 * **OK** Given an initialized game, Findus is player in turn (OK)
 * **OK** When Findus ends its turn, it is Peddersen in turn (OK)
 * **OK** When Peddersen ends his turn, it is Findus turn. (OK)
-* at start of turn 8 the game ends.
+* **OK** first turn is turn 0
+* **OK** secound turn is turn 1
+at start of turn 8 the game ends.
 
 DECK tests
 * After a game is started (1 turn), each players deck size is 4
