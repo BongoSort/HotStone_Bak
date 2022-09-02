@@ -127,9 +127,12 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public int getHandSize(Player who) {
-    return findusHand.size();
-  } // FAKE-IT
-
+    if (who == Player.FINDUS) {
+      return findusHand.size();
+    } else {
+      return peddersenHand.size();
+    }
+  }
   @Override
   public Card getCardInField(Player who, int indexInField) {
     //Card card = new StandardHotStoneCard(GameConstants.UNO_CARD);

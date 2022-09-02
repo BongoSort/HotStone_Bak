@@ -13,7 +13,9 @@ Game Start tests
 
 Game state tests (mulig omnavngivning???) 
 * **OK** When Findus plays Uno, Then it is allowed (Status.OK),
-  and Then minion Uno appears at index 0 on the field. (FAKE IT)
+  and Then minion Uno appears at index 0 on the field.
+* When Peddersen plays Dos, Then it is allowed (Status.OK),
+    and Then minion Uno appears at index 0 on the field.
 * **OK** When it is Findus Turn, Peddersen is not allowed to play a Card, Then it is not allowed.
 
 Turn tests

@@ -266,8 +266,8 @@ public class TestAlphaStone {
 
   @Test
   public void startGameFindusPlaysCardHandSize2FieldSize1() {
-    //Given a new Game and it is Findus' turn
-    //when findus chooses and plays card Tres (at index 0)
+    //Given a new Game, it is Findus' turn
+    //when Findus chooses and plays card Tres (at index 0)
     Card chosenCard = game.getCardInHand(Player.FINDUS, 0);
     game.playCard(Player.FINDUS, chosenCard);
     //then his handsize is reduced by 1 and fieldsize is increased by one
