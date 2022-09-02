@@ -247,10 +247,10 @@ public class TestAlphaStone {
   public void findusIsAllowedToPlayUnoCardANDMinionAppearOnField() {
     // Given a game, and card UNO
     Card card0 = game.getCardInHand(Player.FINDUS,2); //Uno card is on index 2 in turn 0.
-    // When it is allowed (Status.ok)
-    assertThat(game.playCard(Player.FINDUS, card0), is(Status.OK));
-    // Then UNO card is played
-    game.playCard(Player.FINDUS, card0);
+    // When UNO card is played
+    Status findusPlaysCard = game.playCard(Player.FINDUS, card0);
+    // Then it is allowed (Status.ok)
+    assertThat(findusPlaysCard, is(Status.OK));
     // Then the card in Findus' Field at index 0 should be Uno.
     assertThat(game.getCardInField(Player.FINDUS, 0), is(card0));
   }
@@ -264,9 +264,8 @@ public class TestAlphaStone {
     assertThat(game.playCard(Player.PEDDERSEN, card), is(Status.NOT_PLAYER_IN_TURN));
   }
 
-  @Disabled
   @Test
-  public void findusPlaysCardHandSize2FieldSize1() {
+  public void startGameFindusPlaysCardHandSize2FieldSize1() {
     //Given a new Game and it is Findus' turn
     //when findus chooses and plays card Tres (at index 0)
     Card chosenCard = game.getCardInHand(Player.FINDUS, 0);

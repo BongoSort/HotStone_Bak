@@ -127,14 +127,14 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public int getHandSize(Player who) {
-    return 3;
+    return findusHand.size();
   } // FAKE-IT
 
   @Override
   public Card getCardInField(Player who, int indexInField) {
     //Card card = new StandardHotStoneCard(GameConstants.UNO_CARD);
     //return card;
-    return findusHand.get(2); //Fake it code
+    return findusField.get(indexInField);
   }
 
   @Override
@@ -156,6 +156,11 @@ public class StandardHotStoneGame implements Game {
   @Override
   public Status playCard(Player who, Card card) {
     if (who == playerInTurn) {
+      if(who == Player.FINDUS) {
+        int cardIndex = findusHand.indexOf(card);
+        Card temp = findusHand.remove(cardIndex);
+        findusField.add(temp);
+      }
       return Status.OK;
     } else {
       return Status.NOT_PLAYER_IN_TURN;
