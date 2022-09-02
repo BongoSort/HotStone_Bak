@@ -22,7 +22,7 @@ Turn tests
 * **OK** When Peddersen ends his turn, it is Findus turn. (OK)
 * **OK** first turn is turn 0
 * **OK** secound turn is turn 1
-at start of turn 8 the game ends.
+* **OK** at start of turn 8 the game ends.
 
 DECK tests
 * After a game is started (1 turn), each players deck size is 4
