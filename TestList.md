@@ -8,10 +8,10 @@
 
 Game Start tests
 * **OK** At start of game Findus should have three cards in hand, Tres at index 0, Dos at index 1, and Uno at index 2. (OK)
-* At start of game Peddersen should have three cards in hand, Tres at index 0, Dos at index 1, and Uno at index 2.
+* **OK** At start of game Peddersen should have three cards in hand, Tres at index 0, Dos at index 1, and Uno at index 2.
 
 Game state tests (mulig omnavngivning???) 
-* **TODO** When Findus plays Uno, Then it is allowed (Status.OK) (OK HERTIL),
+* **DO-OVER** When Findus plays Uno, Then it is allowed (Status.OK) (OK HERTIL),
   and Then minion Uno appears at index 0 on the field. (TODO)
 
 Turn tests
@@ -31,12 +31,13 @@ DECK tests
 * etc.
 
 CARD Tests
-* **OK** Card Uno has attributes (1,1,1) (OK)
-* **OK** Card Dos has attributes (2,2,2) (OK)
-* **OK** Card Tres has attributes (3,3,3) (OK)
-* Card Cuatro has attributes (2,3,1)
-* Card Cinco has attributes (3,5,1)
-* Card Siete has attributes (3,2,4)
+* **OK** Card Uno has attributes (1,1,1)
+* **OK** Card Dos has attributes (2,2,2)
+* **OK** Card Tres has attributes (3,3,3)
+* **OK** Card Cuatro has attributes (2,3,1)
+* **OK** Card Cinco has attributes (3,5,1)
+* **OK** Card Seis has attributes (2,1,3)
+* **OK** Card Siete has attributes (3,2,4)
 
 
 HAND tests
@@ -47,6 +48,7 @@ HAND tests
 * When Peddersen starts his second turn, he should draw a new card
 
 MANA Tests
+* Each Player has three mana when game begins(is initialized)
 * When Findus plays Uno, Then the mana available is one less (2 left)
 * at the Start of a players turn, their mana is restored to 3.
 * When Peddersen plays Dos, Then the mana available is two less.

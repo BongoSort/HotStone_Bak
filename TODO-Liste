@@ -19,6 +19,7 @@ Siete (3, 2, 4)
         - StandardHotStoneGame() needs refactoring.
 
 
+
         In cardUnoShouldHaveManaCostOneAttackOneHealthOne() we have a lot of duplicate kode, lets make a method; Q for instructor.
             assertThat(card0.getManaCost(), is(2));
             assertThat(card0.getAttack(),is(2));

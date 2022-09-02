@@ -20,7 +20,6 @@ package hotstone.standard;
 import hotstone.framework.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /** This is the 'temporary test stub' in TDD
@@ -46,14 +45,40 @@ import java.util.List;
  */
 public class StandardHotStoneGame implements Game {
   private Player playerInTurn;
-  private List<Card> cards = new ArrayList<>();
+  private List<Card> findusDeck = new ArrayList<>();
+  private List<Card> peddersenDeck = new ArrayList<>();
+  private List<Card> findusHand = new ArrayList<>();
+  private List<Card> peddersenHand = new ArrayList<>();
+  private int turnCounter;
 
   public StandardHotStoneGame() {
     this.playerInTurn = Player.FINDUS;
-    cards.add(new StandardHotStoneCard(GameConstants.TRES_CARD));
-    cards.add(new StandardHotStoneCard(GameConstants.DOS_CARD));
-    cards.add(new StandardHotStoneCard(GameConstants.UNO_CARD));
+
+    //initializing turnCounter
+    this.turnCounter = 0;
+
+    //initializing starting Hand for Findus
+    findusHand.add(new StandardHotStoneCard(GameConstants.TRES_CARD));
+    findusHand.add(new StandardHotStoneCard(GameConstants.DOS_CARD));
+    findusHand.add(new StandardHotStoneCard(GameConstants.UNO_CARD));
+    //now for Peddersen
+    peddersenHand.add(new StandardHotStoneCard(GameConstants.TRES_CARD));
+    peddersenHand.add(new StandardHotStoneCard(GameConstants.DOS_CARD));
+    peddersenHand.add(new StandardHotStoneCard(GameConstants.UNO_CARD));
+
+/*
+    //DETTE ER ET ALTERNATIV; SNAK MED INSTRUKTOR
+    fillHand(findusHand);
+    fillHand(peddersenHand);*/
   }
+
+  //Dette er en test metode.
+/*
+  public void fillHand(List<Card> hand) {
+    hand.add(new StandardHotStoneCard(GameConstants.TRES_CARD));
+    hand.add(new StandardHotStoneCard(GameConstants.DOS_CARD));
+    hand.add(new StandardHotStoneCard(GameConstants.UNO_CARD));
+  }*/
 
   @Override
   public Player getPlayerInTurn() {
@@ -72,7 +97,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public int getTurnNumber() {
-    return 0;
+    return turnCounter;
   }
 
   @Override
@@ -82,7 +107,11 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Card getCardInHand(Player who, int indexInHand) {
-    return cards.get(indexInHand);
+    if(who == Player.FINDUS) {
+      return findusHand.get(indexInHand);
+    } else {
+      return peddersenHand.get(indexInHand);
+    }
   }
 
   @Override
@@ -113,12 +142,13 @@ public class StandardHotStoneGame implements Game {
   @Override
   public void endTurn() {
     playerInTurn = Utility.computeOpponent(playerInTurn);
+    turnCounter++;
   }
 
   @Override
   public Status playCard(Player who, Card card) {
     return null; //Status.OK; //TODO: This is FAKE-IT code
-    //
+    //  DO-Over halløj
   }
 
   @Override
