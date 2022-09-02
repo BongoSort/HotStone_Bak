@@ -15,9 +15,9 @@ Siete (3, 2, 4)
         At start of player's turn, they get 3 mana
 - Winning
         Findus wins after 4 rounds (each have 4 turns completed)
-- Refactor:
+* Refactor:
         - StandardHotStoneGame() needs refactoring.
-
+* Do-Over: findusIsAllowedToPlayUnoCardANDMinionAppearOnField
 
 
         In cardUnoShouldHaveManaCostOneAttackOneHealthOne() we have a lot of duplicate kode, lets make a method; Q for instructor.
@@ -35,9 +35,8 @@ Siete (3, 2, 4)
 
 
 Spørgsmål til Instruktor:
-er det en god idé at skrive javaDoc til de metoder som er oprettet efter et interface.
+* er det en god idé at skrive javaDoc til de metoder som er oprettet efter et interface.
 refactoring testcode??
-
-Hvad må man have i sin constructor.
+* Hvad må man have i sin constructor.
 
 BACKLOG -- Hvad skal vi lave i næste uge/hvad mangler?

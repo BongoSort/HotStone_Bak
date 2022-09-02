@@ -174,11 +174,73 @@ public class TestAlphaStone {
   @Test
   public void cardTresShouldHaveManaCostThreeAttackThreeHealthThree() {
     //given a game, and a Card Tres
-    //Then card Dos has the attributes (3,3,3)
+    //Then card Tres has the attributes (3,3,3)
     Card card0 = new StandardHotStoneCard(GameConstants.TRES_CARD);
     assertThat(card0.getManaCost(),is(3));
     assertThat(card0.getAttack(), is(3));
     assertThat(card0.getHealth(),is(3));
+  }
+
+  @Test
+  public void cardCuatroShouldHaveManaCost2Attack3Health1() {
+    //given a game, and a Card Cuatro
+    //Then card Cuatro has the attributes (2,3,1)
+    Card card0 = new StandardHotStoneCard(GameConstants.CUATRO_CARD);
+    assertThat(card0.getManaCost(),is(2));
+    assertThat(card0.getAttack(), is(3));
+    assertThat(card0.getHealth(),is(1));
+  }
+  @Test
+  public void cardCincoShouldHaveManaCost3Attack5Health1() {
+    //given a game, and a Card Cinco
+    //Then card Cinco has the attributes (3,5,1)
+    Card card0 = new StandardHotStoneCard(GameConstants.CINCO_CARD);
+    assertThat(card0.getManaCost(),is(3));
+    assertThat(card0.getAttack(), is(5));
+    assertThat(card0.getHealth(),is(1));
+  }
+  @Test
+  public void cardSeisShouldHaveManaCost2Attack1Health3() {
+    //given a game, and a Card Seis
+    //Then card Seis has the attributes (2,1,3)
+    Card card0 = new StandardHotStoneCard(GameConstants.SEIS_CARD);
+    assertThat(card0.getManaCost(),is(2));
+    assertThat(card0.getAttack(), is(1));
+    assertThat(card0.getHealth(),is(3));
+  }
+
+  @Test
+  public void cardSieteShouldHaveManaCost3Attack2Health4() {
+    //given a game, and a Card Siete
+    //Then card Siete has the attributes (3,2,4)
+    Card card0 = new StandardHotStoneCard(GameConstants.SIETE_CARD);
+    assertThat(card0.getManaCost(),is(3));
+    assertThat(card0.getAttack(), is(2));
+    assertThat(card0.getHealth(),is(4));
+  }
+
+  @Test
+  public void firstTurnIsTurnCounter0() {
+    // Given a new game
+    // Then the first turn is turn 0
+    assertThat(game.getTurnNumber(),is(0));
+  }
+
+  @Test
+  public void secondTurnIsTurnCounter1() {
+    // Given a new game
+    // When a turn has passed
+    game.endTurn();
+    // Then the second turn is turn 1
+    assertThat(game.getTurnNumber(),is(1));
+  }
+
+  @Test
+  public void findusWinsGameWhenTurnCounterIs8() {
+    //given a game
+    //when turn eight starts, Findus wins game;
+    TestHelper.advanceGameNRounds(game, 4);
+    assertThat(game.getWinner(), is(Player.FINDUS));
   }
 
   @Disabled
@@ -189,6 +251,18 @@ public class TestAlphaStone {
     // When UNO card is played
     // Then it is allowed (Status.ok)
     assertThat(game.playCard(Player.FINDUS, card0), is(Status.OK));
+  }
+
+  @Disabled
+  @Test
+  public void findusPlaysCardHand2Field1() {
+    //Given a new Game and it is Findus' turn
+    //when findus chooses and plays card Tres
+    Card chosenCard = game.getCardInHand(Player.FINDUS, 0);
+    game.playCard(Player.FINDUS, chosenCard);
+    //then his handsize is reduced by 1 and fieldsize is increased by one
+    assertThat(game.getHandSize(Player.FINDUS), is(2));
+    //assertThat(game.getFieldSize(Player.FINDUS),is(1));
   }
 
   /** REMOVE ME. Not a test of HotStone, just an example of the

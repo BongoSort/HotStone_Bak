@@ -27,6 +27,26 @@ public class StandardHotStoneCard implements Card {
                 this.attack = 3;
                 this.health = 3;
             }
+            case GameConstants.CUATRO_CARD -> {
+                this.manaCost = 2;
+                this.attack = 3;
+                this.health = 1;
+            }
+            case GameConstants.CINCO_CARD -> {
+                this.manaCost = 3;
+                this.attack = 5;
+                this.health = 1;
+            }
+            case GameConstants.SEIS_CARD -> {
+                this.manaCost = 2;
+                this.attack = 1;
+                this.health = 3;
+            }
+            case GameConstants.SIETE_CARD -> {
+                this.manaCost = 3;
+                this.attack = 2;
+                this.health = 4;
+            }
         }
     }
 

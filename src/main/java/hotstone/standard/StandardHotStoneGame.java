@@ -92,7 +92,11 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Player getWinner() {
-    return null;
+    if(turnCounter == 8) {
+      return Player.FINDUS;
+    } else {
+      return null;
+    }
   }
 
   @Override
