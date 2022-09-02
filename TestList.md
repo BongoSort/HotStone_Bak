@@ -60,6 +60,13 @@ MANA Tests
 * When Findus plays Uno, Then the mana available is one less (2 left)
 * at the Start of a players turn, their mana is restored to 3.
 * When Peddersen plays Dos, Then the mana available is two less.
+* When a player plays a card, Mana available is greater or equal to the cards cost.
 
 HERO Tests
 * After Hero Baby uses power "cute", players mana is reduced by 2.
+
+Hero Health for later iterations of HotStone (NOT AlphaStone)
+* Health starts at 21
+* When the hero is attacked by a minion, Health is decreased by the attack value of the minion.
+* When the health of the hero reaches 0 or below, the hero dies, and the other hero wins.
+* 
