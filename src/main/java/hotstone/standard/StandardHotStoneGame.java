@@ -151,8 +151,11 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status playCard(Player who, Card card) {
-    return null; //Status.OK; //TODO: This is FAKE-IT code
-    //  DO-Over halløj
+    if (who == playerInTurn) {
+      return Status.OK;
+    } else {
+      return Status.NOT_PLAYER_IN_TURN;
+    }
   }
 
   @Override

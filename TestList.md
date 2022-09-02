@@ -4,6 +4,7 @@
 * vi skal få tests getHandSize()
 
 * In turn 3 findus should get Card "Cuatro" From deck
+* In turn 4 peddersen should get Card "Cuatro" From deck
 * at start of turn 8 the game ends.
 
 Game Start tests
@@ -11,8 +12,9 @@ Game Start tests
 * **OK** At start of game Peddersen should have three cards in hand, Tres at index 0, Dos at index 1, and Uno at index 2.
 
 Game state tests (mulig omnavngivning???) 
-* **DO-OVER** When Findus plays Uno, Then it is allowed (Status.OK) (OK HERTIL),
-  and Then minion Uno appears at index 0 on the field. (TODO)
+* **OK** When Findus plays Uno, Then it is allowed (Status.OK),
+  and Then minion Uno appears at index 0 on the field. (FAKE IT)
+* **OK** When it is Findus Turn, Peddersen is not allowed to play a Card, Then it is not allowed.
 
 Turn tests
 * **OK** Given an initialized game, Findus is player in turn (OK)

@@ -243,19 +243,26 @@ public class TestAlphaStone {
     assertThat(game.getWinner(), is(Player.FINDUS));
   }
 
-  @Disabled
   @Test
   public void findusIsAllowedToPlayUnoCardANDMinionAppearOnField() {
     // Given a game, and card UNO
-    Card card0 = new StandardHotStoneCard(GameConstants.UNO_CARD);
-    // When UNO card is played
-    // Then it is allowed (Status.ok)
+    Card card0 = game.getCardInHand(Player.FINDUS,2); //Uno card is on index 2 in turn 0.
+    // When it is allowed (Status.ok)
     assertThat(game.playCard(Player.FINDUS, card0), is(Status.OK));
+  }
+
+  @Test
+  public void findusInTurnPeddersenNotAllowedToPlayCard() {
+    // Given a game, and some card from peddersens Hand
+    // When it is Findus turn, and Peddersen tries to play a card
+    Card card = game.getCardInHand(Player.PEDDERSEN, 0);
+    // Then Status has to report that it is not peddersens turn
+    assertThat(game.playCard(Player.PEDDERSEN, card), is(Status.NOT_PLAYER_IN_TURN));
   }
 
   @Disabled
   @Test
-  public void findusPlaysCardHand2Field1() {
+  public void findusPlaysCardHandSize2FieldSize1() {
     //Given a new Game and it is Findus' turn
     //when findus chooses and plays card Tres
     Card chosenCard = game.getCardInHand(Player.FINDUS, 0);
