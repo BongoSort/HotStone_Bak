@@ -117,7 +117,8 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status playCard(Player who, Card card) {
-    return Status.OK; //TODO: This is FAKE-IT code
+    return null; //Status.OK; //TODO: This is FAKE-IT code
+    //
   }
 
   @Override

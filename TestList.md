@@ -43,6 +43,8 @@ HAND tests
 * When Findus plays a Card, then his hand size is 2 and his field size is 1.
 * When Findus plays a card, Then Peddersen still has 3 cards in his hand.
 * In turn 3 findus should get Card "Cuatro" From deck
+* When Findus starts his second turn, he should draw a new card 
+* When Peddersen starts his second turn, he should draw a new card
 
 MANA Tests
 * When Findus plays Uno, Then the mana available is one less (2 left)
