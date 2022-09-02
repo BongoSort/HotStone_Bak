@@ -274,6 +274,28 @@ public class TestAlphaStone {
     assertThat(game.getHandSize(Player.FINDUS), is(2));
     assertThat(game.getFieldSize(Player.FINDUS),is(1));
   }
+  @Test
+  public void startGameFindusPlays2CardsHandSize1FieldSize2() {
+    //Given a new Game, it is Findus' turn
+    //when Findus chooses and plays 2 cards
+    Card chosenCard = game.getCardInHand(Player.FINDUS, 0);
+    game.playCard(Player.FINDUS, chosenCard);
+    Card chosenCard1 = game.getCardInHand(Player.FINDUS, 0);
+    game.playCard(Player.FINDUS, chosenCard1);
+    //then his handsize is reduced by 2 and fieldsize is increased by 2
+    assertThat(game.getHandSize(Player.FINDUS), is(1));
+    assertThat(game.getFieldSize(Player.FINDUS),is(2));
+  }
+
+  @Test
+  public void findusPlaysCardPeddersenStillHas3CardsInHand() {
+    //Given a new Game, it is Findus' turn
+    //when Findus chooses and plays card Tres (at index 0)
+    Card chosenCard = game.getCardInHand(Player.FINDUS, 0);
+    game.playCard(Player.FINDUS, chosenCard);
+    // Then Peddersens handsize is still 3
+    assertThat(game.getHandSize(Player.PEDDERSEN), is(3));
+  }
 
   /** REMOVE ME. Not a test of HotStone, just an example of the
    matchers that the hamcrest library has... */

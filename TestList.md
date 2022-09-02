@@ -47,8 +47,10 @@ CARD Tests
 
 
 HAND tests
-* When Findus plays a Card, then his hand size is 2 and his field size is 1.
-* When Findus plays a card, Then Peddersen still has 3 cards in his hand.
+* **OK** When Findus plays a Card, then his hand size is 2 and his field size is 1.
+* **OK** When Findus plays two cards, then his hand size is 1 and his field size is 2.
+* **MEGAOK** When Findus plays a card, Then Peddersen still has 3 cards in his hand.
+* When Peddersen in turn, and plays a card, then his handsize is 2 and his field size is 1.
 * In turn 3 findus should get Card "Cuatro" From deck
 * When Findus starts his second turn, he should draw a new card 
 * When Peddersen starts his second turn, he should draw a new card
