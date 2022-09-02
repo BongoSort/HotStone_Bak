@@ -41,6 +41,7 @@ package hotstone.standard;
  *
  */
 
+import com.sun.source.tree.AssertTree;
 import hotstone.framework.Card;
 import hotstone.framework.Player;
 import hotstone.framework.Status;

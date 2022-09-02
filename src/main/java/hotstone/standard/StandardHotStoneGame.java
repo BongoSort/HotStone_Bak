@@ -58,11 +58,24 @@ public class StandardHotStoneGame implements Game {
     //initializing turnCounter
     this.turnCounter = 0;
 
+    //initializing Findus deck:
+    findusDeck.add(new StandardHotStoneCard(GameConstants.SIETE_CARD));
+    findusDeck.add(new StandardHotStoneCard(GameConstants.SEIS_CARD));
+    findusDeck.add(new StandardHotStoneCard(GameConstants.CINCO_CARD));
+    findusDeck.add(new StandardHotStoneCard(GameConstants.CUATRO_CARD));
+
+    //initializing Peddersen deck:
+    peddersenDeck.add(new StandardHotStoneCard(GameConstants.SIETE_CARD));
+    peddersenDeck.add(new StandardHotStoneCard(GameConstants.SEIS_CARD));
+    peddersenDeck.add(new StandardHotStoneCard(GameConstants.CINCO_CARD));
+    peddersenDeck.add(new StandardHotStoneCard(GameConstants.CUATRO_CARD));
+
     //initializing starting Hand for Findus
     findusHand.add(new StandardHotStoneCard(GameConstants.TRES_CARD));
     findusHand.add(new StandardHotStoneCard(GameConstants.DOS_CARD));
     findusHand.add(new StandardHotStoneCard(GameConstants.UNO_CARD));
-    //now for Peddersen
+
+    //initializing starting Hand for Peddersen
     peddersenHand.add(new StandardHotStoneCard(GameConstants.TRES_CARD));
     peddersenHand.add(new StandardHotStoneCard(GameConstants.DOS_CARD));
     peddersenHand.add(new StandardHotStoneCard(GameConstants.UNO_CARD));
@@ -107,7 +120,11 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public int getDeckSize(Player who) {
-    return 0;
+    if (who == Player.FINDUS) {
+      return findusDeck.size();
+    } else {
+      return peddersenDeck.size();
+    }
   }
 
   @Override
@@ -148,7 +165,12 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public int getFieldSize(Player who) {
-    return findusField.size();
+    if (who == Player.FINDUS) {
+      return findusField.size();
+    } else {
+      return peddersenField.size();
+    }
+
   }
 
   @Override
@@ -162,6 +184,19 @@ public class StandardHotStoneGame implements Game {
     if (who != playerInTurn) {
       return Status.NOT_PLAYER_IN_TURN;
     }
+    switch(who.ordinal()) {
+      case 0 -> { //0 is ordinal for Player.FINDUS
+        int cardIndex = findusHand.indexOf(card);
+        Card temp = findusHand.remove(cardIndex);
+        findusField.add(temp);
+      }
+      case 1 -> { //1 is ordinal for Player.PEDDERSEN
+        int cardIndex = peddersenHand.indexOf(card);
+        Card temp = peddersenHand.remove(cardIndex);
+        peddersenField.add(temp);
+      }
+    }
+    return Status.OK;
   }
 
   @Override
