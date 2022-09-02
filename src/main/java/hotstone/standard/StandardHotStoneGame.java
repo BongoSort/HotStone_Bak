@@ -49,6 +49,8 @@ public class StandardHotStoneGame implements Game {
   private List<Card> peddersenDeck = new ArrayList<>();
   private List<Card> findusHand = new ArrayList<>();
   private List<Card> peddersenHand = new ArrayList<>();
+  private List<Card> findusField = new ArrayList<>();
+  //private List<Card> peddersenField = new ArrayList<>();
   private int turnCounter;
 
   public StandardHotStoneGame() {
@@ -130,7 +132,9 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Card getCardInField(Player who, int indexInField) {
-    return null;
+    //Card card = new StandardHotStoneCard(GameConstants.UNO_CARD);
+    //return card;
+    return findusHand.get(2); //Fake it code
   }
 
   @Override
@@ -140,7 +144,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public int getFieldSize(Player who) {
-    return 0;
+    return findusField.size();
   }
 
   @Override
