@@ -40,3 +40,30 @@ refactoring testcode??
 * Hvad må man have i sin constructor.
 
 BACKLOG -- Hvad skal vi lave i næste uge/hvad mangler?
+
+TODO for:
+StandardHotStoneGame
+
+  private List<Card> findusDeck = new ArrayList<>();
+  private List<Card> peddersenDeck = new ArrayList<>();
+
+   //initializing Findus deck:
+    findusDeck.add(new StandardHotStoneCard(GameConstants.SIETE_CARD));
+    findusDeck.add(new StandardHotStoneCard(GameConstants.SEIS_CARD));
+    findusDeck.add(new StandardHotStoneCard(GameConstants.CINCO_CARD));
+    findusDeck.add(new StandardHotStoneCard(GameConstants.CUATRO_CARD));
+
+    //initializing Peddersen deck:
+    peddersenDeck.add(new StandardHotStoneCard(GameConstants.SIETE_CARD));
+    peddersenDeck.add(new StandardHotStoneCard(GameConstants.SEIS_CARD));
+    peddersenDeck.add(new StandardHotStoneCard(GameConstants.CINCO_CARD));
+    peddersenDeck.add(new StandardHotStoneCard(GameConstants.CUATRO_CARD));
+
+ @Override
+  public int getDeckSize(Player who) {
+    if (who == Player.FINDUS) {
+      return findusDeck.size();
+    } else {
+      return peddersenDeck.size();
+    }
+  }

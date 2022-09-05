@@ -44,8 +44,7 @@ import java.util.List;
  */
 public class StandardHotStoneGame implements Game {
   private Player playerInTurn;
-  private List<Card> findusDeck = new ArrayList<>();
-  private List<Card> peddersenDeck = new ArrayList<>();
+
   private List<Card> findusHand = new ArrayList<>();
   private List<Card> peddersenHand = new ArrayList<>();
   private List<Card> findusField = new ArrayList<>();
@@ -58,17 +57,6 @@ public class StandardHotStoneGame implements Game {
     //initializing turnCounter
     this.turnCounter = 0;
 
-    //initializing Findus deck:
-    findusDeck.add(new StandardHotStoneCard(GameConstants.SIETE_CARD));
-    findusDeck.add(new StandardHotStoneCard(GameConstants.SEIS_CARD));
-    findusDeck.add(new StandardHotStoneCard(GameConstants.CINCO_CARD));
-    findusDeck.add(new StandardHotStoneCard(GameConstants.CUATRO_CARD));
-
-    //initializing Peddersen deck:
-    peddersenDeck.add(new StandardHotStoneCard(GameConstants.SIETE_CARD));
-    peddersenDeck.add(new StandardHotStoneCard(GameConstants.SEIS_CARD));
-    peddersenDeck.add(new StandardHotStoneCard(GameConstants.CINCO_CARD));
-    peddersenDeck.add(new StandardHotStoneCard(GameConstants.CUATRO_CARD));
 
     //initializing starting Hand for Findus
     findusHand.add(new StandardHotStoneCard(GameConstants.TRES_CARD));

@@ -285,10 +285,9 @@ public class TestAlphaStone {
     // Given a game, findus turn first
     // Turn three
     // 
-    game.endTurn();
-    game.endTurn();
-    Card drawnCard = game.getCardInHand(Player.FINDUS, 0);
-    assertThat(drawnCard.getName(), is(GameConstants.CUATRO_CARD));
+
+
+    ;
   }
 
   /*@Test
