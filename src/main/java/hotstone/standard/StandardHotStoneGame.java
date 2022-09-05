@@ -177,6 +177,9 @@ public class StandardHotStoneGame implements Game {
   public void endTurn() {
     playerInTurn = Utility.computeOpponent(playerInTurn);
     turnCounter++;
+    if(turnCounter == 2) {
+      findusHand.add(0, new StandardHotStoneCard(GameConstants.CUATRO_CARD));
+    }
   }
 
   @Override

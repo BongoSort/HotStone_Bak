@@ -290,11 +290,18 @@ public class TestAlphaStone {
     assertThat(game.getDeckSize(Player.FINDUS), is(4));
     assertThat(game.getDeckSize(Player.PEDDERSEN), is(4));
   }
-
-
-
-  @Disabled
   @Test
+  public void inTurnThreeFindusShouldDrawCardCuatro() {
+    // Given a game, findus turn first
+    // Turn three
+    // 
+    game.endTurn();
+    game.endTurn();
+    Card drawnCard = game.getCardInHand(Player.FINDUS, 0);
+    assertThat(drawnCard.getName(), is(GameConstants.CUATRO_CARD));
+  }
+
+  /*@Test
   public void inTurnThreeFindusShouldDrawCardCuatro() {
     // Given a game, findus turn first
     // Turn three
