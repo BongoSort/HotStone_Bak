@@ -305,8 +305,25 @@ public class TestAlphaStone {
   public void inTurnThreeFindusShouldDrawCardCuatro() {
     // Given a game, findus turn first
     // Turn three
-    game.endTurn(); // now peddersen
-    game.endTurn(); // findus again
+    //
+    game.endTurn();
+    game.endTurn();
+    Card drawnCard = game.getCardInHand(Player.FINDUS, 0);
+    assertThat(drawnCard.getName(), is(GameConstants.CUATRO_CARD));
+  }*/
+
+  @Disabled
+  @Test
+  public void inTurnThreeFindusShouldDrawCardCinco() {
+    // Given a game, findus turn first
+    // Turn 5
+    //
+    game.endTurn();
+    game.endTurn();
+    game.endTurn();
+    game.endTurn();
+    Card drawnCard = game.getCardInHand(Player.FINDUS, 0);
+    assertThat(drawnCard.getName(), is(GameConstants.CINCO_CARD));
   }
 
   @Test
