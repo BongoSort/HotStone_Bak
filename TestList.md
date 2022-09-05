@@ -68,4 +68,3 @@ Hero Health for later iterations of HotStone (NOT AlphaStone)
 * Health starts at 21
 * When the hero is attacked by a minion, Health is decreased by the attack value of the minion.
 * When the health of the hero reaches 0 or below, the hero dies, and the other hero wins.
-* 

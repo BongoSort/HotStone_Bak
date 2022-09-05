@@ -351,6 +351,8 @@ public class TestAlphaStone {
     assertThat(game.getHandSize(Player.PEDDERSEN), is(3));
   }
 
+
+
   /** REMOVE ME. Not a test of HotStone, just an example of the
    matchers that the hamcrest library has... */
   @Test
