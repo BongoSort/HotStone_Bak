@@ -46,9 +46,9 @@ DECK tests
 * In turn 8 Findus deck size should be 1 while Peddersens deck size is 1
 
 CARD DRAW TESTS
-* In turn 1 and 2, no cards should be drawn. //aflevering
-* **OK** In turn 3 findus should get Card "Cuatro" From deck //Aflevering
-* **TODO**  In turn 5 Findus should get Card Cinco from deck. 
+* In turn 1 and 2, no cards should be drawn.
+* In turn 3 findus should get Card "Cuatro" From deck //Aflevering
+* In turn 5 Findus should get Card Cinco from deck. //aflevering 
 * In turn 4 peddersen should get Card "Cuatro" From deck
 * When Findus starts his second turn, he should draw a new card
 * When Peddersen starts his second turn, he should draw a new card

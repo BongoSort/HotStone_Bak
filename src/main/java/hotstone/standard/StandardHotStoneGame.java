@@ -120,11 +120,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public int getDeckSize(Player who) {
-    if (who == Player.FINDUS) {
-      return findusDeck.size();
-    } else {
-      return peddersenDeck.size();
-    }
+    return 4;
   }
 
   @Override
@@ -178,7 +174,9 @@ public class StandardHotStoneGame implements Game {
     playerInTurn = Utility.computeOpponent(playerInTurn);
     turnCounter++;
     if(turnCounter == 2) {
-      findusHand.add(0, new StandardHotStoneCard(GameConstants.CUATRO_CARD));
+      findusHand.add(0,new StandardHotStoneCard(GameConstants.CUATRO_CARD));
+    } else if (turnCounter == 4) {
+      findusHand.add(0, new StandardHotStoneCard(GameConstants.CINCO_CARD));
     }
   }
 
