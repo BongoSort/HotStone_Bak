@@ -49,6 +49,8 @@ public class StandardHotStoneGame implements Game {
   private List<Card> peddersenHand = new ArrayList<>();
   private List<Card> findusField = new ArrayList<>();
   private List<Card> peddersenField = new ArrayList<>();
+  private List<Card> findusDeck = new ArrayList<>();
+  private List<Card> peddersenDeck = new ArrayList<>();
   private int turnCounter;
 
   public StandardHotStoneGame() {
@@ -72,6 +74,14 @@ public class StandardHotStoneGame implements Game {
     hand.add(new StandardHotStoneCard(GameConstants.DOS_CARD));
     hand.add(new StandardHotStoneCard(GameConstants.UNO_CARD));
   }
+
+  private void fillDeck(List<Card> deck) {
+    deck.add(new StandardHotStoneCard(GameConstants.SIETE_CARD));
+    deck.add(new StandardHotStoneCard(GameConstants.SEIS_CARD));
+    deck.add(new StandardHotStoneCard(GameConstants.CINCO_CARD));
+    deck.add(new StandardHotStoneCard(GameConstants.CUATRO_CARD));
+  }
+
 
   @Override
   public Player getPlayerInTurn() {
@@ -152,10 +162,8 @@ public class StandardHotStoneGame implements Game {
   public void endTurn() {
     playerInTurn = Utility.computeOpponent(playerInTurn);
     turnCounter++;
-    if(turnCounter == 2) {
-      findusHand.add(0,new StandardHotStoneCard(GameConstants.CUATRO_CARD));
-    } else if (turnCounter == 4) {
-      findusHand.add(0, new StandardHotStoneCard(GameConstants.CINCO_CARD));
+    if(1 < turnCounter) {
+      drawCard();
     }
   }
 

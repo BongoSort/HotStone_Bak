@@ -46,19 +46,12 @@ DECK tests
 * In turn 8 Findus deck size should be 1 while Peddersens deck size is 1
 
 CARD DRAW TESTS
-* In turn 1 and 2, no cards should be drawn.
+* **OK** In turn 1 and 2, no cards should be drawn.
 * **OK** In turn 3 findus should get Card "Cuatro" From deck //Aflevering
-* **OK** In turn 5 Findus should get Card Cinco from deck. //aflevering 
-* In turn 4 peddersen should get Card "Cuatro" From deck
-* When Findus starts his second turn, he should draw a new card
-* When Peddersen starts his second turn, he should draw a new card
-
-MANA Tests
-* Each Player has three mana when game begins(is initialized)
-* When Findus plays Uno, Then the mana available is one less (2 left)
-* at the Start of a players turn, their mana is restored to 3.
-* When Peddersen plays Dos, Then the mana available is two less.
-* When a player plays a card, Mana available is greater or equal to the cards cost.
+* **OK** In turn 5 Findus should get Card Cinco from deck.
+* **OK** In turn 4 peddersen should get Card "Cuatro" From deck
+* **OK** When Findus starts his second turn, he should draw a new card
+* **OK** When Peddersen starts his second turn, he should draw a new card
 
 HERO Tests
 * After Hero Baby uses power "cute", players mana is reduced by 2.
@@ -67,3 +60,17 @@ Hero Health for later iterations of HotStone (NOT AlphaStone)
 * Health starts at 21
 * When the hero is attacked by a minion, Health is decreased by the attack value of the minion.
 * When the health of the hero reaches 0 or below, the hero dies, and the other hero wins.
+
+MANA Tests
+* Each Player has three mana when game begins(is initialized)
+* When Findus plays Uno, Then the mana available is one less (2 left)
+* at the Start of a players turn, their mana is restored to 3.
+* When Peddersen plays Dos, Then the mana available is two less.
+* When a player plays a card, Mana available is greater or equal to the cards cost.
+
+ATTACK Tests
+* 
+
+HEALTH Tests
+* 
+

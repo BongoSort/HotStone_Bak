@@ -283,16 +283,6 @@ public class TestAlphaStone {
   @Test
   public void inTurnThreeFindusShouldDrawCardCuatro() {
     // Given a game, findus turn first
-    // Turn three
-    // 
-
-
-    ;
-  }
-
-  /*@Test
-  public void inTurnThreeFindusShouldDrawCardCuatro() {
-    // Given a game, findus turn first
     // when it is turn three
     game.endTurn();
     game.endTurn();
