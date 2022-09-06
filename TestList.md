@@ -47,7 +47,7 @@ DECK tests
 
 CARD DRAW TESTS
 * **OK** In turn 1 and 2, no cards should be drawn.
-* **OK** In turn 3 findus should get Card "Cuatro" From deck //Aflevering
+* **OK** In turn 3 findus should get Card "Cuatro" From deck.
 * **OK** In turn 5 Findus should get Card Cinco from deck.
 * **OK** In turn 4 peddersen should get Card "Cuatro" From deck
 * **OK** When Findus starts his second turn, he should draw a new card
