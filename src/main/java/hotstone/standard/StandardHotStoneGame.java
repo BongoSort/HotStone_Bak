@@ -66,7 +66,7 @@ public class StandardHotStoneGame implements Game {
     //initializing Peddersen deck:
     fillDeck(peddersenDeck);
   }
-  
+
   private void fillHand(List<Card> hand) {
     hand.add(new StandardHotStoneCard(GameConstants.TRES_CARD));
     hand.add(new StandardHotStoneCard(GameConstants.DOS_CARD));
