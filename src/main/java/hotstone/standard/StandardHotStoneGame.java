@@ -53,34 +53,20 @@ public class StandardHotStoneGame implements Game {
 
   public StandardHotStoneGame() {
     this.playerInTurn = Player.FINDUS;
-
     //initializing turnCounter
     this.turnCounter = 0;
-
-
     //initializing starting Hand for Findus
-    findusHand.add(new StandardHotStoneCard(GameConstants.TRES_CARD));
-    findusHand.add(new StandardHotStoneCard(GameConstants.DOS_CARD));
-    findusHand.add(new StandardHotStoneCard(GameConstants.UNO_CARD));
-
-    //initializing starting Hand for Peddersen
-    peddersenHand.add(new StandardHotStoneCard(GameConstants.TRES_CARD));
-    peddersenHand.add(new StandardHotStoneCard(GameConstants.DOS_CARD));
-    peddersenHand.add(new StandardHotStoneCard(GameConstants.UNO_CARD));
-
-/*
-    //DETTE ER ET ALTERNATIV; SNAK MED INSTRUKTOR
     fillHand(findusHand);
-    fillHand(peddersenHand);*/
+    //initializing starting Hand for Peddersen
+    fillHand(peddersenHand);
+    
   }
-
-  //Dette er en test metode.
-/*
-  public void fillHand(List<Card> hand) {
+  
+  private void fillHand(List<Card> hand) {
     hand.add(new StandardHotStoneCard(GameConstants.TRES_CARD));
     hand.add(new StandardHotStoneCard(GameConstants.DOS_CARD));
     hand.add(new StandardHotStoneCard(GameConstants.UNO_CARD));
-  }*/
+  }
 
   @Override
   public Player getPlayerInTurn() {
