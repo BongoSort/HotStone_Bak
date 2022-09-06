@@ -36,14 +36,10 @@ HAND tests
 * **OK** When Peddersen in turn, and plays a card, then his handsize is 2 and his field size is 1.
 
 DECK tests
-* After a game is started (turn 1/turncount 0), each players deck size is 4
-* In turn 2 Findus deck size should be 4 while Peddersens deck size is 4
-* In turn 3 Findus deck size should be 3 while Peddersens deck size is 4
-* In turn 4 Findus deck size should be 3 while Peddersens deck size is 3
-* In turn 5 Findus deck size should be 2 while Peddersens deck size is 3
-* In turn 6 Findus deck size should be 2 while Peddersens deck size is 2
-* In turn 7 Findus deck size should be 1 while Peddersens deck size is 2
-* In turn 8 Findus deck size should be 1 while Peddersens deck size is 1
+* **OK** After a game is started (turn 1/turncount 0), each players deck size is 4
+* **OK** In turn 2 Findus deck size should be 4 while Peddersens deck size is 4
+* **OK** In turn 3 Findus deck size should be 3 while Peddersens deck size is 4
+* **OK** In turn 8 Findus deck size should be 1 while Peddersens deck size is 1
 
 CARD DRAW TESTS
 * **OK** In turn 1 and 2, no cards should be drawn.

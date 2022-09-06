@@ -109,7 +109,11 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public int getDeckSize(Player who) {
-    return 4;
+    if(Player.FINDUS == who) {
+      return findusDeck.size();
+    } else {
+      return peddersenDeck.size();
+    }
   }
 
   @Override

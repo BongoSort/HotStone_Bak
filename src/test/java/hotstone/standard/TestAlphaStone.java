@@ -358,6 +358,26 @@ public class TestAlphaStone {
     assertThat(game.getHandSize(Player.PEDDERSEN), is(3));
   }
 
+  @Test
+  public void inTurn3FindusDeckSizeIs3PeddersenDeckSizeIs4() {
+    //Given a Game
+    //when it is turn 3
+    game.endTurn();
+    game.endTurn();
+    //then Findus Deck size is 3 and Peddersens deck size is 4
+    assertThat(game.getDeckSize(Player.FINDUS), is(3));
+    assertThat(game.getDeckSize(Player.PEDDERSEN), is(4));
+  }
+
+  @Test
+  public void inTurn8FindusDeckSizeIs0PeddersenDeckSizeIs1() {
+    //Given a Game
+    //when it is turn 8
+    TestHelper.advanceGameNRounds(game, 4);
+    //then Findus Deck size is 0 and Peddersens deck size is 1
+    assertThat(game.getDeckSize(Player.FINDUS), is(0));
+    assertThat(game.getDeckSize(Player.PEDDERSEN), is(1));
+  }
 
 
   /** REMOVE ME. Not a test of HotStone, just an example of the
