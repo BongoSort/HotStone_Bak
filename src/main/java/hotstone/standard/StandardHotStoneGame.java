@@ -59,7 +59,12 @@ public class StandardHotStoneGame implements Game {
     fillHand(findusHand);
     //initializing starting Hand for Peddersen
     fillHand(peddersenHand);
-    
+
+    //initializing Findus deck:
+    fillDeck(findusDeck);
+
+    //initializing Peddersen deck:
+    fillDeck(peddersenDeck);
   }
   
   private void fillHand(List<Card> hand) {
@@ -151,6 +156,16 @@ public class StandardHotStoneGame implements Game {
       findusHand.add(0,new StandardHotStoneCard(GameConstants.CUATRO_CARD));
     } else if (turnCounter == 4) {
       findusHand.add(0, new StandardHotStoneCard(GameConstants.CINCO_CARD));
+    }
+  }
+
+  private void drawCard() {
+    if (turnCounter % 2 == 0) {
+      Card card = findusDeck.remove(findusDeck.size() - 1);
+      findusHand.add(0,card);
+    } else {
+      Card card1 = peddersenDeck.remove(peddersenDeck.size() - 1);
+      peddersenHand.add(0,card1);
     }
   }
 

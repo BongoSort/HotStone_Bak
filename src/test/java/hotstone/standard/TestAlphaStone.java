@@ -246,7 +246,7 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void peddersenIsAllowedToPlayDosCardANDMinionAppearOnField() {
+  public void peddersenIsAllowedToPlayDosCardAndMinionAppearOnField() {
     // Given a game
     // When it becomes Peddersens turn.
     game.endTurn();
@@ -293,24 +293,37 @@ public class TestAlphaStone {
   /*@Test
   public void inTurnThreeFindusShouldDrawCardCuatro() {
     // Given a game, findus turn first
-    // Turn three
-    //
+    // when it is turn three
     game.endTurn();
     game.endTurn();
+    //Then Findus draws card Cuatro from deck.
     Card drawnCard = game.getCardInHand(Player.FINDUS, 0);
     assertThat(drawnCard.getName(), is(GameConstants.CUATRO_CARD));
-  }*/
+  }
 
   @Test
-  public void inTurnThreeFindusShouldDrawCardCinco() {
+  public void inTurnFiveFindusShouldDrawCardCinco() {
     // Given a game, findus turn first
-    // Turn 5
+    // When it is Turn 5
     game.endTurn();
     game.endTurn();
     game.endTurn();
     game.endTurn();
+    //Then Findus draws Card Cinco from deck.
     Card drawnCard = game.getCardInHand(Player.FINDUS, 0);
     assertThat(drawnCard.getName(), is(GameConstants.CINCO_CARD));
+  }
+
+  @Test
+  public void inTurnFourPeddersenShouldDrawCardCuatro() {
+    // Given a game
+    // When it is turn four
+    game.endTurn();
+    game.endTurn();
+    game.endTurn();
+    //Then peddersen draws Card Cinco from deck.
+    Card drawnCard = game.getCardInHand(Player.PEDDERSEN, 0);
+    assertThat(drawnCard.getName(), is(GameConstants.CUATRO_CARD));
   }
 
   @Test
