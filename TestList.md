@@ -4,11 +4,11 @@ Game Start tests
 * **OK** At start of game Findus should have three cards in hand, Tres at index 0, Dos at index 1, and Uno at index 2. (OK)
 * **OK** At start of game Peddersen should have three cards in hand, Tres at index 0, Dos at index 1, and Uno at index 2.
 
-Game state tests (mulig omnavngivning???) 
+Game state tests (mulig omnavngivning???)
 * **OK** When Findus plays Uno, Then it is allowed (Status.OK),
   and Then minion Uno appears at index 0 on the field.
 * **OK** When Peddersen plays Dos, Then it is allowed (Status.OK),
-    and Then minion Uno appears at index 0 on the field.
+  and Then minion Uno appears at index 0 on the field.
 * **OK** When it is Findus Turn, Peddersen is not allowed to play a Card, Then it is not allowed.
 
 Turn tests
@@ -51,22 +51,35 @@ CARD DRAW TESTS
 
 HERO Tests
 * After Hero Baby uses power "cute", players mana is reduced by 2.
-
-Hero Health for later iterations of HotStone (NOT AlphaStone)
-* Health starts at 21
-* When the hero is attacked by a minion, Health is decreased by the attack value of the minion.
-* When the health of the hero reaches 0 or below, the hero dies, and the other hero wins.
+* Allow hero to use its power
 
 MANA Tests
 * Each Player has three mana when game begins(is initialized)
 * When Findus plays Uno, Then the mana available is one less (2 left)
-* at the Start of a players turn, their mana is restored to 3.
+  Mana Production: At the start of a player’s turn, he/she gets three mana.
 * When Peddersen plays Dos, Then the mana available is two less.
 * When a player plays a card, Mana available is greater or equal to the cards cost.
 
-ATTACK Tests
-* 
+ATTACK + HEALTH Tests
+* Check if health starts at 21
+* Allow attacking the opponent hero with a minion
+* Allow attacking an opponents minion, validate if its possible
+* When the hero is attacked by a minion, Health is decreased by the attack value of the minion.
+* Minions should die when they have 0 health left
 
-HEALTH Tests
-* 
+Status tests:
+* When a card is played as a minion it is inactive until it is the players turn again.
+
+ENDTURN
+* Findus heros Mana is restored after Peddersen ends turn.
+* Findus minions is set to active after Peddersen ends turn.
+* update mana for hero,
+* changing minions' state to active.
+
+CARD PLAYS
+* Execute any effect that a card may have when being played
+*
+MÅSKE IKKE ALPHASTONE, MEN SENERE-STONE??
+* When trying to draw a card from an empty deck, the hero should take 2 damage.
+* When the health of the hero reaches 0 or below, the hero dies, and the other hero wins.
 
