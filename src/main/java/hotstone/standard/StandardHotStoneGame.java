@@ -90,7 +90,32 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Hero getHero(Player who) {
-    return null;
+    return new Hero() {
+      @Override
+      public int getMana() {
+        return 0;
+      }
+
+      @Override
+      public int getHealth() {
+        return 0;
+      }
+
+      @Override
+      public boolean isActive() {
+        return false;
+      }
+
+      @Override
+      public String getType() {
+        return GameConstants.BABY_HERO_TYPE;
+      }
+
+      @Override
+      public Player getOwner() {
+        return null;
+      }
+    };
   }
 
   @Override

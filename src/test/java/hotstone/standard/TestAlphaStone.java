@@ -418,6 +418,12 @@ public class TestAlphaStone {
       }
   }
 
+  @Test
+  public void findusHeroIsBaby() {
+    //Given a game
+    //Then Findus Hero is Baby
+    assertThat(game.getHero(Player.FINDUS).getType(), is(GameConstants.BABY_HERO_TYPE));
+  }
 
   /** REMOVE ME. Not a test of HotStone, just an example of the
    matchers that the hamcrest library has... */
