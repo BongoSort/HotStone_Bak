@@ -115,6 +115,17 @@ public class TestAlphaStone {
     // Given card 0 in the hand
     Card card0 = game.getCardInHand(Player.FINDUS, 0);
     // Then is it Tres
+    assertThat(card0.getName(), is(GameConstants.TRES_CARD));
+
+    // Given card 1 in the hand
+    Card card1 = game.getCardInHand(Player.FINDUS, 1);
+    // Then it is Dos
+    assertThat(card1.getName(), is(GameConstants.DOS_CARD));
+
+    // Given card 2 in the hand
+    Card card2 = game.getCardInHand(Player.FINDUS, 2);
+    // Then it is Uno
+    assertThat(card2.getName(), is(GameConstants.UNO_CARD));
   }
 
   @Test
@@ -124,7 +135,6 @@ public class TestAlphaStone {
     assertThat(count, is(3));
 
     // And these are ordered Tres, Dos, Uno in slot 0,1,2
-
     // Given card 0 in the hand
     Card card0 = game.getCardInHand(Player.PEDDERSEN, 0);
     // Then is it Tres
