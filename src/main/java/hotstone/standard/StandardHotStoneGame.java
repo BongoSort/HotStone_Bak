@@ -57,6 +57,7 @@ public class StandardHotStoneGame implements Game {
     this.playerInTurn = Player.FINDUS;
     //initializing turnCounter
     this.turnCounter = 0;
+
     //initializing starting Hand for Findus
     fillHand(findusHand);
     //initializing starting Hand for Peddersen
@@ -64,7 +65,6 @@ public class StandardHotStoneGame implements Game {
 
     //initializing Findus deck:
     fillDeck(findusDeck);
-
     //initializing Peddersen deck:
     fillDeck(peddersenDeck);
   }

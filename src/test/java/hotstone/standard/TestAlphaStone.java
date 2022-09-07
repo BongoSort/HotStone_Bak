@@ -396,17 +396,26 @@ public class TestAlphaStone {
     // Given a new game
     // When findus have filled his hand
     // Then Findus should have Cards Uno, Dos, Tres in his hand
-    for (Card c :  game.getHand(Player.FINDUS)) {
+    for (Card c : game.getHand(Player.FINDUS)) {
       switch (c.getName()) {
-        case GameConstants.UNO_CARD -> { assertThat(game.getCardInHand(Player.FINDUS, 2), is(c)); }
-        case GameConstants.DOS_CARD -> { assertThat(game.getCardInHand(Player.FINDUS, 1), is(c)); }
-        case GameConstants.TRES_CARD -> { assertThat(game.getCardInHand(Player.FINDUS, 0), is(c)); }
+        case GameConstants.UNO_CARD -> assertThat(game.getCardInHand(Player.FINDUS, 2), is(c));
+        case GameConstants.DOS_CARD -> assertThat(game.getCardInHand(Player.FINDUS, 1), is(c));
+        case GameConstants.TRES_CARD -> assertThat(game.getCardInHand(Player.FINDUS, 0), is(c));
       }
-
-
-
     }
-
+  }
+    @Test
+    public void peddersensHandShouldBeUnoDosTresInTurnOne() {
+      // Given a new game
+      // When findus have filled his hand
+      // Then Findus should have Cards Uno, Dos, Tres in his hand
+      for (Card c :  game.getHand(Player.PEDDERSEN)) {
+        switch (c.getName()) {
+          case GameConstants.UNO_CARD -> assertThat(game.getCardInHand(Player.PEDDERSEN, 2), is(c));
+          case GameConstants.DOS_CARD -> assertThat(game.getCardInHand(Player.PEDDERSEN, 1), is(c));
+          case GameConstants.TRES_CARD -> assertThat(game.getCardInHand(Player.PEDDERSEN, 0), is(c));
+        }
+      }
   }
 
 
