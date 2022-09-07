@@ -127,7 +127,11 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Iterable<? extends Card> getHand(Player who) {
-    return findusHand;
+    if(Player.FINDUS == who) {
+      return findusHand;
+    } else {
+      return peddersenHand;
+    }
   }
 
   @Override

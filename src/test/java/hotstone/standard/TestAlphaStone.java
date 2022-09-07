@@ -390,6 +390,7 @@ public class TestAlphaStone {
     assertThat(game.getDeckSize(Player.PEDDERSEN), is(1));
   }
 
+  //tests getHand method, by testing cases already tested by other methods.
   @Test
   public void findusHandShouldBeUnoDosTresInTurnOne() {
     // Given a new game
