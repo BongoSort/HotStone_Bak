@@ -50,6 +50,7 @@ import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -387,6 +388,24 @@ public class TestAlphaStone {
     //then Findus Deck size is 0 and Peddersens deck size is 1
     assertThat(game.getDeckSize(Player.FINDUS), is(0));
     assertThat(game.getDeckSize(Player.PEDDERSEN), is(1));
+  }
+
+  @Test
+  public void findusHandShouldBeUnoDosTresInTurnOne() {
+    // Given a new game
+    // When findus have filled his hand
+    // Then Findus should have Cards Uno, Dos, Tres in his hand
+    for (Card c :  game.getHand(Player.FINDUS)) {
+      switch (c.getName()) {
+        case GameConstants.UNO_CARD -> { assertThat(game.getCardInHand(Player.FINDUS, 2), is(c)); }
+        case GameConstants.DOS_CARD -> { assertThat(game.getCardInHand(Player.FINDUS, 1), is(c)); }
+        case GameConstants.TRES_CARD -> { assertThat(game.getCardInHand(Player.FINDUS, 0), is(c)); }
+      }
+
+
+
+    }
+
   }
 
 
