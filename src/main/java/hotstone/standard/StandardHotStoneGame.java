@@ -249,6 +249,12 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status usePower(Player who) {
-    return null;
+    powerCounter++;
+    if(1 < powerCounter) {
+      return Status.POWER_USE_NOT_ALLOWED_TWICE_PR_ROUND;
+    }
+    return Status.OK;
+      // hvis spilleren er aktiv, så sæt til inaktiv og retuner ok
+    // hvis spilleren er inaktiv så retuner NEJ
   }
 }

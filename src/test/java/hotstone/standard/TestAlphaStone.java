@@ -445,9 +445,29 @@ public class TestAlphaStone {
 
   @Test
   public void findusInTurnHeroIsActive() {
+    //Given a game and it is findus' turn
+    //Then Findus' hero is active.
     assertThat(game.getHero(Player.FINDUS).isActive(), is(true));
   }
 
+  @Test
+  public void allowFindusHeroToUsePowerOnce() {
+    //Given a game
+    //Then Findus' hero is allowed to use its power
+    assertThat(game.usePower(Player.FINDUS), is(Status.OK));
+  }
+
+  @Test
+  public void doesNotAllowFindusHeroToUsePowerTwice() {
+    game.usePower(Player.FINDUS);
+    assertThat(game.usePower(Player.FINDUS), is(Status.POWER_USE_NOT_ALLOWED_TWICE_PR_ROUND));
+  }
+
+  @Test
+  public void peddersenInTurnIsAllowedToUseHeroPowerEvenIfFindusUsedPowerInHisTurn() {
+    game.usePower(Player.FINDUS);
+
+  }
 
 
   /** REMOVE ME. Not a test of HotStone, just an example of the
