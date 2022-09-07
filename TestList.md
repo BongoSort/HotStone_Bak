@@ -52,12 +52,12 @@ CARD DRAW TESTS
 HERO Tests
 * After Hero Baby uses power "cute", players mana is reduced by 2.
 * Allow hero to use its power
-* **TODO** Findus Hero is Baby
-* Peddersens Hero is Baby
+* **OK** Findus Hero is Baby
+* **OK** Peddersens Hero is Baby
 * When it becomes a Players turn, and the player have not used its Hero Power yet, the players hero should be active.
 * When player in turn uses power, then hero becomes inactive
-* when Findus not in turn, then findus hero is inactive.
-* when peddersen not in turn, then peddersens hero is inactive.
+* **OK** when Findus is in turn, then findus hero is active.
+* **OK** when peddersen not in turn, then peddersens hero is inactive.
 
 
 MANA Tests
