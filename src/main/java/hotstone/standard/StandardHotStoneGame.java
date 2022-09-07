@@ -52,11 +52,20 @@ public class StandardHotStoneGame implements Game {
   private List<Card> findusDeck = new ArrayList<>();
   private List<Card> peddersenDeck = new ArrayList<>();
   private int turnCounter;
+  private Hero findusHero;
+  private Hero peddersenHero;
+
 
   public StandardHotStoneGame() {
     this.playerInTurn = Player.FINDUS;
     //initializing turnCounter
     this.turnCounter = 0;
+
+    //initializing FindusHero
+    this.findusHero = new StandardHotStoneHero(Player.FINDUS);
+
+    //initializing FindusHero
+    this.peddersenHero = new StandardHotStoneHero(Player.PEDDERSEN);
 
     //initializing starting Hand for Findus
     fillHand(findusHand);
@@ -90,32 +99,11 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Hero getHero(Player who) {
-    return new Hero() {
-      @Override
-      public int getMana() {
-        return 0;
-      }
-
-      @Override
-      public int getHealth() {
-        return 0;
-      }
-
-      @Override
-      public boolean isActive() {
-        return false;
-      }
-
-      @Override
-      public String getType() {
-        return GameConstants.BABY_HERO_TYPE;
-      }
-
-      @Override
-      public Player getOwner() {
-        return null;
-      }
-    };
+    if(who == Player.FINDUS) {
+      return findusHero;
+    } else {
+      return peddersenHero;
+    }
   }
 
   @Override
@@ -197,6 +185,21 @@ public class StandardHotStoneGame implements Game {
     turnCounter++;
     if(1 < turnCounter) {
       drawCard();
+    }
+    setHeroStatus();
+  }
+
+  private void setHeroStatus() {
+    if(playerInTurn == Player.PEDDERSEN) {
+      StandardHotStoneHero hero = (StandardHotStoneHero) getHero(Player.PEDDERSEN);
+      hero.setStatus(true);
+      StandardHotStoneHero hero2 = (StandardHotStoneHero) getHero(Player.FINDUS);
+      hero2.setStatus(false);
+    } else {
+      StandardHotStoneHero hero = (StandardHotStoneHero) getHero(Player.FINDUS);
+      hero.setStatus(true);
+      StandardHotStoneHero hero2 = (StandardHotStoneHero) getHero(Player.PEDDERSEN);
+      hero2.setStatus(false);
     }
   }
 

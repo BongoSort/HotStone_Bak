@@ -425,6 +425,30 @@ public class TestAlphaStone {
     assertThat(game.getHero(Player.FINDUS).getType(), is(GameConstants.BABY_HERO_TYPE));
   }
 
+
+  @Test
+  public void peddersenHeroIsBaby() {
+    //Given a game
+    //When it is AlphaStone
+    //Then Peddersen's Hero is Baby
+    assertThat(game.getHero(Player.PEDDERSEN).getType(), is(GameConstants.BABY_HERO_TYPE));
+  }
+
+  @Test
+  public void peddersenInTurnFindusHeroIsInactive() {
+    //Given a game and it is peddersens turn
+    game.endTurn();
+    //Then Findus Hero is inactive
+    assertThat(game.getHero(Player.FINDUS).isActive(), is(false));
+  }
+
+  @Test
+  public void findusInTurnHeroIsActive() {
+    assertThat(game.getHero(Player.FINDUS).isActive(), is(true));
+  }
+
+
+
   /** REMOVE ME. Not a test of HotStone, just an example of the
    matchers that the hamcrest library has... */
   @Test
