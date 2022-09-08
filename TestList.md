@@ -55,7 +55,8 @@ HERO Tests
 * **OK** Findus Hero is Baby
 * **OK** Peddersens Hero is Baby
 * When it becomes a Players turn, and the player have not used its Hero Power yet, the players hero should be active.
-* When player in turn uses power, then hero becomes inactive
+* **OK** When player in turn uses power, then hero becomes inactive
+* **OK** Peddersen in inactive when not in turn
 * **OK** when Findus is in turn, then findus hero is active.
 * **OK** when peddersen not in turn, then peddersens hero is inactive.
 

@@ -459,14 +459,20 @@ public class TestAlphaStone {
 
   @Test
   public void doesNotAllowFindusHeroToUsePowerTwice() {
+    //Given a game
+    //When Findus uses his power
     game.usePower(Player.FINDUS);
+    //Then he is not allowed to use his power twice.
     assertThat(game.usePower(Player.FINDUS), is(Status.POWER_USE_NOT_ALLOWED_TWICE_PR_ROUND));
   }
 
   @Test
   public void peddersenInTurnIsAllowedToUseHeroPowerEvenIfFindusUsedPowerInHisTurn() {
     game.usePower(Player.FINDUS);
-
+    //When Findus ends his turn
+    game.endTurn();
+    //Then Peddersen is allowed to use his heros power.
+    assertThat(game.usePower(Player.PEDDERSEN),is(Status.OK));
   }
 
 

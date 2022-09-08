@@ -249,8 +249,12 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status usePower(Player who) {
-    powerCounter++;
-    if(1 < powerCounter) {
+    // if it is not this players turn
+    if(playerInTurn != who) {
+      return Status.NOT_PLAYER_IN_TURN;
+    }
+    // if this hero already has used hero power
+    if(!getHero(who).isActive()) {
       return Status.POWER_USE_NOT_ALLOWED_TWICE_PR_ROUND;
     }
     return Status.OK;
