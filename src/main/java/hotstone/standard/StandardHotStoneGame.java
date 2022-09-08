@@ -52,7 +52,6 @@ public class StandardHotStoneGame implements Game {
   private List<Card> findusDeck = new ArrayList<>();
   private List<Card> peddersenDeck = new ArrayList<>();
   private int turnCounter;
-  private int powerCounter;
   private Hero findusHero;
   private Hero peddersenHero;
 
@@ -62,14 +61,11 @@ public class StandardHotStoneGame implements Game {
     //initializing turnCounter
     this.turnCounter = 0;
 
-    //initializing powerCounter
-    this.powerCounter = 0;
-
     //initializing FindusHero
-    this.findusHero = new StandardHotStoneHero(Player.FINDUS);
+    this.findusHero = new StandardHotStoneHero(Player.FINDUS, true);
 
-    //initializing FindusHero
-    this.peddersenHero = new StandardHotStoneHero(Player.PEDDERSEN);
+    //initializing PeddersenHero
+    this.peddersenHero = new StandardHotStoneHero(Player.PEDDERSEN, false);
 
     //initializing starting Hand for Findus
     fillHand(findusHand);

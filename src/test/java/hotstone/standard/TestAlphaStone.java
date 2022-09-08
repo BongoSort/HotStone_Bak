@@ -468,6 +468,7 @@ public class TestAlphaStone {
 
   @Test
   public void peddersenInTurnIsAllowedToUseHeroPowerEvenIfFindusUsedPowerInHisTurn() {
+    //Given a game and Findus has used his power
     game.usePower(Player.FINDUS);
     //When Findus ends his turn
     game.endTurn();

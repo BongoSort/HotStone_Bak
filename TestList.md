@@ -59,6 +59,7 @@ HERO Tests
 * **OK** Peddersen in inactive when not in turn
 * **OK** when Findus is in turn, then findus hero is active.
 * **OK** when peddersen not in turn, then peddersens hero is inactive.
+* **OK** Peddersen in turn is allowed to use hero power even if Findus used power in his turn.
 
 
 MANA Tests

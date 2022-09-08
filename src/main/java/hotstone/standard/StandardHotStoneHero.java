@@ -8,10 +8,10 @@ public class StandardHotStoneHero implements Hero {
     private String type;
     private boolean isActive;
 
-    public StandardHotStoneHero(Player owner) {
+    public StandardHotStoneHero(Player owner, boolean isActive) {
         this.owner = owner;
         this.type = GameConstants.BABY_HERO_TYPE;
-        this.isActive = true;
+        this.isActive = isActive;
     }
 
     @Override
