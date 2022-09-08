@@ -476,6 +476,36 @@ public class TestAlphaStone {
     assertThat(game.usePower(Player.PEDDERSEN),is(Status.OK));
   }
 
+  @Test
+  public void shouldOnlyAllowPeddersenToUseHeroPowerWhenHeroIsActive() {
+    //Given a game and it is Peddersens turn
+    game.endTurn();
+    //then Peddersens hero is active and his hero is allowed to use its power
+    assertThat(game.getHero(Player.PEDDERSEN).isActive(), is(true));
+    assertThat(game.usePower(Player.PEDDERSEN),is(Status.OK));
+  }
+
+  @Test
+  //When player in turn uses power, then hero becomes inactive
+  public void whenPeddersenUsesHeroPowerHeroShouldBeInactive() {
+    //Given a game and it is Peddersens turn
+    game.endTurn();
+    //when Peddersens uses his heros power
+    game.usePower(Player.PEDDERSEN);
+    //Then Peddersens hero is inactive (isactive() returns false)
+    assertThat(game.getHero(Player.PEDDERSEN).isActive(), is(false));
+  }
+
+  @Test
+  public void shouldNotAllowPeddersenToUseHeroPowerWhenHeroIsInactive() {
+    //Given a game, and it is Findus turn
+    //Then Peddersen is not allowed to use his heros power.
+    assertThat(game.getHero(Player.PEDDERSEN).isActive(), is(false));
+    assertThat(game.usePower(Player.PEDDERSEN),is(Status.NOT_PLAYER_IN_TURN));
+  }
+
+
+
 
   /** REMOVE ME. Not a test of HotStone, just an example of the
    matchers that the hamcrest library has... */

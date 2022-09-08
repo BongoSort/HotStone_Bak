@@ -253,8 +253,9 @@ public class StandardHotStoneGame implements Game {
     if(!getHero(who).isActive()) {
       return Status.POWER_USE_NOT_ALLOWED_TWICE_PR_ROUND;
     }
+    // is it is this players turn, and have not used hero power
+    StandardHotStoneHero hero = (StandardHotStoneHero) getHero(who);
+    hero.setStatus(false);
     return Status.OK;
-      // hvis spilleren er aktiv, så sæt til inaktiv og retuner ok
-    // hvis spilleren er inaktiv så retuner NEJ
   }
 }
