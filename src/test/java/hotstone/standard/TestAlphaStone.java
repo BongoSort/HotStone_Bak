@@ -483,6 +483,8 @@ public class TestAlphaStone {
     //then Peddersens hero is active and his hero is allowed to use its power
     assertThat(game.getHero(Player.PEDDERSEN).isActive(), is(true));
     assertThat(game.usePower(Player.PEDDERSEN),is(Status.OK));
+    //but Findus should not be allowed to use his heros power.
+    assertThat(game.usePower(Player.FINDUS), is(Status.NOT_PLAYER_IN_TURN));
   }
 
   @Test
