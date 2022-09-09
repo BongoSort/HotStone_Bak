@@ -506,6 +506,8 @@ public class TestAlphaStone {
     assertThat(game.usePower(Player.PEDDERSEN),is(Status.NOT_PLAYER_IN_TURN));
   }
 
+// MANA TESTS:
+
 
 
 

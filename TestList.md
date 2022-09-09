@@ -50,7 +50,6 @@ CARD DRAW TESTS
 * **OK** When Peddersen starts his second turn, he should draw a new card
 
 HERO Tests
-* After Hero Baby uses power "cute", players mana is reduced by 2.
 * **OK** Only allow hero to use its power when hero is active
 * **OK** Does not allow hero to use its power twice
 * **OK** Findus Hero is Baby
@@ -64,6 +63,7 @@ HERO Tests
 
 
 MANA Tests
+* After Hero Baby uses power "cute", players mana is reduced by 2.
 * Each Player has three mana when game begins(is initialized)
 * When Findus plays Uno, Then the mana available is one less (2 left)
   Mana Production: At the start of a player’s turn, he/she gets three mana.
