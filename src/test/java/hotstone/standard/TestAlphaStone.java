@@ -350,9 +350,10 @@ public class TestAlphaStone {
   public void startGameFindusPlays2CardsHandSize1FieldSize2() {
     //Given a new Game, it is Findus' turn
     //when Findus chooses and plays 2 cards
-    Card chosenCard = game.getCardInHand(Player.FINDUS, 0);
+    Card chosenCard = game.getCardInHand(Player.FINDUS, 2);
     game.playCard(Player.FINDUS, chosenCard);
-    Card chosenCard1 = game.getCardInHand(Player.FINDUS, 0);
+
+    Card chosenCard1 = game.getCardInHand(Player.FINDUS, 1);
     game.playCard(Player.FINDUS, chosenCard1);
     //then his handsize is reduced by 2 and fieldsize is increased by 2
     assertThat(game.getHandSize(Player.FINDUS), is(1));

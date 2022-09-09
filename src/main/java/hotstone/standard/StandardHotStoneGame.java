@@ -46,50 +46,51 @@ import java.util.List;
 public class StandardHotStoneGame implements Game {
   private Player playerInTurn;
 
-  private List<Card> findusHand = new ArrayList<>();
-  private List<Card> peddersenHand = new ArrayList<>();
-  private List<Card> findusField = new ArrayList<>();
-  private List<Card> peddersenField = new ArrayList<>();
-  private List<Card> findusDeck = new ArrayList<>();
-  private List<Card> peddersenDeck = new ArrayList<>();
   private int turnCounter;
-  private Hero findusHero;
-  private Hero peddersenHero;
-
+  private HashMap<Player,ArrayList<Card>> playerdecks = new HashMap<>();
+  private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
+  private HashMap<Player,ArrayList<Card>> playerFields = new HashMap<>();
+  private HashMap<Player, Hero> playerHero = new HashMap<>();
 
   public StandardHotStoneGame() {
     this.playerInTurn = Player.FINDUS;
     //initializing turnCounter
     this.turnCounter = 0;
 
-    //initializing FindusHero
-    this.findusHero = new StandardHotStoneHero(Player.FINDUS, true);
+    //initializing Findus Hero
+    playerHero.put(Player.FINDUS, new StandardHotStoneHero(Player.FINDUS,true));
 
-    //initializing PeddersenHero
-    this.peddersenHero = new StandardHotStoneHero(Player.PEDDERSEN, false);
+    //initializing Peddersen Hero
+    playerHero.put(Player.PEDDERSEN, new StandardHotStoneHero(Player.PEDDERSEN,false));
 
     //initializing starting Hand for Findus
-    fillHand(findusHand);
+    playerHands.put(Player.FINDUS,fillHand());
     //initializing starting Hand for Peddersen
-    fillHand(peddersenHand);
+    playerHands.put(Player.PEDDERSEN,fillHand());
 
-    //initializing Findus deck:
-    fillDeck(findusDeck);
-    //initializing Peddersen deck:
-    fillDeck(peddersenDeck);
+    //initializing map for decks:
+    playerdecks.put(Player.FINDUS,fillDeck());
+    playerdecks.put(Player.PEDDERSEN,fillDeck());
+
+    playerFields.put(Player.FINDUS, new ArrayList<>());
+    playerFields.put(Player.PEDDERSEN, new ArrayList<>());
   }
 
-  private void fillHand(List<Card> hand) {
+  private ArrayList<Card> fillHand() {
+    ArrayList<Card> hand = new ArrayList<>();
     hand.add(new StandardHotStoneCard(GameConstants.TRES_CARD));
     hand.add(new StandardHotStoneCard(GameConstants.DOS_CARD));
     hand.add(new StandardHotStoneCard(GameConstants.UNO_CARD));
+    return hand;
   }
 
-  private void fillDeck(List<Card> deck) {
-    deck.add(new StandardHotStoneCard(GameConstants.SIETE_CARD));
-    deck.add(new StandardHotStoneCard(GameConstants.SEIS_CARD));
-    deck.add(new StandardHotStoneCard(GameConstants.CINCO_CARD));
+  private ArrayList<Card> fillDeck() {
+    ArrayList<Card> deck = new ArrayList<>();
     deck.add(new StandardHotStoneCard(GameConstants.CUATRO_CARD));
+    deck.add(new StandardHotStoneCard(GameConstants.CINCO_CARD));
+    deck.add(new StandardHotStoneCard(GameConstants.SEIS_CARD));
+    deck.add(new StandardHotStoneCard(GameConstants.SIETE_CARD));
+    return deck;
   }
 
 
@@ -100,11 +101,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Hero getHero(Player who) {
-    if(who == Player.FINDUS) {
-      return findusHero;
-    } else {
-      return peddersenHero;
-    }
+    return playerHero.get(who);
   }
 
   @Override
@@ -123,47 +120,27 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public int getDeckSize(Player who) {
-
-    if(Player.FINDUS == who) {
-      return findusDeck.size();
-    } else {
-      return peddersenDeck.size();
-    }
+    return playerdecks.get(who).size();
   }
 
   @Override
   public Card getCardInHand(Player who, int indexInHand) {
-    if(who == Player.FINDUS) {
-      return findusHand.get(indexInHand);
-    } else {
-      return peddersenHand.get(indexInHand);
-    }
+    return playerHands.get(who).get(indexInHand);
   }
 
   @Override
   public Iterable<? extends Card> getHand(Player who) {
-    if(Player.FINDUS == who) {
-      return findusHand;
-    } else {
-      return peddersenHand;
-    }
+    return playerHands.get(who);
   }
 
   @Override
   public int getHandSize(Player who) {
-    if (who == Player.FINDUS) {
-      return findusHand.size();
-    } else {
-      return peddersenHand.size();
-    }
+    return playerHands.get(who).size();
   }
+
   @Override
   public Card getCardInField(Player who, int indexInField) {
-    if(who == Player.FINDUS) {
-      return findusField.get(indexInField);
-    } else {
-      return peddersenField.get(indexInField);
-    }
+    return playerFields.get(who).get(indexInField);
   }
 
   @Override
@@ -173,49 +150,31 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public int getFieldSize(Player who) {
-    if (who == Player.FINDUS) {
-      return findusField.size();
-    } else {
-      return peddersenField.size();
-    }
-
+    return playerFields.get(who).size();
   }
 
   @Override
   public void endTurn() {
+    //Sets current players hero to be inactive
+    castHeroToStandardHotStoneHero(getHero(playerInTurn)).setStatus(false);
+
+    //sets turn to be the other player and sets up their turn
     playerInTurn = Utility.computeOpponent(playerInTurn);
+
     turnCounter++;
-    if(1 < turnCounter) {
+    if(1 < turnCounter) { //no player draws a card during the first round
       drawCard();
     }
-    endTurnSetHerosStatus();
 
-    StandardHotStoneHero hero = (StandardHotStoneHero) getHero(playerInTurn);
+    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(playerInTurn));
+    hero.setStatus(true);
     hero.resetMana();
   }
 
-  private void endTurnSetHerosStatus() {
-    if(playerInTurn == Player.PEDDERSEN) {
-      StandardHotStoneHero hero = (StandardHotStoneHero) getHero(Player.PEDDERSEN);
-      hero.setStatus(true);
-      StandardHotStoneHero hero2 = (StandardHotStoneHero) getHero(Player.FINDUS);
-      hero2.setStatus(false);
-    } else {
-      StandardHotStoneHero hero = (StandardHotStoneHero) getHero(Player.FINDUS);
-      hero.setStatus(true);
-      StandardHotStoneHero hero2 = (StandardHotStoneHero) getHero(Player.PEDDERSEN);
-      hero2.setStatus(false);
-    }
-  }
-
   private void drawCard() {
-    if (turnCounter % 2 == 0) {
-      Card card = findusDeck.remove(findusDeck.size() - 1);
-      findusHand.add(0,card);
-    } else {
-      Card card1 = peddersenDeck.remove(peddersenDeck.size() - 1);
-      peddersenHand.add(0,card1);
-    }
+    Player who = getPlayerInTurn();
+    Card res = playerdecks.get(who).remove(0);
+    playerHands.get(who).add(0,res);
   }
 
   @Override
@@ -228,22 +187,10 @@ public class StandardHotStoneGame implements Game {
       return Status.NOT_ENOUGH_MANA;
     }
 
-    switch(who) {
-      case FINDUS -> {
-        int cardIndex = findusHand.indexOf(card);
-        Card temp = findusHand.remove(cardIndex);
-        findusField.add(temp);
-        StandardHotStoneHero hero = (StandardHotStoneHero) getHero(Player.FINDUS);
-        hero.reduceHeroMana(temp.getManaCost());
-      }
-      case PEDDERSEN -> {
-        int cardIndex = peddersenHand.indexOf(card);
-        Card temp = peddersenHand.remove(cardIndex);
-        peddersenField.add(temp);
-        StandardHotStoneHero hero = (StandardHotStoneHero) getHero(Player.PEDDERSEN);
-        hero.reduceHeroMana(temp.getManaCost());
-      }
-    }
+    playerHands.get(who).remove(card);
+    playerFields.get(who).add(0,card);
+    castHeroToStandardHotStoneHero(getHero(who)).reduceHeroMana(card.getManaCost());
+
     return Status.OK;
   }
 
@@ -268,11 +215,14 @@ public class StandardHotStoneGame implements Game {
       return Status.POWER_USE_NOT_ALLOWED_TWICE_PR_ROUND;
     }
     // is it is this players turn, and have not used hero power
-    StandardHotStoneHero hero = (StandardHotStoneHero) getHero(who);
+    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(who));
     hero.setStatus(false);
-
-    hero.reduceHeroMana(2); //Since the only hero in Alphastone is Baby, we don't need to check for other heros.
+    hero.reduceHeroMana(2); //Since the only hero in Alphastone is Baby, we don't need to check for other heroes.
 
     return Status.OK;
+  }
+
+  private StandardHotStoneHero castHeroToStandardHotStoneHero(Hero hero) {
+    return (StandardHotStoneHero) hero;
   }
 }

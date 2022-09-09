@@ -3,11 +3,14 @@ package hotstone.standard;
 import hotstone.framework.Card;
 import hotstone.framework.Player;
 
+import java.util.Objects;
+
 public class StandardHotStoneCard implements Card {
     private String cardName;
     private int manaCost;
     private int attack;
     private int health;
+
 
     public StandardHotStoneCard(String cardName) {
         this.cardName = cardName;
@@ -79,4 +82,5 @@ public class StandardHotStoneCard implements Card {
     public Player getOwner() {
         return null;
     }
+
 }
