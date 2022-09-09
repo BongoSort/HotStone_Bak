@@ -68,8 +68,9 @@ MANA Tests
 * **OK** When Findus plays Uno, Then the mana available is one less (2 left)
   **OK** Mana Production: At the start of a player’s turn, he/she gets three mana.
 * **OK** When Peddersen plays Tres, Then the mana available is two less.
-* **TODO** When a player plays a card, Mana available is greater or equal to the cards cost.
-* It is not possible to use more mana, than you have.
+* **OK** When a player plays a card, Mana available is greater or equal to the cards cost.
+* **HALFWAY DONE** It is not possible to use more mana, than you have.
+* 
 
 ATTACK + HEALTH Tests
 * Check if health starts at 21

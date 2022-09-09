@@ -570,7 +570,7 @@ public class TestAlphaStone {
     game.endTurn();
     assertThat(game.getHero(Player.PEDDERSEN).getMana(),is(3));
   }
-  @Disabled
+
   @Test
   public void notPossibleToUseMoreManaThanYouHave() {
     game.usePower(Player.FINDUS);
