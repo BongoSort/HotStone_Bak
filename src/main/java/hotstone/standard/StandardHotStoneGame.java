@@ -19,6 +19,7 @@ package hotstone.standard;
 
 import hotstone.framework.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /** This is the 'temporary test stub' in TDD
@@ -122,6 +123,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public int getDeckSize(Player who) {
+
     if(Player.FINDUS == who) {
       return findusDeck.size();
     } else {
@@ -270,7 +272,6 @@ public class StandardHotStoneGame implements Game {
     hero.setStatus(false);
 
     hero.reduceHeroMana(2); //Since the only hero in Alphastone is Baby, we don't need to check for other heros.
-
 
     return Status.OK;
   }
