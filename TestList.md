@@ -63,12 +63,13 @@ HERO Tests
 
 
 MANA Tests
-* After Hero Baby uses power "cute", players mana is reduced by 2.
-* Each Player has three mana when game begins(is initialized)
-* When Findus plays Uno, Then the mana available is one less (2 left)
-  Mana Production: At the start of a player’s turn, he/she gets three mana.
-* When Peddersen plays Dos, Then the mana available is two less.
-* When a player plays a card, Mana available is greater or equal to the cards cost.
+* **OK** Each Player has three mana when game begins(is initialized)
+* **OK** After Hero Baby uses power "cute", players mana is reduced by 2.
+* **OK** When Findus plays Uno, Then the mana available is one less (2 left)
+  **OK** Mana Production: At the start of a player’s turn, he/she gets three mana.
+* **OK** When Peddersen plays Tres, Then the mana available is two less.
+* **TODO** When a player plays a card, Mana available is greater or equal to the cards cost.
+* It is not possible to use more mana, than you have.
 
 ATTACK + HEALTH Tests
 * Check if health starts at 21

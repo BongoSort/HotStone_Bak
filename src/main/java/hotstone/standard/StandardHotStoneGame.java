@@ -186,7 +186,10 @@ public class StandardHotStoneGame implements Game {
     if(1 < turnCounter) {
       drawCard();
     }
-    setHeroStatus();
+    endTurnSetHerosStatus();
+
+    StandardHotStoneHero hero = (StandardHotStoneHero) getHero(playerInTurn);
+    hero.resetMana();
   }
 
   private void endTurnSetHerosStatus() {
