@@ -221,15 +221,20 @@ public class StandardHotStoneGame implements Game {
     if (who != playerInTurn) {
       return Status.NOT_PLAYER_IN_TURN;
     }
-    switch(who.ordinal()) {
-      case 0 -> { //0 is ordinal for Player.FINDUS
+
+    if(getHero(who).getMana() < card.getManaCost()) {
+      return Status.NOT_ENOUGH_MANA;
+    }
+
+    switch(who) {
+      case FINDUS -> {
         int cardIndex = findusHand.indexOf(card);
         Card temp = findusHand.remove(cardIndex);
         findusField.add(temp);
         StandardHotStoneHero hero = (StandardHotStoneHero) getHero(Player.FINDUS);
         hero.reduceHeroMana(temp.getManaCost());
       }
-      case 1 -> { //1 is ordinal for Player.PEDDERSEN
+      case PEDDERSEN -> {
         int cardIndex = peddersenHand.indexOf(card);
         Card temp = peddersenHand.remove(cardIndex);
         peddersenField.add(temp);

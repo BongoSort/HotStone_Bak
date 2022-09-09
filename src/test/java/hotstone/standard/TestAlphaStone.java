@@ -569,6 +569,13 @@ public class TestAlphaStone {
     game.endTurn();
     assertThat(game.getHero(Player.PEDDERSEN).getMana(),is(3));
   }
+  @Disabled
+  @Test
+  public void notPossibleToUseMoreManaThanYouHave() {
+    game.usePower(Player.FINDUS);
+    Card tresCard = game.getCardInHand(Player.FINDUS,0);
+    assertThat(game.playCard(Player.FINDUS,tresCard),is(Status.NOT_ENOUGH_MANA));
+  }
 
   /** REMOVE ME. Not a test of HotStone, just an example of the
    matchers that the hamcrest library has... */
