@@ -86,6 +86,8 @@ ENDTURN
 * update mana for hero,
 * changing minions' state to active.
 
+
+
 CARD PLAYS
 * Execute any effect that a card may have when being played
 
