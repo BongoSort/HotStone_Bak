@@ -16,7 +16,7 @@ public class StandardHotStoneHero implements Hero {
 
     @Override
     public int getMana() {
-        return 0;
+        return mana;
     }
 
     @Override

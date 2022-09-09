@@ -189,7 +189,7 @@ public class StandardHotStoneGame implements Game {
     setHeroStatus();
   }
 
-  private void setHeroStatus() {
+  private void endTurnSetHerosStatus() {
     if(playerInTurn == Player.PEDDERSEN) {
       StandardHotStoneHero hero = (StandardHotStoneHero) getHero(Player.PEDDERSEN);
       hero.setStatus(true);
@@ -223,11 +223,15 @@ public class StandardHotStoneGame implements Game {
         int cardIndex = findusHand.indexOf(card);
         Card temp = findusHand.remove(cardIndex);
         findusField.add(temp);
+        StandardHotStoneHero hero = (StandardHotStoneHero) getHero(Player.FINDUS);
+        hero.reduceHeroMana(temp.getManaCost());
       }
       case 1 -> { //1 is ordinal for Player.PEDDERSEN
         int cardIndex = peddersenHand.indexOf(card);
         Card temp = peddersenHand.remove(cardIndex);
         peddersenField.add(temp);
+        StandardHotStoneHero hero = (StandardHotStoneHero) getHero(Player.PEDDERSEN);
+        hero.reduceHeroMana(temp.getManaCost());
       }
     }
     return Status.OK;
@@ -256,6 +260,10 @@ public class StandardHotStoneGame implements Game {
     // is it is this players turn, and have not used hero power
     StandardHotStoneHero hero = (StandardHotStoneHero) getHero(who);
     hero.setStatus(false);
+
+    hero.reduceHeroMana(2); //Since the only hero in Alphastone is Baby, we don't need to check for other heros.
+
+
     return Status.OK;
   }
 }

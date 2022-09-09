@@ -507,9 +507,68 @@ public class TestAlphaStone {
   }
 
 // MANA TESTS:
+  @Test
+  public void findusAndPeddersenShouldHave3ManaAtStartOfGame() {
+    //Given a new game
+    //Both Findus and Peddersen starts with 3 mana each.
+    assertThat(game.getHero(Player.FINDUS).getMana(), is(3));
+    assertThat(game.getHero(Player.PEDDERSEN).getMana(), is(3));
+  }
 
+  @Test
+  public void heroBabyUsesCutePlayerManaReducedBy2() {
+    //Given a game
+    // Findus' hero, Baby, uses power "cute" that costs 2 mana.
+    game.usePower(Player.FINDUS);
+    //Then Findus' mana is reduced by 2
+    assertThat(game.getHero(Player.FINDUS).getMana(), is(1));
+  }
 
+  @Test
+  public void findusPlaysCardUnoThenHeroManaIsReducedByCardManaCost() {
+    //Given a game
+    //When Findus plays Card Uno
+    Card unoCard = game.getCardInHand(Player.FINDUS,2);
+    game.playCard(Player.FINDUS,unoCard);
+    //Then his heros mana is reduced by Uno manacost which is 1
+    assertThat(game.getHero(Player.FINDUS).getMana(), is(3 - 1));
+  }
 
+  @Test
+  public void peddersenPlaysCardTresThenHeroManaIsReducedByCardManaCost() {
+    //Given a game and it is peddersens turn
+    game.endTurn();
+    //when he plays Card Tres from his Hand
+    Card tresCard = game.getCardInHand(Player.PEDDERSEN,0);
+    game.playCard(Player.PEDDERSEN,tresCard);
+    //then his heros mana is reduced by Tres Manacost which is 3.
+    assertThat(game.getHero(Player.PEDDERSEN).getMana(), is(3-3));
+  }
+
+  @Test
+  public void startOfNewTurnPlayerInTurnRefillsTheirHerosMana() {
+    //Given a new game
+    //Findus uses hero power
+    game.usePower(Player.FINDUS);
+    //Then his heros mana is redued by 2 and his turn is ended.
+    assertThat(game.getHero(Player.FINDUS).getMana(), is(1));
+    game.endTurn();
+
+    //Now it is Peddersens turn
+    //He uses his heros power and its mana is also reduced by two.
+    //His turn is then ended.
+    game.usePower(Player.PEDDERSEN);
+    assertThat(game.getHero(Player.PEDDERSEN).getMana(), is(1));
+    game.endTurn();
+    //A new turn has started for Findus
+    //His mana is now refilled again.
+    assertThat(game.getHero(Player.FINDUS).getMana(),is(3));
+
+    //A new turn has started for Peddersen
+    //His mana is now refilled again.
+    game.endTurn();
+    assertThat(game.getHero(Player.PEDDERSEN).getMana(),is(3));
+  }
 
   /** REMOVE ME. Not a test of HotStone, just an example of the
    matchers that the hamcrest library has... */
