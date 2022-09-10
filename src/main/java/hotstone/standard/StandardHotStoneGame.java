@@ -20,7 +20,7 @@ package hotstone.standard;
 import hotstone.framework.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 /** This is the 'temporary test stub' in TDD
  * terms: the initial empty but compilable implementation
@@ -47,7 +47,7 @@ public class StandardHotStoneGame implements Game {
   private Player playerInTurn;
 
   private int turnCounter;
-  private HashMap<Player,ArrayList<Card>> playerdecks = new HashMap<>();
+  private HashMap<Player,ArrayList<Card>> playerDecks = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerFields = new HashMap<>();
   private HashMap<Player, Hero> playerHero = new HashMap<>();
@@ -69,8 +69,8 @@ public class StandardHotStoneGame implements Game {
     playerHands.put(Player.PEDDERSEN,fillHand());
 
     //initializing map for decks:
-    playerdecks.put(Player.FINDUS,fillDeck());
-    playerdecks.put(Player.PEDDERSEN,fillDeck());
+    playerDecks.put(Player.FINDUS,fillDeck());
+    playerDecks.put(Player.PEDDERSEN,fillDeck());
 
     playerFields.put(Player.FINDUS, new ArrayList<>());
     playerFields.put(Player.PEDDERSEN, new ArrayList<>());
@@ -120,7 +120,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public int getDeckSize(Player who) {
-    return playerdecks.get(who).size();
+    return playerDecks.get(who).size();
   }
 
   @Override
@@ -169,11 +169,14 @@ public class StandardHotStoneGame implements Game {
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(playerInTurn));
     hero.setStatus(true);
     hero.resetMana();
-  }
+
+    // Something something HashMap run through Values
+    // Set current players cards status in field true if false.
+ }
 
   private void drawCard() {
     Player who = getPlayerInTurn();
-    Card res = playerdecks.get(who).remove(0);
+    Card res = playerDecks.get(who).remove(0);
     playerHands.get(who).add(0,res);
   }
 
@@ -201,7 +204,11 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status attackHero(Player playerAttacking, Card attackingCard) {
-    return null;
+    if (attackingCard.isActive()) {
+      return Status.OK;
+    } else {
+      return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION;
+    }
   }
 
   @Override

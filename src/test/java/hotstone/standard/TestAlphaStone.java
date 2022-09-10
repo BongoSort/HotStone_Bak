@@ -578,6 +578,27 @@ public class TestAlphaStone {
     assertThat(game.playCard(Player.FINDUS,tresCard),is(Status.NOT_ENOUGH_MANA));
   }
 
+  @Test
+  public void findusMinionShouldBeAllowedToAttackPeddersenInTurn3() {
+    //Given a game
+    //When it is turn 1, Findus plays a card to the field
+    game.playCard(Player.FINDUS, game.getCardInHand(Player.FINDUS, 2));
+    game.endTurn();
+    //When it is turn 3, Findus has a minion on the field
+    game.endTurn();
+    //Then it should be ok to attack Peddersens hero
+    assertThat(game.attackHero(Player.FINDUS, game.getCardInField(Player.FINDUS,0)), is(Status.OK));
+  }
+
+  @Test
+  public void findusMinionShouldNotBeAllowedToAttackPeddersenInTurn1() {
+    //Given a game
+    //When it is turn 1, Findus plays a card to the field
+    game.playCard(Player.FINDUS, game.getCardInHand(Player.FINDUS, 2));
+    //Then it should not be ok to attack Peddersens hero, since the minion is inActive.
+    assertThat(game.attackHero(Player.FINDUS, game.getCardInField(Player.FINDUS,0)), is(Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION));
+  }
+
   /** REMOVE ME. Not a test of HotStone, just an example of the
    matchers that the hamcrest library has... */
   @Test

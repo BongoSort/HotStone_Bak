@@ -10,10 +10,12 @@ public class StandardHotStoneCard implements Card {
     private int manaCost;
     private int attack;
     private int health;
+    private boolean isActive;
 
 
     public StandardHotStoneCard(String cardName) {
         this.cardName = cardName;
+        this.isActive = false;
         switch (cardName) {
             case GameConstants.UNO_CARD -> {
                 this.manaCost = 1;
@@ -74,8 +76,10 @@ public class StandardHotStoneCard implements Card {
     }
 
     @Override
-    public boolean isActive() {
-        return false;
+    public boolean isActive() { return false; }
+
+    public void setStatus(Boolean active) {
+        this.isActive = active;
     }
 
     @Override

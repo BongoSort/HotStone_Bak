@@ -72,10 +72,13 @@ MANA Tests
 * **HALFWAY DONE** It is not possible to use more mana, than you have.
 * 
 
-ATTACK + HEALTH Tests
-* Check if health starts at 21
-* Allow attacking the opponent hero with a minion
+ATTACK Tests
+* **TODO**Allow attacking the opponent hero with a minion
 * Allow attacking an opponents minion, validate if its possible
+
+
+* HEALTH Tests
+* Check if health starts at 21
 * When the hero is attacked by a minion, Health is decreased by the attack value of the minion.
 * Minions should die when they have 0 health left
 
