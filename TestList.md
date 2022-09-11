@@ -69,8 +69,12 @@ MANA Tests
   **OK** Mana Production: At the start of a player’s turn, he/she gets three mana.
 * **OK** When Peddersen plays Tres, Then the mana available is two less.
 * **OK** When a player plays a card, Mana available is greater or equal to the cards cost.
-* **HALFWAY DONE** It is not possible to use more mana, than you have.
-* 
+* **OK** It is not possible to use more mana, than you have when playing cards.
+* **OK** It is not possible to use more mana, than you have when using hero power.
+
+Play Card Tests (Field tests???)
+* **OK** The cards that Findus plays in his turn are inactive until his next turn.
+* **OK** The cards that Findus plays in his turn are inactive until his next turn.
 
 ATTACK Tests
 * **TODO**Allow attacking the opponent hero with a minion
@@ -86,12 +90,10 @@ Status tests:
 * When a card is played as a minion it is inactive until it is the players turn again.
 
 ENDTURN
-* Findus heros Mana is restored after Peddersen ends turn.
+* **OK** Findus heros Mana is restored after Peddersen ends turn.
 * Findus minions is set to active after Peddersen ends turn.
-* update mana for hero,
+* **OK** update mana for hero,
 * changing minions' state to active.
-
-
 
 CARD PLAYS
 * Execute any effect that a card may have when being played

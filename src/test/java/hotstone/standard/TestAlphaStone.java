@@ -572,10 +572,94 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void notPossibleToUseMoreManaThanYouHave() {
+  //FindusShouldNotBeAbleToPlayMinionWithToHighManaCost()
+  public void FindusShouldNotBeAbleToPlayMinionWithToHighManaCost() {
+    //Given a game and Findus has used his power
     game.usePower(Player.FINDUS);
+    //Then He Should not be allowed to play Card Tres in his hand, since its mana Cost is to high
     Card tresCard = game.getCardInHand(Player.FINDUS,0);
     assertThat(game.playCard(Player.FINDUS,tresCard),is(Status.NOT_ENOUGH_MANA));
+  }
+
+  @Test
+  public void FindusShouldNotBeAbleToUseHeroPowerWhenManaIsTooLow() {
+    //Given a game and Findus have played Tres which means his Heroes mana is 0
+    Card tresCard = game.getCardInHand(Player.FINDUS,0);
+    game.playCard(Player.FINDUS,tresCard);
+    //Then he should not be allowed to use his Heroes power
+    assertThat(game.usePower(Player.FINDUS),is(Status.NOT_ENOUGH_MANA));
+  }
+
+  @Test
+  public void peddersenShouldNotBeAbleToPlayMinionWithToHighManaCost() {
+    //Given a game and Peddersen has used his power
+    game.endTurn();
+    game.usePower(Player.PEDDERSEN);
+    //Then He Should not be allowed to play Card Tres in his hand, since its mana Cost is too high
+    Card tresCard = game.getCardInHand(Player.PEDDERSEN,0);
+    assertThat(game.playCard(Player.PEDDERSEN,tresCard),is(Status.NOT_ENOUGH_MANA));
+  }
+
+  @Test
+  public void peddersenShouldNotBeAbleToUseHeroPowerWhenManaIsTooLow() {
+    //Given a game and Peddersen have played Tres which means his Hero's mana is 0
+    game.endTurn();
+    Card tresCard = game.getCardInHand(Player.PEDDERSEN,0);
+    game.playCard(Player.PEDDERSEN,tresCard);
+    //Then he should not be allowed to use his Heroes power
+    assertThat(game.usePower(Player.PEDDERSEN),is(Status.NOT_ENOUGH_MANA));
+  }
+
+  //ATTACK + HEALTH Tests
+  @Test
+  public void findusAndPeddersensHeroShouldStartAGameWith21Health() {
+    //Given a game
+    //Then both players hero should have 21 health.
+    assertThat(game.getHero(Player.FINDUS).getHealth(),is(GameConstants.HERO_MAX_HEALTH));
+    assertThat(game.getHero(Player.PEDDERSEN).getHealth(),is(GameConstants.HERO_MAX_HEALTH));
+  }
+
+
+  @Test
+  public void findusInTurnCardsPlayedShouldBeInactiveUntilHisNextTurn() {
+    //Given a game
+    Card unoCard = game.getCardInHand(Player.FINDUS,2);
+    game.playCard(Player.FINDUS,unoCard);
+
+    Card dosCard = game.getCardInHand(Player.FINDUS, 1);
+    game.playCard(Player.FINDUS,dosCard);
+    assertThat(game.getCardInField(Player.FINDUS,0).isActive(),is(false));
+    assertThat(game.getCardInField(Player.FINDUS,1).isActive(),is(false));
+
+    game.endTurn();
+    assertThat(game.getCardInField(Player.FINDUS,0).isActive(),is(false));
+    assertThat(game.getCardInField(Player.FINDUS,1).isActive(),is(false));
+    game.endTurn();
+
+    assertThat(game.getCardInField(Player.FINDUS,0).isActive(),is(true));
+    assertThat(game.getCardInField(Player.FINDUS,1).isActive(),is(true));
+  }
+
+  @Test
+  public void peddersenInTurnCardsPlayedShouldBeInactiveUntilHisNextTurn() {
+    //Given a game and it is peddersens turn
+    game.endTurn();
+    Card unoCard = game.getCardInHand(Player.PEDDERSEN,2);
+    game.playCard(Player.PEDDERSEN,unoCard);
+
+    Card dosCard = game.getCardInHand(Player.PEDDERSEN, 1);
+    game.playCard(Player.PEDDERSEN,dosCard);
+    assertThat(game.getCardInField(Player.PEDDERSEN,0).isActive(),is(false));
+    assertThat(game.getCardInField(Player.PEDDERSEN,1).isActive(),is(false));
+
+    game.endTurn();
+    assertThat(game.getCardInField(Player.PEDDERSEN,0).isActive(),is(false));
+    assertThat(game.getCardInField(Player.PEDDERSEN,1).isActive(),is(false));
+    game.endTurn();
+
+    assertThat(game.getCardInField(Player.PEDDERSEN,0).isActive(),is(true));
+    assertThat(game.getCardInField(Player.PEDDERSEN,1).isActive(),is(true));
+
   }
 
   @Test

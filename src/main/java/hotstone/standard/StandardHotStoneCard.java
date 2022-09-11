@@ -76,10 +76,12 @@ public class StandardHotStoneCard implements Card {
     }
 
     @Override
-    public boolean isActive() { return false; }
+    public boolean isActive() {
+        return isActive;
+    }
 
-    public void setStatus(Boolean active) {
-        this.isActive = active;
+    public void SetActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 
     @Override
