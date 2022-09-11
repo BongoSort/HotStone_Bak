@@ -4,6 +4,7 @@ import hotstone.framework.Hero;
 import hotstone.framework.Player;
 
 public class StandardHotStoneHero implements Hero {
+    private final int health;
     private Player owner;
     private String type;
     private boolean isActive;
@@ -14,6 +15,7 @@ public class StandardHotStoneHero implements Hero {
         this.type = GameConstants.BABY_HERO_TYPE;
         this.isActive = isActive;
         this.mana = 3;
+        this.health = GameConstants.HERO_MAX_HEALTH;
     }
 
     @Override
@@ -23,7 +25,7 @@ public class StandardHotStoneHero implements Hero {
 
     @Override
     public int getHealth() {
-        return 0;
+        return health;
     }
 
     @Override
@@ -34,10 +36,9 @@ public class StandardHotStoneHero implements Hero {
     public void setStatus(Boolean active) {
         this.isActive = active;
     }
-    //vi må gerne lave en sætter metode for isactive her.
 
     public void reduceHeroMana(int mana) {
-        this.mana = this.mana - mana;
+        this.mana -= mana;
     }
 
     public void resetMana() {

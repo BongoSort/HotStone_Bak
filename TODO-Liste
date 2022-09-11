@@ -3,37 +3,8 @@ TO DO
 
 
 Things to implement:
--
-Card Values:
-Uno (1, 1, 1) (OK)
-Dos (2, 2, 2) (OK)
-Tres (3, 3, 3) (OK)
-Cuatro (2, 3, 1)
-Cinco (3, 5, 1)
-Seis (2, 1, 3)
-Siete (3, 2, 4)
-
-- Mana production
-        At start of player's turn, they get 3 mana
-- Winning
-        Findus wins after 4 rounds (each have 4 turns completed)
-* Refactor:
-        - StandardHotStoneGame() needs refactoring.
-* Do-Over: findusIsAllowedToPlayUnoCardANDMinionAppearOnField
-
-
-        In cardUnoShouldHaveManaCostOneAttackOneHealthOne() we have a lot of duplicate kode, lets make a method; Q for instructor.
-            assertThat(card0.getManaCost(), is(2));
-            assertThat(card0.getAttack(),is(2));
-            assertThat(card0.getHealth(), is(2));
-
-        Could become:
-
-        smartMethod(card, manaCostShouldBe, attackShouldBe, healthShouldBe) {
-                    assertThat(card.getManaCost(), is(manaCostShouldBe));
-                    assertThat(card.getAttack(),is(attackShouldBe));
-                    assertThat(card.getHealth(), is(healthShouldBe));
-        }
+    Skriv javadoc til de metoder vi selv har oprettet.
+    evt. skriv javadoc til metoderne som kommer fra interfacet.
 
 
 Spørgsmål til Instruktor:
@@ -41,30 +12,3 @@ Spørgsmål til Instruktor:
 refactoring testcode??
 
 BACKLOG -- Hvad skal vi lave i næste uge/hvad mangler?
-
-TODO for:
-StandardHotStoneGame
-
-  private List<Card> findusDeck = new ArrayList<>();
-  private List<Card> peddersenDeck = new ArrayList<>();
-
-   //initializing Findus deck:
-    findusDeck.add(new StandardHotStoneCard(GameConstants.SIETE_CARD));
-    findusDeck.add(new StandardHotStoneCard(GameConstants.SEIS_CARD));
-    findusDeck.add(new StandardHotStoneCard(GameConstants.CINCO_CARD));
-    findusDeck.add(new StandardHotStoneCard(GameConstants.CUATRO_CARD));
-
-    //initializing Peddersen deck:
-    peddersenDeck.add(new StandardHotStoneCard(GameConstants.SIETE_CARD));
-    peddersenDeck.add(new StandardHotStoneCard(GameConstants.SEIS_CARD));
-    peddersenDeck.add(new StandardHotStoneCard(GameConstants.CINCO_CARD));
-    peddersenDeck.add(new StandardHotStoneCard(GameConstants.CUATRO_CARD));
-
- @Override
-  public int getDeckSize(Player who) {
-    if (who == Player.FINDUS) {
-      return findusDeck.size();
-    } else {
-      return peddersenDeck.size();
-    }
-  }

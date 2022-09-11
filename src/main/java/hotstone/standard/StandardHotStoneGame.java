@@ -145,7 +145,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Iterable<? extends Card> getField(Player who) {
-    return null;
+    return playerFields.get(who);
   }
 
   @Override
@@ -166,9 +166,15 @@ public class StandardHotStoneGame implements Game {
       drawCard();
     }
 
+    for(Card c : getField(playerInTurn)) {
+      StandardHotStoneCard card = (StandardHotStoneCard) c;
+      card.SetActive(true);
+    }
+
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(playerInTurn));
     hero.setStatus(true);
     hero.resetMana();
+
   }
 
   private void drawCard() {
@@ -216,8 +222,11 @@ public class StandardHotStoneGame implements Game {
     }
     // is it is this players turn, and have not used hero power
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(who));
+    if(hero.getMana() < GameConstants.HERO_POWER_COST) {
+      return Status.NOT_ENOUGH_MANA;
+    }
     hero.setStatus(false);
-    hero.reduceHeroMana(2); //Since the only hero in Alphastone is Baby, we don't need to check for other heroes.
+    hero.reduceHeroMana(GameConstants.HERO_POWER_COST); //Since the only hero in Alphastone is Baby, we don't need to check for other heroes.
 
     return Status.OK;
   }
