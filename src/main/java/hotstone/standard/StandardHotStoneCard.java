@@ -16,6 +16,10 @@ public class StandardHotStoneCard implements Card {
     public StandardHotStoneCard(String cardName) {
         this.cardName = cardName;
         this.isActive = false;
+        initializeCardFromSpanishDeck(cardName);
+    }
+
+    private void initializeCardFromSpanishDeck(String cardName) {
         switch (cardName) {
             case GameConstants.UNO_CARD -> {
                 this.manaCost = 1;

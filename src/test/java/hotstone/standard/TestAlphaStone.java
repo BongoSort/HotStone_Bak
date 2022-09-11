@@ -663,7 +663,7 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void findusMinionShouldBeAllowedToAttackPeddersenInTurn3() {
+  public void findusMinionShouldBeAllowedToAttackPeddersensHeroInTurn3() {
     //Given a game
     //When it is turn 1, Findus plays a card to the field
     game.playCard(Player.FINDUS, game.getCardInHand(Player.FINDUS, 2));
@@ -675,7 +675,7 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void findusMinionShouldNotBeAllowedToAttackPeddersenInTurn1() {
+  public void findusMinionShouldNotBeAllowedToAttackPeddersensHeroInTurn1() {
     //Given a game
     //When it is turn 1, Findus plays a card to the field
     game.playCard(Player.FINDUS, game.getCardInHand(Player.FINDUS, 2));
