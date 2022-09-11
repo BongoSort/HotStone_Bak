@@ -20,7 +20,6 @@ package hotstone.standard;
 import hotstone.framework.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /** This is the 'temporary test stub' in TDD
  * terms: the initial empty but compilable implementation
