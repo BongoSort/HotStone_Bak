@@ -216,12 +216,12 @@ public class StandardHotStoneGame implements Game {
     if(playerInTurn != who) {
       return Status.NOT_PLAYER_IN_TURN;
     }
+    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(playerHero.get(who));
     // if this hero already has used hero power
-    if(!getHero(who).isActive()) {
+    if(!hero.isActive()) {
       return Status.POWER_USE_NOT_ALLOWED_TWICE_PR_ROUND;
     }
     // is it is this players turn, and have not used hero power
-    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(who));
     if(hero.getMana() < GameConstants.HERO_POWER_COST) {
       return Status.NOT_ENOUGH_MANA;
     }

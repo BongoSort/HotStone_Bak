@@ -74,10 +74,10 @@ MANA Tests
 
 Play Card Tests (Field tests???)
 * **OK** The cards that Findus plays in his turn are inactive until his next turn.
-* **OK** The cards that Findus plays in his turn are inactive until his next turn.
+* **OK** The cards that Peddersen plays in his turn are inactive until his next turn.
 
 ATTACK + HEALTH Tests
-* Check if health starts at 21
+**OK** Check if health starts at 21
 * Allow attacking the opponent hero with a minion
 * Allow attacking an opponents minion, validate if its possible
 * When the hero is attacked by a minion, Health is decreased by the attack value of the minion.
