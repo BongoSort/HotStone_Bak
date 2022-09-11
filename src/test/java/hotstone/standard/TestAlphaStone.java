@@ -41,7 +41,6 @@ package hotstone.standard;
  *
  */
 
-import com.sun.source.tree.AssertTree;
 import hotstone.framework.Card;
 import hotstone.framework.Player;
 import hotstone.framework.Status;
@@ -50,7 +49,6 @@ import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -684,7 +682,7 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void findusAttacksPeddersensHeroWhichDecreasesHeroHealth() {
+  public void findusMinionAttacksPeddersensHeroWhichDecreasesHeroHealth_AndMinionBecomesInactive() {
     //Given a game
     //When it is turn 1, Findus plays a card to the field
     game.playCard(Player.FINDUS, game.getCardInHand(Player.FINDUS, 2));
@@ -694,10 +692,11 @@ public class TestAlphaStone {
     Card fieldCard = game.getCardInField(Player.FINDUS,0);
     game.attackHero(Player.FINDUS, fieldCard);
     assertThat(game.getHero(Player.PEDDERSEN).getHealth(), is(GameConstants.HERO_MAX_HEALTH - fieldCard.getAttack()));
+    assertThat(fieldCard.isActive(), is(false));
   }
 
   @Test
-  public void peddersenAttacksFindusHeroWhichDecreasesHeroHealth() {
+  public void peddersensMinionAttacksFindusHeroWhichDecreasesHeroHealth_AndMinionBecomesInactive() {
     //Given a game and it is peddersens turn
     game.endTurn();
     //when peddersen plays a Card, and waits a turn.
@@ -708,6 +707,7 @@ public class TestAlphaStone {
     Card fieldCard = game.getCardInField(Player.PEDDERSEN,0);
     game.attackHero(Player.PEDDERSEN, fieldCard);
     assertThat(game.getHero(Player.FINDUS).getHealth(), is(GameConstants.HERO_MAX_HEALTH - fieldCard.getAttack()));
+    assertThat(fieldCard.isActive(), is(false));
   }
 
   /** REMOVE ME. Not a test of HotStone, just an example of the

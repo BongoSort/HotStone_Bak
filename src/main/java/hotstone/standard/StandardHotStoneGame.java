@@ -209,6 +209,9 @@ public class StandardHotStoneGame implements Game {
     Player playerBeingAttacked = Utility.computeOpponent(playerAttacking);
     if (attackingCard.isActive()) {
       castHeroToStandardHotStoneHero(playerHero.get(playerBeingAttacked)).reduceHealth(attackingCard.getAttack());
+
+      StandardHotStoneCard standardCard = (StandardHotStoneCard) attackingCard;
+      standardCard.SetActive(false);
       return Status.OK;
     } else {
       return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION;
