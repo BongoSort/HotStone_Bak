@@ -84,6 +84,9 @@ public class StandardHotStoneCard implements Card {
         return isActive;
     }
 
+    /** Set a cards status
+     * @param isActive sets a card to be active (true) or inactive (false)
+     */
     public void SetActive(Boolean isActive) {
         this.isActive = isActive;
     }

@@ -75,6 +75,11 @@ public class StandardHotStoneGame implements Game {
     playerFields.put(Player.PEDDERSEN, new ArrayList<>());
   }
 
+  /** Fill the hand of a player
+   *  Used for setting the game up initially, granting each player tres, dos, uno
+   *
+   * @return the filled hand
+   */
   private ArrayList<Card> fillHand() {
     ArrayList<Card> hand = new ArrayList<>();
     hand.add(new StandardHotStoneCard(GameConstants.TRES_CARD));
@@ -83,6 +88,11 @@ public class StandardHotStoneGame implements Game {
     return hand;
   }
 
+  /** Fill the deck of a player
+   *  Used for setting the game up initially, putting cuatro, cinco, seis, siete into the players deck
+   *
+   * @return the filled deck
+   */
   private ArrayList<Card> fillDeck() {
     ArrayList<Card> deck = new ArrayList<>();
     deck.add(new StandardHotStoneCard(GameConstants.CUATRO_CARD));
@@ -157,25 +167,29 @@ public class StandardHotStoneGame implements Game {
     //Sets current players hero to be inactive
     castHeroToStandardHotStoneHero(getHero(playerInTurn)).setStatus(false);
 
-    //sets turn to be the other player and sets up their turn
+    //Sets turn to be the other player and sets up their turn
     playerInTurn = Utility.computeOpponent(playerInTurn);
 
     turnCounter++;
     if(1 < turnCounter) { //no player draws a card during the first round
       drawCard();
     }
-
+    //Sets each card in field for the player in turn to be active
     for(Card c : getField(playerInTurn)) {
       StandardHotStoneCard card = (StandardHotStoneCard) c;
       card.SetActive(true);
     }
-
+    //Sets the player in turns hero to be active, and to reset mana
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(playerInTurn));
     hero.setStatus(true);
     hero.resetMana();
 
   }
 
+
+  /**
+   *  Draws a card from the deck and puts it in the players hand
+   */
   private void drawCard() {
     Player who = getPlayerInTurn();
     Card res = playerDecks.get(who).remove(0);
@@ -207,9 +221,11 @@ public class StandardHotStoneGame implements Game {
   @Override
   public Status attackHero(Player playerAttacking, Card attackingCard) {
     Player playerBeingAttacked = Utility.computeOpponent(playerAttacking);
+    //Active minion attacks the opposite players hero
     if (attackingCard.isActive()) {
+      //Opposite players hero take damage equivalent to the minions attack value
       castHeroToStandardHotStoneHero(playerHero.get(playerBeingAttacked)).reduceHealth(attackingCard.getAttack());
-
+      //Minion is then set to inactive state
       StandardHotStoneCard standardCard = (StandardHotStoneCard) attackingCard;
       standardCard.SetActive(false);
       return Status.OK;
@@ -239,6 +255,11 @@ public class StandardHotStoneGame implements Game {
     return Status.OK;
   }
 
+  /**  Casting a hero to StandardHotStoneHero
+   *
+   * @param hero the hero being casted
+   * @return the casted hero
+   */
   private StandardHotStoneHero castHeroToStandardHotStoneHero(Hero hero) {
     return (StandardHotStoneHero) hero;
   }

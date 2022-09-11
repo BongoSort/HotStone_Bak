@@ -621,19 +621,22 @@ public class TestAlphaStone {
   @Test
   public void findusInTurnCardsPlayedShouldBeInactiveUntilHisNextTurn() {
     //Given a game
+    //When Findus plays unoCard and dosCard to the field
     Card unoCard = game.getCardInHand(Player.FINDUS,2);
     game.playCard(Player.FINDUS,unoCard);
-
     Card dosCard = game.getCardInHand(Player.FINDUS, 1);
     game.playCard(Player.FINDUS,dosCard);
+    //Then the two cards should be inactive
     assertThat(game.getCardInField(Player.FINDUS,0).isActive(),is(false));
     assertThat(game.getCardInField(Player.FINDUS,1).isActive(),is(false));
-
+    //When Findus turn ends
     game.endTurn();
+    //Then the cards should stay inactive
     assertThat(game.getCardInField(Player.FINDUS,0).isActive(),is(false));
     assertThat(game.getCardInField(Player.FINDUS,1).isActive(),is(false));
+    //When Peddersens turn ends
     game.endTurn();
-
+    //Then the cards in Findus field should be active.
     assertThat(game.getCardInField(Player.FINDUS,0).isActive(),is(true));
     assertThat(game.getCardInField(Player.FINDUS,1).isActive(),is(true));
   }
@@ -642,19 +645,22 @@ public class TestAlphaStone {
   public void peddersenInTurnCardsPlayedShouldBeInactiveUntilHisNextTurn() {
     //Given a game and it is peddersens turn
     game.endTurn();
+    //When peddersen plays uno and dos
     Card unoCard = game.getCardInHand(Player.PEDDERSEN,2);
     game.playCard(Player.PEDDERSEN,unoCard);
-
     Card dosCard = game.getCardInHand(Player.PEDDERSEN, 1);
     game.playCard(Player.PEDDERSEN,dosCard);
+    //Then the two cards should be inactive
     assertThat(game.getCardInField(Player.PEDDERSEN,0).isActive(),is(false));
     assertThat(game.getCardInField(Player.PEDDERSEN,1).isActive(),is(false));
-
+    //When Peddersens turn ends
     game.endTurn();
+    //Then the cards should stay inactive
     assertThat(game.getCardInField(Player.PEDDERSEN,0).isActive(),is(false));
     assertThat(game.getCardInField(Player.PEDDERSEN,1).isActive(),is(false));
+    //When Findus turn ends
     game.endTurn();
-
+    //Then the cards in Peddersens field should be active.
     assertThat(game.getCardInField(Player.PEDDERSEN,0).isActive(),is(true));
     assertThat(game.getCardInField(Player.PEDDERSEN,1).isActive(),is(true));
 
