@@ -28,6 +28,9 @@ CARD Tests
 * **OK** Card Cinco has attributes (3,5,1)
 * **OK** Card Seis has attributes (2,1,3)
 * **OK** Card Siete has attributes (3,2,4)
+* Player not in turn is not allowed to play the other players cards
+* Player not in turn is not allowed to use the other players hero power
+
 
 HAND tests
 * **OK** When Findus plays a Card, then his hand size is 2 and his field size is 1.
@@ -83,7 +86,7 @@ ATTACK Tests
 
 * HEALTH Tests
 * **OK** Check if health starts at 21
-* When the hero is attacked by a minion, Health is decreased by the attack value of the minion.
+* **TODO** When the hero is attacked by a minion, Health is decreased by the attack value of the minion.
 * Minions should die when they have 0 health left
 
 Status tests:
@@ -93,7 +96,7 @@ ENDTURN
 * **OK** Findus heros Mana is restored after Peddersen ends turn.
 * Findus minions is set to active after Peddersen ends turn.
 * **OK** update mana for hero,
-* changing minions' state to active.
+* **OK** changing minions' state to active.
 
 CARD PLAYS
 * Execute any effect that a card may have when being played

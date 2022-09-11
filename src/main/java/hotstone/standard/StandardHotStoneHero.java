@@ -4,7 +4,7 @@ import hotstone.framework.Hero;
 import hotstone.framework.Player;
 
 public class StandardHotStoneHero implements Hero {
-    private final int health;
+    private int health;
     private Player owner;
     private String type;
     private boolean isActive;
@@ -26,6 +26,10 @@ public class StandardHotStoneHero implements Hero {
     @Override
     public int getHealth() {
         return health;
+    }
+
+    public void reduceHealth(int attack) {
+        this.health -= attack;
     }
 
     @Override

@@ -675,6 +675,33 @@ public class TestAlphaStone {
   }
 
   @Test
+  public void findusAttacksPeddersensHeroWhichDecreasesHeroHealth() {
+    //Given a game
+    //When it is turn 1, Findus plays a card to the field
+    game.playCard(Player.FINDUS, game.getCardInHand(Player.FINDUS, 2));
+    game.endTurn();
+    //When it is turn 3, Findus has a minion on the field
+    game.endTurn();
+    Card fieldCard = game.getCardInField(Player.FINDUS,0);
+    game.attackHero(Player.FINDUS, fieldCard);
+    assertThat(game.getHero(Player.PEDDERSEN).getHealth(), is(GameConstants.HERO_MAX_HEALTH - fieldCard.getAttack()));
+  }
+
+  @Test
+  public void peddersenAttacksFindusHeroWhichDecreasesHeroHealth() {
+    //Given a game and it is peddersens turn
+    game.endTurn();
+    //when peddersen plays a Card, and waits a turn.
+    game.playCard(Player.PEDDERSEN, game.getCardInHand(Player.PEDDERSEN, 2));
+    game.endTurn();
+    game.endTurn();
+    //then peddersen attacks Findus hero, which reduces Findus Hero hp
+    Card fieldCard = game.getCardInField(Player.PEDDERSEN,0);
+    game.attackHero(Player.PEDDERSEN, fieldCard);
+    assertThat(game.getHero(Player.FINDUS).getHealth(), is(GameConstants.HERO_MAX_HEALTH - fieldCard.getAttack()));
+  }
+
+  @Test
   public void findusMinionShouldNotBeAllowedToAttackPeddersensHeroInTurn1() {
     //Given a game
     //When it is turn 1, Findus plays a card to the field
