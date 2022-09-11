@@ -173,6 +173,7 @@ public class StandardHotStoneGame implements Game {
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(playerInTurn));
     hero.setStatus(true);
     hero.resetMana();
+
   }
 
   private void drawCard() {

@@ -88,5 +88,4 @@ public class StandardHotStoneCard implements Card {
     public Player getOwner() {
         return null;
     }
-
 }
