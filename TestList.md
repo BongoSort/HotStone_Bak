@@ -90,7 +90,7 @@ ATTACK Tests
 * Minions should die when they have 0 health left
 
 Status tests:
-* When a card is played as a minion it is inactive until it is the players turn again.
+* **OK** When a card is played as a minion it is inactive until it is the players turn again.
 
 ENDTURN
 * **OK** Findus heros Mana is restored after Peddersen ends turn.

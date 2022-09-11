@@ -663,6 +663,15 @@ public class TestAlphaStone {
   }
 
   @Test
+  public void findusMinionShouldNotBeAllowedToAttackPeddersensHeroInTurn1() {
+    //Given a game
+    //When it is turn 1, Findus plays a card to the field
+    game.playCard(Player.FINDUS, game.getCardInHand(Player.FINDUS, 2));
+    //Then it should not be ok to attack Peddersens hero, since the minion is inActive.
+    assertThat(game.attackHero(Player.FINDUS, game.getCardInField(Player.FINDUS,0)), is(Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION));
+  }
+
+  @Test
   public void findusMinionShouldBeAllowedToAttackPeddersensHeroInTurn3() {
     //Given a game
     //When it is turn 1, Findus plays a card to the field
@@ -699,15 +708,6 @@ public class TestAlphaStone {
     Card fieldCard = game.getCardInField(Player.PEDDERSEN,0);
     game.attackHero(Player.PEDDERSEN, fieldCard);
     assertThat(game.getHero(Player.FINDUS).getHealth(), is(GameConstants.HERO_MAX_HEALTH - fieldCard.getAttack()));
-  }
-
-  @Test
-  public void findusMinionShouldNotBeAllowedToAttackPeddersensHeroInTurn1() {
-    //Given a game
-    //When it is turn 1, Findus plays a card to the field
-    game.playCard(Player.FINDUS, game.getCardInHand(Player.FINDUS, 2));
-    //Then it should not be ok to attack Peddersens hero, since the minion is inActive.
-    assertThat(game.attackHero(Player.FINDUS, game.getCardInField(Player.FINDUS,0)), is(Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION));
   }
 
   /** REMOVE ME. Not a test of HotStone, just an example of the
