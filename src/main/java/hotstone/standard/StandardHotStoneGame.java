@@ -263,4 +263,12 @@ public class StandardHotStoneGame implements Game {
   private StandardHotStoneHero castHeroToStandardHotStoneHero(Hero hero) {
     return (StandardHotStoneHero) hero;
   }
+
+  /**  Casting a card to StandardHotStoneCard
+   *
+   * @param card the hero being casted
+   * @return the casted card
+   */
+  private StandardHotStoneCard castCardToStandardHotStoneCard(Card card) {
+    return (StandardHotStoneCard) card;}
 }

@@ -716,6 +716,22 @@ public class TestAlphaStone {
     assertThat(fieldCard.isActive(), is(false));
   }
 
+  @Test
+  public void AllowAttackingAnOpponentsMinionAndValidatesIt() {
+
+  }
+
+
+  @Disabled
+  @Test
+  public void minionDieWhenZeroOrBelowHealthLeft() {
+
+  }
+
+
+
+
+
   /** REMOVE ME. Not a test of HotStone, just an example of the
    matchers that the hamcrest library has... */
   @Test

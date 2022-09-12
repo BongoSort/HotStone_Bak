@@ -100,7 +100,7 @@ ENDTURN
 * **OK** changing minions' state to active.
 
 CARD PLAYS
-* Execute any effect that a card may have when being played
+* Execute any effect that a card may have when being played (Senere-stone)?
 
 MÅSKE IKKE ALPHASTONE, MEN SENERE-STONE??
 * When trying to draw a card from an empty deck, the hero should take 2 damage.
