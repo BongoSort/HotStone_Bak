@@ -734,8 +734,9 @@ public class TestAlphaStone {
     TestHelper.fieldTresForFindusAndDosForPeddersen(game);
     game.attackCard(Player.FINDUS, game.getCardInField(Player.FINDUS,0), game.getCardInField(Player.PEDDERSEN,0));
     assertThat(game.getFieldSize(Player.PEDDERSEN), is(0));
-    }
+  }
 
+  //test at for at en minion mister liv når de bliver angrebet.
 
 
 
