@@ -81,6 +81,10 @@ public class StandardHotStoneCard implements Card {
         return health;
     }
 
+    public void reduceHealth(int health) {
+        this.health -= health;
+    }
+
     @Override
     public boolean isActive() {
         return isActive;

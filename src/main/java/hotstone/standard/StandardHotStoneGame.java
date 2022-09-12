@@ -166,7 +166,9 @@ public class StandardHotStoneGame implements Game {
   public void endTurn() {
     //Sets current players hero to be inactive
     castHeroToStandardHotStoneHero(getHero(playerInTurn)).setStatus(false);
-
+    for(Card c : getField(playerInTurn)) {
+      castCardToStandardHotStoneCard(c).SetActive(false);
+    }
     //Sets turn to be the other player and sets up their turn
     playerInTurn = Utility.computeOpponent(playerInTurn);
 
@@ -174,15 +176,16 @@ public class StandardHotStoneGame implements Game {
     if(1 < turnCounter) { //no player draws a card during the first round
       drawCard();
     }
+
     //Sets each card in field for the player in turn to be active
     for(Card c : getField(playerInTurn)) {
       castCardToStandardHotStoneCard(c).SetActive(true);
     }
+
     //Sets the player in turns hero to be active, and to reset mana
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(playerInTurn));
     hero.setStatus(true);
     hero.resetMana();
-
   }
 
 
@@ -197,6 +200,10 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status playCard(Player who, Card card) {
+    if(who != card.getOwner()) {
+      return Status.NOT_OWNER;
+    }
+
     if (who != playerInTurn) {
       return Status.NOT_PLAYER_IN_TURN;
     }
@@ -214,18 +221,29 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
-     if(playerAttacking == defendingCard.getOwner()) {
-       return Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION;
-     } else {
-
-       return Status.OK;
-     }
+    if(playerAttacking != attackingCard.getOwner()) {
+      return Status.NOT_OWNER;
+    }
+    if(playerAttacking == defendingCard.getOwner()) {
+     return Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION;
+    }
+    if(!attackingCard.isActive()) {
+     return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION;
+    }
+    castCardToStandardHotStoneCard(defendingCard).reduceHealth(attackingCard.getAttack());
+    StandardHotStoneCard standardAttackingCard = castCardToStandardHotStoneCard(attackingCard);
+    standardAttackingCard.reduceHealth(defendingCard.getAttack());
+    standardAttackingCard.SetActive(false);
+    return Status.OK;
   }
 
   @Override
   public Status attackHero(Player playerAttacking, Card attackingCard) {
     Player playerBeingAttacked = Utility.computeOpponent(playerAttacking);
     //Active minion attacks the opposite players hero
+    if(playerAttacking != attackingCard.getOwner()) {
+      return Status.NOT_OWNER;
+    }
     if (attackingCard.isActive()) {
       //Opposite players hero take damage equivalent to the minions attack value
       castHeroToStandardHotStoneHero(playerHero.get(playerBeingAttacked)).reduceHealth(attackingCard.getAttack());

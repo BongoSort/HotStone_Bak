@@ -483,12 +483,11 @@ public class TestAlphaStone {
     assertThat(game.getHero(Player.PEDDERSEN).isActive(), is(true));
     assertThat(game.usePower(Player.PEDDERSEN),is(Status.OK));
     //but Findus should not be allowed to use his heros power.
-    assertThat(game.usePower(Player.FINDUS), is(Status.NOT_PLAYER_IN_TURN));
   }
 
   @Test
   //When player in turn uses power, then hero becomes inactive
-  public void whenPeddersenUsesHeroPowerHeroShouldBeInactive() {
+  public void afterPeddersenUsesHeroPowerHeroShouldBeInactive() {
     //Given a game and it is Peddersens turn
     game.endTurn();
     //when Peddersens uses his heros power
@@ -498,11 +497,17 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void shouldNotAllowPeddersenToUseHeroPowerWhenHeroIsInactive() {
+  public void shouldNotAllowPeddersenToUseHeroPowerWhenNotInTurn() {
     //Given a game, and it is Findus turn
-    //Then Peddersen is not allowed to use his heros power.
-    assertThat(game.getHero(Player.PEDDERSEN).isActive(), is(false));
     assertThat(game.usePower(Player.PEDDERSEN),is(Status.NOT_PLAYER_IN_TURN));
+  }
+
+  @Test
+  public void shouldNotAllowFindusToUseHeroPowerWhenNotInTurn() {
+    //Given a game, and it is Peddersens turn
+    game.endTurn();
+    //Then Findus is not allowed to use his heros power.
+    assertThat(game.usePower(Player.FINDUS),is(Status.NOT_PLAYER_IN_TURN));
   }
 
 // MANA TESTS:
@@ -667,12 +672,22 @@ public class TestAlphaStone {
   }
 
   @Test
+  public void findusEndsTurnActiveMinionsShouldBeInActive() {
+    TestHelper.fieldUnoDosForFindusAndUnoDosForPeddersen(game);
+    game.endTurn();
+    for(Card c : game.getField(Player.FINDUS)) {
+      assertThat(c.isActive(), is(false));
+    }
+  }
+
+  @Test
   public void findusMinionShouldNotBeAllowedToAttackPeddersensHeroInTurn1() {
     //Given a game
     //When it is turn 1, Findus plays a card to the field
     game.playCard(Player.FINDUS, game.getCardInHand(Player.FINDUS, 2));
     //Then it should not be ok to attack Peddersens hero, since the minion is inActive.
-    assertThat(game.attackHero(Player.FINDUS, game.getCardInField(Player.FINDUS,0)), is(Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION));
+    assertThat(game.attackHero(Player.FINDUS, game.getCardInField(Player.FINDUS,0)),
+              is(Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION));
   }
 
   @Test
@@ -697,7 +712,8 @@ public class TestAlphaStone {
     game.endTurn();
     Card fieldCard = game.getCardInField(Player.FINDUS,0);
     game.attackHero(Player.FINDUS, fieldCard);
-    assertThat(game.getHero(Player.PEDDERSEN).getHealth(), is(GameConstants.HERO_MAX_HEALTH - fieldCard.getAttack()));
+    assertThat(game.getHero(Player.PEDDERSEN).getHealth(),
+            is(GameConstants.HERO_MAX_HEALTH - fieldCard.getAttack()));
     assertThat(fieldCard.isActive(), is(false));
   }
 
@@ -712,32 +728,134 @@ public class TestAlphaStone {
     //then peddersen attacks Findus hero, which reduces Findus Hero hp
     Card fieldCard = game.getCardInField(Player.PEDDERSEN,0);
     game.attackHero(Player.PEDDERSEN, fieldCard);
-    assertThat(game.getHero(Player.FINDUS).getHealth(), is(GameConstants.HERO_MAX_HEALTH - fieldCard.getAttack()));
+    assertThat(game.getHero(Player.FINDUS).getHealth(),
+            is(GameConstants.HERO_MAX_HEALTH - fieldCard.getAttack()));
     assertThat(fieldCard.isActive(), is(false));
   }
 
   @Test
   public void AllowAttackingAnOpponentsMinionAndValidatesIt() {
     TestHelper.fieldTresForFindusAndDosForPeddersen(game);
-    assertThat(game.attackCard(Player.FINDUS, game.getCardInField(Player.FINDUS,0), game.getCardInField(Player.PEDDERSEN,0)), is(Status.OK));
+    assertThat(game.attackCard(Player.FINDUS, game.getCardInField(Player.FINDUS,0),
+            game.getCardInField(Player.PEDDERSEN,0)), is(Status.OK));
   }
 
   @Test
   public void doesNotAllowOwnMinionsToAttackEachOther() {
     TestHelper.fieldTresForFindusAndDosForPeddersen(game);
-    assertThat(game.attackCard(Player.FINDUS, game.getCardInField(Player.FINDUS,0), game.getCardInField(Player.FINDUS,0)), is(Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION));
+    assertThat(game.attackCard(Player.FINDUS, game.getCardInField(Player.FINDUS,0),
+            game.getCardInField(Player.FINDUS,0)), is(Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION));
+  }
+  @Test
+  public void findusMinionIsNotAllowedToAttackPeddersensMinionWhenInactive() {
+    //Given a game where findus and peddersen have both played a card to the field
+    TestHelper.fieldTresForFindusAndDosForPeddersen(game);
+    //when Findus minion has attacked Peddersens hero.
+    Card findusCard = game.getCardInField(Player.FINDUS,0);
+    game.attackHero(Player.FINDUS,findusCard);
+    //then Findus minion is inactive and cannot attack Peddersens minion
+    assertThat(findusCard.isActive(),is(false));
+    assertThat(game.attackCard(Player.FINDUS,findusCard,game.getCardInField(Player.PEDDERSEN,0)),
+            is(Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION));
+  }
+
+  @Test
+  public void findusMinionIsAllowedToAttackPeddersensMinionWhenActive() {
+    //Given a game, Findus and peddersen have played a card to the field and it is findus turn.
+    TestHelper.fieldTresForFindusAndDosForPeddersen(game);
+    //when
+    Card findusCard = game.getCardInField(Player.FINDUS,0);
+    assertThat(game.getCardInField(Player.FINDUS,0).isActive(), is(true));
+    assertThat(game.attackCard(Player.FINDUS,findusCard,game.getCardInField(Player.PEDDERSEN,0)),
+            is(Status.OK));
+  }
+
+  @Test
+  public void afterFindusMinionHasAttackedPeddersensMinionFindusMinionIsInactive() {
+    //Given a game, Findus and peddersen have played a card to the field and it is findus turn.
+    TestHelper.fieldTresForFindusAndDosForPeddersen(game);
+    //When Findus minion Attacks Peddersens minion
+    game.attackCard(Player.FINDUS,game.getCardInField(Player.FINDUS,0),game.getCardInField(Player.PEDDERSEN,0));
+    assertThat(game.getCardInField(Player.FINDUS,0).isActive(),is(false));
+  }
+
+  @Test
+  public void findusInTurnNotAllowedToPlayPeddersensCards() {
+    //given a game
+    Card card = game.getCardInHand(Player.PEDDERSEN,0);
+    //Then Findus is not allowed to play Cards from Peddersens Hand
+    assertThat(game.playCard(Player.FINDUS,card),is(Status.NOT_OWNER));
+  }
+
+  @Test
+  public void peddersenInTurnNotAllowedToPlayFindusCards() {
+    //Given a game and it is Peddersens turn
+    game.endTurn();
+    //Then Peddersen is not allowed to play cards from Findus Hand
+    Card card = game.getCardInHand(Player.FINDUS,0);
+    assertThat(game.playCard(Player.PEDDERSEN,card),is(Status.NOT_OWNER));
+  }
+
+  @Test
+  public void findusInTurnNotAllowedToAttackPeddersensMinionWithPeddersensOtherMinion() {
+    //Given a game and Findus and Peddersen have two minions on their field.
+    TestHelper.fieldUnoDosForFindusAndUnoDosForPeddersen(game);
+    //Then Findus is not allowed to attack other minions with Peddersens minions
+    Card peddersensMinion0 = game.getCardInField(Player.PEDDERSEN,0);
+    Card peddersensMinion1 = game.getCardInField(Player.PEDDERSEN,1);
+    assertThat(game.attackCard(Player.FINDUS,peddersensMinion0,peddersensMinion1),is(Status.NOT_OWNER));
+  }
+
+  @Test
+  public void peddersenInTurnNotAllowedToAttackFindusMinionWithFindusOtherMinion() {
+    TestHelper.fieldUnoDosForFindusAndUnoDosForPeddersen(game);
+    game.endTurn();
+    Card findusMinion0 = game.getCardInField(Player.FINDUS,0);
+    Card findusMinion1 = game.getCardInField(Player.FINDUS,1);
+    assertThat(game.attackCard(Player.PEDDERSEN,findusMinion0,findusMinion1),is(Status.NOT_OWNER));
+  }
+
+  @Test
+  public void findusInTurnNotAllowedToAttackPeddersensHeroWithPeddersensMinion() {
+    TestHelper.fieldTresForFindusAndDosForPeddersen(game);
+    assertThat(game.attackHero(Player.FINDUS,game.getCardInField(Player.PEDDERSEN,0)),is(Status.NOT_OWNER));
+  }
+
+  @Disabled
+  @Test //TODO: Skal finde ud af om man kan teste dette.
+  public void PeddersenInTurnFindusNotAllowedToUsePeddersensHeroPower() {
+    //Given a game and it is Peddersens Turn
+    game.endTurn();
+    //Then Findus is not allowed to use Peddersens Hero power
+    assertThat(game.usePower(Player.FINDUS),is(Status.NOT_OWNER));
+  }
+
+  @Disabled
+  @Test
+  public void attackingMinionLosesHealthEqualToDefendingMinionsAttack() {
+    TestHelper.fieldTresForFindusAndDosForPeddersen(game);
+    game.attackCard(Player.FINDUS, game.getCardInField(Player.FINDUS,0),
+            game.getCardInField(Player.PEDDERSEN,0));
+    assertThat(game.getCardInField(Player.FINDUS,0).getHealth(), is(1));
+  }
+
+  @Disabled
+  @Test
+  public void defendingMinionLosesHealthEqualToAttackingMinionsAttack() {
+    TestHelper.fieldTresForFindusAndDosForPeddersen(game);
+    game.attackCard(Player.FINDUS, game.getCardInField(Player.FINDUS,0),
+            game.getCardInField(Player.PEDDERSEN,0));
+    assertThat(game.getCardInField(Player.PEDDERSEN,0).getHealth(), is(-1));
   }
 
   @Disabled
   @Test
   public void minionDieWhenZeroOrBelowHealthLeft() {
     TestHelper.fieldTresForFindusAndDosForPeddersen(game);
-    game.attackCard(Player.FINDUS, game.getCardInField(Player.FINDUS,0), game.getCardInField(Player.PEDDERSEN,0));
+    game.attackCard(Player.FINDUS, game.getCardInField(Player.FINDUS,0),
+            game.getCardInField(Player.PEDDERSEN,0));
     assertThat(game.getFieldSize(Player.PEDDERSEN), is(0));
   }
-
-  //test at for at en minion mister liv når de bliver angrebet.
-
 
 
 

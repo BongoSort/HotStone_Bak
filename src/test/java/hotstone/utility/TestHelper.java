@@ -79,11 +79,29 @@ public class TestHelper {
     game.playCard(Player.FINDUS, card);
     game.endTurn();
     // Remember Peddersen gets a card draw, so Dos is now at
-    // index 2
-    card = game.getCardInHand(Player.PEDDERSEN, 2);
+    // index 1
+    card = game.getCardInHand(Player.PEDDERSEN, 1);
     game.playCard(Player.PEDDERSEN, card);
     game.endTurn();
     assertThat(game.getCardInField(Player.PEDDERSEN, 0).getName(),
-            is("Uno"));
+            is("Dos"));
+  }
+
+  //Helper method for putting two minions on the field for each player
+  public static void fieldUnoDosForFindusAndUnoDosForPeddersen(Game game) {
+    Card card = game.getCardInHand(Player.FINDUS, 2);
+    game.playCard(Player.FINDUS, card);
+    card = game.getCardInHand(Player.FINDUS,1);
+    game.playCard(Player.FINDUS,card);
+    game.endTurn();
+    // Remember Peddersen gets a card draw, so Dos is now at
+    // index 1
+    card = game.getCardInHand(Player.PEDDERSEN, 2);
+    game.playCard(Player.PEDDERSEN, card);
+    card = game.getCardInHand(Player.PEDDERSEN,1);
+    game.playCard(Player.PEDDERSEN,card);
+    game.endTurn();
+    assertThat(game.getCardInField(Player.PEDDERSEN, 0).getName(),
+            is("Dos"));
   }
 }

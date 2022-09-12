@@ -28,7 +28,7 @@ CARD Tests
 * **OK** Card Cinco has attributes (3,5,1)
 * **OK** Card Seis has attributes (2,1,3)
 * **OK** Card Siete has attributes (3,2,4)
-* Player not in turn is not allowed to play the other players cards
+* **OK** Player not in turn is not allowed to play the other players cards
 
 
 HAND tests
@@ -62,7 +62,7 @@ HERO Tests
 * **OK** when Findus is in turn, then findus hero is active.
 * **OK** when peddersen not in turn, then peddersens hero is inactive.
 * **OK** Peddersen in turn is allowed to use hero power even if Findus used power in his turn.
-* Player not in turn is not allowed to use the other players hero power
+* **KAN DENNE TESTES??** Player not in turn is not allowed to use the other players hero power
 
 
 MANA Tests
@@ -81,9 +81,15 @@ Play Card Tests (Field tests???)
 
 ATTACK Tests
 * **OK**Allow attacking the opponent hero with a minion
-* **OK** When a minion has attacked it becomes inactive
+* **OK** When a minion has attacked a Hero it becomes inactive
 * **OK** Allow attacking an opponents minion, validate if its possible
 * **OK** Do not allow players minions to attack each other. 
+* **OK** When a minion has attacked a minion it becomes inactive
+* **OK** A minion should be active before it is allowed to attack a minion
+* **OK** A minion should be active before it is allowed to attack a hero
+* **OK** Player in Turn is not allowed to attack a minion with other players minions.
+* **Almost** Player in Turn is not allowed to attack a Hero with other players minions. (Mangler at teste for Peddersen)
+
 
 * HEALTH Tests
 * **OK** Check if health starts at 21
@@ -100,6 +106,7 @@ ENDTURN
 * **OK** Findus minions is set to active after Peddersen ends turn.
 * **OK** update mana for hero,
 * **OK** changing minions' state to active.
+* **OK** Player not in turns Minions should be inactive 
 
 CARD PLAYS
 * Execute any effect that a card may have when being played (Senere-stone)?
