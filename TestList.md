@@ -88,6 +88,8 @@ ATTACK Tests
 * HEALTH Tests
 * **OK** Check if health starts at 21
 * **OK** When the hero is attacked by a minion, Health is decreased by the attack value of the minion.
+* minions should loose health when being attacked
+* defending minions attack their attacker.
 * Minions should die when they have 0 health left
 
 Status tests:

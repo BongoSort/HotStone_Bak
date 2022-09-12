@@ -68,8 +68,8 @@ public class StandardHotStoneGame implements Game {
     playerHands.put(Player.PEDDERSEN,fillHand(Player.PEDDERSEN));
 
     //initializing map for decks:
-    playerDecks.put(Player.FINDUS,fillDeck());
-    playerDecks.put(Player.PEDDERSEN,fillDeck());
+    playerDecks.put(Player.FINDUS,fillDeck(Player.FINDUS));
+    playerDecks.put(Player.PEDDERSEN,fillDeck(Player.PEDDERSEN));
 
     playerFields.put(Player.FINDUS, new ArrayList<>());
     playerFields.put(Player.PEDDERSEN, new ArrayList<>());
@@ -95,10 +95,10 @@ public class StandardHotStoneGame implements Game {
    */
   private ArrayList<Card> fillDeck(Player who) {
     ArrayList<Card> deck = new ArrayList<>();
-    deck.add(new StandardHotStoneCard(GameConstants.CUATRO_CARD));
-    deck.add(new StandardHotStoneCard(GameConstants.CINCO_CARD));
-    deck.add(new StandardHotStoneCard(GameConstants.SEIS_CARD));
-    deck.add(new StandardHotStoneCard(GameConstants.SIETE_CARD));
+    deck.add(new StandardHotStoneCard(GameConstants.CUATRO_CARD, who));
+    deck.add(new StandardHotStoneCard(GameConstants.CINCO_CARD, who));
+    deck.add(new StandardHotStoneCard(GameConstants.SEIS_CARD, who));
+    deck.add(new StandardHotStoneCard(GameConstants.SIETE_CARD, who));
     return deck;
   }
 
