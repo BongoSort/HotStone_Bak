@@ -63,9 +63,9 @@ public class StandardHotStoneGame implements Game {
     playerHero.put(Player.PEDDERSEN, new StandardHotStoneHero(Player.PEDDERSEN,false));
 
     //initializing starting Hand for Findus
-    playerHands.put(Player.FINDUS,fillHand());
+    playerHands.put(Player.FINDUS,fillHand(Player.FINDUS));
     //initializing starting Hand for Peddersen
-    playerHands.put(Player.PEDDERSEN,fillHand());
+    playerHands.put(Player.PEDDERSEN,fillHand(Player.PEDDERSEN));
 
     //initializing map for decks:
     playerDecks.put(Player.FINDUS,fillDeck());
@@ -80,11 +80,11 @@ public class StandardHotStoneGame implements Game {
    *
    * @return the filled hand
    */
-  private ArrayList<Card> fillHand() {
+  private ArrayList<Card> fillHand(Player who) {
     ArrayList<Card> hand = new ArrayList<>();
-    hand.add(new StandardHotStoneCard(GameConstants.TRES_CARD));
-    hand.add(new StandardHotStoneCard(GameConstants.DOS_CARD));
-    hand.add(new StandardHotStoneCard(GameConstants.UNO_CARD));
+    hand.add(new StandardHotStoneCard(GameConstants.TRES_CARD,who));
+    hand.add(new StandardHotStoneCard(GameConstants.DOS_CARD,who));
+    hand.add(new StandardHotStoneCard(GameConstants.UNO_CARD,who));
     return hand;
   }
 
@@ -269,7 +269,7 @@ public class StandardHotStoneGame implements Game {
 
   /**  Casting a card to StandardHotStoneCard
    *
-   * @param card the hero being casted
+   * @param card the card being casted
    * @return the casted card
    */
   private StandardHotStoneCard castCardToStandardHotStoneCard(Card card) {

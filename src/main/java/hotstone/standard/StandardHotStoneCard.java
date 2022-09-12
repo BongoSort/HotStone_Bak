@@ -17,6 +17,7 @@ public class StandardHotStoneCard implements Card {
     public StandardHotStoneCard(String cardName, Player owner) {
         this.cardName = cardName;
         this.isActive = false;
+        this.owner = owner;
         initializeCardFromSpanishDeck(cardName);
     }
 

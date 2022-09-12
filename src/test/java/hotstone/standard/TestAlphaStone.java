@@ -184,7 +184,7 @@ public class TestAlphaStone {
   public void cardCuatroShouldHaveManaCost2Attack3Health1() {
     //given a game, and a Card Cuatro
     //Then card Cuatro has the attributes (2,3,1)
-    Card card0 = new StandardHotStoneCard(GameConstants.CUATRO_CARD);
+    Card card0 = new StandardHotStoneCard(GameConstants.CUATRO_CARD,Player.PEDDERSEN);
     assertThat(card0.getManaCost(),is(2));
     assertThat(card0.getAttack(), is(3));
     assertThat(card0.getHealth(),is(1));
@@ -193,7 +193,7 @@ public class TestAlphaStone {
   public void cardCincoShouldHaveManaCost3Attack5Health1() {
     //given a game, and a Card Cinco
     //Then card Cinco has the attributes (3,5,1)
-    Card card0 = new StandardHotStoneCard(GameConstants.CINCO_CARD);
+    Card card0 = new StandardHotStoneCard(GameConstants.CINCO_CARD,Player.PEDDERSEN);
     assertThat(card0.getManaCost(),is(3));
     assertThat(card0.getAttack(), is(5));
     assertThat(card0.getHealth(),is(1));
