@@ -176,8 +176,7 @@ public class StandardHotStoneGame implements Game {
     }
     //Sets each card in field for the player in turn to be active
     for(Card c : getField(playerInTurn)) {
-      StandardHotStoneCard card = (StandardHotStoneCard) c;
-      card.SetActive(true);
+      castCardToStandardHotStoneCard(c).SetActive(true);
     }
     //Sets the player in turns hero to be active, and to reset mana
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(playerInTurn));
@@ -226,8 +225,7 @@ public class StandardHotStoneGame implements Game {
       //Opposite players hero take damage equivalent to the minions attack value
       castHeroToStandardHotStoneHero(playerHero.get(playerBeingAttacked)).reduceHealth(attackingCard.getAttack());
       //Minion is then set to inactive state
-      StandardHotStoneCard standardCard = (StandardHotStoneCard) attackingCard;
-      standardCard.SetActive(false);
+      castCardToStandardHotStoneCard(attackingCard).SetActive(false);
       return Status.OK;
     } else {
       return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION;
