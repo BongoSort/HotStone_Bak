@@ -84,6 +84,6 @@ public class TestHelper {
     game.playCard(Player.PEDDERSEN, card);
     game.endTurn();
     assertThat(game.getCardInField(Player.PEDDERSEN, 0).getName(),
-            is("Dos"));
+            is("Uno"));
   }
 }

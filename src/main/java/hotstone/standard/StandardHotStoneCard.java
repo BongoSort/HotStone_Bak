@@ -11,9 +11,10 @@ public class StandardHotStoneCard implements Card {
     private int attack;
     private int health;
     private boolean isActive;
+    private Player owner;
 
 
-    public StandardHotStoneCard(String cardName) {
+    public StandardHotStoneCard(String cardName, Player owner) {
         this.cardName = cardName;
         this.isActive = false;
         initializeCardFromSpanishDeck(cardName);
@@ -93,6 +94,6 @@ public class StandardHotStoneCard implements Card {
 
     @Override
     public Player getOwner() {
-        return null;
+        return owner;
     }
 }

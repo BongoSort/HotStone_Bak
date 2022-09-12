@@ -82,8 +82,8 @@ Play Card Tests (Field tests???)
 ATTACK Tests
 * **OK**Allow attacking the opponent hero with a minion
 * **OK** When a minion has attacked it becomes inactive
-* **TODO**Allow attacking an opponents minion, validate if its possible
-* Do not allow players minions to attack each other. 
+* **OK** Allow attacking an opponents minion, validate if its possible
+* **OK** Do not allow players minions to attack each other. 
 
 * HEALTH Tests
 * **OK** Check if health starts at 21

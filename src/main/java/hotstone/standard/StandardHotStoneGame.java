@@ -93,7 +93,7 @@ public class StandardHotStoneGame implements Game {
    *
    * @return the filled deck
    */
-  private ArrayList<Card> fillDeck() {
+  private ArrayList<Card> fillDeck(Player who) {
     ArrayList<Card> deck = new ArrayList<>();
     deck.add(new StandardHotStoneCard(GameConstants.CUATRO_CARD));
     deck.add(new StandardHotStoneCard(GameConstants.CINCO_CARD));
@@ -214,7 +214,12 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
-    return null;
+     if(playerAttacking == defendingCard.getOwner()) {
+       return Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION;
+     } else {
+
+       return Status.OK;
+     }
   }
 
   @Override
