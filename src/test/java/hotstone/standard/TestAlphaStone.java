@@ -828,7 +828,6 @@ public class TestAlphaStone {
     assertThat(game.usePower(Player.FINDUS),is(Status.NOT_OWNER));
   }
 
-  @Disabled
   @Test
   public void attackingMinionLosesHealthEqualToDefendingMinionsAttack() {
     TestHelper.fieldTresForFindusAndDosForPeddersen(game);
@@ -838,7 +837,6 @@ public class TestAlphaStone {
   }
 
 
-  @Disabled
   @Test
   public void defendingMinionLosesHealthEqualToAttackingMinionsAttack() {
     TestHelper.fieldUnoDosForFindusAndUnoDosForPeddersen(game);
@@ -847,9 +845,6 @@ public class TestAlphaStone {
     assertThat(game.getCardInField(Player.PEDDERSEN,0).getHealth(), is(1));
   }
 
-
-
-  @Disabled
   @Test
   public void minionDieWhenZeroOrBelowHealthLeft() {
     TestHelper.fieldTresForFindusAndDosForPeddersen(game);
