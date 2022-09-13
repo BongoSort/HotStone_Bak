@@ -3,3 +3,4 @@ BACKLOG:
 Findus should not be allowed to use Peddersens heropower when it is Peddersens turn (and vice-versa). Check in a later iteration.
 getOwner in Hero class needs to be tested. Possibly superduper obvious test, maybe redundant?.
 A few tests from the testList that have to wait for a later iteration of HotStone.
+In future branches, we will use the correct namingscheme ( i.e. iteration2 and so on ), as proposed by Henrik Bærbak Christensen.
