@@ -435,7 +435,7 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void peddersenInTurnFindusHeroIsInactive() {
+  public void peddersenInTurnFindusHeroIsInactive() { //TODO: denne test er muligvis unødvendig
     //Given a game and it is peddersens turn
     game.endTurn();
     //Then Findus Hero is inactive
@@ -672,15 +672,6 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void findusEndsTurnActiveMinionsShouldBeInActive() {
-    TestHelper.fieldUnoDosForFindusAndUnoDosForPeddersen(game);
-    game.endTurn();
-    for(Card c : game.getField(Player.FINDUS)) {
-      assertThat(c.isActive(), is(false));
-    }
-  }
-
-  @Test
   public void findusMinionShouldNotBeAllowedToAttackPeddersensHeroInTurn1() {
     //Given a game
     //When it is turn 1, Findus plays a card to the field
@@ -821,6 +812,13 @@ public class TestAlphaStone {
     assertThat(game.attackHero(Player.FINDUS,game.getCardInField(Player.PEDDERSEN,0)),is(Status.NOT_OWNER));
   }
 
+  @Test
+  public void peddersenInTurnNotAllowedToAttackFindusHeroWithFindusMinions() {
+    TestHelper.fieldTresForFindusAndDosForPeddersen(game);
+    game.endTurn();
+    assertThat(game.attackHero(Player.PEDDERSEN, game.getCardInField(Player.FINDUS,0)),is(Status.NOT_OWNER));
+  }
+
   @Disabled
   @Test //TODO: Skal finde ud af om man kan teste dette.
   public void PeddersenInTurnFindusNotAllowedToUsePeddersensHeroPower() {
@@ -839,14 +837,17 @@ public class TestAlphaStone {
     assertThat(game.getCardInField(Player.FINDUS,0).getHealth(), is(1));
   }
 
+
   @Disabled
   @Test
   public void defendingMinionLosesHealthEqualToAttackingMinionsAttack() {
-    TestHelper.fieldTresForFindusAndDosForPeddersen(game);
-    game.attackCard(Player.FINDUS, game.getCardInField(Player.FINDUS,0),
+    TestHelper.fieldUnoDosForFindusAndUnoDosForPeddersen(game);
+    game.attackCard(Player.FINDUS, game.getCardInField(Player.FINDUS,1),
             game.getCardInField(Player.PEDDERSEN,0));
-    assertThat(game.getCardInField(Player.PEDDERSEN,0).getHealth(), is(-1));
+    assertThat(game.getCardInField(Player.PEDDERSEN,0).getHealth(), is(1));
   }
+
+
 
   @Disabled
   @Test

@@ -88,8 +88,8 @@ ATTACK Tests
 * **OK** A minion should be active before it is allowed to attack a minion
 * **OK** A minion should be active before it is allowed to attack a hero
 * **OK** Player in Turn is not allowed to attack a minion with other players minions.
-* **Almost** Player in Turn is not allowed to attack a Hero with other players minions. (Mangler at teste for Peddersen)
-
+* **OK** Player in Turn is not allowed to attack a Hero with other players minions. (Mangler at teste for Peddersen)
+  (har kun testet for at en spiller når de er i tur kan angribe med den anden persons minions, ikke at de kan gøre det i løbet af modstanderens tur)
 
 * HEALTH Tests
 * **OK** Check if health starts at 21

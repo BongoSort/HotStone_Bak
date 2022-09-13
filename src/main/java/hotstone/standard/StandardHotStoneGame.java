@@ -165,10 +165,7 @@ public class StandardHotStoneGame implements Game {
   @Override
   public void endTurn() {
     //Sets current players hero to be inactive
-    castHeroToStandardHotStoneHero(getHero(playerInTurn)).setStatus(false);
-    for(Card c : getField(playerInTurn)) {
-      castCardToStandardHotStoneCard(c).SetActive(false);
-    }
+    castHeroToStandardHotStoneHero(getHero(playerInTurn)).setStatus(false); //TODO: muligvis unødvendig
     //Sets turn to be the other player and sets up their turn
     playerInTurn = Utility.computeOpponent(playerInTurn);
 
@@ -230,10 +227,24 @@ public class StandardHotStoneGame implements Game {
     if(!attackingCard.isActive()) {
      return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION;
     }
+
+
+    //defending card loses health equal to attackingCards attack
     castCardToStandardHotStoneCard(defendingCard).reduceHealth(attackingCard.getAttack());
+
+    //Attacking card loses health equal to defending cards attack.
     StandardHotStoneCard standardAttackingCard = castCardToStandardHotStoneCard(attackingCard);
     standardAttackingCard.reduceHealth(defendingCard.getAttack());
     standardAttackingCard.SetActive(false);
+
+    //removes Card if health is equal to or lower than zero
+    if(defendingCard.getHealth() <= 0) {
+      playerFields.get(defendingCard.getOwner()).remove(defendingCard);
+    }
+    if(attackingCard.getHealth() <= 0) {
+      playerFields.get(attackingCard.getOwner()).remove(attackingCard);
+    }
+
     return Status.OK;
   }
 
