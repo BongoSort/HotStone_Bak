@@ -114,5 +114,3 @@ CARD PLAYS
 MÅSKE IKKE ALPHASTONE, MEN SENERE-STONE??
 * When trying to draw a card from an empty deck, the hero should take 2 damage.
 * When the health of the hero reaches 0 or below, the hero dies, and the other hero wins.
-
-jeg er nu på GitLab, wuhuuu. Forhåbentlig!??

@@ -13,14 +13,20 @@ public class StandardHotStoneCard implements Card {
     private boolean isActive;
     private Player owner;
 
-
+    /** Constructor for a card
+     *
+     * @param cardName the name of the card
+     * @param owner which player the card belongs to
+     */
     public StandardHotStoneCard(String cardName, Player owner) {
         this.cardName = cardName;
         this.isActive = false;
         this.owner = owner;
         initializeCardFromSpanishDeck(cardName);
     }
-
+    /** Initializes the Spanish Deck
+     * @param cardName is the name of the card
+     */
     private void initializeCardFromSpanishDeck(String cardName) {
         switch (cardName) {
             case GameConstants.UNO_CARD -> {
@@ -81,6 +87,9 @@ public class StandardHotStoneCard implements Card {
         return health;
     }
 
+    /** Reduces health from a minion
+     * @param health the amount of health reduced from initial healthvalue
+     */
     public void reduceHealth(int health) {
         this.health -= health;
     }

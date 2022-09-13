@@ -10,6 +10,11 @@ public class StandardHotStoneHero implements Hero {
     private boolean isActive;
     private int mana;
 
+    /** Constructor for a Hero
+     *
+     * @param owner the player which owns the hero
+     * @param isActive true if the hero is allowed to use its hero power, false if not.
+     */
     public StandardHotStoneHero(Player owner, boolean isActive) {
         this.owner = owner;
         this.type = GameConstants.BABY_HERO_TYPE;
@@ -45,7 +50,7 @@ public class StandardHotStoneHero implements Hero {
      * An active hero can use its heropower, an inactive hero cannot use its heropower
      * @param active sets a hero to be active (true) or inactive (false)
      */
-    public void setStatus(Boolean active) {
+    public void setActive(Boolean active) {
         this.isActive = active;
     }
 

@@ -51,6 +51,10 @@ public class StandardHotStoneGame implements Game {
   private HashMap<Player,ArrayList<Card>> playerFields = new HashMap<>();
   private HashMap<Player, Hero> playerHero = new HashMap<>();
 
+  /**
+   * Initializes a new HotStone game
+   * Also initializes heroes decks, hands and fields.
+   */
   public StandardHotStoneGame() {
     this.playerInTurn = Player.FINDUS;
     //initializing turnCounter
@@ -165,7 +169,7 @@ public class StandardHotStoneGame implements Game {
   @Override
   public void endTurn() {
     //Sets current players hero to be inactive
-    castHeroToStandardHotStoneHero(getHero(playerInTurn)).setStatus(false); //TODO: muligvis unødvendig
+    castHeroToStandardHotStoneHero(getHero(playerInTurn)).setActive(false); //TODO: muligvis unødvendig
     //Sets turn to be the other player and sets up their turn
     playerInTurn = Utility.computeOpponent(playerInTurn);
 
@@ -181,7 +185,7 @@ public class StandardHotStoneGame implements Game {
 
     //Sets the player in turns hero to be active, and to reset mana
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(playerInTurn));
-    hero.setStatus(true);
+    hero.setActive(true);
     hero.resetMana();
   }
 
@@ -280,7 +284,7 @@ public class StandardHotStoneGame implements Game {
     if(hero.getMana() < GameConstants.HERO_POWER_COST) {
       return Status.NOT_ENOUGH_MANA;
     }
-    hero.setStatus(false);
+    hero.setActive(false);
     hero.reduceHeroMana(GameConstants.HERO_POWER_COST); //Since the only hero in Alphastone is Baby, we don't need to check for other heroes.
 
     return Status.OK;
