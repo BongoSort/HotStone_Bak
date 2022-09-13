@@ -435,14 +435,6 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void peddersenInTurnFindusHeroIsInactive() { //TODO: denne test er muligvis unødvendig
-    //Given a game and it is peddersens turn
-    game.endTurn();
-    //Then Findus Hero is inactive
-    assertThat(game.getHero(Player.FINDUS).isActive(), is(false));
-  }
-
-  @Test
   public void findusInTurnHeroIsActive() {
     //Given a game and it is findus' turn
     //Then Findus' hero is active.
@@ -817,15 +809,6 @@ public class TestAlphaStone {
     TestHelper.fieldTresForFindusAndDosForPeddersen(game);
     game.endTurn();
     assertThat(game.attackHero(Player.PEDDERSEN, game.getCardInField(Player.FINDUS,0)),is(Status.NOT_OWNER));
-  }
-
-  @Disabled
-  @Test //TODO: Skal finde ud af om man kan teste dette.
-  public void PeddersenInTurnFindusNotAllowedToUsePeddersensHeroPower() {
-    //Given a game and it is Peddersens Turn
-    game.endTurn();
-    //Then Findus is not allowed to use Peddersens Hero power
-    assertThat(game.usePower(Player.FINDUS),is(Status.NOT_OWNER));
   }
 
   @Test

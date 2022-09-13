@@ -168,8 +168,6 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public void endTurn() {
-    //Sets current players hero to be inactive
-    castHeroToStandardHotStoneHero(getHero(playerInTurn)).setActive(false); //TODO: muligvis unødvendig
     //Sets turn to be the other player and sets up their turn
     playerInTurn = Utility.computeOpponent(playerInTurn);
 
@@ -272,9 +270,11 @@ public class StandardHotStoneGame implements Game {
   @Override
   public Status usePower(Player who) {
     // if it is not this players turn
+
     if(playerInTurn != who) {
       return Status.NOT_PLAYER_IN_TURN;
     }
+
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(playerHero.get(who));
     // if this hero already has used hero power
     if(!hero.isActive()) {
