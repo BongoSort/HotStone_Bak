@@ -44,7 +44,7 @@ import java.util.HashMap;
  */
 public class StandardHotStoneGame implements Game {
   private Player playerInTurn;
-
+  private ManaProduction manaProduction;
   private int turnCounter;
   private HashMap<Player,ArrayList<Card>> playerDecks = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
@@ -55,16 +55,17 @@ public class StandardHotStoneGame implements Game {
    * Initializes a new HotStone game
    * Also initializes heroes decks, hands and fields.
    */
-  public StandardHotStoneGame() {
+  public StandardHotStoneGame(ManaProduction manaProduction) {
+    this.manaProduction = manaProduction;
     this.playerInTurn = Player.FINDUS;
     //initializing turnCounter
     this.turnCounter = 0;
 
     //initializing Findus Hero
-    playerHero.put(Player.FINDUS, new StandardHotStoneHero(Player.FINDUS,true));
+    playerHero.put(Player.FINDUS, new StandardHotStoneHero(Player.FINDUS,true, manaProduction.startMana()));
 
     //initializing Peddersen Hero
-    playerHero.put(Player.PEDDERSEN, new StandardHotStoneHero(Player.PEDDERSEN,false));
+    playerHero.put(Player.PEDDERSEN, new StandardHotStoneHero(Player.PEDDERSEN,false,manaProduction.startMana()));
 
     //initializing starting Hand for Findus
     playerHands.put(Player.FINDUS,fillHand(Player.FINDUS));
@@ -175,16 +176,16 @@ public class StandardHotStoneGame implements Game {
     if(1 < turnCounter) { //no player draws a card during the first round
       drawCard();
     }
+    //Sets the player in turns hero to be active, and to reset mana
+    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(playerInTurn));
+    hero.setActive(true);
+    hero.setMana(manaProduction.calculateManaForTurn(turnCounter));
 
     //Sets each card in field for the player in turn to be active
     for(Card c : getField(playerInTurn)) {
       castCardToStandardHotStoneCard(c).setActive(true);
     }
 
-    //Sets the player in turns hero to be active, and to reset mana
-    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(playerInTurn));
-    hero.setActive(true);
-    hero.resetMana();
   }
 
 
@@ -192,9 +193,11 @@ public class StandardHotStoneGame implements Game {
    *  Draws a card from the deck and puts it in the players hand
    */
   private void drawCard() {
-    Player who = getPlayerInTurn();
-    Card res = playerDecks.get(who).remove(0);
-    playerHands.get(who).add(0,res);
+    if(playerDecks.get(playerInTurn).size() == 0) {
+      return; //TODO: FakeItCode
+    }
+    Card res = playerDecks.get(playerInTurn).remove(0);
+    playerHands.get(playerInTurn).add(0,res);
   }
 
   @Override

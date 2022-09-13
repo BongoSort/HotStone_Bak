@@ -15,11 +15,11 @@ public class StandardHotStoneHero implements Hero {
      * @param owner the player which owns the hero
      * @param isActive true if the hero is allowed to use its hero power, false if not.
      */
-    public StandardHotStoneHero(Player owner, boolean isActive) {
+    public StandardHotStoneHero(Player owner, boolean isActive, int mana) {
         this.owner = owner;
         this.type = GameConstants.BABY_HERO_TYPE;
         this.isActive = isActive;
-        this.mana = 3;
+        this.mana = mana;
         this.health = GameConstants.HERO_MAX_HEALTH;
     }
 
@@ -65,8 +65,8 @@ public class StandardHotStoneHero implements Hero {
     /**
      *  Reset the mana of a hero to 3
      */
-    public void resetMana() {
-        this.mana = 3;
+    public void setMana(int mana) {
+        this.mana = mana;
     }
 
     @Override

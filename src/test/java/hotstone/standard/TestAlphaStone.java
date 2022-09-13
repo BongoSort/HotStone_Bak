@@ -45,6 +45,7 @@ import hotstone.framework.Card;
 import hotstone.framework.Player;
 import hotstone.framework.Status;
 import hotstone.utility.TestHelper;
+import hotstone.variants.ManaProductionAlphaStone;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class TestAlphaStone {
   /** Fixture for AlphaStone testing. */
   @BeforeEach
   public void setUp() {
-    game = new StandardHotStoneGame();
+    game = new StandardHotStoneGame(new ManaProductionAlphaStone());
   }
 
   @Test
