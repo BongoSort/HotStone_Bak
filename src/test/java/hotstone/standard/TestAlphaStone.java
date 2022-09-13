@@ -45,6 +45,7 @@ import hotstone.framework.Card;
 import hotstone.framework.Player;
 import hotstone.framework.Status;
 import hotstone.utility.TestHelper;
+import hotstone.variants.FatigueDamageAlphaStone;
 import hotstone.variants.ManaProductionAlphaStone;
 import org.junit.jupiter.api.*;
 
@@ -66,7 +67,7 @@ public class TestAlphaStone {
   /** Fixture for AlphaStone testing. */
   @BeforeEach
   public void setUp() {
-    game = new StandardHotStoneGame(new ManaProductionAlphaStone());
+    game = new StandardHotStoneGame(new ManaProductionAlphaStone(),new FatigueDamageAlphaStone());
   }
 
   @Test
@@ -835,6 +836,19 @@ public class TestAlphaStone {
     game.attackCard(Player.FINDUS, game.getCardInField(Player.FINDUS,0),
             game.getCardInField(Player.PEDDERSEN,0));
     assertThat(game.getFieldSize(Player.PEDDERSEN), is(0));
+  }
+
+  @Test
+  public void findusDrawsCardFromEmptyDeckShouldNotTakeDamage() {
+    TestHelper.advanceGameNRounds(game, 4);
+    // Given a game and it is round 5, Findus have full health
+    assertThat(game.getHero(Player.FINDUS).getHealth(), is(21));
+    // Then Findus deck is empty
+    assertThat(game.getDeckSize(Player.FINDUS), is(0));
+    // and one more round advances
+    TestHelper.advanceGameNRounds(game, 1);
+    // Then Findus should take 2 damage from drawing from the empty deck
+    assertThat(game.getHero(Player.FINDUS).getHealth(), is(21));
   }
 
 
