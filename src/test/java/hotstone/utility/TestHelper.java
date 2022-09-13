@@ -73,15 +73,35 @@ public class TestHelper {
     for (int i = 0; i < roundCount; i++) { game.endTurn(); game.endTurn(); }
   }
 
-  // Helper method to set a few cards into the field
+  /** Helper method for putting the Tres minion on the field for Findus and Dos for Peddersen
+   * @param game is the current game
+   */
   public static void fieldTresForFindusAndDosForPeddersen(Game game) {
     Card card = game.getCardInHand(Player.FINDUS, 0);
     game.playCard(Player.FINDUS, card);
     game.endTurn();
     // Remember Peddersen gets a card draw, so Dos is now at
-    // index 2
+    // index 1
+    card = game.getCardInHand(Player.PEDDERSEN, 1);
+    game.playCard(Player.PEDDERSEN, card);
+    game.endTurn();
+    assertThat(game.getCardInField(Player.PEDDERSEN, 0).getName(),
+            is("Dos"));
+  }
+
+  /** Helper method for putting the Uno and Dos minions on the field for Findus and for Peddersen
+   * @param game is the current game
+   */
+  public static void fieldUnoDosForFindusAndUnoDosForPeddersen(Game game) {
+    Card card = game.getCardInHand(Player.FINDUS, 2);
+    game.playCard(Player.FINDUS, card);
+    card = game.getCardInHand(Player.FINDUS,1);
+    game.playCard(Player.FINDUS,card);
+    game.endTurn();
     card = game.getCardInHand(Player.PEDDERSEN, 2);
     game.playCard(Player.PEDDERSEN, card);
+    card = game.getCardInHand(Player.PEDDERSEN,1);
+    game.playCard(Player.PEDDERSEN,card);
     game.endTurn();
     assertThat(game.getCardInField(Player.PEDDERSEN, 0).getName(),
             is("Dos"));

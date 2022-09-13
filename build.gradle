@@ -51,3 +51,5 @@ wrapper {
 jacoco {
   toolVersion = "0.8.8"
 }
+sourceCompatibility = JavaVersion.VERSION_14
+targetCompatibility = JavaVersion.VERSION_14
