@@ -1,7 +1,6 @@
 package hotstone.variants;
 
 import hotstone.framework.ManaProduction;
-import hotstone.standard.GameConstants;
 
 public class ManaProductionBetaStone implements ManaProduction {
 

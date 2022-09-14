@@ -22,9 +22,22 @@ public class TestBetaStone {
     }
 
     @Test
-    public void peddersenShouldHave1ManaInTurn1() {
+    public void peddersenShouldHave1ManaInTurn2() {
         game.endTurn();
         assertThat(game.getHero(Player.PEDDERSEN).getMana(), is(1));
+    }
+
+    @Test
+    public void findusShouldHave2ManaInTurn3() {
+        TestHelper.advanceGameNRounds(game,2);
+        assertThat(game.getHero(Player.FINDUS).getMana(),is(2));
+    }
+
+    @Test
+    public void peddersenShouldHave2ManaInTurn4() {
+        TestHelper.advanceGameNRounds(game,2);
+        game.endTurn();
+        assertThat(game.getHero(Player.FINDUS).getMana(),is(2));
     }
 
     @Test
