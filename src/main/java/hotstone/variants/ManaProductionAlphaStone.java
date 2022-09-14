@@ -5,12 +5,7 @@ import hotstone.framework.ManaProduction;
 public class ManaProductionAlphaStone implements ManaProduction {
 
     @Override
-    public int startMana() {
-        return 3;
-    }
-
-    @Override
-    public int calculateManaForTurn(int noOfTurns) {
+    public int calculateMana(int turnCounter) {
         return 3;
     }
 }

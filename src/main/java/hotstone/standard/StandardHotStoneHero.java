@@ -35,10 +35,10 @@ public class StandardHotStoneHero implements Hero {
 
     /** Reduce the health of a hero
      *  Hero looses health equal to the attacking minions attackvalue
-     * @param attack the attackvalue of the attacking minion
+     * @param damage the attackvalue of the attacking minion
      */
-    public void reduceHealth(int attack) {
-        this.health -= attack;
+    public void reduceHealth(int damage) {
+        this.health -= damage;
     }
 
     @Override

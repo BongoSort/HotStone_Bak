@@ -45,6 +45,7 @@ import java.util.HashMap;
 public class StandardHotStoneGame implements Game {
   private Player playerInTurn;
   private ManaProduction manaProduction;
+  private FatigueDamage fatigueDamage;
   private int turnCounter;
   private HashMap<Player,ArrayList<Card>> playerDecks = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
@@ -55,17 +56,18 @@ public class StandardHotStoneGame implements Game {
    * Initializes a new HotStone game
    * Also initializes heroes decks, hands and fields.
    */
-  public StandardHotStoneGame(ManaProduction manaProduction) {
+  public StandardHotStoneGame(ManaProduction manaProduction, FatigueDamage fatigueDamage) {
     this.manaProduction = manaProduction;
+    this.fatigueDamage = fatigueDamage;
     this.playerInTurn = Player.FINDUS;
     //initializing turnCounter
     this.turnCounter = 0;
 
     //initializing Findus Hero
-    playerHero.put(Player.FINDUS, new StandardHotStoneHero(Player.FINDUS,true, manaProduction.startMana()));
+    playerHero.put(Player.FINDUS, new StandardHotStoneHero(Player.FINDUS,true, manaProduction.calculateMana(turnCounter)));
 
     //initializing Peddersen Hero
-    playerHero.put(Player.PEDDERSEN, new StandardHotStoneHero(Player.PEDDERSEN,false,manaProduction.startMana()));
+    playerHero.put(Player.PEDDERSEN, new StandardHotStoneHero(Player.PEDDERSEN,false,manaProduction.calculateMana(turnCounter)));
 
     //initializing starting Hand for Findus
     playerHands.put(Player.FINDUS,fillHand(Player.FINDUS));
@@ -174,12 +176,12 @@ public class StandardHotStoneGame implements Game {
 
     turnCounter++;
     if(1 < turnCounter) { //no player draws a card during the first round
-      drawCard();
+      drawCard(playerInTurn);
     }
     //Sets the player in turns hero to be active, and to reset mana
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(playerInTurn));
     hero.setActive(true);
-    hero.setMana(manaProduction.calculateManaForTurn(turnCounter));
+    hero.setMana(manaProduction.calculateMana(turnCounter));
 
     //Sets each card in field for the player in turn to be active
     for(Card c : getField(playerInTurn)) {
@@ -188,17 +190,19 @@ public class StandardHotStoneGame implements Game {
 
   }
 
-
-  /**
-   *  Draws a card from the deck and puts it in the players hand
+  /** Draws a card from the deck and puts it in the players hand
+   *
+   *  @param who the player that draws the card
    */
-  private void drawCard() {
-    if(playerDecks.get(playerInTurn).size() == 0) {
-      return; //TODO: FakeItCode
+  private void drawCard(Player who) {
+    if(playerDecks.get(who).size() == 0) {
+      castHeroToStandardHotStoneHero(getHero(who)).reduceHealth(fatigueDamage.calculateFatigueDamage());
+    } else {
+      Card res = playerDecks.get(playerInTurn).remove(0);
+      playerHands.get(playerInTurn).add(0,res);
     }
-    Card res = playerDecks.get(playerInTurn).remove(0);
-    playerHands.get(playerInTurn).add(0,res);
   }
+
 
   @Override
   public Status playCard(Player who, Card card) {

@@ -5,17 +5,12 @@ import hotstone.framework.ManaProduction;
 public class ManaProductionBetaStone implements ManaProduction {
 
     @Override
-    public int startMana() {
-        return 1;
-    }
-
-    @Override
-    public int calculateManaForTurn(int noOfTurns) {
-        if(noOfTurns <= 1) {
+    public int calculateMana(int turnCounter) {
+        if(turnCounter <= 1) {
             return 1;
-        }else if(16 <= noOfTurns) {
+        }else if(16 <= turnCounter) {
             return 7;
         }
-        return noOfTurns / 2;
+        return turnCounter / 2;
     }
 }
