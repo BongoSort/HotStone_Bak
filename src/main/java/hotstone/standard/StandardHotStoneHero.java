@@ -63,7 +63,7 @@ public class StandardHotStoneHero implements Hero {
     }
 
     /**
-     *  Reset the mana of a hero to 3
+     *  Reset the mana of a hero
      */
     public void setMana(int mana) {
         this.mana = mana;
