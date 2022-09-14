@@ -4,9 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import hotstone.framework.Player;
 import hotstone.utility.TestHelper;
-import hotstone.variants.FatigueDamageBetaStone;
-import hotstone.variants.ManaProductionAlphaStone;
-import hotstone.variants.ManaProductionBetaStone;
+import hotstone.variants.*;
 import org.junit.jupiter.api.*;
 import hotstone.framework.Game;
 public class TestBetaStone {
@@ -14,7 +12,7 @@ public class TestBetaStone {
 
     @BeforeEach
     public void setUp() {
-        game = new StandardHotStoneGame(new ManaProductionBetaStone(), new FatigueDamageBetaStone());
+        game = new StandardHotStoneGame(new ManaProductionBetaStone(), new FatigueDamageBetaStone(), new WinnerBetaStone());
     }
 
     @Test
@@ -30,39 +28,54 @@ public class TestBetaStone {
 
     @Test
     public void findusShouldHave2ManaInTurn3() {
-        TestHelper.advanceGameNRounds(game,2);
+        TestHelper.advanceGameNRounds(game,1);
         assertThat(game.getHero(Player.FINDUS).getMana(),is(2));
     }
 
     @Test
     public void peddersenShouldHave2ManaInTurn4() {
-        TestHelper.advanceGameNRounds(game,2);
+        TestHelper.advanceGameNRounds(game,1);
         game.endTurn();
         assertThat(game.getHero(Player.FINDUS).getMana(),is(2));
     }
 
     @Test
     public void findusShouldHave4ManaInRound4() {
-        TestHelper.advanceGameNRounds(game,4);
+        TestHelper.advanceGameNRounds(game,3);
         assertThat(game.getHero(Player.FINDUS).getMana(),is(4));
     }
 
     @Test public void peddersenShouldHave4ManaInHisRound4() {
-        TestHelper.advanceGameNRounds(game,4);
+        TestHelper.advanceGameNRounds(game,3);
         game.endTurn();
         assertThat(game.getHero(Player.PEDDERSEN).getMana(),is(4));
     }
 
     @Test
     public void findusShouldHave7ManaInTurn10() {
-        TestHelper.advanceGameNRounds(game,10);
+        TestHelper.advanceGameNRounds(game,9);
         assertThat(game.getHero(Player.FINDUS).getMana(),is(7));
     }
 
     @Test
     public void peddersenShouldHave7ManaInTurn10() {
-        TestHelper.advanceGameNRounds(game,10);
+        TestHelper.advanceGameNRounds(game,9);
         assertThat(game.getHero(Player.FINDUS).getMana(),is(7));
+    }
+
+
+    @Test
+    public void findusUnusedManaDoesNotCarryOverToHisNextTurn() {
+        TestHelper.advanceGameNRounds(game, 1);
+        assertThat(game.getHero(Player.FINDUS).getMana(), is(2));
+    }
+
+    @Test
+    public void findusPlayedCardUno1ManaRemainingShouldNotCarryOverToHisNextTurn() {
+        TestHelper.advanceGameNRounds(game,1);
+        game.playCard(Player.PEDDERSEN,game.getCardInHand(Player.FINDUS,3));
+        TestHelper.advanceGameNRounds(game,1);
+        assertThat(game.getHero(Player.FINDUS).getMana(),is(3));
     }
 
     @Test
@@ -77,5 +90,20 @@ public class TestBetaStone {
         // Then Findus should take 2 damage from drawing from the empty deck
         assertThat(game.getHero(Player.FINDUS).getHealth(), is(19));
     }
+
+    @Test
+    public void ifFindusHealthIsZeroOrBelowPeddersenWins() {
+        ((StandardHotStoneHero) game.getHero(Player.FINDUS)).reduceHealth(GameConstants.HERO_MAX_HEALTH);
+        assertThat(game.getWinner(),is(Player.PEDDERSEN));
+    }
+
+    @Test
+    public void ifPeddersenHealthIsZeroOrBelowFindusWins() {
+        ((StandardHotStoneHero) game.getHero(Player.PEDDERSEN)).reduceHealth(GameConstants.HERO_MAX_HEALTH);
+        assertThat(game.getWinner(),is(Player.FINDUS));
+    }
+
+
+
 
 }

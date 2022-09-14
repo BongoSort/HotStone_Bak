@@ -114,11 +114,17 @@ CARD PLAYS
 
 ## BETASTONE
 Mana Tests
-* each player starts with one mana
-* for each turn the players mana increasing by one
-* after reaching 7 mana the player can't get more mana.
-* 
+* **OK** each player starts with one mana
+* **OK** for each turn the players mana increasing by one
+* **OK** after reaching 7 mana the player can't get more mana.
+* **OK** Unused mana from a round does not transfer to next turn
 
+EmptyDeck Tests
+* **OK** Findus should take 2 damage when drawing from an empty deck
+
+Winner Tests
+* When Findus Hero looses all health, Peddersen is the winner
+* 
 MÅSKE IKKE ALPHASTONE, MEN SENERE-STONE??
 * When trying to draw a card from an empty deck, the hero should take 2 damage.
 * When the health of the hero reaches 0 or below, the hero dies, and the other hero wins.

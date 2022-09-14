@@ -1,6 +1,6 @@
 package hotstone.variants;
 
-import hotstone.framework.FatigueDamage;
+import hotstone.framework.variants.FatigueDamage;
 
 public class FatigueDamageAlphaStone implements FatigueDamage {
 

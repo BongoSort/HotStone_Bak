@@ -1,12 +1,12 @@
 package hotstone.variants;
 
-import hotstone.framework.FatigueDamage;
+import hotstone.framework.variants.FatigueDamage;
+import hotstone.standard.GameConstants;
 
 public class FatigueDamageBetaStone implements FatigueDamage {
 
-
     @Override
     public int calculateFatigueDamage() {
-        return 2;
+        return GameConstants.HERO_HEALTH_PENALTY_ON_EMPTY_DECK;
     }
 }

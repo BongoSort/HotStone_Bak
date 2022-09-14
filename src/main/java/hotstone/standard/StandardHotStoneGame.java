@@ -18,6 +18,10 @@
 package hotstone.standard;
 
 import hotstone.framework.*;
+import hotstone.framework.variants.FatigueDamage;
+import hotstone.framework.variants.ManaProduction;
+import hotstone.framework.variants.Winner;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -46,6 +50,8 @@ public class StandardHotStoneGame implements Game {
   private Player playerInTurn;
   private ManaProduction manaProduction;
   private FatigueDamage fatigueDamage;
+  private Winner winner;
+
   private int turnCounter;
   private HashMap<Player,ArrayList<Card>> playerDecks = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
@@ -122,11 +128,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Player getWinner() {
-    if(turnCounter == 8) {
-      return Player.FINDUS;
-    } else {
-      return null;
-    }
+    return winner.calculateWinner(this);
   }
 
   @Override

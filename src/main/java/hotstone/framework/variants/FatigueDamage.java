@@ -1,4 +1,4 @@
-package hotstone.framework;
+package hotstone.framework.variants;
 
 public interface FatigueDamage {
 
