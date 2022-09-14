@@ -62,10 +62,11 @@ public class StandardHotStoneGame implements Game {
    * Initializes a new HotStone game
    * Also initializes heroes decks, hands and fields.
    */
-  public StandardHotStoneGame(ManaProduction manaProduction, FatigueDamage fatigueDamage) {
+  public StandardHotStoneGame(ManaProduction manaProduction, FatigueDamage fatigueDamage, Winner winner) {
     this.manaProduction = manaProduction;
     this.fatigueDamage = fatigueDamage;
     this.playerInTurn = Player.FINDUS;
+    this.winner = winner;
     //initializing turnCounter
     this.turnCounter = 0;
 
@@ -189,7 +190,6 @@ public class StandardHotStoneGame implements Game {
     for(Card c : getField(playerInTurn)) {
       castCardToStandardHotStoneCard(c).setActive(true);
     }
-
   }
 
   /** Draws a card from the deck and puts it in the players hand

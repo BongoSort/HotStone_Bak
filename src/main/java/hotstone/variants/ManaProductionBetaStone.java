@@ -13,9 +13,9 @@ public class ManaProductionBetaStone implements ManaProduction {
     public int calculateMana(int turnCounter) {
         if(turnCounter <= 1) {
             return 1;
-        }else if(16 <= turnCounter) {
+        }else if(14 <= turnCounter) {
             return 7;
         }
-        return turnCounter / 2;
+        return (turnCounter / 2) + 1;
     }
 }

@@ -47,6 +47,7 @@ import hotstone.framework.Status;
 import hotstone.utility.TestHelper;
 import hotstone.variants.FatigueDamageAlphaStone;
 import hotstone.variants.ManaProductionAlphaStone;
+import hotstone.variants.WinnerAlphaStone;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class TestAlphaStone {
   /** Fixture for AlphaStone testing. */
   @BeforeEach
   public void setUp() {
-    game = new StandardHotStoneGame(new ManaProductionAlphaStone(),new FatigueDamageAlphaStone());
+    game = new StandardHotStoneGame(new ManaProductionAlphaStone(),new FatigueDamageAlphaStone(), new WinnerAlphaStone());
   }
 
   @Test
