@@ -123,7 +123,8 @@ EmptyDeck Tests
 * **OK** Findus should take 2 damage when drawing from an empty deck
 
 Winner Tests
-* When Findus Hero looses all health, Peddersen is the winner
+* **OK** When Findus Hero looses all health, Peddersen is the winner
+* **OK** When Peddersens Hero looses all health, Findus is the winner
 * 
 MÅSKE IKKE ALPHASTONE, MEN SENERE-STONE??
 * When trying to draw a card from an empty deck, the hero should take 2 damage.
