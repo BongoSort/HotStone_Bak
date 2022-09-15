@@ -18,9 +18,9 @@
 package hotstone.standard;
 
 import hotstone.framework.*;
-import hotstone.framework.variants.FatigueDamage;
-import hotstone.framework.variants.ManaProduction;
-import hotstone.framework.variants.Winner;
+import hotstone.framework.strategies.FatigueDamage;
+import hotstone.framework.strategies.ManaProduction;
+import hotstone.framework.strategies.Winner;
 
 import java.util.ArrayList;
 import java.util.HashMap;

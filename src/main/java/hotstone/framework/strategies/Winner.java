@@ -1,6 +1,5 @@
-package hotstone.framework.variants;
+package hotstone.framework.strategies;
 
-import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.standard.StandardHotStoneGame;
 

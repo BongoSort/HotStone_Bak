@@ -1,4 +1,4 @@
-package hotstone.framework.variants;
+package hotstone.framework.strategies;
 
 public interface FatigueDamage {
 

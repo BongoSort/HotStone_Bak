@@ -1,6 +1,6 @@
 package hotstone.variants;
 
-import hotstone.framework.variants.ManaProduction;
+import hotstone.framework.strategies.ManaProduction;
 
 public class ManaProductionBetaStone implements ManaProduction {
 

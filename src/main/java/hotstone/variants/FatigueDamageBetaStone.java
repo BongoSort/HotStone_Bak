@@ -1,6 +1,6 @@
 package hotstone.variants;
 
-import hotstone.framework.variants.FatigueDamage;
+import hotstone.framework.strategies.FatigueDamage;
 import hotstone.standard.GameConstants;
 
 public class FatigueDamageBetaStone implements FatigueDamage {

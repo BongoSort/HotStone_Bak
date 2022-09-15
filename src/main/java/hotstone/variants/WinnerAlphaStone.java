@@ -1,8 +1,7 @@
 package hotstone.variants;
 
-import hotstone.framework.Hero;
 import hotstone.framework.Player;
-import hotstone.framework.variants.Winner;
+import hotstone.framework.strategies.Winner;
 import hotstone.standard.StandardHotStoneGame;
 
 public class WinnerAlphaStone implements Winner {
