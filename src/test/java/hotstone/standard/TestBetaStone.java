@@ -12,7 +12,7 @@ public class TestBetaStone {
 
     @BeforeEach
     public void setUp() {
-        game = new StandardHotStoneGame(new ManaProductionBetaStone(), new FatigueDamageBetaStone(), new WinnerBetaStone());
+        game = new StandardHotStoneGame(new ManaProductionBetaStone(), new WinnerBetaStone());
     }
 
     @Test

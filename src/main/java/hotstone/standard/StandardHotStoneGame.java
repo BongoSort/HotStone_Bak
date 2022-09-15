@@ -18,7 +18,6 @@
 package hotstone.standard;
 
 import hotstone.framework.*;
-import hotstone.framework.strategies.FatigueDamage;
 import hotstone.framework.strategies.ManaProduction;
 import hotstone.framework.strategies.Winner;
 
@@ -49,7 +48,6 @@ import java.util.HashMap;
 public class StandardHotStoneGame implements Game {
   private Player playerInTurn;
   private ManaProduction manaProduction;
-  private FatigueDamage fatigueDamage;
   private Winner winner;
 
   private int turnCounter;
@@ -62,9 +60,8 @@ public class StandardHotStoneGame implements Game {
    * Initializes a new HotStone game
    * Also initializes heroes decks, hands and fields.
    */
-  public StandardHotStoneGame(ManaProduction manaProduction, FatigueDamage fatigueDamage, Winner winner) {
+  public StandardHotStoneGame(ManaProduction manaProduction, Winner winner) {
     this.manaProduction = manaProduction;
-    this.fatigueDamage = fatigueDamage;
     this.playerInTurn = Player.FINDUS;
     this.winner = winner;
     //initializing turnCounter
@@ -198,7 +195,7 @@ public class StandardHotStoneGame implements Game {
    */
   private void drawCard(Player who) {
     if(playerDecks.get(who).size() == 0) {
-      castHeroToStandardHotStoneHero(getHero(who)).reduceHealth(fatigueDamage.calculateFatigueDamage());
+      castHeroToStandardHotStoneHero(getHero(who)).reduceHealth(2);
     } else {
       Card res = playerDecks.get(playerInTurn).remove(0);
       playerHands.get(playerInTurn).add(0,res);
