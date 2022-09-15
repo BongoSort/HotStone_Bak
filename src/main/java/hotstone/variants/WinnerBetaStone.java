@@ -1,10 +1,10 @@
 package hotstone.variants;
 
 import hotstone.framework.Player;
-import hotstone.framework.strategies.Winner;
+import hotstone.framework.strategies.WinnerStrategy;
 import hotstone.standard.StandardHotStoneGame;
 
-public class WinnerBetaStone implements Winner {
+public class WinnerBetaStone implements WinnerStrategy {
 
     @Override
     public Player calculateWinner(StandardHotStoneGame game) {

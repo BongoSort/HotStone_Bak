@@ -18,8 +18,8 @@
 package hotstone.standard;
 
 import hotstone.framework.*;
-import hotstone.framework.strategies.ManaProduction;
-import hotstone.framework.strategies.Winner;
+import hotstone.framework.strategies.ManaProductionStrategy;
+import hotstone.framework.strategies.WinnerStrategy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,8 +47,8 @@ import java.util.HashMap;
  */
 public class StandardHotStoneGame implements Game {
   private Player playerInTurn;
-  private ManaProduction manaProduction;
-  private Winner winner;
+  private ManaProductionStrategy manaProduction;
+  private WinnerStrategy winner;
 
   private int turnCounter;
   private HashMap<Player,ArrayList<Card>> playerDecks = new HashMap<>();
@@ -60,7 +60,7 @@ public class StandardHotStoneGame implements Game {
    * Initializes a new HotStone game
    * Also initializes heroes decks, hands and fields.
    */
-  public StandardHotStoneGame(ManaProduction manaProduction, Winner winner) {
+  public StandardHotStoneGame(ManaProductionStrategy manaProduction, WinnerStrategy winner) {
     this.manaProduction = manaProduction;
     this.playerInTurn = Player.FINDUS;
     this.winner = winner;

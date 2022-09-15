@@ -1,6 +1,6 @@
 package hotstone.framework.strategies;
 
-public interface ManaProduction {
+public interface ManaProductionStrategy {
 
     /** Calculates the mana for a hero
      * @param turnCounter the turn the calculation uses. Starting at 0 for turn one, 1 for turn two, ect.

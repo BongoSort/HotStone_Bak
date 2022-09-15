@@ -1,8 +1,8 @@
 package hotstone.variants;
 
-import hotstone.framework.strategies.ManaProduction;
+import hotstone.framework.strategies.ManaProductionStrategy;
 
-public class ManaProductionAlphaStone implements ManaProduction {
+public class ManaProductionAlphaStone implements ManaProductionStrategy {
 
     @Override
     public int calculateMana(int turnCounter) {

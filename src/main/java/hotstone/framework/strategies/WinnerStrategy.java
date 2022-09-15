@@ -3,7 +3,7 @@ package hotstone.framework.strategies;
 import hotstone.framework.Player;
 import hotstone.standard.StandardHotStoneGame;
 
-public interface Winner {
+public interface WinnerStrategy {
 
     Player calculateWinner(StandardHotStoneGame game);
 
