@@ -18,6 +18,7 @@ public class TestBetaStone {
         game = new StandardHotStoneGame(manaProduction, new WinnerBetaStone());
     }
 
+    //Unit tests for manaProductionStrategy in BetaStone
     @Test
     public void turnCounter0ManaShouldbe1() {
         assertThat(manaProduction.calculateMana(0),is(1));
@@ -47,6 +48,7 @@ public class TestBetaStone {
         assertThat(manaProduction.calculateMana(15),is(7));
     }
 
+    //tests for BetaStone Game variant.
     @Test
     public void findusShouldHave1ManaInTurn1() {
         assertThat(game.getHero(Player.FINDUS).getMana(),is(1));
