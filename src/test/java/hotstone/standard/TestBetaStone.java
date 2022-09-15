@@ -15,7 +15,7 @@ public class TestBetaStone {
     @BeforeEach
     public void setUp() {
         manaProduction = new ManaProductionBetaStone();
-        game = new StandardHotStoneGame(manaProduction, new WinnerBetaStone());
+        game = new StandardHotStoneGame(manaProduction, new WinnerBetaStone(), new HeroStrategyAlphaStone());
     }
 
     //Unit tests for manaProductionStrategy in BetaStone
@@ -128,15 +128,14 @@ public class TestBetaStone {
     @Test
     public void ifFindusHealthIsZeroOrBelowPeddersenWins() {
         ((StandardHotStoneHero) game.getHero(Player.FINDUS)).reduceHealth(GameConstants.HERO_MAX_HEALTH);
-        assertThat(game.getWinner(),is(Player.PEDDERSEN));
+        assertThat(game.getWinnerStrategy(),is(Player.PEDDERSEN));
     }
 
     @Test
     public void ifPeddersenHealthIsZeroOrBelowFindusWins() {
         ((StandardHotStoneHero) game.getHero(Player.PEDDERSEN)).reduceHealth(GameConstants.HERO_MAX_HEALTH);
-        assertThat(game.getWinner(),is(Player.FINDUS));
+        assertThat(game.getWinnerStrategy(),is(Player.FINDUS));
     }
-
 
 
 

@@ -45,6 +45,7 @@ import hotstone.framework.Card;
 import hotstone.framework.Player;
 import hotstone.framework.Status;
 import hotstone.utility.TestHelper;
+import hotstone.variants.HeroStrategyAlphaStone;
 import hotstone.variants.ManaProductionAlphaStone;
 import hotstone.variants.WinnerAlphaStone;
 import org.junit.jupiter.api.*;
@@ -67,7 +68,7 @@ public class TestAlphaStone {
   /** Fixture for AlphaStone testing. */
   @BeforeEach
   public void setUp() {
-    game = new StandardHotStoneGame(new ManaProductionAlphaStone(), new WinnerAlphaStone());
+    game = new StandardHotStoneGame(new ManaProductionAlphaStone(), new WinnerAlphaStone(), new HeroStrategyAlphaStone());
   }
 
   @Test
@@ -241,7 +242,7 @@ public class TestAlphaStone {
     //given a game
     //when turn eight starts, Findus wins game;
     TestHelper.advanceGameNRounds(game, 4);
-    assertThat(game.getWinner(), is(Player.FINDUS));
+    assertThat(game.getWinnerStrategy(), is(Player.FINDUS));
   }
 
   @Test

@@ -18,6 +18,7 @@
 package hotstone.standard;
 
 import hotstone.framework.*;
+import hotstone.framework.strategies.HeroStrategy;
 import hotstone.framework.strategies.ManaProductionStrategy;
 import hotstone.framework.strategies.WinnerStrategy;
 
@@ -48,7 +49,8 @@ import java.util.HashMap;
 public class StandardHotStoneGame implements Game {
   private Player playerInTurn;
   private ManaProductionStrategy manaProduction;
-  private WinnerStrategy winner;
+  private WinnerStrategy winnerStrategy;
+  private HeroStrategy heroStrategy;
 
   private int turnCounter;
   private HashMap<Player,ArrayList<Card>> playerDecks = new HashMap<>();
@@ -60,18 +62,20 @@ public class StandardHotStoneGame implements Game {
    * Initializes a new HotStone game
    * Also initializes heroes decks, hands and fields.
    */
-  public StandardHotStoneGame(ManaProductionStrategy manaProduction, WinnerStrategy winner) {
+  public StandardHotStoneGame(ManaProductionStrategy manaProduction, WinnerStrategy winnerStrategy, HeroStrategy heroStrategy) {
     this.manaProduction = manaProduction;
+    this.winnerStrategy = winnerStrategy;
+    this.heroStrategy = heroStrategy;
     this.playerInTurn = Player.FINDUS;
-    this.winner = winner;
     //initializing turnCounter
     this.turnCounter = 0;
 
     //initializing Findus Hero
-    playerHero.put(Player.FINDUS, new StandardHotStoneHero(Player.FINDUS,true, manaProduction.calculateMana(turnCounter)));
+    playerHero.put(Player.FINDUS, new StandardHotStoneHero(Player.FINDUS,true,
+            manaProduction.calculateMana(turnCounter), heroStrategy.getType(Player.FINDUS))); //TODO: variability point gammastone
 
     //initializing Peddersen Hero
-    playerHero.put(Player.PEDDERSEN, new StandardHotStoneHero(Player.PEDDERSEN,false,manaProduction.calculateMana(turnCounter)));
+    playerHero.put(Player.PEDDERSEN, new StandardHotStoneHero(Player.PEDDERSEN,false,manaProduction.calculateMana(turnCounter), heroStrategy.getType(Player.PEDDERSEN)));
 
     //initializing starting Hand for Findus
     playerHands.put(Player.FINDUS,fillHand(Player.FINDUS));
@@ -125,8 +129,8 @@ public class StandardHotStoneGame implements Game {
   }
 
   @Override
-  public Player getWinner() {
-    return winner.calculateWinner(this);
+  public Player getWinnerStrategy() {
+    return winnerStrategy.calculateWinner(this);
   }
 
   @Override
@@ -290,12 +294,9 @@ public class StandardHotStoneGame implements Game {
     if(hero.getMana() < GameConstants.HERO_POWER_COST) {
       return Status.NOT_ENOUGH_MANA;
     }
-
-    if(hero.getType().equals(GameConstants.BABY_HERO_TYPE)) { } //TODO: Variablility point for gammaStone
-
-    hero.setActive(false);
+    heroStrategy.useHeroPower(this,who);
     hero.reduceHeroMana(GameConstants.HERO_POWER_COST); //Since the only hero in Alphastone is Baby, we don't need to check for other heroes.
-
+    hero.setActive(false);
     return Status.OK;
   }
 

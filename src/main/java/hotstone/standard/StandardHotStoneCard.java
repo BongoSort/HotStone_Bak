@@ -23,7 +23,15 @@ public class StandardHotStoneCard implements Card {
         this.isActive = false;
         this.owner = owner;
         initializeCardFromSpanishDeck(cardName);
+        initializeSpecialCard(cardName);
     }
+    private void initializeSpecialCard(String cardName) { //TODO: Spørg om dette er okay
+        if(cardName.equals(GameConstants.SOVS_CARD)) {
+            this.attack = 1;
+            this.health = 1;
+        }
+    }
+
     /** Initializes the Spanish Deck
      * @param cardName is the name of the card
      */
