@@ -18,9 +18,11 @@
 package hotstone.standard;
 
 import hotstone.framework.*;
+import hotstone.framework.strategies.CardStrategy;
 import hotstone.framework.strategies.HeroStrategy;
 import hotstone.framework.strategies.ManaProductionStrategy;
 import hotstone.framework.strategies.WinnerStrategy;
+import hotstone.variants.CardStrategyAlphaStone;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,7 +53,7 @@ public class StandardHotStoneGame implements Game {
   private ManaProductionStrategy manaProduction;
   private WinnerStrategy winnerStrategy;
   private HeroStrategy heroStrategy;
-
+  private CardStrategy cardStrategy = new CardStrategyAlphaStone();
   private int turnCounter;
   private HashMap<Player,ArrayList<Card>> playerDecks = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
@@ -77,46 +79,22 @@ public class StandardHotStoneGame implements Game {
     //initializing Peddersen Hero
     playerHero.put(Player.PEDDERSEN, new StandardHotStoneHero(Player.PEDDERSEN,false,manaProduction.calculateMana(turnCounter), heroStrategy.getType(Player.PEDDERSEN)));
 
+    //initializing deck for Findus
+    playerDecks.put(Player.FINDUS,cardStrategy.deckInitialization(Player.FINDUS));
+    //playerDecks.put(Player.FINDUS,fillDeck(Player.FINDUS));
+    //initializing deck for Peddersen
+    playerDecks.put(Player.PEDDERSEN,cardStrategy.deckInitialization(Player.PEDDERSEN));
+
     //initializing starting Hand for Findus
-    playerHands.put(Player.FINDUS,fillHand(Player.FINDUS));
+    playerHands.put(Player.FINDUS,cardStrategy.handInitialization(playerDecks.get(Player.FINDUS)));
     //initializing starting Hand for Peddersen
-    playerHands.put(Player.PEDDERSEN,fillHand(Player.PEDDERSEN));
+    playerHands.put(Player.PEDDERSEN,cardStrategy.handInitialization(playerDecks.get(Player.PEDDERSEN)));
 
-    //initializing map for decks:
-    playerDecks.put(Player.FINDUS,fillDeck(Player.FINDUS));
-    playerDecks.put(Player.PEDDERSEN,fillDeck(Player.PEDDERSEN));
-
+    //initializing Field for Findus
     playerFields.put(Player.FINDUS, new ArrayList<>());
+    //initializing Field for Peddersen
     playerFields.put(Player.PEDDERSEN, new ArrayList<>());
   }
-
-  /** Fill the hand of a player
-   *  Used for setting the game up initially, granting each player tres, dos, uno
-   *
-   * @return the filled hand
-   */
-  private ArrayList<Card> fillHand(Player who) {
-    ArrayList<Card> hand = new ArrayList<>();
-    hand.add(new StandardHotStoneCard(GameConstants.TRES_CARD,who));
-    hand.add(new StandardHotStoneCard(GameConstants.DOS_CARD,who));
-    hand.add(new StandardHotStoneCard(GameConstants.UNO_CARD,who));
-    return hand;
-  }
-
-  /** Fill the deck of a player
-   *  Used for setting the game up initially, putting cuatro, cinco, seis, siete into the players deck
-   *
-   * @return the filled deck
-   */
-  private ArrayList<Card> fillDeck(Player who) {
-    ArrayList<Card> deck = new ArrayList<>();
-    deck.add(new StandardHotStoneCard(GameConstants.CUATRO_CARD, who));
-    deck.add(new StandardHotStoneCard(GameConstants.CINCO_CARD, who));
-    deck.add(new StandardHotStoneCard(GameConstants.SEIS_CARD, who));
-    deck.add(new StandardHotStoneCard(GameConstants.SIETE_CARD, who));
-    return deck;
-  }
-
 
   @Override
   public Player getPlayerInTurn() {
@@ -295,7 +273,7 @@ public class StandardHotStoneGame implements Game {
       return Status.NOT_ENOUGH_MANA;
     }
     heroStrategy.useHeroPower(this,who);
-    hero.reduceHeroMana(GameConstants.HERO_POWER_COST); //Since the only hero in Alphastone is Baby, we don't need to check for other heroes.
+    hero.reduceHeroMana(GameConstants.HERO_POWER_COST);
     hero.setActive(false);
     return Status.OK;
   }

@@ -125,7 +125,43 @@ EmptyDeck Tests
 Winner Tests
 * **OK** When Findus Hero looses all health, Peddersen is the winner
 * **OK** When Peddersens Hero looses all health, Findus is the winner
-* 
+
+
 MÅSKE IKKE ALPHASTONE, MEN SENERE-STONE??
 * When trying to draw a card from an empty deck, the hero should take 2 damage.
 * When the health of the hero reaches 0 or below, the hero dies, and the other hero wins.
+
+
+## GammaStone
+* **OK** Findus hero should be ThaiChef
+* **OK** Peddersen Hero Type Should Be Danish Chef
+* **OK** Thai Chefs Hero Power Should Decrease Opponents Hero Health By 2
+* **OK** Danish Chef Hero Power Should Field Minion Sovs With Attack Power 1 And Health 1
+
+
+## DeltaStone
+CARD Tests
+* **OK** Card Brown Rice Should Have Attributes (1,1,2)
+* **OK** Card French Fries Should Have Attributes (1,2,1)
+* **OK** Card Green Salad Should Have Attributes (2,2,3)
+* **OK** Card Tomato Salad Should Have Attributes (2,3,2)
+* **OK** Card Poke Bowl Should Have Attributes (3,2,4)
+* **OK** Card Pumpkin Soup Should Have Attributes (4,2,7)
+* **OK** Card Noodle Soup Should Have Attributes (4,5,3)
+* **OK** Card Spring Rolls Should Have Attributes (5,3,7)
+* **OK** Card Baked Salmon Should Have Attributes (5,8,2)
+* **OK** Card Chicken Curry Should Have Attributes (6,8,4)
+* **OK** Card Beef Burger Should Have Attributes (6,5,6)
+* **OK** Card Filet Mignon Should Have Attributes (7,9,5)
+
+Deck Tests
+* Deck size should be 24
+* Deck should contain 2 of each card from the Dish Deck **OBVIOUS IMPLEMTATION???**
+* Deck should be randomized **KAN DETTE TESTES??**
+* First card in deck should cost one mana
+* Second card in deck should cost two mana or less
+* third card in deck should cost three mana or less
+
+Mana Tests
+* each player should start with 7 mana
+* each player have 7 mana in total each round
