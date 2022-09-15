@@ -156,7 +156,7 @@ CARD Tests
 
 Deck Tests
 * Deck size should be 24
-* Deck should contain 2 of each card from the Dish Deck **OBVIOUS IMPLEMTATION???**
+* Deck should contain 2 of each card from the Dish Deck **OBVIOUS IMPLEMENTATION???**
 * Deck should be randomized **KAN DETTE TESTES??**
 * First card in deck should cost one mana
 * Second card in deck should cost two mana or less
