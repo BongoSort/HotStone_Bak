@@ -436,6 +436,20 @@ public class TestAlphaStone {
     assertThat(game.getHero(Player.PEDDERSEN).getType(), is(GameConstants.BABY_HERO_TYPE));
   }
 
+
+  // At der ikke er sket noget med den anden hero
+  //
+  @Test
+  public void FindusUsesHeroPowerAndItDoesNothingExceptUse2Mana() {
+    //Given a game
+    //when Findus uses his hero power
+    game.usePower(Player.FINDUS);
+    //Then nothing happens except that Findus uses two Mana
+    assertThat(game.getHero(Player.FINDUS).getMana(), is(3-2));
+    assertThat(game.getHero(Player.PEDDERSEN).getHealth(), is(21));
+    assertThat(game.getHero(Player.FINDUS).getHealth(),is(21));
+  }
+
   @Test
   public void findusInTurnHeroIsActive() {
     //Given a game and it is findus' turn
