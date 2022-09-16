@@ -4,7 +4,9 @@ import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.CardStrategy;
-import hotstone.variants.CardStrategyDeltaStone;
+import hotstone.framework.strategies.ManaProductionStrategy;
+import hotstone.utility.TestHelper;
+import hotstone.variants.*;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -16,10 +18,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class TestDeltaStone {
     private Game game;
     private CardStrategy cardStrategy;
+    private ManaProductionStrategy manaProductionStrategy;
 
     @BeforeEach
     public void setUp() {
         cardStrategy = new CardStrategyDeltaStone();
+        manaProductionStrategy = new ManaProductionDeltaStone();
+        game = new StandardHotStoneGame(manaProductionStrategy, new WinnerAlphaStone(), new HeroStrategyAlphaStone());
+
     }
 
     //Unit tests for cardStrategy
@@ -113,5 +119,28 @@ public class TestDeltaStone {
         assertThat(cardStrategy.deckInitialization(Player.FINDUS).size(), is(24));
     }
 
+    //UnitTest for manaproduction
+    @Test
+    public void eachPlayerStartsWith7Mana() {
+        assertThat(manaProductionStrategy.calculateMana(0),is(7));
+    }
+
+    @Test
+    public void inTurn4ManaAvailableIs7(){
+        assertThat(manaProductionStrategy.calculateMana(3), is(7));
+    }
+
+    @Test
+    public void eachPlayerHave7ManaInTotalAtStartOfNewGame() {
+        assertThat(game.getHero(Player.FINDUS).getMana(), is(7));
+        assertThat(game.getHero(Player.PEDDERSEN).getMana(), is(7));
+    }
+
+    @Test
+    public void eachPlayerHave7ManaInTotalInRound2() {
+        TestHelper.advanceGameNRounds(game, 1);
+        assertThat(game.getHero(Player.FINDUS).getMana(), is(7));
+        assertThat(game.getHero(Player.PEDDERSEN).getMana(), is(7));
+    }
 
 }

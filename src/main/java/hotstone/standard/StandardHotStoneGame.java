@@ -81,7 +81,6 @@ public class StandardHotStoneGame implements Game {
 
     //initializing deck for Findus
     playerDecks.put(Player.FINDUS,cardStrategy.deckInitialization(Player.FINDUS));
-    //playerDecks.put(Player.FINDUS,fillDeck(Player.FINDUS));
     //initializing deck for Peddersen
     playerDecks.put(Player.PEDDERSEN,cardStrategy.deckInitialization(Player.PEDDERSEN));
 

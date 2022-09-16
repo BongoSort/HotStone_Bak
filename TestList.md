@@ -155,7 +155,7 @@ CARD Tests
 * **OK** Card Filet Mignon Should Have Attributes (7,9,5)
 
 Deck Tests
-* Deck size should be 24
+* **OK** Deck size should be 24
 * Deck should contain 2 of each card from the Dish Deck **OBVIOUS IMPLEMENTATION???**
 * Deck should be randomized **KAN DETTE TESTES??**
 * First card in deck should cost one mana
@@ -163,5 +163,5 @@ Deck Tests
 * third card in deck should cost three mana or less
 
 Mana Tests
-* each player should start with 7 mana
-* each player have 7 mana in total each round
+* **OK** each player should start with 7 mana
+* **OK** each player have 7 mana in total each round
