@@ -121,19 +121,19 @@ public class TestDeltaStone {
     }
 
     @Test
-    public void handindex0ShouldBeCardWith1Manacost() {
+    public void handIndex0ShouldBeCardWith1ManaCost() {
         ArrayList<Card> deck = cardStrategy.deckInitialization(Player.FINDUS);
         assertThat(cardStrategy.handInitialization(deck).get(0).getManaCost(),is(1));
     }
 
     @Test
-    public void handindex1ShouldBeCardWith2_OrLessManacost() {
+    public void handIndex1ShouldBeCardWith2_OrLessManaCost() {
         ArrayList<Card> deck = cardStrategy.deckInitialization(Player.FINDUS);
         assertThat(cardStrategy.handInitialization(deck).get(1).getManaCost() <= 2 ,is(true));
     }
 
     @Test
-    public void handindex2ShouldBeCardWith3_OrLessManacost() {
+    public void handIndex2ShouldBeCardWith3_OrLessManaCost() {
         ArrayList<Card> deck = cardStrategy.deckInitialization(Player.FINDUS);
         assertThat(cardStrategy.handInitialization(deck).get(2).getManaCost() <= 4 ,is(true));
     }
