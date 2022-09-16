@@ -114,9 +114,28 @@ public class TestDeltaStone {
         assertThat(card.getHealth(),is(5));
     }
 
+    //Deck Unit Tests
     @Test
     public void deckShouldContain24Cards() {
         assertThat(cardStrategy.deckInitialization(Player.FINDUS).size(), is(24));
+    }
+
+    @Test
+    public void handindex0ShouldBeCardWith1Manacost() {
+        ArrayList<Card> deck = cardStrategy.deckInitialization(Player.FINDUS);
+        assertThat(cardStrategy.handInitialization(deck).get(0).getManaCost(),is(1));
+    }
+
+    @Test
+    public void handindex1ShouldBeCardWith2_OrLessManacost() {
+        ArrayList<Card> deck = cardStrategy.deckInitialization(Player.FINDUS);
+        assertThat(cardStrategy.handInitialization(deck).get(1).getManaCost() <= 2 ,is(true));
+    }
+
+    @Test
+    public void handindex2ShouldBeCardWith3_OrLessManacost() {
+        ArrayList<Card> deck = cardStrategy.deckInitialization(Player.FINDUS);
+        assertThat(cardStrategy.handInitialization(deck).get(2).getManaCost() <= 4 ,is(true));
     }
 
     //UnitTest for manaproduction

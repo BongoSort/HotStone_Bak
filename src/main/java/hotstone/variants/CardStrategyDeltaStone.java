@@ -27,11 +27,28 @@ public class CardStrategyDeltaStone implements CardStrategy {
             deck.add(new StandardHotStoneCard(GameConstants.BEEF_BURGER_CARD, who));
             deck.add(new StandardHotStoneCard(GameConstants.FILET_MIGNON_CARD, who));
         }
+        Collections.shuffle(deck);
+        Card firstCard = deck.stream().filter((c) -> c.getManaCost() == 1).findAny().orElse(null);
+        deck.remove(firstCard);
+
+        Card secondCard = deck.stream().filter((c) -> c.getManaCost() <= 2).findAny().orElse(null);
+        deck.remove(secondCard);
+
+        Card thirdCard = deck.stream().filter((c) -> c.getManaCost() <= 4).findAny().orElse(null);
+        deck.remove(thirdCard);
+
+        deck.add(0,thirdCard);
+        deck.add(0,secondCard);
+        deck.add(0,firstCard);
         return deck;
     }
 
     @Override
     public ArrayList<Card> handInitialization(ArrayList<Card> deck) {
-        return null;
+        ArrayList<Card> hand = new ArrayList<>();
+        hand.add(deck.remove(0));
+        hand.add(deck.remove(0));
+        hand.add(deck.remove(0));
+        return hand;
     }
 }
