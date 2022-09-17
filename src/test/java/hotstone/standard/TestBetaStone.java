@@ -3,18 +3,52 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import hotstone.framework.Player;
+import hotstone.framework.strategies.ManaProductionStrategy;
 import hotstone.utility.TestHelper;
 import hotstone.variants.*;
 import org.junit.jupiter.api.*;
 import hotstone.framework.Game;
 public class TestBetaStone {
     private Game game;
+    private ManaProductionStrategy manaProduction;
 
     @BeforeEach
     public void setUp() {
-        game = new StandardHotStoneGame(new ManaProductionBetaStone(), new WinnerBetaStone());
+        manaProduction = new BetaStoneManaProduction();
+        game = new StandardHotStoneGame(manaProduction, new BetaStoneWinnerStrategy(), new AlphaStoneHeroStrategy());
     }
 
+    //Unit tests for manaProductionStrategy in BetaStone
+    @Test
+    public void turnCounter0ManaShouldbe1() {
+        assertThat(manaProduction.calculateMana(0),is(1));
+    }
+
+    @Test
+    public void turnCounter1ManaShouldBe1() {
+        assertThat(manaProduction.calculateMana(1), is(1));
+    }
+    @Test
+    public void turnCounter2ManaShouldBe1() {
+        assertThat(manaProduction.calculateMana(2),is(2));
+    }
+
+    @Test
+    public void turnCounter6ManaShouldBe() {
+        assertThat(manaProduction.calculateMana(6),is(4));
+    }
+
+    @Test
+    public void turnCounter14ManaShouldBe7() {
+        assertThat(manaProduction.calculateMana(14),is(7));
+    }
+
+    @Test
+    public void turnCounter15ManaShouldBe7() {
+        assertThat(manaProduction.calculateMana(15),is(7));
+    }
+
+    //tests for BetaStone Game variant.
     @Test
     public void findusShouldHave1ManaInTurn1() {
         assertThat(game.getHero(Player.FINDUS).getMana(),is(1));
@@ -94,15 +128,14 @@ public class TestBetaStone {
     @Test
     public void ifFindusHealthIsZeroOrBelowPeddersenWins() {
         ((StandardHotStoneHero) game.getHero(Player.FINDUS)).reduceHealth(GameConstants.HERO_MAX_HEALTH);
-        assertThat(game.getWinner(),is(Player.PEDDERSEN));
+        assertThat(game.getWinnerStrategy(),is(Player.PEDDERSEN));
     }
 
     @Test
     public void ifPeddersenHealthIsZeroOrBelowFindusWins() {
         ((StandardHotStoneHero) game.getHero(Player.PEDDERSEN)).reduceHealth(GameConstants.HERO_MAX_HEALTH);
-        assertThat(game.getWinner(),is(Player.FINDUS));
+        assertThat(game.getWinnerStrategy(),is(Player.FINDUS));
     }
-
 
 
 

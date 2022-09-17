@@ -18,8 +18,11 @@
 package hotstone.standard;
 
 import hotstone.framework.*;
-import hotstone.framework.strategies.ManaProduction;
-import hotstone.framework.strategies.Winner;
+import hotstone.framework.strategies.CardStrategy;
+import hotstone.framework.strategies.HeroStrategy;
+import hotstone.framework.strategies.ManaProductionStrategy;
+import hotstone.framework.strategies.WinnerStrategy;
+import hotstone.variants.AlphaStoneCardStrategy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,9 +50,10 @@ import java.util.HashMap;
  */
 public class StandardHotStoneGame implements Game {
   private Player playerInTurn;
-  private ManaProduction manaProduction;
-  private Winner winner;
-
+  private ManaProductionStrategy manaProduction;
+  private WinnerStrategy winnerStrategy;
+  private HeroStrategy heroStrategy;
+  private CardStrategy cardStrategy = new AlphaStoneCardStrategy();
   private int turnCounter;
   private HashMap<Player,ArrayList<Card>> playerDecks = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
@@ -60,59 +64,36 @@ public class StandardHotStoneGame implements Game {
    * Initializes a new HotStone game
    * Also initializes heroes decks, hands and fields.
    */
-  public StandardHotStoneGame(ManaProduction manaProduction, Winner winner) {
+  public StandardHotStoneGame(ManaProductionStrategy manaProduction, WinnerStrategy winnerStrategy, HeroStrategy heroStrategy) {
     this.manaProduction = manaProduction;
+    this.winnerStrategy = winnerStrategy;
+    this.heroStrategy = heroStrategy;
     this.playerInTurn = Player.FINDUS;
-    this.winner = winner;
     //initializing turnCounter
     this.turnCounter = 0;
 
     //initializing Findus Hero
-    playerHero.put(Player.FINDUS, new StandardHotStoneHero(Player.FINDUS,true, manaProduction.calculateMana(turnCounter)));
+    playerHero.put(Player.FINDUS, new StandardHotStoneHero(Player.FINDUS,true,
+            manaProduction.calculateMana(turnCounter), heroStrategy.getType(Player.FINDUS))); //TODO: variability point gammastone
 
     //initializing Peddersen Hero
-    playerHero.put(Player.PEDDERSEN, new StandardHotStoneHero(Player.PEDDERSEN,false,manaProduction.calculateMana(turnCounter)));
+    playerHero.put(Player.PEDDERSEN, new StandardHotStoneHero(Player.PEDDERSEN,false,manaProduction.calculateMana(turnCounter), heroStrategy.getType(Player.PEDDERSEN)));
+
+    //initializing deck for Findus
+    playerDecks.put(Player.FINDUS,cardStrategy.deckInitialization(Player.FINDUS));
+    //initializing deck for Peddersen
+    playerDecks.put(Player.PEDDERSEN,cardStrategy.deckInitialization(Player.PEDDERSEN));
 
     //initializing starting Hand for Findus
-    playerHands.put(Player.FINDUS,fillHand(Player.FINDUS));
+    playerHands.put(Player.FINDUS,cardStrategy.handInitialization(playerDecks.get(Player.FINDUS)));
     //initializing starting Hand for Peddersen
-    playerHands.put(Player.PEDDERSEN,fillHand(Player.PEDDERSEN));
+    playerHands.put(Player.PEDDERSEN,cardStrategy.handInitialization(playerDecks.get(Player.PEDDERSEN)));
 
-    //initializing map for decks:
-    playerDecks.put(Player.FINDUS,fillDeck(Player.FINDUS));
-    playerDecks.put(Player.PEDDERSEN,fillDeck(Player.PEDDERSEN));
-
+    //initializing Field for Findus
     playerFields.put(Player.FINDUS, new ArrayList<>());
+    //initializing Field for Peddersen
     playerFields.put(Player.PEDDERSEN, new ArrayList<>());
   }
-
-  /** Fill the hand of a player
-   *  Used for setting the game up initially, granting each player tres, dos, uno
-   *
-   * @return the filled hand
-   */
-  private ArrayList<Card> fillHand(Player who) {
-    ArrayList<Card> hand = new ArrayList<>();
-    hand.add(new StandardHotStoneCard(GameConstants.TRES_CARD,who));
-    hand.add(new StandardHotStoneCard(GameConstants.DOS_CARD,who));
-    hand.add(new StandardHotStoneCard(GameConstants.UNO_CARD,who));
-    return hand;
-  }
-
-  /** Fill the deck of a player
-   *  Used for setting the game up initially, putting cuatro, cinco, seis, siete into the players deck
-   *
-   * @return the filled deck
-   */
-  private ArrayList<Card> fillDeck(Player who) {
-    ArrayList<Card> deck = new ArrayList<>();
-    deck.add(new StandardHotStoneCard(GameConstants.CUATRO_CARD, who));
-    deck.add(new StandardHotStoneCard(GameConstants.CINCO_CARD, who));
-    deck.add(new StandardHotStoneCard(GameConstants.SEIS_CARD, who));
-    deck.add(new StandardHotStoneCard(GameConstants.SIETE_CARD, who));
-    return deck;
-  }
-
 
   @Override
   public Player getPlayerInTurn() {
@@ -125,8 +106,8 @@ public class StandardHotStoneGame implements Game {
   }
 
   @Override
-  public Player getWinner() {
-    return winner.calculateWinner(this);
+  public Player getWinnerStrategy() {
+    return winnerStrategy.calculateWinner(this);
   }
 
   @Override
@@ -290,12 +271,9 @@ public class StandardHotStoneGame implements Game {
     if(hero.getMana() < GameConstants.HERO_POWER_COST) {
       return Status.NOT_ENOUGH_MANA;
     }
-
-    if(hero.getType().equals(GameConstants.BABY_HERO_TYPE)) { } //TODO: Variablility point for gammaStone
-
+    heroStrategy.useHeroPower(this,who);
+    hero.reduceHeroMana(GameConstants.HERO_POWER_COST);
     hero.setActive(false);
-    hero.reduceHeroMana(GameConstants.HERO_POWER_COST); //Since the only hero in Alphastone is Baby, we don't need to check for other heroes.
-
     return Status.OK;
   }
 
