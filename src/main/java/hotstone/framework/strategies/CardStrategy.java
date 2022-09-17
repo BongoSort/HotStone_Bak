@@ -1,7 +1,6 @@
 package hotstone.framework.strategies;
 
 import hotstone.framework.Card;
-import hotstone.framework.Game;
 import hotstone.framework.Player;
 
 import java.util.ArrayList;

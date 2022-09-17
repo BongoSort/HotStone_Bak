@@ -3,8 +3,6 @@ package hotstone.standard;
 import hotstone.framework.Card;
 import hotstone.framework.Player;
 
-import java.util.Objects;
-
 public class StandardHotStoneCard implements Card {
     private String cardName;
     private int manaCost;

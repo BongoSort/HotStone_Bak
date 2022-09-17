@@ -23,7 +23,7 @@ public class TestDeltaStone {
     public void setUp() {
         cardStrategy = new DeltaStoneCardStrategy();
         manaProductionStrategy = new DeltaStoneManaProduction();
-        game = new StandardHotStoneGame(manaProductionStrategy, new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy());
+        game = new StandardHotStoneGame(manaProductionStrategy, new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), cardStrategy);
 
     }
 
