@@ -14,8 +14,8 @@ public class TestBetaStone {
 
     @BeforeEach
     public void setUp() {
-        manaProduction = new ManaProductionBetaStone();
-        game = new StandardHotStoneGame(manaProduction, new WinnerBetaStone(), new HeroStrategyAlphaStone());
+        manaProduction = new BetaStoneManaProduction();
+        game = new StandardHotStoneGame(manaProduction, new BetaStoneWinnerStrategy(), new AlphaStoneHeroStrategy());
     }
 
     //Unit tests for manaProductionStrategy in BetaStone

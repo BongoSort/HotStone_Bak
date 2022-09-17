@@ -10,7 +10,6 @@ import hotstone.variants.*;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,9 +21,9 @@ public class TestDeltaStone {
 
     @BeforeEach
     public void setUp() {
-        cardStrategy = new CardStrategyDeltaStone();
-        manaProductionStrategy = new ManaProductionDeltaStone();
-        game = new StandardHotStoneGame(manaProductionStrategy, new WinnerAlphaStone(), new HeroStrategyAlphaStone());
+        cardStrategy = new DeltaStoneCardStrategy();
+        manaProductionStrategy = new DeltaStoneManaProduction();
+        game = new StandardHotStoneGame(manaProductionStrategy, new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy());
 
     }
 

@@ -1,14 +1,13 @@
 package hotstone.variants;
 
 import hotstone.framework.Card;
-import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.CardStrategy;
 import hotstone.standard.GameConstants;
 import hotstone.standard.StandardHotStoneCard;
 import java.util.*;
 
-public class CardStrategyDeltaStone implements CardStrategy {
+public class DeltaStoneCardStrategy implements CardStrategy {
 
     @Override
     public ArrayList<Card> deckInitialization(Player who) {

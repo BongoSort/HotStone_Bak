@@ -1,7 +1,6 @@
 package hotstone.variants;
 
 import hotstone.framework.Card;
-import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.CardStrategy;
 import hotstone.standard.GameConstants;
@@ -9,7 +8,7 @@ import hotstone.standard.StandardHotStoneCard;
 
 import java.util.ArrayList;
 
-public class CardStrategyAlphaStone implements CardStrategy {
+public class AlphaStoneCardStrategy implements CardStrategy {
     private ArrayList<Card> temp;
 
     @Override

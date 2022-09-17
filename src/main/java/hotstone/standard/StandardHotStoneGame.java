@@ -22,7 +22,7 @@ import hotstone.framework.strategies.CardStrategy;
 import hotstone.framework.strategies.HeroStrategy;
 import hotstone.framework.strategies.ManaProductionStrategy;
 import hotstone.framework.strategies.WinnerStrategy;
-import hotstone.variants.CardStrategyAlphaStone;
+import hotstone.variants.AlphaStoneCardStrategy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,7 +53,7 @@ public class StandardHotStoneGame implements Game {
   private ManaProductionStrategy manaProduction;
   private WinnerStrategy winnerStrategy;
   private HeroStrategy heroStrategy;
-  private CardStrategy cardStrategy = new CardStrategyAlphaStone();
+  private CardStrategy cardStrategy = new AlphaStoneCardStrategy();
   private int turnCounter;
   private HashMap<Player,ArrayList<Card>> playerDecks = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();

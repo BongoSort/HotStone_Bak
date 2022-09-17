@@ -2,7 +2,7 @@ package hotstone.variants;
 
 import hotstone.framework.strategies.ManaProductionStrategy;
 
-public class ManaProductionBetaStone implements ManaProductionStrategy {
+public class BetaStoneManaProduction implements ManaProductionStrategy {
 
     /**
      *

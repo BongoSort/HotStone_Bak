@@ -4,7 +4,7 @@ import hotstone.framework.Player;
 import hotstone.framework.strategies.WinnerStrategy;
 import hotstone.standard.StandardHotStoneGame;
 
-public class WinnerBetaStone implements WinnerStrategy {
+public class BetaStoneWinnerStrategy implements WinnerStrategy {
 
     @Override
     public Player calculateWinner(StandardHotStoneGame game) {
