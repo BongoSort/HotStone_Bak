@@ -53,7 +53,8 @@ public class StandardHotStoneGame implements Game {
   private ManaProductionStrategy manaProduction;
   private WinnerStrategy winnerStrategy;
   private HeroStrategy heroStrategy;
-  private CardStrategy cardStrategy = new AlphaStoneCardStrategy();
+
+  private CardStrategy cardStrategy = new AlphaStoneCardStrategy(); //TODO oh no, alphastone is always used......
   private int turnCounter;
   private HashMap<Player,ArrayList<Card>> playerDecks = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
