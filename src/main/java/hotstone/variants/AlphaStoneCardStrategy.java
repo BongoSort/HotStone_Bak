@@ -9,7 +9,6 @@ import hotstone.standard.StandardHotStoneCard;
 import java.util.ArrayList;
 
 public class AlphaStoneCardStrategy implements CardStrategy {
-    private ArrayList<Card> temp;
 
     @Override
     public ArrayList<Card> deckInitialization(Player who) {

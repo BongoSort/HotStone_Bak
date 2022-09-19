@@ -127,12 +127,6 @@
 * **OK** When Findus Hero looses all health, Peddersen is the winner
 * **OK** When Peddersens Hero looses all health, Findus is the winner
 
-
-MÅSKE IKKE ALPHASTONE, MEN SENERE-STONE??
-* When trying to draw a card from an empty deck, the hero should take 2 damage.
-* When the health of the hero reaches 0 or below, the hero dies, and the other hero wins.
-
-
 ## GammaStone
 * **OK** Findus hero should be ThaiChef
 * **OK** Peddersen Hero Type Should Be Danish Chef
@@ -165,3 +159,9 @@ MÅSKE IKKE ALPHASTONE, MEN SENERE-STONE??
 ### Mana Tests
 * **OK** each player should start with 7 mana
 * **OK** each player have 7 mana in total each round
+
+### Non-unit tests
+* **OK** First card in hand should cost one mana for both players
+* **OK** Second card in hand should cost two mana or less for both players
+* **OK** third card in hand should cost three mana or less for both players
+* **OK** After either player plays first card in hand, mana should be 6

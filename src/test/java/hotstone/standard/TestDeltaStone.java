@@ -189,6 +189,7 @@ public class TestDeltaStone {
     public void thirdCardInHandShouldBeFourOrLessManaCostForPeddersen() {
         assertThat(game.getCardInHand(Player.PEDDERSEN, 2).getManaCost() <=4,is(true));
     }
+
     @Test
     public void findusPlaysFirstCardShouldHaveSixManaLeft() {
         // Given a DeltaGame
@@ -208,7 +209,4 @@ public class TestDeltaStone {
         // Then Peddersen should have six mana left
         assertThat(game.getHero(Player.PEDDERSEN).getMana(), is(6));
     }
-
-
-
 }
