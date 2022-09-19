@@ -137,7 +137,7 @@ public class TestDeltaStone {
         assertThat(cardStrategy.handInitialization(deck).get(2).getManaCost() <= 4 ,is(true));
     }
 
-    //UnitTest for manaproduction
+    //UnitTest for ManaProduction
     @Test
     public void eachPlayerStartsWith7Mana() {
         assertThat(manaProductionStrategy.calculateMana(0),is(7));
@@ -148,6 +148,7 @@ public class TestDeltaStone {
         assertThat(manaProductionStrategy.calculateMana(3), is(7));
     }
 
+    //Non-unit Tests
     @Test
     public void eachPlayerHave7ManaInTotalAtStartOfNewGame() {
         assertThat(game.getHero(Player.FINDUS).getMana(), is(7));
@@ -160,5 +161,35 @@ public class TestDeltaStone {
         assertThat(game.getHero(Player.FINDUS).getMana(), is(7));
         assertThat(game.getHero(Player.PEDDERSEN).getMana(), is(7));
     }
+    @Test
+    public void firstCardInHandShouldBeOneManaCostForFindus() {
+        assertThat(game.getCardInHand(Player.FINDUS, 0).getManaCost(), is(1));
+    }
+
+    @Test
+    public void firstCardInHandShouldBeOneManaCostForPeddersen() {
+        assertThat(game.getCardInHand(Player.PEDDERSEN, 0).getManaCost(), is(1));
+    }
+    @Test
+    public void secondCardInHandShouldBeTwoOrLessManaCostForFindus() {
+        assertThat(game.getCardInHand(Player.FINDUS, 1).getManaCost() <= 2,is(true));
+    }
+
+    @Test
+    public void secondCardInHandShouldBeTwoOrLessManaCostForPeddersen() {
+        assertThat(game.getCardInHand(Player.PEDDERSEN, 1).getManaCost() <=2 ,is(true));
+    }
+
+    @Test
+    public void thirdCardInHandShouldBeFourOrLessManaCostForFindus() {
+        assertThat(game.getCardInHand(Player.FINDUS, 2).getManaCost() <=4 ,is(true));
+    }
+
+    @Test
+    public void thirdCardInHandShouldBeFourOrLessManaCostForPeddersen() {
+        assertThat(game.getCardInHand(Player.PEDDERSEN, 2).getManaCost() <=4,is(true));
+    }
+
+
 
 }
