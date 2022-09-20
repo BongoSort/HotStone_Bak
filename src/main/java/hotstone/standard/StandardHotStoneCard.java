@@ -68,14 +68,14 @@ public class StandardHotStoneCard implements Card {
         }
     }
 
-    private void initializeSpecialCard(String cardName) { //TODO: Spørg om dette er okay
+    private void initializeSpecialCard(String cardName) {
         if(cardName.equals(GameConstants.SOVS_CARD)) {
             this.attack = 1;
             this.health = 1;
         }
     }
 
-    private void initializeDishDeck(String cardName) { //TODO: Spørg om dette er okay
+    private void initializeDishDeck(String cardName) {
         switch (cardName) {
             case GameConstants.BROWN_RICE_CARD -> {
                 this.manaCost = 1;

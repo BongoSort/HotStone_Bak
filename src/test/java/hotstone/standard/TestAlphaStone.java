@@ -243,7 +243,7 @@ public class TestAlphaStone {
     //given a game
     //when turn eight starts, Findus wins game;
     TestHelper.advanceGameNRounds(game, 4);
-    assertThat(game.getWinnerStrategy(), is(Player.FINDUS));
+    assertThat(game.getWinner(), is(Player.FINDUS));
   }
 
   @Test

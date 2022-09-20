@@ -42,7 +42,7 @@ public interface Game {
    * @return null if game is still progressing, or the winning player
    * if the game has been won.
    */
-  Player getWinnerStrategy();
+  Player getWinner();
 
   /** Get the number of turns played. Starts at turn 0 for Findus,
    * then 1 for Peddersen, 2 for Findus, and so on.

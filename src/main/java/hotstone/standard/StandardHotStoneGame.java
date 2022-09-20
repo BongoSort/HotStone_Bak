@@ -107,7 +107,7 @@ public class StandardHotStoneGame implements Game {
   }
 
   @Override
-  public Player getWinnerStrategy() {
+  public Player getWinner() {
     return winnerStrategy.calculateWinner(this);
   }
 
@@ -258,7 +258,6 @@ public class StandardHotStoneGame implements Game {
   @Override
   public Status usePower(Player who) {
     // if it is not this players turn
-
     if(playerInTurn != who) {
       return Status.NOT_PLAYER_IN_TURN;
     }
@@ -272,6 +271,7 @@ public class StandardHotStoneGame implements Game {
     if(hero.getMana() < GameConstants.HERO_POWER_COST) {
       return Status.NOT_ENOUGH_MANA;
     }
+
     heroStrategy.useHeroPower(this,who);
     hero.reduceHeroMana(GameConstants.HERO_POWER_COST);
     hero.setActive(false);

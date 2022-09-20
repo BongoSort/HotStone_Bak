@@ -128,13 +128,13 @@ public class TestBetaStone {
     @Test
     public void ifFindusHealthIsZeroOrBelowPeddersenWins() {
         ((StandardHotStoneHero) game.getHero(Player.FINDUS)).reduceHealth(GameConstants.HERO_MAX_HEALTH);
-        assertThat(game.getWinnerStrategy(),is(Player.PEDDERSEN));
+        assertThat(game.getWinner(),is(Player.PEDDERSEN));
     }
 
     @Test
     public void ifPeddersenHealthIsZeroOrBelowFindusWins() {
         ((StandardHotStoneHero) game.getHero(Player.PEDDERSEN)).reduceHealth(GameConstants.HERO_MAX_HEALTH);
-        assertThat(game.getWinnerStrategy(),is(Player.FINDUS));
+        assertThat(game.getWinner(),is(Player.FINDUS));
     }
 
 
