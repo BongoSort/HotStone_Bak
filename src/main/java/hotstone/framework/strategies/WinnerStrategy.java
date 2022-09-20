@@ -1,7 +1,7 @@
 package hotstone.framework.strategies;
 
+import hotstone.framework.Game;
 import hotstone.framework.Player;
-import hotstone.standard.StandardHotStoneGame;
 
 public interface WinnerStrategy {
     /**
@@ -9,6 +9,6 @@ public interface WinnerStrategy {
      * @param game is the current game
      * @return the player who won
      */
-    Player calculateWinner(StandardHotStoneGame game);
+    Player calculateWinner(Game game);
 
 }
