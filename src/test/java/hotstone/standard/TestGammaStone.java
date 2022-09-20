@@ -33,6 +33,16 @@ public class TestGammaStone {
     }
 
     @Test
+    public void danishChefHeroOwnerShouldBePeddersen() {
+        assertThat(game.getHero(Player.PEDDERSEN).getOwner(), is(Player.PEDDERSEN));
+    }
+
+    @Test
+    public void thaiChefHeroOwnerShouldBePeddersen() {
+        assertThat(game.getHero(Player.FINDUS).getOwner(), is(Player.FINDUS));
+    }
+
+    @Test
     public void thaiChefsHeroPowerShouldDecreaseOpponentsHerosHealthBy2() {
         game.usePower(Player.FINDUS);
         assertThat(game.getHero(Player.PEDDERSEN).getHealth(),is(21 - 2));

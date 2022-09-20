@@ -161,6 +161,13 @@ public class TestDeltaStone {
         assertThat(game.getHero(Player.FINDUS).getMana(), is(7));
         assertThat(game.getHero(Player.PEDDERSEN).getMana(), is(7));
     }
+
+    @Test
+    public void EachPlayersDeckSize21AtStartOfGame() {
+        //Given a game each player's deck should contain 21 Cards
+        assertThat(game.getDeckSize(Player.FINDUS), is(21));
+        assertThat(game.getDeckSize(Player.PEDDERSEN), is(21));
+    }
     @Test
     public void firstCardInHandShouldBeOneManaCostForFindus() {
         assertThat(game.getCardInHand(Player.FINDUS, 0).getManaCost(), is(1));
