@@ -153,7 +153,7 @@
 
 ### DECK TESTS
 * **OK** Deck size should be 24
-* **TODO** Deck should contain 2 of each card from the Dish Deck **OBVIOUS IMPLEMENTATION???**
+* **OK** Deck should contain 2 of each card from the Dish Deck **OBVIOUS IMPLEMENTATION???**
 * **OK** First card in deck should cost one mana
 * **OK** Second card in deck should cost two mana or less
 * **OK** third card in deck should cost three mana or less
