@@ -47,7 +47,7 @@ import hotstone.framework.Status;
 import hotstone.utility.TestHelper;
 import hotstone.variants.AlphaStoneCardStrategy;
 import hotstone.variants.AlphaStoneHeroStrategy;
-import hotstone.variants.AlphaStoneManaProduction;
+import hotstone.variants.AlphaStoneManaProductionStrategy;
 import hotstone.variants.AlphaStoneWinnerStrategy;
 import org.junit.jupiter.api.*;
 
@@ -69,7 +69,7 @@ public class TestAlphaStone {
   /** Fixture for AlphaStone testing. */
   @BeforeEach
   public void setUp() {
-    game = new StandardHotStoneGame(new AlphaStoneManaProduction(), new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), new AlphaStoneCardStrategy());
+    game = new StandardHotStoneGame(new AlphaStoneManaProductionStrategy(), new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), new AlphaStoneCardStrategy());
   }
 
   @Test

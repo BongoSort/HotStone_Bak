@@ -5,7 +5,7 @@ import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.variants.AlphaStoneCardStrategy;
 import hotstone.variants.GammaStoneHeroStrategy;
-import hotstone.variants.AlphaStoneManaProduction;
+import hotstone.variants.AlphaStoneManaProductionStrategy;
 import hotstone.variants.AlphaStoneWinnerStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ public class TestGammaStone {
     /** Fixture for AlphaStone testing. */
     @BeforeEach
     public void setUp() {
-        game = new StandardHotStoneGame(new AlphaStoneManaProduction(), new AlphaStoneWinnerStrategy(), new GammaStoneHeroStrategy(), new AlphaStoneCardStrategy());
+        game = new StandardHotStoneGame(new AlphaStoneManaProductionStrategy(), new AlphaStoneWinnerStrategy(), new GammaStoneHeroStrategy(), new AlphaStoneCardStrategy());
     }
 
     @Test
