@@ -130,6 +130,8 @@
 ## GammaStone
 * **OK** Findus hero should be ThaiChef
 * **OK** Peddersen Hero Type Should Be Danish Chef
+* **OK**  Thai Chefs owner should be Findus
+* **OK**  Danish Chefs owner should be Peddersen
 * **OK** Thai Chefs Hero Power Should Decrease Opponents Hero Health By 2
 * **OK** Danish Chef Hero Power Should Field Minion Sovs With Attack Power 1 And Health 1
 
@@ -151,7 +153,7 @@
 
 ### DECK TESTS
 * **OK** Deck size should be 24
-* Deck should contain 2 of each card from the Dish Deck **OBVIOUS IMPLEMENTATION???**
+* **TODO** Deck should contain 2 of each card from the Dish Deck **OBVIOUS IMPLEMENTATION???**
 * **OK** First card in deck should cost one mana
 * **OK** Second card in deck should cost two mana or less
 * **OK** third card in deck should cost three mana or less
@@ -165,3 +167,4 @@
 * **OK** Second card in hand should cost two mana or less for both players
 * **OK** third card in hand should cost three mana or less for both players
 * **OK** After either player plays first card in hand, mana should be 6
+* **OK** each players deck should contain 21 cards at start of game.

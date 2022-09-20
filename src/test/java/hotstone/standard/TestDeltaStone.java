@@ -137,6 +137,46 @@ public class TestDeltaStone {
         assertThat(cardStrategy.handInitialization(deck).get(2).getManaCost() <= 4 ,is(true));
     }
 
+    @Test
+    public void aDeckShouldContainTwoOfEachCardFromDishDeck() {
+        ArrayList<Card> deck = cardStrategy.deckInitialization(Player.FINDUS);
+        int res = (int) deck.stream().filter(card -> card.getName().equals(GameConstants.BROWN_RICE_CARD)).count();
+        assertThat(res, is(2));
+
+        res = (int) deck.stream().filter(card -> card.getName().equals(GameConstants.FRENCH_FRIES_CARD)).count();
+        assertThat(res, is(2));
+
+        res = (int) deck.stream().filter(card -> card.getName().equals(GameConstants.GREEN_SALAD_CARD)).count();
+        assertThat(res, is(2));
+
+        res = (int) deck.stream().filter(card -> card.getName().equals(GameConstants.TOMATO_SALAD_CARD)).count();
+        assertThat(res, is(2));
+
+        res = (int) deck.stream().filter(card -> card.getName().equals(GameConstants.POKE_BOWL_CARD)).count();
+        assertThat(res, is(2));
+
+        res = (int) deck.stream().filter(card -> card.getName().equals(GameConstants.PUMPKIN_SOUP_CARD)).count();
+        assertThat(res, is(2));
+
+        res = (int) deck.stream().filter(card -> card.getName().equals(GameConstants.NOODLE_SOUP_CARD)).count();
+        assertThat(res, is(2));
+
+        res = (int) deck.stream().filter(card -> card.getName().equals(GameConstants.SPRING_ROLLS_CARD)).count();
+        assertThat(res, is(2));
+
+        res = (int) deck.stream().filter(card -> card.getName().equals(GameConstants.BAKED_SALMON_CARD)).count();
+        assertThat(res, is(2));
+
+        res = (int) deck.stream().filter(card -> card.getName().equals(GameConstants.CHICKEN_CURRY_CARD)).count();
+        assertThat(res, is(2));
+
+        res = (int) deck.stream().filter(card -> card.getName().equals(GameConstants.BEEF_BURGER_CARD)).count();
+        assertThat(res, is(2));
+
+        res = (int) deck.stream().filter(card -> card.getName().equals(GameConstants.FILET_MIGNON_CARD)).count();
+        assertThat(res, is(2));
+    }
+
     //UnitTest for ManaProduction
     @Test
     public void eachPlayerStartsWith7Mana() {
