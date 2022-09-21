@@ -18,7 +18,7 @@
 package hotstone.standard;
 
 import hotstone.framework.*;
-import hotstone.framework.strategies.CardStrategy;
+import hotstone.framework.strategies.DeckStrategy;
 import hotstone.framework.strategies.HeroStrategy;
 import hotstone.framework.strategies.ManaProductionStrategy;
 import hotstone.framework.strategies.WinnerStrategy;
@@ -53,7 +53,7 @@ public class StandardHotStoneGame implements Game {
   private WinnerStrategy winnerStrategy;
   private HeroStrategy heroStrategy;
 
-  private CardStrategy cardStrategy;
+  private DeckStrategy deckStrategy;
   private int turnCounter;
   private HashMap<Player,ArrayList<Card>> playerDecks = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
@@ -64,11 +64,11 @@ public class StandardHotStoneGame implements Game {
    * Initializes a new HotStone game
    * Also initializes heroes decks, hands and fields.
    */
-  public StandardHotStoneGame(ManaProductionStrategy manaProduction, WinnerStrategy winnerStrategy, HeroStrategy heroStrategy, CardStrategy cardStrategy) {
+  public StandardHotStoneGame(ManaProductionStrategy manaProduction, WinnerStrategy winnerStrategy, HeroStrategy heroStrategy, DeckStrategy deckStrategy) {
     this.manaProduction = manaProduction;
     this.winnerStrategy = winnerStrategy;
     this.heroStrategy = heroStrategy;
-    this.cardStrategy = cardStrategy;
+    this.deckStrategy = deckStrategy;
     this.playerInTurn = Player.FINDUS;
     //initializing turnCounter
     this.turnCounter = 0;
@@ -81,19 +81,36 @@ public class StandardHotStoneGame implements Game {
     playerHero.put(Player.PEDDERSEN, new StandardHotStoneHero(Player.PEDDERSEN,false,manaProduction.calculateMana(turnCounter), heroStrategy.getType(Player.PEDDERSEN)));
 
     //initializing deck for Findus
-    playerDecks.put(Player.FINDUS,this.cardStrategy.deckInitialization(Player.FINDUS));
+    playerDecks.put(Player.FINDUS,this.deckStrategy.deckInitialization(Player.FINDUS));
     //initializing deck for Peddersen
-    playerDecks.put(Player.PEDDERSEN,this.cardStrategy.deckInitialization(Player.PEDDERSEN));
+    playerDecks.put(Player.PEDDERSEN,this.deckStrategy.deckInitialization(Player.PEDDERSEN));
 
     //initializing starting Hand for Findus
-    playerHands.put(Player.FINDUS,this.cardStrategy.handInitialization(playerDecks.get(Player.FINDUS)));
+    playerHands.put(Player.FINDUS,makeHand(Player.FINDUS,playerDecks.get(Player.FINDUS)));
     //initializing starting Hand for Peddersen
-    playerHands.put(Player.PEDDERSEN,this.cardStrategy.handInitialization(playerDecks.get(Player.PEDDERSEN)));
+    playerHands.put(Player.PEDDERSEN,makeHand(Player.PEDDERSEN, playerDecks.get(Player.PEDDERSEN)));
 
     //initializing Field for Findus
     playerFields.put(Player.FINDUS, new ArrayList<>());
     //initializing Field for Peddersen
     playerFields.put(Player.PEDDERSEN, new ArrayList<>());
+  }
+
+  /**
+   * Makes the start hand of a player
+   * @param who Player which hand is being made
+   * @param deck The deck belonging to the player
+   * @return the complete start hand
+   */
+  private ArrayList<Card> makeHand(Player who, ArrayList<Card> deck) {
+    ArrayList<Card> hand = new ArrayList<>();
+    Card firstCard = playerDecks.get(who).remove(0);
+    Card secondCard = playerDecks.get(who).remove(0);
+    Card thirdCard = playerDecks.get(who).remove(0);
+    hand.add(firstCard);
+    hand.add(secondCard);
+    hand.add(thirdCard);
+    return hand;
   }
 
   @Override

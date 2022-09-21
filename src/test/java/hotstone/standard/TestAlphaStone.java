@@ -45,7 +45,7 @@ import hotstone.framework.Card;
 import hotstone.framework.Player;
 import hotstone.framework.Status;
 import hotstone.utility.TestHelper;
-import hotstone.variants.AlphaStoneCardStrategy;
+import hotstone.variants.AlphaStoneDeckStrategy;
 import hotstone.variants.AlphaStoneHeroStrategy;
 import hotstone.variants.AlphaStoneManaProductionStrategy;
 import hotstone.variants.AlphaStoneWinnerStrategy;
@@ -69,7 +69,7 @@ public class TestAlphaStone {
   /** Fixture for AlphaStone testing. */
   @BeforeEach
   public void setUp() {
-    game = new StandardHotStoneGame(new AlphaStoneManaProductionStrategy(), new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), new AlphaStoneCardStrategy());
+    game = new StandardHotStoneGame(new AlphaStoneManaProductionStrategy(), new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), new AlphaStoneDeckStrategy());
   }
 
   @Test

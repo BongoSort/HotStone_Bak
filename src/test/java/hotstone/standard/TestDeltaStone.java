@@ -3,7 +3,7 @@ package hotstone.standard;
 import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
-import hotstone.framework.strategies.CardStrategy;
+import hotstone.framework.strategies.DeckStrategy;
 import hotstone.framework.strategies.ManaProductionStrategy;
 import hotstone.utility.TestHelper;
 import hotstone.variants.*;
@@ -16,14 +16,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestDeltaStone {
     private Game game;
-    private CardStrategy cardStrategy;
+    private DeckStrategy deckStrategy;
     private ManaProductionStrategy manaProductionStrategy;
 
     @BeforeEach
     public void setUp() {
-        cardStrategy = new DeltaStoneCardStrategy();
+        deckStrategy = new DeltaStoneDeckStrategy();
         manaProductionStrategy = new DeltaStoneManaProductionStrategy();
-        game = new StandardHotStoneGame(manaProductionStrategy, new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), cardStrategy);
+        game = new StandardHotStoneGame(manaProductionStrategy, new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), deckStrategy);
 
     }
 
@@ -116,30 +116,12 @@ public class TestDeltaStone {
     //Deck Unit Tests
     @Test
     public void deckShouldContain24Cards() {
-        assertThat(cardStrategy.deckInitialization(Player.FINDUS).size(), is(24));
-    }
-
-    @Test
-    public void handIndex0ShouldBeCardWith1ManaCost() {
-        ArrayList<Card> deck = cardStrategy.deckInitialization(Player.FINDUS);
-        assertThat(cardStrategy.handInitialization(deck).get(0).getManaCost(),is(1));
-    }
-
-    @Test
-    public void handIndex1ShouldBeCardWith2_OrLessManaCost() {
-        ArrayList<Card> deck = cardStrategy.deckInitialization(Player.FINDUS);
-        assertThat(cardStrategy.handInitialization(deck).get(1).getManaCost() <= 2 ,is(true));
-    }
-
-    @Test
-    public void handIndex2ShouldBeCardWith3_OrLessManaCost() {
-        ArrayList<Card> deck = cardStrategy.deckInitialization(Player.FINDUS);
-        assertThat(cardStrategy.handInitialization(deck).get(2).getManaCost() <= 4 ,is(true));
+        assertThat(deckStrategy.deckInitialization(Player.FINDUS).size(), is(24));
     }
 
     @Test
     public void aDeckShouldContainTwoOfEachCardFromDishDeck() {
-        ArrayList<Card> deck = cardStrategy.deckInitialization(Player.FINDUS);
+        ArrayList<Card> deck = deckStrategy.deckInitialization(Player.FINDUS);
         int res = (int) deck.stream().filter(card -> card.getName().equals(GameConstants.BROWN_RICE_CARD)).count();
         assertThat(res, is(2));
 
@@ -224,17 +206,17 @@ public class TestDeltaStone {
 
     @Test
     public void secondCardInHandShouldBeTwoOrLessManaCostForPeddersen() {
-        assertThat(game.getCardInHand(Player.PEDDERSEN, 1).getManaCost() <=2 ,is(true));
+        assertThat(game.getCardInHand(Player.PEDDERSEN, 1).getManaCost() <= 2 ,is(true));
     }
 
     @Test
     public void thirdCardInHandShouldBeFourOrLessManaCostForFindus() {
-        assertThat(game.getCardInHand(Player.FINDUS, 2).getManaCost() <=4 ,is(true));
+        assertThat(game.getCardInHand(Player.FINDUS, 2).getManaCost() <= 4 ,is(true));
     }
 
     @Test
     public void thirdCardInHandShouldBeFourOrLessManaCostForPeddersen() {
-        assertThat(game.getCardInHand(Player.PEDDERSEN, 2).getManaCost() <=4,is(true));
+        assertThat(game.getCardInHand(Player.PEDDERSEN, 2).getManaCost() <= 4,is(true));
     }
 
     @Test

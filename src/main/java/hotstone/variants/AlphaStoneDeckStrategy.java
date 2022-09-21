@@ -2,13 +2,13 @@ package hotstone.variants;
 
 import hotstone.framework.Card;
 import hotstone.framework.Player;
-import hotstone.framework.strategies.CardStrategy;
+import hotstone.framework.strategies.DeckStrategy;
 import hotstone.standard.GameConstants;
 import hotstone.standard.StandardHotStoneCard;
 
 import java.util.ArrayList;
 
-public class AlphaStoneCardStrategy implements CardStrategy {
+public class AlphaStoneDeckStrategy implements DeckStrategy {
 
     @Override
     public ArrayList<Card> deckInitialization(Player who) {
@@ -21,14 +21,5 @@ public class AlphaStoneCardStrategy implements CardStrategy {
         deck.add(new StandardHotStoneCard(GameConstants.SEIS_CARD, who));
         deck.add(new StandardHotStoneCard(GameConstants.SIETE_CARD, who));
         return deck;
-    }
-
-    @Override
-    public ArrayList<Card> handInitialization(ArrayList<Card> deck) {
-        ArrayList<Card> hand = new ArrayList<>();
-        hand.add(deck.remove(0));
-        hand.add(deck.remove(0));
-        hand.add(deck.remove(0));
-        return hand;
     }
 }
