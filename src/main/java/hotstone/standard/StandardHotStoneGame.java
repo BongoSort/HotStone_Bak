@@ -265,14 +265,27 @@ public class StandardHotStoneGame implements Game {
     hero.setActive(false);
   }
 
-  private Status isAttackAllowed(Player who, Card card1, Card card2) {
-    Status status = canCardBeUsed(who, card1);
+  /**
+   * A validation method for checking whether a Card(Minion) can attack another Card
+   * @param playerAttacking The attacking player
+   * @param attackingCard The Card(Minion) doing the attack
+   * @param defendingCard The Card(Minion) being attacked
+   * @return the Status of the validation
+   */
+  private Status isAttackAllowed(Player playerAttacking, Card attackingCard, Card defendingCard) {
+    Status status = canCardBeUsed(playerAttacking, attackingCard);
     if(status != Status.OK) { return status; }
-    if (who == card2.getOwner()) { return Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION; }
-    if (!card1.isActive()) { return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION; }
+    if (playerAttacking == defendingCard.getOwner()) { return Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION; }
+    if (!attackingCard.isActive()) { return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION; }
     return status;
   }
 
+  /**
+   * A validation method used to check whether you can use use a card or not
+   * @param who The Player trying to use a Card
+   * @param card The Card being used.
+   * @return the Status of the validation.
+   */
   private Status canCardBeUsed(Player who, Card card) {
     if(who != card.getOwner()) { return Status.NOT_OWNER; }
     if(playerInTurn != who) { return Status.NOT_PLAYER_IN_TURN; }
@@ -301,23 +314,29 @@ public class StandardHotStoneGame implements Game {
    * @param defendingCard the defending card
    */
   private void executeAttack(Card attackingCard, Card defendingCard) {
-    //defending card loses health equal to attackingCards attack
     reduceMinionHealth(defendingCard,attackingCard);
-
-    //Attacking card loses health equal to defending cards attack.
     reduceMinionHealth(attackingCard,defendingCard);
+
     castCardToStandardHotStoneCard(attackingCard).setActive(false);
 
-    //removes Card if health is equal to or lower than zero
-    removeCardIfNoHealth(defendingCard);
-    removeCardIfNoHealth(attackingCard);
+    removeCardIfMinionIsDead(defendingCard);
+    removeCardIfMinionIsDead(attackingCard);
   }
 
+  /**
+   * Reduces a minions health
+   * @param minionLosingHealth The minion losing health
+   * @param minionAttacking The minion attacking
+   */
   private void reduceMinionHealth(Card minionLosingHealth, Card minionAttacking) {
     castCardToStandardHotStoneCard(minionLosingHealth).reduceHealth(minionAttacking.getAttack());
   }
 
-  private void removeCardIfNoHealth(Card card) {
+  /**
+   * Removes a card(minion) from the field if the card has 0 or less health
+   * @param card The minion on the field
+   */
+  private void removeCardIfMinionIsDead(Card card) {
     if(card.getHealth() <= 0) {
       playerFields.get(card.getOwner()).remove(card);
     }
