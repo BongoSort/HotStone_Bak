@@ -186,7 +186,8 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status playCard(Player who, Card card) {
-    Status status = canCardBeUsed(who,card);
+    Status status = isOwner(who,card);
+    //todo check also playerinturn
     if(status != Status.OK) {
       return status;
     }
