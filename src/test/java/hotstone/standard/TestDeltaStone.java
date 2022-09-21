@@ -229,12 +229,12 @@ public class TestDeltaStone {
     }
 
     @Test
-    public void peddersenPlaysFirstCardShouldHaveSixManaLeft() {
+    public void peddersenPlaysSecondCardShouldHaveSixManaLeft() {
         // Given a DeltaGame
         // When it is peddersens turn
         game.endTurn();
         // Peddersen plays a one mana card
-        game.playCard(Player.PEDDERSEN, game.getCardInHand(Player.PEDDERSEN, 0));
+        game.playCard(Player.PEDDERSEN, game.getCardInHand(Player.PEDDERSEN, 1));
         // Then Peddersen should have six mana left
         assertThat(game.getHero(Player.PEDDERSEN).getMana(), is(6));
     }

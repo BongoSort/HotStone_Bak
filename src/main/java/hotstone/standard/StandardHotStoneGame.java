@@ -174,9 +174,7 @@ public class StandardHotStoneGame implements Game {
     playerInTurn = Utility.computeOpponent(playerInTurn);
 
     turnCounter++;
-    if(1 < turnCounter) { //no player draws a card during the first round
-      drawCard(playerInTurn);
-    }
+    drawCard(playerInTurn);
     //Sets the player in turns hero to be active, and to reset mana
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(playerInTurn));
     hero.setActive(true);

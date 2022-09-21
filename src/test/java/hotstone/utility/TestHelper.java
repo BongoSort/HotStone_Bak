@@ -81,8 +81,8 @@ public class TestHelper {
     game.playCard(Player.FINDUS, card);
     game.endTurn();
     // Remember Peddersen gets a card draw, so Dos is now at
-    // index 1
-    card = game.getCardInHand(Player.PEDDERSEN, 1);
+    // index 2
+    card = game.getCardInHand(Player.PEDDERSEN, 2);
     game.playCard(Player.PEDDERSEN, card);
     game.endTurn();
     assertThat(game.getCardInField(Player.PEDDERSEN, 0).getName(),
@@ -98,9 +98,9 @@ public class TestHelper {
     card = game.getCardInHand(Player.FINDUS,1);
     game.playCard(Player.FINDUS,card);
     game.endTurn();
-    card = game.getCardInHand(Player.PEDDERSEN, 2);
+    card = game.getCardInHand(Player.PEDDERSEN, 3);
     game.playCard(Player.PEDDERSEN, card);
-    card = game.getCardInHand(Player.PEDDERSEN,1);
+    card = game.getCardInHand(Player.PEDDERSEN,2);
     game.playCard(Player.PEDDERSEN,card);
     game.endTurn();
     assertThat(game.getCardInField(Player.PEDDERSEN, 0).getName(),
