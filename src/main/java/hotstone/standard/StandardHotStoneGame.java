@@ -228,25 +228,37 @@ public class StandardHotStoneGame implements Game {
     if (status != Status.OK) {
       return status;
     }
-
-    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(playerHero.get(who));
-    heroStrategy.useHeroPower(this,who);
-    hero.reduceHeroMana(GameConstants.HERO_POWER_COST);
-    hero.setActive(false);
+    executeHeroPower(who);
     return status;
   }
 
   private Status canCardAttack(Player attackingPlayer, Card attackingCard, Card defendingCard) {
     Status status = canCardBeUsed(attackingPlayer,attackingCard);
     if(status != Status.OK) {return status;}
+    status = isOwner(attackingPlayer, attackingCard);
+    if(status != Status.OK) {return status;}
     if (attackingPlayer == defendingCard.getOwner()) { return Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION; }
     if (!attackingCard.isActive()) { return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION; }
     return status;
   }
 
-  private Status canCardBeUsed(Player who, Card card) {
-    if(who != card.getOwner()) { return Status.NOT_OWNER; }
+  private Status isPlayerInTurn(Player who) {
     if(playerInTurn != who) { return Status.NOT_PLAYER_IN_TURN; }
+    return Status.OK;
+  }
+
+  private Status isOwner(Player who, Card card) {
+    if(who != card.getOwner()) { return Status.NOT_OWNER; }
+    return Status.OK;
+  }
+
+  private Status enoughMana(Player who, Card card) {
+    if(getHero(who).getMana() < card.getManaCost()) { return Status.NOT_ENOUGH_MANA;}
+    return Status.OK;
+  }
+
+  private Status isMinionActive(Card card) {
+    if(!card.isActive()) { return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION; }
     return Status.OK;
   }
 
