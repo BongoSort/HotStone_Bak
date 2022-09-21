@@ -238,7 +238,7 @@ public class StandardHotStoneGame implements Game {
 
   private Status canCardAttack(Player attackingPlayer, Card attackingCard, Card defendingCard) {
     Status status = canCardBeUsed(attackingPlayer,attackingCard);
-    if(status == Status.NOT_OWNER) {return status;}
+    if(status != Status.OK) {return status;}
     if (attackingPlayer == defendingCard.getOwner()) { return Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION; }
     if (!attackingCard.isActive()) { return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION; }
     return status;
