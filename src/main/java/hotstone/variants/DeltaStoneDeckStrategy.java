@@ -2,12 +2,12 @@ package hotstone.variants;
 
 import hotstone.framework.Card;
 import hotstone.framework.Player;
-import hotstone.framework.strategies.CardStrategy;
+import hotstone.framework.strategies.DeckStrategy;
 import hotstone.standard.GameConstants;
 import hotstone.standard.StandardHotStoneCard;
 import java.util.*;
 
-public class DeltaStoneCardStrategy implements CardStrategy {
+public class DeltaStoneDeckStrategy implements DeckStrategy {
 
     @Override
     public ArrayList<Card> deckInitialization(Player who) {
@@ -40,14 +40,5 @@ public class DeltaStoneCardStrategy implements CardStrategy {
         deck.add(0,secondCard);
         deck.add(0,firstCard);
         return deck;
-    }
-
-    @Override
-    public ArrayList<Card> handInitialization(ArrayList<Card> deck) {
-        ArrayList<Card> hand = new ArrayList<>();
-        hand.add(deck.remove(0));
-        hand.add(deck.remove(0));
-        hand.add(deck.remove(0));
-        return hand;
     }
 }

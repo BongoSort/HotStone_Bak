@@ -3,7 +3,7 @@ package hotstone.standard;
 import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
-import hotstone.variants.AlphaStoneCardStrategy;
+import hotstone.variants.AlphaStoneDeckStrategy;
 import hotstone.variants.GammaStoneHeroStrategy;
 import hotstone.variants.AlphaStoneManaProductionStrategy;
 import hotstone.variants.AlphaStoneWinnerStrategy;
@@ -19,7 +19,7 @@ public class TestGammaStone {
     /** Fixture for AlphaStone testing. */
     @BeforeEach
     public void setUp() {
-        game = new StandardHotStoneGame(new AlphaStoneManaProductionStrategy(), new AlphaStoneWinnerStrategy(), new GammaStoneHeroStrategy(), new AlphaStoneCardStrategy());
+        game = new StandardHotStoneGame(new AlphaStoneManaProductionStrategy(), new AlphaStoneWinnerStrategy(), new GammaStoneHeroStrategy(), new AlphaStoneDeckStrategy());
     }
 
     @Test

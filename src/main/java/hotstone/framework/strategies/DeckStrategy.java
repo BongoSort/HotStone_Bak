@@ -5,7 +5,7 @@ import hotstone.framework.Player;
 
 import java.util.ArrayList;
 
-public interface CardStrategy {
+public interface DeckStrategy {
 
     /**
      * Initializes the deck of a player
@@ -13,11 +13,4 @@ public interface CardStrategy {
      * @return the deck
      */
     ArrayList<Card> deckInitialization(Player who);
-
-    /**
-     * Initializes the hand of a player
-     * @param deck is the deck used for the starting hand.
-     * @return the starting hand
-     */
-    ArrayList<Card> handInitialization(ArrayList<Card> deck);
 }
