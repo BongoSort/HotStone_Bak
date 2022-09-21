@@ -187,54 +187,22 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status playCard(Player who, Card card) {
-    if(who != card.getOwner()) {
-      return Status.NOT_OWNER;
+    Status status = isAllowedCardTest(who,card,null);
+    if(status != Status.OK) {
+      return status;
     }
-
-    if (who != playerInTurn) {
-      return Status.NOT_PLAYER_IN_TURN;
-    }
-
-    if(getHero(who).getMana() < card.getManaCost()) {
-      return Status.NOT_ENOUGH_MANA;
-    }
-
     playerHands.get(who).remove(card);
     playerFields.get(who).add(0,card);
     castHeroToStandardHotStoneHero(getHero(who)).reduceHeroMana(card.getManaCost());
-
-    return Status.OK;
+    return status;
   }
 
   @Override
   public Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
-    if(playerAttacking != attackingCard.getOwner()) {
-      return Status.NOT_OWNER;
-    }
-    if(playerAttacking == defendingCard.getOwner()) {
-     return Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION;
-    }
-    if(!attackingCard.isActive()) {
-     return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION;
-    }
-
-    //defending card loses health equal to attackingCards attack
-    castCardToStandardHotStoneCard(defendingCard).reduceHealth(attackingCard.getAttack());
-
-    //Attacking card loses health equal to defending cards attack.
-    StandardHotStoneCard standardAttackingCard = castCardToStandardHotStoneCard(attackingCard);
-    standardAttackingCard.reduceHealth(defendingCard.getAttack());
-    standardAttackingCard.setActive(false);
-
-    //removes Card if health is equal to or lower than zero
-    if(defendingCard.getHealth() <= 0) {
-      playerFields.get(defendingCard.getOwner()).remove(defendingCard);
-    }
-    if(attackingCard.getHealth() <= 0) {
-      playerFields.get(attackingCard.getOwner()).remove(attackingCard);
-    }
-
-    return Status.OK;
+    Status status = isAllowedCardTest(playerAttacking, attackingCard, defendingCard);
+    if(status != Status.OK) {return status;}
+    executeAttack(attackingCard, defendingCard);
+    return status;
   }
 
   @Override
@@ -276,6 +244,52 @@ public class StandardHotStoneGame implements Game {
     hero.reduceHeroMana(GameConstants.HERO_POWER_COST);
     hero.setActive(false);
     return Status.OK;
+  }
+
+  private Status isAllowedHeroPower(Player who) {
+    // if it is not this players turn
+    if(playerInTurn != who) { return Status.NOT_PLAYER_IN_TURN; }
+    // if this hero already has used hero power
+    if(!getHero(who).isActive()) { return Status.POWER_USE_NOT_ALLOWED_TWICE_PR_ROUND; }
+    // if it is this players turn, and have not used hero power
+    if (getHero(who).getMana() < GameConstants.HERO_POWER_COST) { return Status.NOT_ENOUGH_MANA; }
+    return Status.OK;
+  }
+
+  private Status isAllowedCardTest(Player who, Card card1, Card card2) {
+    if(card2 == null) {
+      if(who != card1.getOwner()) { return Status.NOT_OWNER; }
+      if(playerInTurn != who) { return Status.NOT_PLAYER_IN_TURN; }
+      if(getHero(who).getMana() < card1.getManaCost()) { return Status.NOT_ENOUGH_MANA; }
+    } else {
+      if(who != card1.getOwner()) { return Status.NOT_OWNER; }
+      if (who == card2.getOwner()) { return Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION; }
+      if (!card1.isActive()) { return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION; }
+    }
+    return Status.OK;
+  }
+
+  private void executeAttack(Card attackingCard, Card defendingCard) {
+    //defending card loses health equal to attackingCards attack
+    reduceMinionHealth(defendingCard,attackingCard);
+
+    //Attacking card loses health equal to defending cards attack.
+    reduceMinionHealth(attackingCard,defendingCard);
+    castCardToStandardHotStoneCard(attackingCard).setActive(false);
+
+    //removes Card if health is equal to or lower than zero
+    removeCardIfNoHealth(defendingCard);
+    removeCardIfNoHealth(attackingCard);
+
+  }
+  private void reduceMinionHealth(Card minionLosingHealth, Card minionAttacking) {
+    castCardToStandardHotStoneCard(minionLosingHealth).reduceHealth(minionAttacking.getAttack());
+  }
+
+  private void removeCardIfNoHealth(Card card) {
+    if(card.getHealth() <= 0) {
+      playerFields.get(card.getOwner()).remove(card);
+    }
   }
 
   /**  Casting a hero to StandardHotStoneHero
