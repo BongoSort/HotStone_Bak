@@ -186,8 +186,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status playCard(Player who, Card card) {
-    Status status = isOwner(who,card);
-    //todo check also playerinturn
+    Status status = canCardBeUsed(who,card);
     if(status != Status.OK) {
       return status;
     }
@@ -203,7 +202,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
-    Status status = canAttack(playerAttacking,attackingCard,defendingCard);
+    Status status = isAttackAllowed(playerAttacking,attackingCard,defendingCard);
     if(status != Status.OK) {return status;}
     executeAttack(attackingCard, defendingCard);
     return status;
@@ -213,18 +212,20 @@ public class StandardHotStoneGame implements Game {
   public Status attackHero(Player playerAttacking, Card attackingCard) {
     Player playerBeingAttacked = Utility.computeOpponent(playerAttacking);
     //Active minion attacks the opposite players hero
-    if(playerAttacking != attackingCard.getOwner()) {
-      return Status.NOT_OWNER;
+    Status status = canCardBeUsed(playerAttacking, attackingCard);
+    if(status != Status.OK) {
+      return status;
     }
-    if (!attackingCard.isActive()) {
+    if(!attackingCard.isActive()) {
       return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION;
     }
-    //Opposite player's hero take damage equivalent to the minions attack value
+    //Opposite players hero take damage equivalent to the minions attack value
     castHeroToStandardHotStoneHero(playerHero.get(playerBeingAttacked)).reduceHealth(attackingCard.getAttack());
     //Minion is then set to inactive state
     castCardToStandardHotStoneCard(attackingCard).setActive(false);
     return Status.OK;
   }
+
 
   @Override
   public Status usePower(Player who) {
@@ -247,39 +248,19 @@ public class StandardHotStoneGame implements Game {
     hero.setActive(false);
   }
 
-
-
-
-  private Status canAttack(Player attackingPlayer, Card attackingCard, Card defendingCard) {
-    Status status = isPlayerInTurn(attackingPlayer);
-    if(status != Status.OK) {return status;}
-    status = isOwner(attackingPlayer, attackingCard);
-    if(status != Status.OK) {return status;}
-    if (attackingPlayer == defendingCard.getOwner()) { return Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION; }
-    if (!attackingCard.isActive()) { return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION; }
+  private Status isAttackAllowed(Player who, Card card1, Card card2) {
+    Status status = canCardBeUsed(who, card1);
+    if(status != Status.OK) { return status; }
+    if (who == card2.getOwner()) { return Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION; }
+    if (!card1.isActive()) { return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION; }
     return status;
   }
 
-  private Status isPlayerInTurn(Player who) {
+  private Status canCardBeUsed(Player who, Card card) {
+    if(who != card.getOwner()) { return Status.NOT_OWNER; }
     if(playerInTurn != who) { return Status.NOT_PLAYER_IN_TURN; }
     return Status.OK;
   }
-
-  private Status isOwner(Player who, Card card) {
-    if(who != card.getOwner()) { return Status.NOT_OWNER; }
-    return Status.OK;
-  }
-
-  private Status enoughMana(Player who, Card card) {
-    if(getHero(who).getMana() < card.getManaCost()) { return Status.NOT_ENOUGH_MANA;}
-    return Status.OK;
-  }
-
-  private Status isMinionActive(Card card) {
-    if(!card.isActive()) { return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION; }
-    return Status.OK;
-  }
-
 
   /**
    * Checks if the hero is allowed to use its hero power.
@@ -313,7 +294,6 @@ public class StandardHotStoneGame implements Game {
     //removes Card if health is equal to or lower than zero
     removeCardIfNoHealth(defendingCard);
     removeCardIfNoHealth(attackingCard);
-
   }
 
   private void reduceMinionHealth(Card minionLosingHealth, Card minionAttacking) {
@@ -340,5 +320,6 @@ public class StandardHotStoneGame implements Game {
    * @return the casted card
    */
   private StandardHotStoneCard castCardToStandardHotStoneCard(Card card) {
-    return (StandardHotStoneCard) card;}
+    return (StandardHotStoneCard) card;
+  }
 }
