@@ -229,7 +229,8 @@ public class StandardHotStoneGame implements Game {
   @Override
   public Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
     Status status = canAttackBeDone(playerAttacking,attackingCard,defendingCard);
-    if(status != Status.OK) {return status;}
+    boolean statusIsOk = status == Status.OK;
+    if(!statusIsOk) { return status; }
     executeAttack(attackingCard, defendingCard);
     return status;
   }
