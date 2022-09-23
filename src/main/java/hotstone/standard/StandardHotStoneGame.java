@@ -215,6 +215,7 @@ public class StandardHotStoneGame implements Game {
     if(status != Status.OK) {
       return status;
     }
+
     if(getHero(who).getMana() < card.getManaCost()) {
       return Status.NOT_ENOUGH_MANA;
     }
