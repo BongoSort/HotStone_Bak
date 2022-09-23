@@ -99,7 +99,6 @@ public class StandardHotStoneGame implements Game {
   /**
    * Makes the start hand of a player
    * @param who Player which hand is being made
-   * @param deck The deck belonging to the player
    * @return the complete start hand
    */
   private ArrayList<Card> makeHand(Player who) {
