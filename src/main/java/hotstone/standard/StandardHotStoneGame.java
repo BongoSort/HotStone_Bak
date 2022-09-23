@@ -174,13 +174,8 @@ public class StandardHotStoneGame implements Game {
 
     turnCounter++;
     drawCard(playerInTurn);
-    //Sets the player in turns hero to be active, and to reset mana
     setupHeroForNewTurn(playerInTurn);
-
-    //Sets each card in field for the player in turn to be active
-    for(Card c : getField(playerInTurn)) {
-      setMinionActive(c,true);
-    }
+    setupFieldForNewTurn(playerInTurn);
   }
 
   private void setupHeroForNewTurn(Player who){
