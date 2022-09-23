@@ -185,14 +185,13 @@ public class StandardHotStoneGame implements Game {
     }
   }
 
-  /** Draws a card from the deck and puts it in the players hand
-   *
+  /**
+   *  Draws a card from the deck and puts it in the players hand
    *  @param who the player that draws the card
    */
   private void drawCard(Player who) {
     if(playerDecks.get(who).size() == 0) {
       reduceHeroHealth(who,2);
-      //castHeroToStandardHotStoneHero(getHero(who)).reduceHealth(2);
     } else {
       Card res = playerDecks.get(playerInTurn).remove(0);
       playerHands.get(playerInTurn).add(0,res);
