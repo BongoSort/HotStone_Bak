@@ -178,6 +178,20 @@ public class StandardHotStoneGame implements Game {
     setupFieldForNewTurn(playerInTurn);
   }
 
+  /**
+   * Sets each minion in the chosen players field to be active
+   * @param who The player who owns the field.
+   */
+  private void setupFieldForNewTurn(Player who) {
+   for(Card c : getField(who)) {
+    setMinionActive(c,true);
+   }
+  }
+
+  /**
+   * Sets up the hero to be active and resets its mana
+   * @param who the player for the hero.
+   */
   private void setupHeroForNewTurn(Player who){
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(who));
     hero.setActive(true);
