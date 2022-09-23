@@ -175,14 +175,18 @@ public class StandardHotStoneGame implements Game {
     turnCounter++;
     drawCard(playerInTurn);
     //Sets the player in turns hero to be active, and to reset mana
-    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(playerInTurn)); //TODO Lav noget sejt her
-    hero.setActive(true);
-    hero.setMana(manaProduction.calculateMana(turnCounter));
+    setupHeroForNewTurn(playerInTurn);
 
     //Sets each card in field for the player in turn to be active
     for(Card c : getField(playerInTurn)) {
       setMinionActive(c,true);
     }
+  }
+
+  private void setupHeroForNewTurn(Player who){
+    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(who));
+    hero.setActive(true);
+    hero.setMana(manaProduction.calculateMana(turnCounter));
   }
 
   /**
