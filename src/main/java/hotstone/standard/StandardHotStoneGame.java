@@ -169,9 +169,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public void endTurn() {
-    //Sets turn to be the other player and sets up their turn
     playerInTurn = Utility.computeOpponent(playerInTurn);
-
     turnCounter++;
     drawCard(playerInTurn);
     setupHeroForNewTurn(playerInTurn);
