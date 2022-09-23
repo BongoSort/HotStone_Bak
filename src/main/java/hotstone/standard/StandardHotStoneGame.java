@@ -175,7 +175,7 @@ public class StandardHotStoneGame implements Game {
     turnCounter++;
     drawCard(playerInTurn);
     //Sets the player in turns hero to be active, and to reset mana
-    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(playerInTurn));
+    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(playerInTurn)); //TODO Lav noget sejt her
     hero.setActive(true);
     hero.setMana(manaProduction.calculateMana(turnCounter));
 
