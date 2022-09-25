@@ -201,7 +201,8 @@ public class StandardHotStoneGame implements Game {
    *  @param who the player that draws the card
    */
   private void drawCard(Player who) {
-    if(playerDecks.get(who).size() == 0) {
+    boolean playersDeckSizeisGreaterThan0 = playerDecks.get(who).size() > 0;
+    if(!playersDeckSizeisGreaterThan0) {
       reduceHeroHealth(who,2);
     } else {
       Card res = playerDecks.get(playerInTurn).remove(0);
@@ -210,13 +211,14 @@ public class StandardHotStoneGame implements Game {
   }
 
   @Override
-  public Status playCard(Player who, Card card) {
+  public Status playCard(Player who, Card card) { //TODO: denne skal refaktoreres
     Status status = canCardBeUsed(who,card);
-    if(status != Status.OK) {
+    boolean statusIsOk = status == Status.OK;
+    if(!statusIsOk) {
       return status;
     }
-
-    if(getHero(who).getMana() < card.getManaCost()) {
+    boolean heroHasEnoughMana = getHero(who).getMana() >= card.getManaCost();
+    if(!heroHasEnoughMana) {
       return Status.NOT_ENOUGH_MANA;
     }
 
@@ -229,9 +231,12 @@ public class StandardHotStoneGame implements Game {
   @Override
   public Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
     Status status = canAttackBeDone(playerAttacking,attackingCard,defendingCard);
+
     boolean statusIsOk = status == Status.OK;
     if(!statusIsOk) { return status; }
+
     executeAttack(attackingCard, defendingCard);
+
     return status;
   }
 
@@ -240,10 +245,13 @@ public class StandardHotStoneGame implements Game {
     Player playerBeingAttacked = Utility.computeOpponent(playerAttacking);
     //Active minion attacks the opposite players hero
     Status status = canCardBeUsed(playerAttacking, attackingCard);
-    if(status != Status.OK) {
+
+    boolean statusIsOk = status == Status.OK;
+    if(!statusIsOk) {
       return status;
     }
-    if(!attackingCard.isActive()) {
+    boolean attackingCardIsActive = attackingCard.isActive();
+    if(!attackingCardIsActive) {
       return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION;
     }
     //Opposite players hero take damage equivalent to the minions attack value
@@ -262,10 +270,14 @@ public class StandardHotStoneGame implements Game {
   @Override
   public Status usePower(Player who) {
     Status status = canHeroPowerBeUsed(who);
-    if (status != Status.OK) {
+
+    boolean heroIsAllowedToUsePower = status == Status.OK;
+    if (!heroIsAllowedToUsePower) {
       return status;
     }
+
     executeHeroPower(who);
+
     return status;
   }
 
@@ -297,7 +309,7 @@ public class StandardHotStoneGame implements Game {
     if (playerIsDefendingCardsOwner) { return Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION; }
 
     boolean attackingCardIsActive = attackingCard.isActive();
-    if (!attackingCardIsActive) { return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION; }
+    if (! attackingCardIsActive) { return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION; }
 
     return status;
   }
@@ -370,7 +382,8 @@ public class StandardHotStoneGame implements Game {
    * @param card The minion on the field
    */
   private void removeCardIfMinionIsDead(Card card) {
-    if(card.getHealth() <= 0) {
+    boolean cardHasMoreThan0Health = card.getHealth() > 0;
+    if(!cardHasMoreThan0Health) {
       playerFields.get(card.getOwner()).remove(card);
     }
   }
