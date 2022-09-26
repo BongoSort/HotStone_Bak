@@ -209,7 +209,7 @@ public class StandardHotStoneGame implements Game {
   }
 
   @Override
-  public Status playCard(Player who, Card card) { //TODO: denne skal refaktoreres
+  public Status playCard(Player who, Card card) {
     Status status = canCardBeUsed(who,card);
     boolean statusIsOk = status == Status.OK;
     if(!statusIsOk) {
@@ -219,17 +219,28 @@ public class StandardHotStoneGame implements Game {
     if(!heroHasEnoughMana) {
       return Status.NOT_ENOUGH_MANA;
     }
-
-    playerHands.get(who).remove(card);
-    playerFields.get(who).add(0,card);
-
-    setNewHeroMana(who, card);
+    addNewCardToField(who, card);
+    reduceHeroMana(who, card.getManaCost());
     return status;
   }
-  
 
-  private void setNewHeroMana(Player who, Card card){
-    castHeroToStandardHotStoneHero(getHero(who)).reduceHeroMana(card.getManaCost());
+  /**
+   * Removes a card from the hand and puts it in the field
+   * @param who the current player's hand
+   * @param card the card, that is removed from the hand and put onto the field
+   */
+  private void addNewCardToField(Player who, Card card){
+    playerHands.get(who).remove(card);
+    playerFields.get(who).add(0,card);
+  }
+
+  /**
+   * Reduces the hero's mana
+   * @param who the player who owns the hero
+   * @param manaCost the value that's subtracted from the hero's mana.
+   */
+  private void reduceHeroMana(Player who, int manaCost){
+    castHeroToStandardHotStoneHero(getHero(who)).reduceHeroMana(manaCost);
   }
 
   @Override
