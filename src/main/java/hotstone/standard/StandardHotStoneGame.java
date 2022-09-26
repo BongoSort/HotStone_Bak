@@ -103,12 +103,10 @@ public class StandardHotStoneGame implements Game {
    */
   private ArrayList<Card> makeHand(Player who) {
     ArrayList<Card> hand = new ArrayList<>();
-    Card firstCard = playerDecks.get(who).remove(0);
-    Card secondCard = playerDecks.get(who).remove(0);
-    Card thirdCard = playerDecks.get(who).remove(0);
-    hand.add(firstCard);
-    hand.add(secondCard);
-    hand.add(thirdCard);
+    for(int i = 0 ; i < 3 ; i++) {
+      Card card = playerDecks.get(who).remove(0);
+      hand.add(card);
+    }
     return hand;
   }
 
@@ -205,8 +203,8 @@ public class StandardHotStoneGame implements Game {
     if(!playersDeckSizeisGreaterThan0) {
       reduceHeroHealth(who,2);
     } else {
-      Card res = playerDecks.get(playerInTurn).remove(0);
-      playerHands.get(playerInTurn).add(0,res);
+      Card res = playerDecks.get(who).remove(0);
+      playerHands.get(who).add(0,res);
     }
   }
 
