@@ -54,7 +54,7 @@ public class StandardHotStoneGame implements Game {
   private HeroStrategy heroStrategy;
 
   private DeckStrategy deckStrategy;
-  private int turnCounter;
+  private int turnNumber;
   private HashMap<Player,ArrayList<Card>> playerDecks = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerFields = new HashMap<>();
@@ -71,14 +71,14 @@ public class StandardHotStoneGame implements Game {
     this.heroStrategy = heroStrategy;
     this.deckStrategy = deckStrategy;
     this.playerInTurn = Player.FINDUS;
-    this.turnCounter = 0;
+    this.turnNumber = 0;
 
     initializeDeckHeroHandAndFieldForPlayer(Player.FINDUS);
     initializeDeckHeroHandAndFieldForPlayer(Player.PEDDERSEN);
   }
 
   private void initializeDeckHeroHandAndFieldForPlayer(Player who) { //TODO: ER METODE NAVN OK??? SPØRG INSTRUKTOR, TAK c:
-    playerHero.put(who, new StandardHotStoneHero(who, manaProductionStrategy.calculateMana(turnCounter), heroStrategy.getType(who)));
+    playerHero.put(who, new StandardHotStoneHero(who, manaProductionStrategy.calculateMana(turnNumber), heroStrategy.getType(who)));
     playerDecks.put(who, deckStrategy.deckInitialization(who));
     playerHands.put(who,makeHand(who));
     playerFields.put(who, new ArrayList<>());
@@ -115,7 +115,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public int getTurnNumber() {
-    return turnCounter;
+    return turnNumber;
   }
 
   @Override
@@ -156,7 +156,7 @@ public class StandardHotStoneGame implements Game {
   @Override
   public void endTurn() {
     playerInTurn = Utility.computeOpponent(playerInTurn);
-    turnCounter++;
+    turnNumber++;
     drawCard(playerInTurn);
     setupHeroForNewTurn(playerInTurn);
     setupMinionsOnFieldForNewTurn(playerInTurn);
@@ -179,7 +179,7 @@ public class StandardHotStoneGame implements Game {
   private void setupHeroForNewTurn(Player who){
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(who));
     hero.setActive(true);
-    hero.setMana(manaProductionStrategy.calculateMana(turnCounter));
+    hero.setMana(manaProductionStrategy.calculateMana(turnNumber));
   }
 
   /**

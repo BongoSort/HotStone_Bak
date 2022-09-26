@@ -223,23 +223,23 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void firstTurnIsTurnCount0() {
+  public void TurnNumberStartsAtZero() {
     // Given a new game
     // Then the first turn is turn 0
     assertThat(game.getTurnNumber(),is(0));
   }
 
   @Test
-  public void secondTurnIsTurnCount1() {
+  public void afterTurnNumberZeroItsValueIs1() {
     // Given a new game
     // When a turn has passed
     game.endTurn();
-    // Then the second turn is turn 1
+    // Then turnNumber is 1
     assertThat(game.getTurnNumber(),is(1));
   }
 
   @Test
-  public void findusWinsGameWhenTurnCount8() {
+  public void findusWinsGameWhenTurnNumberIs8() {
     //given a game
     //when turn eight starts, Findus wins game;
     TestHelper.advanceGameNRounds(game, 4);
