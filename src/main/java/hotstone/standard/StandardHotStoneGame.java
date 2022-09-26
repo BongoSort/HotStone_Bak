@@ -77,6 +77,13 @@ public class StandardHotStoneGame implements Game {
     initializeDeckHeroHandAndFieldForPlayer(Player.PEDDERSEN);
   }
 
+  private void initializeDeckHeroHandAndFieldForPlayer(Player who) { //TODO: ER METODE NAVN OK??? SPØRG INSTRUKTOR, TAK c:
+    playerHero.put(who, new StandardHotStoneHero(who, manaProductionStrategy.calculateMana(turnCounter), heroStrategy.getType(who)));
+    playerDecks.put(who, deckStrategy.deckInitialization(who));
+    playerHands.put(who,makeHand(who));
+    playerFields.put(who, new ArrayList<>());
+  }
+
   /**
    * Makes the start hand of a player
    * @param who Player which hand is being made
@@ -227,7 +234,6 @@ public class StandardHotStoneGame implements Game {
   @Override
   public Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
     Status status = canAttackBeDone(playerAttacking,attackingCard,defendingCard);
-
     boolean statusIsOk = status == Status.OK;
     if(!statusIsOk) { return status; }
 
@@ -298,7 +304,6 @@ public class StandardHotStoneGame implements Game {
    */
   private Status canAttackBeDone(Player playerAttacking, Card attackingCard, Card defendingCard) {
     Status status = canCardBeUsed(playerAttacking, attackingCard);
-
     boolean cardCanBeUsed = status == Status.OK;
     if(!cardCanBeUsed) { return status; }
 
