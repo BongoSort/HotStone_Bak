@@ -199,8 +199,8 @@ public class StandardHotStoneGame implements Game {
    *  @param who the player that draws the card
    */
   private void drawCard(Player who) {
-    boolean playersDeckSizeisGreaterThan0 = playerDecks.get(who).size() > 0;
-    if(!playersDeckSizeisGreaterThan0) {
+    boolean playersDeckSizeIsGreaterThanZero = playerDecks.get(who).size() > 0;
+    if(!playersDeckSizeIsGreaterThanZero) {
       reduceHeroHealth(who,2);
     } else {
       Card res = playerDecks.get(who).remove(0);
