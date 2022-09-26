@@ -175,7 +175,7 @@ public class StandardHotStoneGame implements Game {
   }
 
   /**
-   * Sets each minion in the chosen players field to be active
+   * Sets each minion on the chosen players field to be active
    * @param who The player who owns the field.
    */
   private void setupFieldForNewTurn(Player who) {
