@@ -357,8 +357,8 @@ public class StandardHotStoneGame implements Game {
    * @param defendingCard the defending card
    */
   private void executeAttack(Card attackingCard, Card defendingCard) {
-    reduceMinionHealth(defendingCard,attackingCard);
-    reduceMinionHealth(attackingCard,defendingCard);
+    reduceMinionHealth(defendingCard,attackingCard.getAttack());
+    reduceMinionHealth(attackingCard,defendingCard.getAttack());
 
     setMinionActive(attackingCard,false);
 
@@ -372,11 +372,11 @@ public class StandardHotStoneGame implements Game {
 
   /**
    * Reduces a minions health
-   * @param minionLosingHealth The minion losing health
-   * @param minionAttacking The minion attacking
+   * @param minion The minion losing health
+   * @param amount The amount of health minion is losing
    */
-  private void reduceMinionHealth(Card minionLosingHealth, Card minionAttacking) {
-    castCardToStandardHotStoneCard(minionLosingHealth).reduceHealth(minionAttacking.getAttack());
+  private void reduceMinionHealth(Card minion, int amount) {
+    castCardToStandardHotStoneCard(minion).reduceHealth(amount);
   }
 
   /**
