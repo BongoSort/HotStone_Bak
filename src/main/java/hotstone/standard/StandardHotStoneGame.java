@@ -222,8 +222,14 @@ public class StandardHotStoneGame implements Game {
 
     playerHands.get(who).remove(card);
     playerFields.get(who).add(0,card);
-    castHeroToStandardHotStoneHero(getHero(who)).reduceHeroMana(card.getManaCost());
+
+    setNewHeroMana(who, card);
     return status;
+  }
+  
+
+  private void setNewHeroMana(Player who, Card card){
+    castHeroToStandardHotStoneHero(getHero(who)).reduceHeroMana(card.getManaCost());
   }
 
   @Override
