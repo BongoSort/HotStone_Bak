@@ -171,15 +171,15 @@ public class StandardHotStoneGame implements Game {
     turnCounter++;
     drawCard(playerInTurn);
     setupHeroForNewTurn(playerInTurn);
-    setupFieldForNewTurn(playerInTurn);
+    setupMinionsOnFieldForNewTurn(playerInTurn);
   }
 
   /**
    * Sets each minion on the chosen players field to be active
    * @param who The player who owns the field.
    */
-  private void setupFieldForNewTurn(Player who) {
-   for(Card c : getField(who)) {
+  private void setupMinionsOnFieldForNewTurn(Player who) {
+    for(Card c : getField(who)) {
     setMinionActive(c,true);
    }
   }
