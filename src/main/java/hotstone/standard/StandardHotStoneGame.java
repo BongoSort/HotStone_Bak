@@ -49,7 +49,7 @@ import java.util.HashMap;
  */
 public class StandardHotStoneGame implements Game {
   private Player playerInTurn;
-  private ManaProductionStrategy manaProduction;
+  private ManaProductionStrategy manaProductionStrategy;
   private WinnerStrategy winnerStrategy;
   private HeroStrategy heroStrategy;
 
@@ -64,36 +64,17 @@ public class StandardHotStoneGame implements Game {
    * Initializes a new HotStone game
    * Also initializes heroes decks, hands and fields.
    */
-  public StandardHotStoneGame(ManaProductionStrategy manaProduction, WinnerStrategy winnerStrategy, HeroStrategy heroStrategy, DeckStrategy deckStrategy) {
-    this.manaProduction = manaProduction;
+  public StandardHotStoneGame(ManaProductionStrategy manaProductionStrategy, WinnerStrategy winnerStrategy,
+                              HeroStrategy heroStrategy, DeckStrategy deckStrategy) {
+    this.manaProductionStrategy = manaProductionStrategy;
     this.winnerStrategy = winnerStrategy;
     this.heroStrategy = heroStrategy;
     this.deckStrategy = deckStrategy;
     this.playerInTurn = Player.FINDUS;
-    //initializing turnCounter
     this.turnCounter = 0;
 
-    //initializing Findus Hero
-    playerHero.put(Player.FINDUS, new StandardHotStoneHero(Player.FINDUS,true,
-            manaProduction.calculateMana(turnCounter), heroStrategy.getType(Player.FINDUS)));
-
-    //initializing Peddersen Hero
-    playerHero.put(Player.PEDDERSEN, new StandardHotStoneHero(Player.PEDDERSEN,false,manaProduction.calculateMana(turnCounter), heroStrategy.getType(Player.PEDDERSEN)));
-
-    //initializing deck for Findus
-    playerDecks.put(Player.FINDUS,this.deckStrategy.deckInitialization(Player.FINDUS));
-    //initializing deck for Peddersen
-    playerDecks.put(Player.PEDDERSEN,this.deckStrategy.deckInitialization(Player.PEDDERSEN));
-
-    //initializing starting Hand for Findus
-    playerHands.put(Player.FINDUS,makeHand(Player.FINDUS));
-    //initializing starting Hand for Peddersen
-    playerHands.put(Player.PEDDERSEN,makeHand(Player.PEDDERSEN));
-
-    //initializing Field for Findus
-    playerFields.put(Player.FINDUS, new ArrayList<>());
-    //initializing Field for Peddersen
-    playerFields.put(Player.PEDDERSEN, new ArrayList<>());
+    initializeDeckHeroHandAndFieldForPlayer(Player.FINDUS);
+    initializeDeckHeroHandAndFieldForPlayer(Player.PEDDERSEN);
   }
 
   /**
@@ -191,7 +172,7 @@ public class StandardHotStoneGame implements Game {
   private void setupHeroForNewTurn(Player who){
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(who));
     hero.setActive(true);
-    hero.setMana(manaProduction.calculateMana(turnCounter));
+    hero.setMana(manaProductionStrategy.calculateMana(turnCounter));
   }
 
   /**
@@ -269,6 +250,7 @@ public class StandardHotStoneGame implements Game {
     if(!attackingCardIsActive) {
       return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION;
     }
+
     //Opposite players hero take damage equivalent to the minions attack value
     reduceHeroHealth(playerBeingAttacked,attackingCard.getAttack());
 
@@ -397,8 +379,8 @@ public class StandardHotStoneGame implements Game {
    * @param card The minion on the field
    */
   private void removeCardIfMinionIsDead(Card card) {
-    boolean cardHasMoreThan0Health = card.getHealth() > 0;
-    if(!cardHasMoreThan0Health) {
+    boolean cardHasZeroOrBelowHealth = card.getHealth() <= 0;
+    if(cardHasZeroOrBelowHealth) {
       playerFields.get(card.getOwner()).remove(card);
     }
   }
