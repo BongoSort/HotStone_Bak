@@ -168,3 +168,19 @@
 * **OK** third card in hand should cost three mana or less for both players
 * **OK** After either player plays first card in hand, mana should be 6
 * **OK** each players deck should contain 21 cards at start of game.
+
+## EpsilonStone
+### Hero Tests
+* Findus is French Chef
+* Peddersen is Italian Chef
+
+### Hero Power Tests
+* French chef power "Red wine" picks a random enemy minion on field and decreases its health by 2
+* Italian chef Power "Pasta" picks a random minion of his field and increases its attack by 2
+* Italian chef power has no effect when his field is empty.
+
+### Winner Tests
+* The winner is the player that first exeeds a total “attack output” from minion-to-minion attacks of 7
+(that is, the sum of attack values of all minion-to-minion attacks performed by that player is greater than 7.)
+* 
+
