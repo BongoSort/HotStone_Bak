@@ -386,7 +386,7 @@ public class StandardHotStoneGame implements Game {
   }
 
   /**
-   * Removes a card(minion) from the field if the card has 0 or less heal½th
+   * Removes a card(minion) from the field if the card has 0 or less health
    * @param card The minion on the field
    */
   public void removeCardFromFieldIfHealthIsZeroOrBelow(Card card) {
