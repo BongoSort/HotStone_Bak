@@ -21,6 +21,7 @@ import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Hero;
 import hotstone.framework.Player;
+import hotstone.standard.GameConstants;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -87,6 +88,18 @@ public class TestHelper {
     game.endTurn();
     assertThat(game.getCardInField(Player.PEDDERSEN, 0).getName(),
             is("Dos"));
+  }
+
+  /** Helper method for putting the Tres minion on the field for Findus and Dos for Peddersen
+   * @param game is the current game
+   */
+  public static void fieldTresForPeddersen(Game game) {
+    game.endTurn();
+    game.endTurn();
+    game.endTurn();
+    game.playCard(Player.PEDDERSEN, game.getCardInHand(Player.PEDDERSEN, 2));
+    assertThat(game.getCardInField(Player.PEDDERSEN, 0).getName(),
+            is("Tres"));
   }
 
   /** Helper method for putting the Uno and Dos minions on the field for Findus and for Peddersen

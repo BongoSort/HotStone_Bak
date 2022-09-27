@@ -52,6 +52,13 @@ public class TestEpsilonStone {
         assertThat(minionDosAttackWasIncreased || minionUnoAttackWasIncreased, is(true));
     }
 
+    @Test
+    public void frenchChefPowerDecreasesEnemyMinionHealthByTwo() {
+        TestHelper.fieldTresForPeddersen(game);
+
+
+    }
+
 
 
 
