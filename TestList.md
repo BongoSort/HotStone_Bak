@@ -180,7 +180,7 @@
 * Italian chef power has no effect when his field is empty.
 
 ### Winner Tests
-* The winner is the player that first exeeds a total “attack output” from minion-to-minion attacks of 7
+* The winner is the player that first exceeds a total “attack output” from minion-to-minion attacks of 7
 (that is, the sum of attack values of all minion-to-minion attacks performed by that player is greater than 7.)
 * 
 
