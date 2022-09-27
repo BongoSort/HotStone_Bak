@@ -265,8 +265,13 @@ public class StandardHotStoneGame implements Game {
     return Status.OK;
   }
 
-  private void reduceHeroHealth(Player who, int damage) {
-    castHeroToStandardHotStoneHero(getHero(who)).reduceHealth(damage);
+  /**
+   * Reduces a hero's health
+   * @param who which player the hero belongs to
+   * @param value the value the health is reduced by
+   */
+  private void reduceHeroHealth(Player who, int value) {
+    castHeroToStandardHotStoneHero(getHero(who)).reduceHealth(value);
   }
 
 
