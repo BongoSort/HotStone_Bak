@@ -13,7 +13,8 @@ public class AlphaStoneHeroStrategy implements HeroStrategy {
 
     @Override
     public void useHeroPower(Game game, Player who) {
-        if(game.getHero(who).getType().equals(GameConstants.BABY_HERO_TYPE)) { //TODO kan man lave noget bedre her?
+        boolean heroTypeIsBaby = game.getHero(who).getType().equals(GameConstants.BABY_HERO_TYPE);
+        if(heroTypeIsBaby) {
             //Baby's hero power does nothing, and it seems weird to keep this if, but i guess it should be here?
         }
     }
