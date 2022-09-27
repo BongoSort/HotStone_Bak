@@ -31,6 +31,28 @@ public class TestEpsilonStone {
         assertThat(game.getHero(Player.PEDDERSEN).getType(), is(GameConstants.ITALIAN_CHEF_HERO_TYPE));
     }
 
+    @Test
+    public void frenchChefPowerDecreasesRandomEnemyMinionHealthBy2() {
+
+    }
+
+    @Test
+    public void italianChefPowerIncreasesRandomFriendlyMinionAttackBy2() {
+        TestHelper.fieldUnoDosForFindusAndUnoDosForPeddersen(game);
+        game.endTurn();
+        game.usePower(Player.PEDDERSEN);
+        Card standardDosCard = new StandardHotStoneCard(GameConstants.DOS_CARD, Player.PEDDERSEN);
+        boolean minionDosAttackWasIncreased = game.getCardInField(Player.PEDDERSEN,0).getAttack() != standardDosCard.getAttack();
+
+        Card standardUnoCard = new StandardHotStoneCard(GameConstants.UNO_CARD, Player.PEDDERSEN);
+        boolean minionUnoAttackWasIncreased = game.getCardInField(Player.PEDDERSEN,1).getAttack() != standardUnoCard.getAttack();
+
+
+        assertThat(minionDosAttackWasIncreased || minionUnoAttackWasIncreased, is(true));
+    }
+
+
+
 
 
 }
