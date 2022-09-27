@@ -42,11 +42,12 @@ public class TestEpsilonStone {
         game.endTurn();
         game.usePower(Player.PEDDERSEN);
         Card standardDosCard = new StandardHotStoneCard(GameConstants.DOS_CARD, Player.PEDDERSEN);
-        boolean minionDosAttackWasIncreased = game.getCardInField(Player.PEDDERSEN,0).getAttack() != standardDosCard.getAttack();
+        boolean minionDosAttackWasIncreased = game.getCardInField(Player.PEDDERSEN,0).
+                getAttack() != standardDosCard.getAttack();
 
         Card standardUnoCard = new StandardHotStoneCard(GameConstants.UNO_CARD, Player.PEDDERSEN);
-        boolean minionUnoAttackWasIncreased = game.getCardInField(Player.PEDDERSEN,1).getAttack() != standardUnoCard.getAttack();
-
+        boolean minionUnoAttackWasIncreased = game.getCardInField(Player.PEDDERSEN,1).
+                getAttack() != standardUnoCard.getAttack();
 
         assertThat(minionDosAttackWasIncreased || minionUnoAttackWasIncreased, is(true));
     }
