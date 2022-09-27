@@ -2,8 +2,11 @@ package hotstone.variants;
 
 import hotstone.framework.Game;
 import hotstone.framework.Player;
+import hotstone.framework.Utility;
 import hotstone.framework.strategies.HeroStrategy;
 import hotstone.standard.GameConstants;
+import hotstone.standard.StandardHotStoneCard;
+import hotstone.standard.StandardHotStoneHero;
 
 public class EpsilonStoneHeroStrategy implements HeroStrategy {
     @Override
