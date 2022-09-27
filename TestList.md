@@ -171,8 +171,8 @@
 
 ## EpsilonStone
 ### Hero Tests
-* Findus is French Chef
-* Peddersen is Italian Chef
+* **OK** Findus is French Chef
+* **OK** Peddersen is Italian Chef
 
 ### Hero Power Tests
 * French chef power "Red wine" picks a random enemy minion on field and decreases its health by 2
