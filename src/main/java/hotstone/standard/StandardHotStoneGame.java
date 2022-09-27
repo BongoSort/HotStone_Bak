@@ -77,7 +77,7 @@ public class StandardHotStoneGame implements Game {
     initializeDeckHeroHandAndFieldForPlayer(Player.PEDDERSEN);
   }
 
-  private void initializeDeckHeroHandAndFieldForPlayer(Player who) { //TODO: ER METODE NAVN OK??? SPØRG INSTRUKTOR, TAK c:
+  private void initializeDeckHeroHandAndFieldForPlayer(Player who) {
     playerHero.put(who, new StandardHotStoneHero(who, manaProductionStrategy.calculateMana(turnNumber), heroStrategy.getType(who)));
     playerDecks.put(who, deckStrategy.deckInitialization(who));
     playerHands.put(who,makeHand(who));
