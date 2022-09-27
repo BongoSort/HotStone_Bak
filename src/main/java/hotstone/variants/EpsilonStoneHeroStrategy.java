@@ -20,6 +20,14 @@ public class EpsilonStoneHeroStrategy implements HeroStrategy {
 
     @Override
     public void useHeroPower(Game game, Player who) {
+        String playersHeroType = game.getHero(who).getType();
+        switch(playersHeroType) {
+            case GameConstants.FRENCH_CHEF_HERO_TYPE -> {}
+            case GameConstants.ITALIAN_CHEF_HERO_TYPE -> {
+                int randomNumber = (int) (Math.random() * game.getFieldSize(who));
+                ((StandardHotStoneCard) game.getCardInField(who,randomNumber)).increaseAttack(2);
+            }
+        }
 
     }
 }

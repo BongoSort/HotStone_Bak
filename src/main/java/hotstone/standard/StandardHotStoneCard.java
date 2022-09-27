@@ -155,6 +155,10 @@ public class StandardHotStoneCard implements Card {
         return attack;
     }
 
+    public void increaseAttack(int amount) {
+        attack += amount;
+    }
+
     @Override
     public int getHealth() {
         return health;
