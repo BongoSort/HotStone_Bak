@@ -95,9 +95,11 @@ public class TestHelper {
    */
   public static void fieldTresForPeddersen(Game game) {
     game.endTurn();
+
+    game.playCard(Player.PEDDERSEN, game.getCardInHand(Player.PEDDERSEN, 1));
+
     game.endTurn();
-    game.endTurn();
-    game.playCard(Player.PEDDERSEN, game.getCardInHand(Player.PEDDERSEN, 2));
+
     assertThat(game.getCardInField(Player.PEDDERSEN, 0).getName(),
             is("Tres"));
   }

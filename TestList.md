@@ -167,7 +167,7 @@
 * **OK** Second card in hand should cost two mana or less for both players
 * **OK** third card in hand should cost three mana or less for both players
 * **OK** After either player plays first card in hand, mana should be 6
-* **OK** each players deck should contain 21 cards at start of game.
+* **OK** each player's deck should contain 21 cards at start of game.
 
 ## EpsilonStone
 ### Hero Tests
@@ -175,9 +175,11 @@
 * **OK** Peddersen is Italian Chef
 
 ### Hero Power Tests
-* French chef power "Red wine" picks a random enemy minion on field and decreases its health by 2
+* **OK** French chef power "Red wine" picks a random minion on opponents field and decreases its health by 2
+* **OK** when French chef power kills a minion the minion is removed from its field.
 * **OK??** Italian chef Power "Pasta" picks a random minion of his field and increases its attack by 2
-* Italian chef power has no effect when his field is empty.
+* **OK** Italian chef power has no effect when his field is empty. **Kan dette testes?**
+* **OK** French chef power has no effect when his field is empty **Kan dette testes?**
 
 ### Winner Tests
 * The winner is the player that first exceeds a total “attack output” from minion-to-minion attacks of 7

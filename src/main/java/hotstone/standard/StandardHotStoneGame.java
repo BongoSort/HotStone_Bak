@@ -25,6 +25,7 @@ import hotstone.framework.strategies.WinnerStrategy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 /** This is the 'temporary test stub' in TDD
  * terms: the initial empty but compilable implementation
@@ -189,7 +190,7 @@ public class StandardHotStoneGame implements Game {
   private void drawCard(Player who) {
     boolean playersDeckSizeIsGreaterThanZero = playerDecks.get(who).size() > 0;
     if(!playersDeckSizeIsGreaterThanZero) {
-      reduceHeroHealth(who,2);
+      reduceHeroHealth(who,GameConstants.HERO_HEALTH_PENALTY_ON_EMPTY_DECK);
     } else {
       Card res = playerDecks.get(who).remove(0);
       playerHands.get(who).add(0,res);
@@ -295,6 +296,7 @@ public class StandardHotStoneGame implements Game {
    */
   private void executeHeroPower(Player who) {
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(playerHero.get(who));
+
     heroStrategy.useHeroPower(this,who);
     hero.reduceHeroMana(GameConstants.HERO_POWER_COST);
     hero.setActive(false);
@@ -367,8 +369,8 @@ public class StandardHotStoneGame implements Game {
 
     setMinionActive(attackingCard,false);
 
-    removeCardIfMinionIsDead(defendingCard);
-    removeCardIfMinionIsDead(attackingCard);
+    removeCardFromFieldIfHealthIsZeroOrBelow(defendingCard);
+    removeCardFromFieldIfHealthIsZeroOrBelow(attackingCard);
   }
 
   private void setMinionActive(Card card, boolean active) {
@@ -385,10 +387,10 @@ public class StandardHotStoneGame implements Game {
   }
 
   /**
-   * Removes a card(minion) from the field if the card has 0 or less health
+   * Removes a card(minion) from the field if the card has 0 or less heal½th
    * @param card The minion on the field
    */
-  private void removeCardIfMinionIsDead(Card card) {
+  public void removeCardFromFieldIfHealthIsZeroOrBelow(Card card) {
     boolean cardHasZeroOrBelowHealth = card.getHealth() <= 0;
     if(cardHasZeroOrBelowHealth) {
       playerFields.get(card.getOwner()).remove(card);
