@@ -49,12 +49,12 @@ import java.util.HashMap;
  */
 public class StandardHotStoneGame implements Game {
   private Player playerInTurn;
-  private ManaProductionStrategy manaProduction;
+  private ManaProductionStrategy manaProductionStrategy;
   private WinnerStrategy winnerStrategy;
   private HeroStrategy heroStrategy;
 
   private DeckStrategy deckStrategy;
-  private int turnCounter;
+  private int turnNumber;
   private HashMap<Player,ArrayList<Card>> playerDecks = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerFields = new HashMap<>();
@@ -64,52 +64,37 @@ public class StandardHotStoneGame implements Game {
    * Initializes a new HotStone game
    * Also initializes heroes decks, hands and fields.
    */
-  public StandardHotStoneGame(ManaProductionStrategy manaProduction, WinnerStrategy winnerStrategy, HeroStrategy heroStrategy, DeckStrategy deckStrategy) {
-    this.manaProduction = manaProduction;
+  public StandardHotStoneGame(ManaProductionStrategy manaProductionStrategy, WinnerStrategy winnerStrategy,
+                              HeroStrategy heroStrategy, DeckStrategy deckStrategy) {
+    this.manaProductionStrategy = manaProductionStrategy;
     this.winnerStrategy = winnerStrategy;
     this.heroStrategy = heroStrategy;
     this.deckStrategy = deckStrategy;
     this.playerInTurn = Player.FINDUS;
-    //initializing turnCounter
-    this.turnCounter = 0;
+    this.turnNumber = 0;
 
-    //initializing Findus Hero
-    playerHero.put(Player.FINDUS, new StandardHotStoneHero(Player.FINDUS,true,
-            manaProduction.calculateMana(turnCounter), heroStrategy.getType(Player.FINDUS))); //TODO: variability point gammastone
+    initializeDeckHeroHandAndFieldForPlayer(Player.FINDUS);
+    initializeDeckHeroHandAndFieldForPlayer(Player.PEDDERSEN);
+  }
 
-    //initializing Peddersen Hero
-    playerHero.put(Player.PEDDERSEN, new StandardHotStoneHero(Player.PEDDERSEN,false,manaProduction.calculateMana(turnCounter), heroStrategy.getType(Player.PEDDERSEN)));
-
-    //initializing deck for Findus
-    playerDecks.put(Player.FINDUS,this.deckStrategy.deckInitialization(Player.FINDUS));
-    //initializing deck for Peddersen
-    playerDecks.put(Player.PEDDERSEN,this.deckStrategy.deckInitialization(Player.PEDDERSEN));
-
-    //initializing starting Hand for Findus
-    playerHands.put(Player.FINDUS,makeHand(Player.FINDUS,playerDecks.get(Player.FINDUS)));
-    //initializing starting Hand for Peddersen
-    playerHands.put(Player.PEDDERSEN,makeHand(Player.PEDDERSEN, playerDecks.get(Player.PEDDERSEN)));
-
-    //initializing Field for Findus
-    playerFields.put(Player.FINDUS, new ArrayList<>());
-    //initializing Field for Peddersen
-    playerFields.put(Player.PEDDERSEN, new ArrayList<>());
+  private void initializeDeckHeroHandAndFieldForPlayer(Player who) {
+    playerHero.put(who, new StandardHotStoneHero(who, manaProductionStrategy.calculateMana(turnNumber), heroStrategy.getType(who)));
+    playerDecks.put(who, deckStrategy.deckInitialization(who));
+    playerHands.put(who,makeHand(who));
+    playerFields.put(who, new ArrayList<>());
   }
 
   /**
    * Makes the start hand of a player
    * @param who Player which hand is being made
-   * @param deck The deck belonging to the player
    * @return the complete start hand
    */
-  private ArrayList<Card> makeHand(Player who, ArrayList<Card> deck) {
+  private ArrayList<Card> makeHand(Player who) {
     ArrayList<Card> hand = new ArrayList<>();
-    Card firstCard = playerDecks.get(who).remove(0);
-    Card secondCard = playerDecks.get(who).remove(0);
-    Card thirdCard = playerDecks.get(who).remove(0);
-    hand.add(firstCard);
-    hand.add(secondCard);
-    hand.add(thirdCard);
+    for(int i = 0 ; i < 3 ; i++) {
+      Card card = playerDecks.get(who).remove(0);
+      hand.add(card);
+    }
     return hand;
   }
 
@@ -130,7 +115,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public int getTurnNumber() {
-    return turnCounter;
+    return turnNumber;
   }
 
   @Override
@@ -170,133 +155,247 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public void endTurn() {
-    //Sets turn to be the other player and sets up their turn
     playerInTurn = Utility.computeOpponent(playerInTurn);
-
-    turnCounter++;
-    if(1 < turnCounter) { //no player draws a card during the first round
-      drawCard(playerInTurn);
-    }
-    //Sets the player in turns hero to be active, and to reset mana
-    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(playerInTurn));
-    hero.setActive(true);
-    hero.setMana(manaProduction.calculateMana(turnCounter));
-
-    //Sets each card in field for the player in turn to be active
-    for(Card c : getField(playerInTurn)) {
-      castCardToStandardHotStoneCard(c).setActive(true);
-    }
+    turnNumber++;
+    drawCard(playerInTurn);
+    setupHeroForNewTurn(playerInTurn);
+    setupMinionsOnFieldForNewTurn(playerInTurn);
   }
 
-  /** Draws a card from the deck and puts it in the players hand
-   *
+  /**
+   * Sets each minion on the chosen players field to be active
+   * @param who The player who owns the field.
+   */
+  private void setupMinionsOnFieldForNewTurn(Player who) {
+    for(Card c : getField(who)) {
+    setMinionActive(c,true);
+   }
+  }
+
+  /**
+   * Sets up the hero to be active and resets its mana
+   * @param who the player for the hero.
+   */
+  private void setupHeroForNewTurn(Player who){
+    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(who));
+    hero.setActive(true);
+    hero.setMana(manaProductionStrategy.calculateMana(turnNumber));
+  }
+
+  /**
+   *  Draws a card from the deck and puts it in the players hand
    *  @param who the player that draws the card
    */
   private void drawCard(Player who) {
-    if(playerDecks.get(who).size() == 0) {
-      castHeroToStandardHotStoneHero(getHero(who)).reduceHealth(2);
+    boolean playersDeckSizeIsGreaterThanZero = playerDecks.get(who).size() > 0;
+    if(!playersDeckSizeIsGreaterThanZero) {
+      reduceHeroHealth(who,2);
     } else {
-      Card res = playerDecks.get(playerInTurn).remove(0);
-      playerHands.get(playerInTurn).add(0,res);
+      Card res = playerDecks.get(who).remove(0);
+      playerHands.get(who).add(0,res);
     }
   }
 
-
   @Override
   public Status playCard(Player who, Card card) {
-    if(who != card.getOwner()) {
-      return Status.NOT_OWNER;
+    Status status = canCardBeUsed(who,card);
+    boolean statusIsOk = status == Status.OK;
+    if(!statusIsOk) {
+      return status;
     }
-
-    if (who != playerInTurn) {
-      return Status.NOT_PLAYER_IN_TURN;
-    }
-
-    if(getHero(who).getMana() < card.getManaCost()) {
+    boolean heroHasEnoughMana = getHero(who).getMana() >= card.getManaCost();
+    if(!heroHasEnoughMana) {
       return Status.NOT_ENOUGH_MANA;
     }
+    addNewCardToField(who, card);
+    reduceHeroMana(who, card.getManaCost());
+    return status;
+  }
 
+  /**
+   * Removes a card from the hand and puts it in the field
+   * @param who the current player's hand
+   * @param card the card, that is removed from the hand and put onto the field
+   */
+  private void addNewCardToField(Player who, Card card){
     playerHands.get(who).remove(card);
     playerFields.get(who).add(0,card);
-    castHeroToStandardHotStoneHero(getHero(who)).reduceHeroMana(card.getManaCost());
+  }
 
-    return Status.OK;
+  /**
+   * Reduces the hero's mana
+   * @param who the player who owns the hero
+   * @param manaCost the value that's subtracted from the hero's mana.
+   */
+  private void reduceHeroMana(Player who, int manaCost){
+    castHeroToStandardHotStoneHero(getHero(who)).reduceHeroMana(manaCost);
   }
 
   @Override
   public Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
-    if(playerAttacking != attackingCard.getOwner()) {
-      return Status.NOT_OWNER;
-    }
-    if(playerAttacking == defendingCard.getOwner()) {
-     return Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION;
-    }
-    if(!attackingCard.isActive()) {
-     return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION;
-    }
+    Status status = canAttackBeDone(playerAttacking,attackingCard,defendingCard);
+    boolean statusIsOk = status == Status.OK;
+    if(!statusIsOk) { return status; }
 
-    //defending card loses health equal to attackingCards attack
-    castCardToStandardHotStoneCard(defendingCard).reduceHealth(attackingCard.getAttack());
+    executeAttack(attackingCard, defendingCard);
 
-    //Attacking card loses health equal to defending cards attack.
-    StandardHotStoneCard standardAttackingCard = castCardToStandardHotStoneCard(attackingCard);
-    standardAttackingCard.reduceHealth(defendingCard.getAttack());
-    standardAttackingCard.setActive(false);
-
-    //removes Card if health is equal to or lower than zero
-    if(defendingCard.getHealth() <= 0) {
-      playerFields.get(defendingCard.getOwner()).remove(defendingCard);
-    }
-    if(attackingCard.getHealth() <= 0) {
-      playerFields.get(attackingCard.getOwner()).remove(attackingCard);
-    }
-
-    return Status.OK;
+    return status;
   }
 
   @Override
   public Status attackHero(Player playerAttacking, Card attackingCard) {
     Player playerBeingAttacked = Utility.computeOpponent(playerAttacking);
     //Active minion attacks the opposite players hero
-    if(playerAttacking != attackingCard.getOwner()) {
-      return Status.NOT_OWNER;
+    Status status = canCardBeUsed(playerAttacking, attackingCard);
+
+    boolean statusIsOk = status == Status.OK;
+    if(!statusIsOk) {
+      return status;
     }
-    if (attackingCard.isActive()) {
-      //Opposite players hero take damage equivalent to the minions attack value
-      castHeroToStandardHotStoneHero(playerHero.get(playerBeingAttacked)).reduceHealth(attackingCard.getAttack());
-      //Minion is then set to inactive state
-      castCardToStandardHotStoneCard(attackingCard).setActive(false);
-      return Status.OK;
-    } else {
+    boolean attackingCardIsActive = attackingCard.isActive();
+    if(!attackingCardIsActive) {
       return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION;
     }
-  }
 
-  @Override
-  public Status usePower(Player who) {
-    // if it is not this players turn
-    if(playerInTurn != who) {
-      return Status.NOT_PLAYER_IN_TURN;
-    }
+    //Opposite players hero take damage equivalent to the minions attack value
+    reduceHeroHealth(playerBeingAttacked,attackingCard.getAttack());
 
-    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(playerHero.get(who));
-    // if this hero already has used hero power
-    if(!hero.isActive()) {
-      return Status.POWER_USE_NOT_ALLOWED_TWICE_PR_ROUND;
-    }
-    // if it is this players turn, and have not used hero power
-    if(hero.getMana() < GameConstants.HERO_POWER_COST) {
-      return Status.NOT_ENOUGH_MANA;
-    }
-
-    heroStrategy.useHeroPower(this,who);
-    hero.reduceHeroMana(GameConstants.HERO_POWER_COST);
-    hero.setActive(false);
+    //Minion is then set to inactive state
+    setMinionActive(attackingCard,false);
     return Status.OK;
   }
 
+  /**
+   * Reduces a hero's health
+   * @param who which player the hero belongs to
+   * @param value the value the health is reduced by
+   */
+  private void reduceHeroHealth(Player who, int value) {
+    castHeroToStandardHotStoneHero(getHero(who)).reduceHealth(value);
+  }
+
+
+  @Override
+  public Status usePower(Player who) {
+    Status status = canHeroPowerBeUsed(who);
+
+    boolean heroIsAllowedToUsePower = status == Status.OK;
+    if (!heroIsAllowedToUsePower) {
+      return status;
+    }
+
+    executeHeroPower(who);
+
+    return status;
+  }
+
+  /**
+   * Executing the hero power, spending mana and setting hero to inactive.
+   * @param who the player that uses the heropower
+   */
+  private void executeHeroPower(Player who) {
+    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(playerHero.get(who));
+    heroStrategy.useHeroPower(this,who);
+    hero.reduceHeroMana(GameConstants.HERO_POWER_COST);
+    hero.setActive(false);
+  }
+
+  /**
+   * A validation method for checking whether a Card(Minion) can attack another Card
+   * @param playerAttacking The attacking player
+   * @param attackingCard The Card(Minion) doing the attack
+   * @param defendingCard The Card(Minion) being attacked
+   * @return the Status of the validation
+   */
+  private Status canAttackBeDone(Player playerAttacking, Card attackingCard, Card defendingCard) {
+    Status status = canCardBeUsed(playerAttacking, attackingCard);
+    boolean cardCanBeUsed = status == Status.OK;
+    if(!cardCanBeUsed) { return status; }
+
+    boolean playerIsDefendingCardsOwner = playerAttacking == defendingCard.getOwner();
+    if (playerIsDefendingCardsOwner) { return Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION; }
+
+    boolean attackingCardIsActive = attackingCard.isActive();
+    if (! attackingCardIsActive) { return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION; }
+
+    return status;
+  }
+
+  /**
+   * A validation method used to check whether you can use a card or not
+   * @param who The Player trying to use a Card
+   * @param card The Card being used.
+   * @return the Status of the validation.
+   */
+  private Status canCardBeUsed(Player who, Card card) {
+    boolean playerIsOwner =  who == card.getOwner();
+    if(!playerIsOwner) { return Status.NOT_OWNER; }
+
+    boolean playerIsInTurn = playerInTurn == who;
+    if(!playerIsInTurn) { return Status.NOT_PLAYER_IN_TURN; }
+
+    return Status.OK;
+  }
+
+  /**
+   * Checks if the hero is allowed to use its hero power.
+   * @param who the player who uses the hero power
+   * @return status
+   */
+  private Status canHeroPowerBeUsed(Player who) {
+    boolean PlayerIsInTurn = playerInTurn == who;
+    if(!PlayerIsInTurn) { return Status.NOT_PLAYER_IN_TURN; }
+
+    boolean heroIsActive = getHero(who).isActive();
+    if(!heroIsActive) { return Status.POWER_USE_NOT_ALLOWED_TWICE_PR_ROUND; }
+
+    boolean heroHasEnoughManaToUsePower = getHero(who).getMana() >= GameConstants.HERO_POWER_COST;
+    if (!heroHasEnoughManaToUsePower) { return Status.NOT_ENOUGH_MANA; }
+
+    return Status.OK;
+  }
+
+  /**
+   * Executes an attack where a card attacks another card.
+   * Attacking minion is set to inactive. Both minions health is recalculated, dead minions removed from the field.
+   * @param attackingCard the attacking card
+   * @param defendingCard the defending card
+   */
+  private void executeAttack(Card attackingCard, Card defendingCard) {
+    reduceMinionHealth(defendingCard,attackingCard.getAttack());
+    reduceMinionHealth(attackingCard,defendingCard.getAttack());
+
+    setMinionActive(attackingCard,false);
+
+    removeCardIfMinionIsDead(defendingCard);
+    removeCardIfMinionIsDead(attackingCard);
+  }
+
+  private void setMinionActive(Card card, boolean active) {
+    castCardToStandardHotStoneCard(card).setActive(active);
+  }
+
+  /**
+   * Reduces a minions health
+   * @param minion The minion losing health
+   * @param amount The amount of health minion is losing
+   */
+  private void reduceMinionHealth(Card minion, int amount) {
+    castCardToStandardHotStoneCard(minion).reduceHealth(amount);
+  }
+
+  /**
+   * Removes a card(minion) from the field if the card has 0 or less health
+   * @param card The minion on the field
+   */
+  private void removeCardIfMinionIsDead(Card card) {
+    boolean cardHasZeroOrBelowHealth = card.getHealth() <= 0;
+    if(cardHasZeroOrBelowHealth) {
+      playerFields.get(card.getOwner()).remove(card);
+    }
+  }
+
   /**  Casting a hero to StandardHotStoneHero
-   *
    * @param hero the hero being casted
    * @return the casted hero
    */
@@ -310,5 +409,6 @@ public class StandardHotStoneGame implements Game {
    * @return the casted card
    */
   private StandardHotStoneCard castCardToStandardHotStoneCard(Card card) {
-    return (StandardHotStoneCard) card;}
+    return (StandardHotStoneCard) card;
+  }
 }

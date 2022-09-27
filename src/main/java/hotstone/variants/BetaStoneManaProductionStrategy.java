@@ -11,9 +11,8 @@ public class BetaStoneManaProductionStrategy implements ManaProductionStrategy {
      */
     @Override
     public int calculateMana(int turnCounter) {
-        if(turnCounter <= 1) {
-            return 1;
-        }else if(14 <= turnCounter) {
+        boolean turnCounterIsGreaterToOrEqualTo14 = 14 <= turnCounter;
+        if(turnCounterIsGreaterToOrEqualTo14) {
             return 7;
         }
         return (turnCounter / 2) + 1;

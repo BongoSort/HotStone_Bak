@@ -9,7 +9,8 @@ public class AlphaStoneWinnerStrategy implements WinnerStrategy {
 
     @Override
     public Player calculateWinner(Game game) {
-        if(game.getTurnNumber() == 8) {
+        boolean turnNumberIsEight = game.getTurnNumber() == 8;
+        if(turnNumberIsEight) {
           return Player.FINDUS;
         } else {
             return null;

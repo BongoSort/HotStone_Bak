@@ -12,7 +12,8 @@ public class GammaStoneHeroStrategy implements HeroStrategy {
 
     @Override
     public String getType(Player who) {
-        if(Player.FINDUS == who) {
+        boolean playerIsFindus = Player.FINDUS == who;
+        if(playerIsFindus) {
             return GameConstants.THAI_CHEF_HERO_TYPE;
         }
         return GameConstants.DANISH_CHEF_HERO_TYPE;
@@ -21,7 +22,8 @@ public class GammaStoneHeroStrategy implements HeroStrategy {
     @Override
     public void useHeroPower(Game game, Player who) {
         StandardHotStoneHero opponentHero = (StandardHotStoneHero) game.getHero(Utility.computeOpponent(who));
-        switch(game.getHero(who).getType()) {
+        String playersHeroType = game.getHero(who).getType();
+        switch(playersHeroType) {
             case GameConstants.THAI_CHEF_HERO_TYPE -> opponentHero.reduceHealth(2);
             case GameConstants.DANISH_CHEF_HERO_TYPE -> game.playCard(who,new StandardHotStoneCard(GameConstants.SOVS_CARD,who));
         }

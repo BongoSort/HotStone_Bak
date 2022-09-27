@@ -12,13 +12,12 @@ public class StandardHotStoneHero implements Hero {
 
     /** Constructor for a Hero
      *  @param owner the player which owns the hero
-     * @param isActive true if the hero is allowed to use its hero power, false if not.
-     * @param type
+     *  @param type
      */
-    public StandardHotStoneHero(Player owner, boolean isActive, int mana, String type) {
+    public StandardHotStoneHero(Player owner, int mana, String type) {
         this.owner = owner;
         this.type = type;
-        this.isActive = isActive;
+        this.isActive = true;
         this.mana = mana;
         this.health = GameConstants.HERO_MAX_HEALTH;
     }

@@ -223,23 +223,23 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void firstTurnIsTurnCount0() {
+  public void TurnNumberStartsAtZero() {
     // Given a new game
     // Then the first turn is turn 0
     assertThat(game.getTurnNumber(),is(0));
   }
 
   @Test
-  public void secondTurnIsTurnCount1() {
+  public void afterTurnNumberZeroItsValueIs1() {
     // Given a new game
     // When a turn has passed
     game.endTurn();
-    // Then the second turn is turn 1
+    // Then turnNumber is 1
     assertThat(game.getTurnNumber(),is(1));
   }
 
   @Test
-  public void findusWinsGameWhenTurnCount8() {
+  public void findusWinsGameWhenTurnNumberIs8() {
     //given a game
     //when turn eight starts, Findus wins game;
     TestHelper.advanceGameNRounds(game, 4);
@@ -272,7 +272,7 @@ public class TestAlphaStone {
     assertThat(game.getCardInField(Player.PEDDERSEN, 0), is(card0));
   }
   @Test
-  public void peddersenPlaysACardHandSize2FieldSize1() {
+  public void peddersenPlaysACardHandSize3FieldSize1() {
     //Given a new Game
     // When it is peddersens turn
     game.endTurn();
@@ -280,7 +280,7 @@ public class TestAlphaStone {
     Card chosenCard = game.getCardInHand(Player.PEDDERSEN, 0);
     game.playCard(Player.PEDDERSEN, chosenCard);
     //then his handsize is reduced by 1 and fieldsize is increased by one
-    assertThat(game.getHandSize(Player.PEDDERSEN), is(2));
+    assertThat(game.getHandSize(Player.PEDDERSEN), is(3));
     assertThat(game.getFieldSize(Player.PEDDERSEN),is(1));
   }
 
@@ -318,7 +318,7 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void inTurnFourPeddersenShouldDrawCardCuatro() {
+  public void inTurnFourPeddersenShouldDrawCardCinco() {
     // Given a game
     // When it is turn four
     game.endTurn();
@@ -326,7 +326,7 @@ public class TestAlphaStone {
     game.endTurn();
     //Then peddersen draws Card Cinco from deck.
     Card drawnCard = game.getCardInHand(Player.PEDDERSEN, 0);
-    assertThat(drawnCard.getName(), is(GameConstants.CUATRO_CARD));
+    assertThat(drawnCard.getName(), is(GameConstants.CINCO_CARD));
   }
 
   @Test
@@ -373,24 +373,24 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void inTurn3FindusDeckSizeIs3PeddersenDeckSizeIs4() {
+  public void inTurn3FindusDeckSizeIs3PeddersenDeckSizeIs3() {
     //Given a Game
     //when it is turn 3
     game.endTurn();
     game.endTurn();
     //then Findus Deck size is 3 and Peddersens deck size is 4
     assertThat(game.getDeckSize(Player.FINDUS), is(3));
-    assertThat(game.getDeckSize(Player.PEDDERSEN), is(4));
+    assertThat(game.getDeckSize(Player.PEDDERSEN), is(3));
   }
 
   @Test
-  public void inTurn8FindusDeckSizeIs0PeddersenDeckSizeIs1() {
+  public void inTurn8FindusDeckSizeIs0PeddersenDeckSizeIs0() {
     //Given a Game
     //when it is turn 8
     TestHelper.advanceGameNRounds(game, 4);
     //then Findus Deck size is 0 and Peddersens deck size is 1
     assertThat(game.getDeckSize(Player.FINDUS), is(0));
-    assertThat(game.getDeckSize(Player.PEDDERSEN), is(1));
+    assertThat(game.getDeckSize(Player.PEDDERSEN), is(0));
   }
 
   //tests getHand method, by testing cases already tested by other methods.
@@ -553,7 +553,7 @@ public class TestAlphaStone {
     //Given a game and it is peddersens turn
     game.endTurn();
     //when he plays Card Tres from his Hand
-    Card tresCard = game.getCardInHand(Player.PEDDERSEN,0);
+    Card tresCard = game.getCardInHand(Player.PEDDERSEN,1);
     game.playCard(Player.PEDDERSEN,tresCard);
     //then his heros mana is reduced by Tres Manacost which is 3.
     assertThat(game.getHero(Player.PEDDERSEN).getMana(), is(3-3));
@@ -661,9 +661,9 @@ public class TestAlphaStone {
     //Given a game and it is peddersens turn
     game.endTurn();
     //When peddersen plays uno and dos
-    Card unoCard = game.getCardInHand(Player.PEDDERSEN,2);
+    Card unoCard = game.getCardInHand(Player.PEDDERSEN,3);
     game.playCard(Player.PEDDERSEN,unoCard);
-    Card dosCard = game.getCardInHand(Player.PEDDERSEN, 1);
+    Card dosCard = game.getCardInHand(Player.PEDDERSEN, 2);
     game.playCard(Player.PEDDERSEN,dosCard);
     //Then the two cards should be inactive
     assertThat(game.getCardInField(Player.PEDDERSEN,0).isActive(),is(false));
