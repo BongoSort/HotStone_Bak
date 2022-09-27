@@ -10,5 +10,4 @@ public interface WinnerStrategy {
      * @return the player who won
      */
     Player calculateWinner(Game game);
-
 }

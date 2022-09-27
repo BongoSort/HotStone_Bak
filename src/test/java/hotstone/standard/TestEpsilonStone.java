@@ -74,8 +74,4 @@ public class TestEpsilonStone {
         assertThat(game.getFieldSize(Player.PEDDERSEN), is(1));
     }
 
-
-
-
-
 }

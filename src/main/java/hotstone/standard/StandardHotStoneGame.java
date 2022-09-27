@@ -296,7 +296,6 @@ public class StandardHotStoneGame implements Game {
    */
   private void executeHeroPower(Player who) {
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(playerHero.get(who));
-
     heroStrategy.useHeroPower(this,who);
     hero.reduceHeroMana(GameConstants.HERO_POWER_COST);
     hero.setActive(false);
