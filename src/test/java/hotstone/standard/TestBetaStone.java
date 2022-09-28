@@ -5,7 +5,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.ManaProductionStrategy;
 import hotstone.utility.TestHelper;
-import hotstone.variants.*;
+import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
+import hotstone.variants.BetaStone.BetaStoneManaProductionStrategy;
+import hotstone.variants.BetaStone.BetaStoneWinnerStrategy;
 import org.junit.jupiter.api.*;
 import hotstone.framework.Game;
 public class TestBetaStone {

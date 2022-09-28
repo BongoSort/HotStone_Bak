@@ -6,7 +6,10 @@ import hotstone.framework.Player;
 import hotstone.framework.strategies.DeckStrategy;
 import hotstone.framework.strategies.ManaProductionStrategy;
 import hotstone.utility.TestHelper;
-import hotstone.variants.*;
+import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
+import hotstone.variants.DeltaStone.DeltaStoneDeckStrategy;
+import hotstone.variants.DeltaStone.DeltaStoneManaProductionStrategy;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;

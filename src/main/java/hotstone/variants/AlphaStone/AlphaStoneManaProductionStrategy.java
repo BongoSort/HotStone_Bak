@@ -1,4 +1,4 @@
-package hotstone.variants;
+package hotstone.variants.AlphaStone;
 
 import hotstone.framework.strategies.ManaProductionStrategy;
 

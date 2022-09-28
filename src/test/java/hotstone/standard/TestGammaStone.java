@@ -3,10 +3,10 @@ package hotstone.standard;
 import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
-import hotstone.variants.AlphaStoneDeckStrategy;
-import hotstone.variants.GammaStoneHeroStrategy;
-import hotstone.variants.AlphaStoneManaProductionStrategy;
-import hotstone.variants.AlphaStoneWinnerStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
+import hotstone.variants.GammaStone.GammaStoneHeroStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneManaProductionStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

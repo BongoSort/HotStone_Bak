@@ -1,4 +1,4 @@
-package hotstone.variants;
+package hotstone.variants.DeltaStone;
 
 import hotstone.framework.Card;
 import hotstone.framework.Player;

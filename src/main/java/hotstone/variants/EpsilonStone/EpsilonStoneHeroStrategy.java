@@ -1,4 +1,4 @@
-package hotstone.variants;
+package hotstone.variants.EpsilonStone;
 
 import hotstone.framework.Game;
 import hotstone.framework.Player;

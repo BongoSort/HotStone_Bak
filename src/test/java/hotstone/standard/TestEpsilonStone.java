@@ -5,7 +5,10 @@ import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.utility.FixedIndexStrategy;
 import hotstone.utility.TestHelper;
-import hotstone.variants.*;
+import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneManaProductionStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
+import hotstone.variants.EpsilonStone.EpsilonStoneHeroStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -73,5 +76,7 @@ public class TestEpsilonStone {
         game.usePower(Player.FINDUS);
         assertThat(game.getFieldSize(Player.PEDDERSEN), is(1));
     }
+
+
 
 }

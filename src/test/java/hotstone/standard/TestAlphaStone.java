@@ -45,10 +45,10 @@ import hotstone.framework.Card;
 import hotstone.framework.Player;
 import hotstone.framework.Status;
 import hotstone.utility.TestHelper;
-import hotstone.variants.AlphaStoneDeckStrategy;
-import hotstone.variants.AlphaStoneHeroStrategy;
-import hotstone.variants.AlphaStoneManaProductionStrategy;
-import hotstone.variants.AlphaStoneWinnerStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneManaProductionStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
