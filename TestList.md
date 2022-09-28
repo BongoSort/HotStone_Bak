@@ -177,7 +177,7 @@
 ### Hero Power Tests
 * **OK** French chef power "Red wine" picks a random minion on opponents field and decreases its health by 2
 * **OK** when French chef power kills a minion the minion is removed from its field.
-* **OK??** Italian chef Power "Pasta" picks a random minion of his field and increases its attack by 2
+* **OK** Italian chef Power "Pasta" picks a random minion of his field and increases its attack by 2
 * **OK** Italian chef power has no effect when his field is empty. **Kan dette testes?**
 * **OK** French chef power has no effect when his field is empty **Kan dette testes?**
 

@@ -46,7 +46,6 @@ public class EpsilonStoneHeroStrategy implements HeroStrategy {
                 if(game.getFieldSize(who) == 0) {
                     return;
                 }
-
                 ((StandardHotStoneCard) game.getCardInField(who,randomNumber)).increaseAttack(2);
             }
         }
