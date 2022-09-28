@@ -18,4 +18,6 @@ public interface HeroStrategy {
      */
     void useHeroPower(Game game, Player who);
 
+
+
 }

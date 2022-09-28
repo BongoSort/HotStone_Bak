@@ -61,6 +61,7 @@ public class StandardHotStoneGame implements Game {
   private HashMap<Player,ArrayList<Card>> playerFields = new HashMap<>();
   private HashMap<Player, Hero> playerHero = new HashMap<>();
 
+
   /**
    * Initializes a new HotStone game
    * Also initializes heroes decks, hands and fields.
@@ -240,6 +241,8 @@ public class StandardHotStoneGame implements Game {
 
     executeAttack(attackingCard, defendingCard);
 
+    winnerStrategy.attackingMinionsAttackValue(playerAttacking, attackingCard.getAttack());
+
     return status;
   }
 
@@ -291,6 +294,18 @@ public class StandardHotStoneGame implements Game {
   }
 
   /**
+   * Removes a card(minion) from the field if the card has 0 or less health
+   * @param card The minion on the field
+   */
+  public void removeCardFromFieldIfHealthIsZeroOrBelow(Card card) {
+    boolean cardHasZeroOrBelowHealth = card.getHealth() <= 0;
+    if(cardHasZeroOrBelowHealth) {
+      playerFields.get(card.getOwner()).remove(card);
+    }
+  }
+
+
+  /**
    * Executing the hero power, spending mana and setting hero to inactive.
    * @param who the player that uses the heropower
    */
@@ -311,10 +326,10 @@ public class StandardHotStoneGame implements Game {
   private Status canAttackBeDone(Player playerAttacking, Card attackingCard, Card defendingCard) {
     Status status = canCardBeUsed(playerAttacking, attackingCard);
     boolean cardCanBeUsed = status == Status.OK;
-    if(!cardCanBeUsed) { return status; }
+    if(! cardCanBeUsed) { return status; }
 
-    boolean playerIsDefendingCardsOwner = playerAttacking == defendingCard.getOwner();
-    if (playerIsDefendingCardsOwner) { return Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION; }
+    boolean playerAttackingIsDefendingCardsOwner = playerAttacking == defendingCard.getOwner();
+    if (playerAttackingIsDefendingCardsOwner) { return Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION; }
 
     boolean attackingCardIsActive = attackingCard.isActive();
     if (! attackingCardIsActive) { return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION; }
@@ -383,17 +398,6 @@ public class StandardHotStoneGame implements Game {
    */
   private void reduceMinionHealth(Card minion, int amount) {
     castCardToStandardHotStoneCard(minion).reduceHealth(amount);
-  }
-
-  /**
-   * Removes a card(minion) from the field if the card has 0 or less health
-   * @param card The minion on the field
-   */
-  public void removeCardFromFieldIfHealthIsZeroOrBelow(Card card) {
-    boolean cardHasZeroOrBelowHealth = card.getHealth() <= 0;
-    if(cardHasZeroOrBelowHealth) {
-      playerFields.get(card.getOwner()).remove(card);
-    }
   }
 
   /**  Casting a hero to StandardHotStoneHero

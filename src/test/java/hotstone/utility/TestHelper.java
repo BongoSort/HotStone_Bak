@@ -121,4 +121,42 @@ public class TestHelper {
     assertThat(game.getCardInField(Player.PEDDERSEN, 0).getName(),
             is("Dos"));
   }
+
+  public static void fieldUnoDosTresCuatroForFindusAndPeddersen(Game game) {
+    Card card = game.getCardInHand(Player.FINDUS, 2);
+    game.playCard(Player.FINDUS,card);
+
+    card = game.getCardInHand(Player.FINDUS, 1);
+    game.playCard(Player.FINDUS,card);
+
+    game.endTurn();
+
+    card = game.getCardInHand(Player.PEDDERSEN, 3);
+    game.playCard(Player.PEDDERSEN,card);
+
+    card = game.getCardInHand(Player.PEDDERSEN, 2);
+    game.playCard(Player.PEDDERSEN,card);
+
+    game.endTurn();
+
+    card = game.getCardInHand(Player.FINDUS, 1);
+    game.playCard(Player.FINDUS,card);
+
+    game.endTurn();
+
+    card = game.getCardInHand(Player.PEDDERSEN, 2); //TRES for peddersen
+    game.playCard(Player.PEDDERSEN,card);
+
+    game.endTurn();
+
+    card = game.getCardInHand(Player.FINDUS, 1); //CUATRO for Findus
+    game.playCard(Player.FINDUS,card);
+
+    game.endTurn();
+
+    card = game.getCardInHand(Player.PEDDERSEN, 2); //Cuatro for peddersen
+    game.playCard(Player.PEDDERSEN,card);
+
+    game.endTurn(); //then it is findus turn.
+  }
 }

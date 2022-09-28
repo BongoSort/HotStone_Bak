@@ -186,3 +186,12 @@
 (that is, the sum of attack values of all minion-to-minion attacks performed by that player is greater than 7.)
 * 
 
+
+## ZetaStone
+### Deck Tests
+* The deck for both players consists of 7 Cinco cards with the properties form alphastone
+
+### Winner Tests
+* if round is below 6 the player that brings down the opponents hero health to 0 or below wins
+* if round is greater than 6 the first player that exeeds a total of minion-to-minion attacks greater than 7 wins counting from start of round 7
+

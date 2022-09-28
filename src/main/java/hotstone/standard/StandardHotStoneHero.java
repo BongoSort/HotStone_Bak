@@ -77,4 +77,9 @@ public class StandardHotStoneHero implements Hero {
     public Player getOwner() {
         return owner;
     }
+
+    @Override
+    public String getEffectDescription() {
+        return null;
+    }
 }

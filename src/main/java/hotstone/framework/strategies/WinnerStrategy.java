@@ -10,4 +10,6 @@ public interface WinnerStrategy {
      * @return the player who won
      */
     Player calculateWinner(Game game);
+
+    void attackingMinionsAttackValue(Player who, int value);
 }

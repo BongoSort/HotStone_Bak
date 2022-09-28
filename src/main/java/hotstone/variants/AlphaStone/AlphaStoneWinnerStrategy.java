@@ -16,4 +16,9 @@ public class AlphaStoneWinnerStrategy implements WinnerStrategy {
             return null;
         }
     }
+
+    @Override
+    public void attackingMinionsAttackValue(Player who, int value) {
+
+    }
 }

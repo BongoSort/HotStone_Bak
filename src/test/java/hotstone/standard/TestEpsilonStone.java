@@ -3,11 +3,13 @@ package hotstone.standard;
 import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
+import hotstone.framework.Status;
 import hotstone.utility.FixedIndexStrategy;
 import hotstone.utility.TestHelper;
 import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneManaProductionStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
+import hotstone.variants.EpsilonStone.EpisilonStoneWinnerStrategy;
 import hotstone.variants.EpsilonStone.EpsilonStoneHeroStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +25,7 @@ public class TestEpsilonStone {
     @BeforeEach
     public void setUp() {
         fixedIndexStrategy = new FixedIndexStrategy();
-        game = new StandardHotStoneGame(new AlphaStoneManaProductionStrategy(), new AlphaStoneWinnerStrategy(),
+        game = new StandardHotStoneGame(new AlphaStoneManaProductionStrategy(), new EpisilonStoneWinnerStrategy(),
                  new EpsilonStoneHeroStrategy(fixedIndexStrategy), new AlphaStoneDeckStrategy());
     }
 
@@ -77,6 +79,24 @@ public class TestEpsilonStone {
         assertThat(game.getFieldSize(Player.PEDDERSEN), is(1));
     }
 
+    @Test
+    public void whenFindusHasAttackedPeddersensMinionsForGreaterThan7AttackFindusWins() {
+        TestHelper.fieldUnoDosTresCuatroForFindusAndPeddersen(game);
+        Card unoCardFindus = game.getCardInField(Player.FINDUS,3);
+        Card dosCardFindus = game.getCardInField(Player.FINDUS,2);
+        Card tresCardFindus = game.getCardInField(Player.FINDUS,1);
+        Card cuatroCardFindus = game.getCardInField(Player.FINDUS,0);
 
+        Card unoCardPeddersen = game.getCardInField(Player.FINDUS,3);
+        Card dosCardPeddersen = game.getCardInField(Player.PEDDERSEN,2);
+        Card tresCardPeddersen = game.getCardInField(Player.PEDDERSEN,1);
+        Card cuatroCardPeddersen = game.getCardInField(Player.PEDDERSEN,0);
 
+        game.attackCard(Player.FINDUS,unoCardFindus,unoCardPeddersen);
+        game.attackCard(Player.FINDUS,dosCardFindus,dosCardPeddersen);
+        game.attackCard(Player.FINDUS,tresCardFindus,tresCardPeddersen);
+        game.attackCard(Player.FINDUS,cuatroCardFindus,cuatroCardPeddersen);
+
+        assertThat(game.getWinner(), is(Player.FINDUS));
+    }
 }
