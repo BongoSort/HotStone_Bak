@@ -21,7 +21,7 @@ public class TestEpsilonStone {
     private Game game;
     private FixedIndexStrategy fixedIndexStrategy;
 
-    /** Fixture for AlphaStone testing. */
+    /** Fixture for EpsilonStone testing. */
     @BeforeEach
     public void setUp() {
         fixedIndexStrategy = new FixedIndexStrategy();
@@ -37,11 +37,6 @@ public class TestEpsilonStone {
     @Test
     public void peddersenHeroIsItalianChef() {
         assertThat(game.getHero(Player.PEDDERSEN).getType(), is(GameConstants.ITALIAN_CHEF_HERO_TYPE));
-    }
-
-    @Test
-    public void frenchChefPowerDecreasesRandomEnemyMinionHealthBy2() {
-
     }
 
     @Test
