@@ -21,7 +21,6 @@ public class EpisilonStoneWinnerStrategy implements WinnerStrategy {
 
     @Override
     public Player calculateWinner(Game game) {
-        StandardHotStoneGame standardGame = ((StandardHotStoneGame) game);
         if(playersAttackSum.get(Player.FINDUS) > 7) {
             return Player.FINDUS;
         } else if(playersAttackSum.get(Player.PEDDERSEN) > 7) {
@@ -34,6 +33,4 @@ public class EpisilonStoneWinnerStrategy implements WinnerStrategy {
     public void attackingMinionsAttackValue(Player who, int value) {
         playersAttackSum.computeIfPresent(who, (k,v) -> v + value);
     }
-
-
 }

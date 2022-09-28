@@ -170,15 +170,15 @@ public class StandardHotStoneGame implements Game {
    */
   private void setupMinionsOnFieldForNewTurn(Player who) {
     for(Card c : getField(who)) {
-    setMinionActive(c,true);
-   }
+      setMinionActive(c,true);
+    }
   }
 
   /**
    * Sets up the hero to be active and resets its mana
    * @param who the player for the hero.
    */
-  private void setupHeroForNewTurn(Player who){
+  private void setupHeroForNewTurn(Player who) {
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(who));
     hero.setActive(true);
     hero.setMana(manaProductionStrategy.calculateMana(turnNumber));
@@ -191,7 +191,7 @@ public class StandardHotStoneGame implements Game {
   private void drawCard(Player who) {
     boolean playersDeckSizeIsGreaterThanZero = playerDecks.get(who).size() > 0;
     if(!playersDeckSizeIsGreaterThanZero) {
-      reduceHeroHealth(who,GameConstants.HERO_HEALTH_PENALTY_ON_EMPTY_DECK);
+      reduceHeroHealth(who, GameConstants.HERO_HEALTH_PENALTY_ON_EMPTY_DECK);
     } else {
       Card res = playerDecks.get(who).remove(0);
       playerHands.get(who).add(0,res);
@@ -200,7 +200,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status playCard(Player who, Card card) {
-    Status status = canCardBeUsed(who,card);
+    Status status = canCardBeUsed(who, card);
     boolean statusIsOk = status == Status.OK;
     if(!statusIsOk) {
       return status;
