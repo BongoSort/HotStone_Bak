@@ -438,6 +438,10 @@ public class TestAlphaStone {
     assertThat(game.getHero(Player.PEDDERSEN).getType(), is(GameConstants.BABY_HERO_TYPE));
   }
 
+  public void HeroBabysEffectDescriptionIsCute() {
+    assertThat(game.getHero(Player.FINDUS).getEffectDescription(), is(GameConstants.BABY_EFFECT_DESCRIPTION));
+  }
+
 
   // At der ikke er sket noget med den anden hero
   //

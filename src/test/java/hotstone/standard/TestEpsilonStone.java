@@ -94,4 +94,20 @@ public class TestEpsilonStone {
 
         assertThat(game.getWinner(), is(Player.FINDUS));
     }
+
+    @Test
+    public void italianPowerEffectDescriptionIsCorrectDescription() {
+        //Description Should be:
+        //"Pick a random minion of his own (on the field), and increase its attack by 2. In case no minions are on the field, the power has no effect"
+        //Peddersen owns the ThaiHero
+        assertThat(game.getHero(Player.PEDDERSEN).getEffectDescription(), is(GameConstants.ITALIAN_CHEF_EFFECT_DESCRIPTION));
+    }
+
+    @Test
+    public void frenchPowerEffectDescriptionIsCorrectDescription() {
+        //Description Should be:
+        //"Pick a random opponent minion (on the field) and decrease its health by 2. In case no minions are on the field, the power has no effect"
+        //Findus owns the ThaiHero
+        assertThat(game.getHero(Player.FINDUS).getEffectDescription(), is(GameConstants.FRENCH_CHEF_EFFECT_DESCRIPTION));
+    }
 }

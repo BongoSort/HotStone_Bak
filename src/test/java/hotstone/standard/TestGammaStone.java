@@ -58,4 +58,19 @@ public class TestGammaStone {
         assertThat(minionFielded.getAttack(), is(1));
     }
 
+    @Test
+    public void thaiChefPowerEffectDescriptionIsCorrectDescription() {
+        //Description Should be:
+        //Opponent hero loses two health
+        //Findus owns the ThaiHero
+        assertThat(game.getHero(Player.FINDUS).getEffectDescription(), is(GameConstants.THAI_CHEF_EFFECT_DESCRIPTION));
+    }
+
+    @Test
+    public void danishChefPowerEffectDescriptionIsCorrectDescription() {
+        //Description Should be:
+        //"Fields a special minion “Sovs” with attackPower 1 and health 1"
+        //Peddersen owns the ThaiHero
+        assertThat(game.getHero(Player.PEDDERSEN).getEffectDescription(), is(GameConstants.DANISH_CHEF_EFFECT_DESCRIPTION));
+    }
 }
