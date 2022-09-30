@@ -182,16 +182,21 @@
 * **OK** French chef power has no effect when his field is empty **Kan dette testes?**
 
 ### Winner Tests
-* The winner is the player that first exceeds a total “attack output” from minion-to-minion attacks of 7
+* **OK** The winner is the player that first exceeds a total “attack output” from minion-to-minion attacks of 7
 (that is, the sum of attack values of all minion-to-minion attacks performed by that player is greater than 7.)
 * 
 
 
 ## ZetaStone
 ### Deck Tests
-* The deck for both players consists of 7 Cinco cards with the properties form alphastone
+* **OK** The deck for both players consists of 7 Cinco cards with the properties from alphastone
 
 ### Winner Tests
-* if round is below 6 the player that brings down the opponents hero health to 0 or below wins
-* if round is greater than 6 the first player that exeeds a total of minion-to-minion attacks greater than 7 wins counting from start of round 7
+* **OK** if round is below or equal to 6 the player that brings down the opponents hero health to 0 or below wins
+* **OK** if round is greater than 6 the first player that exceeds a total of minion-to-minion attacks greater than 7 wins counting from start of round 7
 
+## EtaStone
+### Card Effect Tests 
+* Cards from dishDeck are modified and augmented with card effect
+* card effects are performed when played from hand to field.
+### 
