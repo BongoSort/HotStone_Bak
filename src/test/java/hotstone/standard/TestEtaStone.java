@@ -18,8 +18,8 @@ public class TestEtaStone {
 
     @BeforeEach
     public void setUp() {
-        DeckStrategy dishDeckStrategy = new AugmentedDishDeckStrategy();
-        DeckStrategy deckStrategy = new AlternatingDishDeckStrategy(dishDeckStrategy);
+        DeckStrategy augmentedDishDeckStrategy = new AugmentedDishDeckStrategy();
+        DeckStrategy deckStrategy = new AlternatingDishDeckStrategy(augmentedDishDeckStrategy);
         deck = deckStrategy.deckInitialization(Player.FINDUS);
     }
 

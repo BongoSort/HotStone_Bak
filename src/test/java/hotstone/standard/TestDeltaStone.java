@@ -26,8 +26,8 @@ public class TestDeltaStone {
 
     @BeforeEach
     public void setUp() {
-        DeckStrategy dishDeckStrategy = new StandardDishDeckStrategy();
-        deckStrategy = new AlternatingDishDeckStrategy(dishDeckStrategy);
+        DeckStrategy standardDishDeckStrategy = new StandardDishDeckStrategy();
+        deckStrategy = new AlternatingDishDeckStrategy(standardDishDeckStrategy);
         manaProductionStrategy = new DeltaStoneManaProductionStrategy();
         game = new StandardHotStoneGame(manaProductionStrategy, new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), deckStrategy);
 
