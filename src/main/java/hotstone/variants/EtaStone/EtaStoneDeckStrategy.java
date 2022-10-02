@@ -1,17 +1,16 @@
 package hotstone.variants.EtaStone;
 
 import hotstone.framework.Card;
-import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.DeckStrategy;
 import hotstone.standard.GameConstants;
 import hotstone.standard.StandardHotStoneCard;
-import hotstone.variants.DeltaStone.DeltaStoneDeckStrategy;
+import hotstone.variants.DeltaStone.StandardDishDeckStrategy;
 
 import java.util.ArrayList;
 
 public class EtaStoneDeckStrategy implements DeckStrategy {
-    private DeckStrategy ting = new DeltaStoneDeckStrategy();
+    private DeckStrategy ting = new StandardDishDeckStrategy();
     @Override
     public ArrayList<Card> deckInitialization(Player who) {
         ArrayList<Card> deck = ting.deckInitialization(who);

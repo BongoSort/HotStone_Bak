@@ -1,19 +1,12 @@
 package hotstone.standard;
 
 import hotstone.framework.Card;
-import hotstone.framework.Game;
 import hotstone.framework.Player;
-import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
-import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
-import hotstone.variants.DeltaStone.DeltaStoneDeckStrategy;
-import hotstone.variants.DeltaStone.DeltaStoneManaProductionStrategy;
 import hotstone.variants.EtaStone.EtaStoneDeckStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
