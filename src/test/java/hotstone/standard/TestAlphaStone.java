@@ -42,6 +42,7 @@ package hotstone.standard;
  */
 
 import hotstone.framework.Card;
+import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.Status;
 import hotstone.utility.TestHelper;
@@ -49,15 +50,14 @@ import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneManaProductionStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-
-import hotstone.framework.Game;
 
 /** Template for your own ongoing TDD process.
  * Fill it out until you have covered all

@@ -1,7 +1,6 @@
 package hotstone.standard;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
 
+import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.ManaProductionStrategy;
 import hotstone.utility.TestHelper;
@@ -9,8 +8,11 @@ import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
 import hotstone.variants.BetaStone.BetaStoneManaProductionStrategy;
 import hotstone.variants.BetaStone.BetaStoneWinnerStrategy;
-import org.junit.jupiter.api.*;
-import hotstone.framework.Game;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 public class TestBetaStone {
     private Game game;
     private ManaProductionStrategy manaProduction;

@@ -4,9 +4,9 @@ import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
-import hotstone.variants.GammaStone.GammaStoneHeroStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneManaProductionStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
+import hotstone.variants.GammaStone.GammaStoneHeroStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

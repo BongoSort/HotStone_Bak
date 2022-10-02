@@ -3,13 +3,8 @@ package hotstone.variants.EpsilonStone;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.WinnerStrategy;
-import hotstone.standard.StandardHotStoneGame;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import static java.util.Map.entry;
 
 public class EpisilonStoneWinnerStrategy implements WinnerStrategy {
     private HashMap<Player,Integer> playersAttackSum = new HashMap<>();

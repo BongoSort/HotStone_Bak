@@ -12,10 +12,8 @@ import hotstone.variants.ZetaStone.ZetaStoneAlternatingWinnerStrategy;
 import hotstone.variants.ZetaStone.ZetaStoneDeckStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

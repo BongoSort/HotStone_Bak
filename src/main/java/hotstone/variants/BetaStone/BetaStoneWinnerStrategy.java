@@ -3,7 +3,6 @@ package hotstone.variants.BetaStone;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.WinnerStrategy;
-import hotstone.standard.StandardHotStoneGame;
 
 public class BetaStoneWinnerStrategy implements WinnerStrategy {
 

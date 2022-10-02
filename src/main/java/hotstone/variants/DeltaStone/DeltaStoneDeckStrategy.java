@@ -5,7 +5,9 @@ import hotstone.framework.Player;
 import hotstone.framework.strategies.DeckStrategy;
 import hotstone.standard.GameConstants;
 import hotstone.standard.StandardHotStoneCard;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class DeltaStoneDeckStrategy implements DeckStrategy {
 

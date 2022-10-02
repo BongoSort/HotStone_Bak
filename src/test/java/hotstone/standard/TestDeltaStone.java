@@ -10,11 +10,12 @@ import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
 import hotstone.variants.DeltaStone.DeltaStoneDeckStrategy;
 import hotstone.variants.DeltaStone.DeltaStoneManaProductionStrategy;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestDeltaStone {

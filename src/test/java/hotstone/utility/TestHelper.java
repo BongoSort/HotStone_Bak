@@ -21,7 +21,6 @@ import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Hero;
 import hotstone.framework.Player;
-import hotstone.standard.GameConstants;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

@@ -25,7 +25,6 @@ import hotstone.framework.strategies.WinnerStrategy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 /** This is the 'temporary test stub' in TDD
  * terms: the initial empty but compilable implementation
