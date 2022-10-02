@@ -150,9 +150,17 @@ public class StandardHotStoneCard implements Card {
         return manaCost;
     }
 
+    public void setManaCost(int manaCost) {
+        this.manaCost = manaCost;
+    }
+
     @Override
     public int getAttack() {
         return attack;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
     }
 
     public void increaseAttack(int amount) {
@@ -162,6 +170,10 @@ public class StandardHotStoneCard implements Card {
     @Override
     public int getHealth() {
         return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     /** Reduces health from a minion
