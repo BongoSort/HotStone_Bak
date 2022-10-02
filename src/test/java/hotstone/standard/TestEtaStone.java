@@ -2,7 +2,9 @@ package hotstone.standard;
 
 import hotstone.framework.Card;
 import hotstone.framework.Player;
-import hotstone.variants.EtaStone.EtaStoneDeckStrategy;
+import hotstone.framework.strategies.DeckStrategy;
+import hotstone.variants.DeltaStone.AlternatingDishDeckStrategy;
+import hotstone.variants.DeltaStone.AugmentedDishDeckStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,12 +15,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestEtaStone {
     private ArrayList<Card> deck;
+
     @BeforeEach
     public void setUp() {
-        EtaStoneDeckStrategy etaStoneDeckStrategy = new EtaStoneDeckStrategy();
-        deck = etaStoneDeckStrategy.deckInitialization(Player.FINDUS);
-        //game = new StandardHotStoneGame(new DeltaStoneManaProductionStrategy(),
-               //new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), new DeltaStoneDeckStrategy());
+        DeckStrategy dishDeckStrategy = new AugmentedDishDeckStrategy();
+        DeckStrategy deckStrategy = new AlternatingDishDeckStrategy(dishDeckStrategy);
+        deck = deckStrategy.deckInitialization(Player.FINDUS);
     }
 
     @Test

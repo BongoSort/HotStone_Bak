@@ -15,6 +15,7 @@ public class StandardDishDeckStrategy implements DeckStrategy {
     public ArrayList<Card> deckInitialization(Player who) {
         ArrayList<Card> deck = new ArrayList<>();
 
+
         for (int i = 0; i < 2; i++) {
             deck.add(new StandardHotStoneCard(GameConstants.BROWN_RICE_CARD, who,1,1,2));
             deck.add(new StandardHotStoneCard(GameConstants.FRENCH_FRIES_CARD, who,1,2,1));
@@ -45,5 +46,4 @@ public class StandardDishDeckStrategy implements DeckStrategy {
         deck.add(0,firstCard);
         return deck;
     }
-
 }

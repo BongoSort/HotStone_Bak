@@ -8,8 +8,9 @@ import hotstone.framework.strategies.ManaProductionStrategy;
 import hotstone.utility.TestHelper;
 import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
-import hotstone.variants.DeltaStone.StandardDishDeckStrategy;
+import hotstone.variants.DeltaStone.AlternatingDishDeckStrategy;
 import hotstone.variants.DeltaStone.DeltaStoneManaProductionStrategy;
+import hotstone.variants.DeltaStone.StandardDishDeckStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +26,8 @@ public class TestDeltaStone {
 
     @BeforeEach
     public void setUp() {
-        deckStrategy = new StandardDishDeckStrategy();
+        DeckStrategy dishDeckStrategy = new StandardDishDeckStrategy();
+        deckStrategy = new AlternatingDishDeckStrategy(dishDeckStrategy);
         manaProductionStrategy = new DeltaStoneManaProductionStrategy();
         game = new StandardHotStoneGame(manaProductionStrategy, new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), deckStrategy);
 
