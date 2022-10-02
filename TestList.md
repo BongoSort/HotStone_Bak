@@ -199,4 +199,9 @@
 ### Card Effect Tests 
 * Cards from dishDeck are modified and augmented with card effect
 * card effects are performed when played from hand to field.
-### 
+### Card attribute Tests
+* **OK** Card Brown Rice should have Attributes (1,1,1)
+* **OK** Card Tomato Salad should have Attributes (2,2,2)
+* **OK** Card Noodle Soup should have Attributes (4,5,3)
+* **OK** Card Chicken Curry should have Attributes (6,4,4)
+* **OK** Card Beef Burger should have Attributes (6,8,6)
