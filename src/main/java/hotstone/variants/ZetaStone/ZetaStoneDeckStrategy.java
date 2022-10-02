@@ -13,7 +13,7 @@ public class ZetaStoneDeckStrategy implements DeckStrategy {
     public ArrayList<Card> deckInitialization(Player who) {
         ArrayList<Card> deck = new ArrayList<>();
         for(int i = 0; i < 7; i++) {
-            deck.add(new StandardHotStoneCard(GameConstants.CINCO_CARD,who));
+            deck.add(new StandardHotStoneCard(GameConstants.CINCO_CARD,who,3,5,1));
         }
         return deck;
     }

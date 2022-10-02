@@ -18,13 +18,13 @@ public class StandardHotStoneCard implements Card {
      * @param cardName the name of the card
      * @param owner which player the card belongs to
      */
-    public StandardHotStoneCard(String cardName, Player owner) {
+    public StandardHotStoneCard(String cardName, Player owner, int manaCost, int attack, int health) {
         this.cardName = cardName;
         this.isActive = false;
         this.owner = owner;
-        initializeCardFromSpanishDeck(cardName);
-        initializeSpecialCard(cardName);
-        initializeDishDeck(cardName);
+        this.manaCost = manaCost;
+        this.attack = attack;
+        this.health = health;
     }
 
     @Override

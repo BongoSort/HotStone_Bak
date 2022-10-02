@@ -25,7 +25,7 @@ public class GammaStoneHeroStrategy implements HeroStrategy {
         String playersHeroType = game.getHero(who).getType();
         switch(playersHeroType) {
             case GameConstants.THAI_CHEF_HERO_TYPE -> opponentHero.reduceHealth(2);
-            case GameConstants.DANISH_CHEF_HERO_TYPE -> game.playCard(who,new StandardHotStoneCard(GameConstants.SOVS_CARD,who));
+            case GameConstants.DANISH_CHEF_HERO_TYPE -> game.playCard(who,new StandardHotStoneCard(GameConstants.SOVS_CARD,who,0,1,1));
         }
     }
 }
