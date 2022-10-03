@@ -50,6 +50,7 @@ import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneManaProductionStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
+import hotstone.variants.NoCardEffectStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -69,7 +70,7 @@ public class TestAlphaStone {
   /** Fixture for AlphaStone testing. */
   @BeforeEach
   public void setUp() {
-    game = new StandardHotStoneGame(new AlphaStoneManaProductionStrategy(), new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), new AlphaStoneDeckStrategy());
+    game = new StandardHotStoneGame(new AlphaStoneManaProductionStrategy(), new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), new AlphaStoneDeckStrategy(), new NoCardEffectStrategy());
   }
 
   @Test
@@ -159,7 +160,7 @@ public class TestAlphaStone {
   public void cardUnoShouldHaveManaCostOneAttackOneHealthOne() {
     //given a game, and a Card Uno
     //Then card Uno has the attributes (1,1,1)
-    Card card0 = new StandardHotStoneCard(GameConstants.UNO_CARD, Player.FINDUS);
+    Card card0 = new StandardHotStoneCard(GameConstants.UNO_CARD, Player.FINDUS,1,1,1);
     assertThat(card0.getManaCost(), is(1));
     assertThat(card0.getAttack(),is(1));
     assertThat(card0.getHealth(), is(1));
@@ -168,7 +169,7 @@ public class TestAlphaStone {
   public void cardDosShouldHaveManaCostTwoAttackTwoHealthTwo() {
     //given a game, and a Card Dos
     //Then card Dos has the attributes (2,2,2) (Mana cost, Attack, Health)
-    Card card0 = new StandardHotStoneCard(GameConstants.DOS_CARD, Player.FINDUS);
+    Card card0 = new StandardHotStoneCard(GameConstants.DOS_CARD, Player.FINDUS,2,2,2);
     assertThat(card0.getManaCost(), is(2));
     assertThat(card0.getAttack(),is(2));
     assertThat(card0.getHealth(), is(2));
@@ -178,7 +179,7 @@ public class TestAlphaStone {
   public void cardTresShouldHaveManaCostThreeAttackThreeHealthThree() {
     //given a game, and a Card Tres
     //Then card Tres has the attributes (3,3,3)
-    Card card0 = new StandardHotStoneCard(GameConstants.TRES_CARD, Player.FINDUS);
+    Card card0 = new StandardHotStoneCard(GameConstants.TRES_CARD, Player.FINDUS,3,3,3);
     assertThat(card0.getManaCost(),is(3));
     assertThat(card0.getAttack(), is(3));
     assertThat(card0.getHealth(),is(3));
@@ -188,7 +189,7 @@ public class TestAlphaStone {
   public void cardCuatroShouldHaveManaCost2Attack3Health1() {
     //given a game, and a Card Cuatro
     //Then card Cuatro has the attributes (2,3,1)
-    Card card0 = new StandardHotStoneCard(GameConstants.CUATRO_CARD,Player.PEDDERSEN);
+    Card card0 = new StandardHotStoneCard(GameConstants.CUATRO_CARD,Player.PEDDERSEN,2,3,1);
     assertThat(card0.getManaCost(),is(2));
     assertThat(card0.getAttack(), is(3));
     assertThat(card0.getHealth(),is(1));
@@ -197,7 +198,7 @@ public class TestAlphaStone {
   public void cardCincoShouldHaveManaCost3Attack5Health1() {
     //given a game, and a Card Cinco
     //Then card Cinco has the attributes (3,5,1)
-    Card card0 = new StandardHotStoneCard(GameConstants.CINCO_CARD,Player.PEDDERSEN);
+    Card card0 = new StandardHotStoneCard(GameConstants.CINCO_CARD,Player.PEDDERSEN,3,5,1);
     assertThat(card0.getManaCost(),is(3));
     assertThat(card0.getAttack(), is(5));
     assertThat(card0.getHealth(),is(1));
@@ -206,7 +207,7 @@ public class TestAlphaStone {
   public void cardSeisShouldHaveManaCost2Attack1Health3() {
     //given a game, and a Card Seis
     //Then card Seis has the attributes (2,1,3)
-    Card card0 = new StandardHotStoneCard(GameConstants.SEIS_CARD, Player.FINDUS);
+    Card card0 = new StandardHotStoneCard(GameConstants.SEIS_CARD, Player.FINDUS,2,1,3);
     assertThat(card0.getManaCost(),is(2));
     assertThat(card0.getAttack(), is(1));
     assertThat(card0.getHealth(),is(3));
@@ -216,7 +217,7 @@ public class TestAlphaStone {
   public void cardSieteShouldHaveManaCost3Attack2Health4() {
     //given a game, and a Card Siete
     //Then card Siete has the attributes (3,2,4)
-    Card card0 = new StandardHotStoneCard(GameConstants.SIETE_CARD, Player.FINDUS);
+    Card card0 = new StandardHotStoneCard(GameConstants.SIETE_CARD, Player.FINDUS,3,2,4);
     assertThat(card0.getManaCost(),is(3));
     assertThat(card0.getAttack(), is(2));
     assertThat(card0.getHealth(),is(4));

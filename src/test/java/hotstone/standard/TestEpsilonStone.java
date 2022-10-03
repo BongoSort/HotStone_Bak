@@ -9,6 +9,7 @@ import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneManaProductionStrategy;
 import hotstone.variants.EpsilonStone.EpisilonStoneWinnerStrategy;
 import hotstone.variants.EpsilonStone.EpsilonStoneHeroStrategy;
+import hotstone.variants.NoCardEffectStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +25,7 @@ public class TestEpsilonStone {
     public void setUp() {
         fixedIndexStrategy = new FixedIndexStrategy();
         game = new StandardHotStoneGame(new AlphaStoneManaProductionStrategy(), new EpisilonStoneWinnerStrategy(),
-                 new EpsilonStoneHeroStrategy(fixedIndexStrategy), new AlphaStoneDeckStrategy());
+                 new EpsilonStoneHeroStrategy(fixedIndexStrategy), new AlphaStoneDeckStrategy(), new NoCardEffectStrategy());
     }
 
     @Test
