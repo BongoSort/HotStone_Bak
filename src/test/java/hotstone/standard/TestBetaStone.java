@@ -8,7 +8,7 @@ import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
 import hotstone.variants.BetaStone.BetaStoneManaProductionStrategy;
 import hotstone.variants.BetaStone.BetaStoneWinnerStrategy;
-import hotstone.variants.NoCardEffectStrategy;
+import hotstone.variants.EtaStone.NoCardEffectStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

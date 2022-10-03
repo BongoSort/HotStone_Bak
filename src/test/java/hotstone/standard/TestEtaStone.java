@@ -4,16 +4,13 @@ import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.DeckStrategy;
-import hotstone.framework.strategies.IndexDecisionStrategies.IndexStrategy;
 import hotstone.utility.FixedIndexStrategy;
 import hotstone.utility.TestDishDeckStrategy;
 import hotstone.utility.TestHelper;
 import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
-import hotstone.variants.DeltaStone.AlternatingDishDeckStrategy;
-import hotstone.variants.DeltaStone.AugmentedDishDeckStrategy;
 import hotstone.variants.DeltaStone.DeltaStoneManaProductionStrategy;
-import hotstone.variants.DishDeckCardEffectStrategy;
+import hotstone.variants.EtaStone.DishDeckCardEffectStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

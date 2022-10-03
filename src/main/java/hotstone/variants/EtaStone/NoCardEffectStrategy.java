@@ -1,4 +1,4 @@
-package hotstone.variants;
+package hotstone.variants.EtaStone;
 
 import hotstone.framework.Card;
 import hotstone.framework.Game;

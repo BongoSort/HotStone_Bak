@@ -50,7 +50,7 @@ import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneManaProductionStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
-import hotstone.variants.NoCardEffectStrategy;
+import hotstone.variants.EtaStone.NoCardEffectStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
