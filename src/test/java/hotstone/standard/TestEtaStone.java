@@ -1,10 +1,19 @@
 package hotstone.standard;
 
 import hotstone.framework.Card;
+import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.DeckStrategy;
+import hotstone.framework.strategies.IndexDecisionStrategies.IndexStrategy;
+import hotstone.utility.FixedIndexStrategy;
+import hotstone.utility.TestDishDeckStrategy;
+import hotstone.utility.TestHelper;
+import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
 import hotstone.variants.DeltaStone.AlternatingDishDeckStrategy;
 import hotstone.variants.DeltaStone.AugmentedDishDeckStrategy;
+import hotstone.variants.DeltaStone.DeltaStoneManaProductionStrategy;
+import hotstone.variants.DishDeckCardEffectStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,12 +24,16 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestEtaStone {
     private ArrayList<Card> deck;
+    private FixedIndexStrategy fixedIndexStrategy;
+    private Game game;
 
     @BeforeEach
     public void setUp() {
-        DeckStrategy dishDeckStrategy = new AugmentedDishDeckStrategy();
-        DeckStrategy deckStrategy = new AlternatingDishDeckStrategy(dishDeckStrategy);
+        DeckStrategy deckStrategy = new TestDishDeckStrategy();
         deck = deckStrategy.deckInitialization(Player.FINDUS);
+        fixedIndexStrategy = new FixedIndexStrategy();
+        game = new StandardHotStoneGame(new DeltaStoneManaProductionStrategy(), new AlphaStoneWinnerStrategy(),
+                new AlphaStoneHeroStrategy(), deckStrategy, new DishDeckCardEffectStrategy(fixedIndexStrategy));
     }
 
     @Test
@@ -71,6 +84,80 @@ public class TestEtaStone {
         assertThat(card.getHealth(),is(6));
     }
 
+    @Test
+    public void brownRiceCardReducesOpponentHeroHealthByOneWhenPlayed() {
+        Card card = game.getCardInHand(Player.FINDUS,0);
+        game.playCard(Player.FINDUS,card);
+        assertThat(game.getHero(Player.PEDDERSEN).getHealth(), is(20));
+    }
 
+    @Test
+    public void tomatoSaladCardAddsOneAttackToOwnRandomMinion() {
+        fixedIndexStrategy.setValue(0);
+        Card card = game.getCardInHand(Player.FINDUS,0);
+        game.playCard(Player.FINDUS,card);
+
+        card = game.getCardInHand(Player.FINDUS,0);
+        game.playCard(Player.FINDUS,card);
+
+        assertThat(game.getCardInField(Player.FINDUS,1).getAttack(),is(2));
+    }
+
+    @Test
+    public void pokeBowlCardAdds2HealthToOwnHero() {
+        ((StandardHotStoneHero) game.getHero(Player.FINDUS)).reduceHealth(2);
+
+        Card card = game.getCardInHand(Player.FINDUS,2);
+        game.playCard(Player.FINDUS,card);
+        assertThat(game.getHero(Player.FINDUS).getHealth(),is(GameConstants.HERO_MAX_HEALTH));
+    }
+
+    @Test
+    public void noodleSoupCardDrawsCardFromOwnDeck() {
+        TestHelper.advanceGameNRounds(game,1);
+        assertThat(game.getHandSize(Player.FINDUS),is(4));
+
+        Card card = game.getCardInHand(Player.FINDUS,0);
+        game.playCard(Player.FINDUS,card);
+        //then a card is drawn, so Findus HandSize isn't reduced
+        assertThat(game.getHandSize(Player.FINDUS),is(4));
+    }
+
+    @Test
+    public void chickenCurryCardKillsRandomOpponentMinion() {
+        TestHelper.advanceGameNRounds(game,1);
+        game.endTurn();
+
+        Card card = game.getCardInHand(Player.PEDDERSEN,0);
+        game.playCard(Player.PEDDERSEN,card);
+
+        assertThat(game.getFieldSize(Player.PEDDERSEN), is(1));
+
+        game.endTurn();
+
+        card = game.getCardInHand(Player.FINDUS,0);
+        System.out.println(card.getName());
+        game.playCard(Player.FINDUS,card);
+        //Then Peddersens minion dies
+        assertThat(game.getFieldSize(Player.PEDDERSEN),is(0));
+
+    }
+
+
+    @Test
+    public void beefBurgerCardShouldIncreaseRandomOpponentCardAttackBy2() {
+        fixedIndexStrategy.setValue(0);
+        game.endTurn();
+        Card card = game.getCardInHand(Player.PEDDERSEN,1);
+        game.playCard(Player.PEDDERSEN,card);
+        game.endTurn();
+
+        TestHelper.advanceGameNRounds(game,2);
+        card = game.getCardInHand(Player.FINDUS,0);
+        game.playCard(Player.FINDUS,card);
+
+        //Then BrownRiceCard on peddersens Field should have attributes(1,3,1) instead of (1,1,1)
+        assertThat(game.getCardInField(Player.PEDDERSEN,0).getAttack(),is(3));
+    }
 
 }

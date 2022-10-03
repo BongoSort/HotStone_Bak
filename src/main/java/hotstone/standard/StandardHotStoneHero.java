@@ -53,6 +53,10 @@ public class StandardHotStoneHero implements Hero {
         this.health -= damage;
     }
 
+    public void increaseHealth(int amount) {
+        this.health += amount;
+    }
+
     @Override
     public boolean isActive() {
         return isActive;

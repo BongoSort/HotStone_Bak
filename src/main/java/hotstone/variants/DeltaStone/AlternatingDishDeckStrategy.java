@@ -32,9 +32,8 @@ public class AlternatingDishDeckStrategy implements DeckStrategy {
         }
         deck.addAll(dishDeckStrategy.deckInitialization(who));
 
-
-
         Collections.shuffle(deck);
+
         Card firstCard = deck.stream().filter((c) -> c.getManaCost() == 1).findAny().orElse(null);
         deck.remove(firstCard);
 

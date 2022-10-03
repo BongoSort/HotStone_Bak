@@ -18,10 +18,7 @@
 package hotstone.standard;
 
 import hotstone.framework.*;
-import hotstone.framework.strategies.DeckStrategy;
-import hotstone.framework.strategies.HeroStrategy;
-import hotstone.framework.strategies.ManaProductionStrategy;
-import hotstone.framework.strategies.WinnerStrategy;
+import hotstone.framework.strategies.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,8 +49,8 @@ public class StandardHotStoneGame implements Game {
   private ManaProductionStrategy manaProductionStrategy;
   private WinnerStrategy winnerStrategy;
   private HeroStrategy heroStrategy;
-
   private DeckStrategy deckStrategy;
+  private CardEffectStrategy cardEffectStrategy;
   private int turnNumber;
   private HashMap<Player,ArrayList<Card>> playerDecks = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
@@ -66,11 +63,12 @@ public class StandardHotStoneGame implements Game {
    * Also initializes heroes decks, hands and fields.
    */
   public StandardHotStoneGame(ManaProductionStrategy manaProductionStrategy, WinnerStrategy winnerStrategy,
-                              HeroStrategy heroStrategy, DeckStrategy deckStrategy) {
+                              HeroStrategy heroStrategy, DeckStrategy deckStrategy, CardEffectStrategy cardEffectStrategy) {
     this.manaProductionStrategy = manaProductionStrategy;
     this.winnerStrategy = winnerStrategy;
     this.heroStrategy = heroStrategy;
     this.deckStrategy = deckStrategy;
+    this.cardEffectStrategy = cardEffectStrategy;
     this.playerInTurn = Player.FINDUS;
     this.turnNumber = 0;
 
@@ -187,7 +185,7 @@ public class StandardHotStoneGame implements Game {
    *  Draws a card from the deck and puts it in the players hand
    *  @param who the player that draws the card
    */
-  private void drawCard(Player who) {
+  public void drawCard(Player who) {
     boolean playersDeckSizeIsGreaterThanZero = playerDecks.get(who).size() > 0;
     if(!playersDeckSizeIsGreaterThanZero) {
       reduceHeroHealth(who, GameConstants.HERO_HEALTH_PENALTY_ON_EMPTY_DECK);
@@ -208,8 +206,12 @@ public class StandardHotStoneGame implements Game {
     if(!heroHasEnoughMana) {
       return Status.NOT_ENOUGH_MANA;
     }
-    addNewCardToField(who, card);
+
     reduceHeroMana(who, card.getManaCost());
+    cardEffectStrategy.useCardEffect(this,who,card);
+    addNewCardToField(who, card);
+
+
     return status;
   }
 

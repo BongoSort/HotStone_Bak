@@ -8,6 +8,7 @@ import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
 import hotstone.variants.BetaStone.BetaStoneManaProductionStrategy;
 import hotstone.variants.BetaStone.BetaStoneWinnerStrategy;
+import hotstone.variants.NoCardEffectStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +21,7 @@ public class TestBetaStone {
     @BeforeEach
     public void setUp() {
         manaProduction = new BetaStoneManaProductionStrategy();
-        game = new StandardHotStoneGame(manaProduction, new BetaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), new AlphaStoneDeckStrategy());
+        game = new StandardHotStoneGame(manaProduction, new BetaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), new AlphaStoneDeckStrategy(), new NoCardEffectStrategy());
     }
 
     //Unit tests for manaProductionStrategy in BetaStone
