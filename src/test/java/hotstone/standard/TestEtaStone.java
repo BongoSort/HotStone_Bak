@@ -136,8 +136,8 @@ public class TestEtaStone {
         game.endTurn();
 
         card = game.getCardInHand(Player.FINDUS,0);
-        System.out.println(card.getName());
         game.playCard(Player.FINDUS,card);
+
         //Then Peddersens minion dies
         assertThat(game.getFieldSize(Player.PEDDERSEN),is(0));
 
