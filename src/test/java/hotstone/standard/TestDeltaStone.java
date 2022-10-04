@@ -10,7 +10,7 @@ import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
 import hotstone.variants.DeltaStone.DeltaStoneManaProductionStrategy;
 import hotstone.variants.DeltaStone.DeltaStoneDeckStrategy;
-import hotstone.variants.EtaStone.NoCardEffectStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneCardEffectStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +28,7 @@ public class TestDeltaStone {
     public void setUp() {
         deckStrategy = new DeltaStoneDeckStrategy();
         manaProductionStrategy = new DeltaStoneManaProductionStrategy();
-        game = new StandardHotStoneGame(manaProductionStrategy, new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), deckStrategy, new NoCardEffectStrategy());
+        game = new StandardHotStoneGame(manaProductionStrategy, new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), deckStrategy, new AlphaStoneCardEffectStrategy());
 
     }
 

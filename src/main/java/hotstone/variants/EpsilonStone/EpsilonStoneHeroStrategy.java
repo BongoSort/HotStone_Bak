@@ -1,5 +1,6 @@
 package hotstone.variants.EpsilonStone;
 
+import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.Utility;
@@ -8,6 +9,8 @@ import hotstone.framework.strategies.IndexDecisionStrategies.IndexStrategy;
 import hotstone.standard.GameConstants;
 import hotstone.standard.StandardHotStoneCard;
 import hotstone.standard.StandardHotStoneGame;
+
+import java.util.ArrayList;
 
 public class EpsilonStoneHeroStrategy implements HeroStrategy {
     private IndexStrategy indexStrategy;
@@ -33,17 +36,19 @@ public class EpsilonStoneHeroStrategy implements HeroStrategy {
         switch(playersHeroType) {
             case GameConstants.FRENCH_CHEF_HERO_TYPE -> {
                 Player opponent = Utility.computeOpponent(who);
-                if(game.getFieldSize(opponent) == 0) {
+                if(game.getFieldSize(opponent) <= 0) {
                     return;
                 }
 
                 StandardHotStoneCard card = (StandardHotStoneCard) game.getCardInField(opponent,randomNumber);
                 card.reduceHealth(2);
 
-                ((StandardHotStoneGame) game).removeCardFromFieldIfHealthIsZeroOrBelow(card);
+                if(card.getHealth() > 0) { return; }
+
+                ((ArrayList<Card>) game.getField(opponent)).remove(card);
             }
             case GameConstants.ITALIAN_CHEF_HERO_TYPE -> {
-                if(game.getFieldSize(who) == 0) {
+                if(game.getFieldSize(who) <= 0) {
                     return;
                 }
                 ((StandardHotStoneCard) game.getCardInField(who,randomNumber)).increaseAttack(2);

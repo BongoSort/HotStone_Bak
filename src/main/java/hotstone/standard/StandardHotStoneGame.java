@@ -242,7 +242,7 @@ public class StandardHotStoneGame implements Game {
 
     executeAttack(attackingCard, defendingCard);
 
-    winnerStrategy.attackingMinionsAttackValue(playerAttacking, attackingCard.getAttack());
+    winnerStrategy.attackingMinionsAttackValue(playerAttacking, this, attackingCard.getAttack());
 
     return status;
   }
@@ -298,7 +298,7 @@ public class StandardHotStoneGame implements Game {
    * Removes a card(minion) from the field if the card has 0 or less health
    * @param card The minion on the field
    */
-  public void removeCardFromFieldIfHealthIsZeroOrBelow(Card card) {
+  private void removeCardFromFieldIfHealthIsZeroOrBelow(Card card) {
     boolean cardHasZeroOrBelowHealth = card.getHealth() <= 0;
     if(cardHasZeroOrBelowHealth) {
       playerFields.get(card.getOwner()).remove(card);

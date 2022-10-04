@@ -1,14 +1,14 @@
-package hotstone.variants.EtaStone;
+package hotstone.variants.AlphaStone;
 
 import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.CardEffectStrategy;
 
-public class NoCardEffectStrategy implements CardEffectStrategy {
+public class AlphaStoneCardEffectStrategy implements CardEffectStrategy {
 
     @Override
     public void useCardEffect(Game game, Player who, Card card) {
-        //this is supposed to do nothing. Muhahahahaha
+        //there are no Card Effects in AlphaStone
     }
 }

@@ -25,7 +25,7 @@ public class EpisilonStoneWinnerStrategy implements WinnerStrategy {
     }
 
     @Override
-    public void attackingMinionsAttackValue(Player who, int value) {
+    public void attackingMinionsAttackValue(Player who, Game game, int value) {
         playersAttackSum.computeIfPresent(who, (k,v) -> v + value);
     }
 }

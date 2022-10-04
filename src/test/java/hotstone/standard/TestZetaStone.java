@@ -8,8 +8,8 @@ import hotstone.framework.strategies.DeckStrategy;
 import hotstone.utility.TestHelper;
 import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneManaProductionStrategy;
-import hotstone.variants.EtaStone.NoCardEffectStrategy;
-import hotstone.variants.ZetaStone.ZetaStoneAlternatingWinnerStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneCardEffectStrategy;
+import hotstone.variants.ZetaStone.ZetaStoneWinnerStrategy;
 import hotstone.variants.ZetaStone.ZetaStoneDeckStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ public class TestZetaStone {
     public void setUp() {
         zetaStoneDeckStrategy = new ZetaStoneDeckStrategy();
         game = new StandardHotStoneGame(new AlphaStoneManaProductionStrategy(),
-                new ZetaStoneAlternatingWinnerStrategy(), new AlphaStoneHeroStrategy(), new ZetaStoneDeckStrategy(), new NoCardEffectStrategy());
+                new ZetaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), new ZetaStoneDeckStrategy(), new AlphaStoneCardEffectStrategy());
     }
 
     @Test
@@ -72,7 +72,7 @@ public class TestZetaStone {
 
     @Test
     public void inRound7WinnerStrategyShouldBeMinionToMinionOutputAttack() {
-        TestHelper.advanceGameNRounds(game, 4);
+        TestHelper.advanceGameNRounds(game, 5);
         for(int i = 0 ; i < 2; i++) {
             Card card = game.getCardInHand(Player.FINDUS,0);
             game.playCard(Player.FINDUS,card);

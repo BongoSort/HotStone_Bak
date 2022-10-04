@@ -11,5 +11,5 @@ public interface WinnerStrategy {
      */
     Player calculateWinner(Game game);
 
-    void attackingMinionsAttackValue(Player who, int value);
+    void attackingMinionsAttackValue(Player who, Game game ,int value);
 }

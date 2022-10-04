@@ -19,7 +19,7 @@ public class BetaStoneWinnerStrategy implements WinnerStrategy {
     }
 
     @Override
-    public void attackingMinionsAttackValue(Player who, int value) {
+    public void attackingMinionsAttackValue(Player who, Game game, int value) {
 
     }
 }

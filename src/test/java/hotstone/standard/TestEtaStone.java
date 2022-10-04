@@ -10,7 +10,7 @@ import hotstone.utility.TestHelper;
 import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
 import hotstone.variants.DeltaStone.DeltaStoneManaProductionStrategy;
-import hotstone.variants.EtaStone.DishDeckCardEffectStrategy;
+import hotstone.variants.EtaStone.EtaStoneCardEffectStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +30,7 @@ public class TestEtaStone {
         deck = deckStrategy.deckInitialization(Player.FINDUS);
         fixedIndexStrategy = new FixedIndexStrategy();
         game = new StandardHotStoneGame(new DeltaStoneManaProductionStrategy(), new AlphaStoneWinnerStrategy(),
-                new AlphaStoneHeroStrategy(), deckStrategy, new DishDeckCardEffectStrategy(fixedIndexStrategy));
+                new AlphaStoneHeroStrategy(), deckStrategy, new EtaStoneCardEffectStrategy(fixedIndexStrategy));
     }
 
     @Test
