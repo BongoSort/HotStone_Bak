@@ -40,7 +40,7 @@ public class GameConstants {
   // Hero power Effect Descriptions
   public static final String BABY_EFFECT_DESCRIPTION = "Cute";
   public static final String THAI_CHEF_EFFECT_DESCRIPTION = "Opponent hero loses two health";
-  public static final String DANISH_CHEF_EFFECT_DESCRIPTION = "Fields a special minion “Sovs” with attackPower 1 and health 1";
+  public static final String DANISH_CHEF_EFFECT_DESCRIPTION = "Fields a special minion Sovs with attackPower 1 and health 1";
   public static final String FRENCH_CHEF_EFFECT_DESCRIPTION = "Pick a random opponent minion (on the field) and decrease its health by 2. " +
           "In case no minions are on the field, the power has no effect";
   public static final String ITALIAN_CHEF_EFFECT_DESCRIPTION = "Pick a random minion of his own (on the field), and increase its attack by 2." +

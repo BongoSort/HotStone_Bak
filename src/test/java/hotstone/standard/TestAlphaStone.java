@@ -248,6 +248,10 @@ public class TestAlphaStone {
   }
 
   @Test
+  public void nobodyWinsBelowTurnNumber8() {
+    assertThat(game.getWinner() == null, is(true));
+  }
+  @Test
   public void findusIsAllowedToPlayUnoCardANDMinionAppearOnField() {
     // Given a game, and card UNO
     Card card0 = game.getCardInHand(Player.FINDUS,2); //Uno card is on index 2 in turn 0.

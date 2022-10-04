@@ -70,7 +70,7 @@ public class TestGammaStone {
     @Test
     public void danishChefPowerEffectDescriptionIsCorrectDescription() {
         //Description Should be:
-        //"Fields a special minion “Sovs” with attackPower 1 and health 1"
+        //"Fields a special minion "Sovs" with attackPower 1 and health 1"
         //Peddersen owns the ThaiHero
         assertThat(game.getHero(Player.PEDDERSEN).getEffectDescription(), is(GameConstants.DANISH_CHEF_EFFECT_DESCRIPTION));
     }

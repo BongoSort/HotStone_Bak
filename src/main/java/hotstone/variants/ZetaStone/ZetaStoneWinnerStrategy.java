@@ -12,15 +12,15 @@ public class ZetaStoneWinnerStrategy implements WinnerStrategy {
 
     @Override
     public Player calculateWinner(Game game) {
-        return setStrategyBasedOnTurnNumber(game.getTurnNumber()).calculateWinner(game);
+        return getStrategyBasedOnTurnNumber(game.getTurnNumber()).calculateWinner(game);
     }
 
     @Override
     public void attackingMinionsAttackValue(Player who, Game game, int value) {
-        setStrategyBasedOnTurnNumber(game.getTurnNumber()).attackingMinionsAttackValue(who, game, value);
+        getStrategyBasedOnTurnNumber(game.getTurnNumber()).attackingMinionsAttackValue(who, game, value);
     }
 
-    private WinnerStrategy setStrategyBasedOnTurnNumber(int turnNumber) {
+    private WinnerStrategy getStrategyBasedOnTurnNumber(int turnNumber) {
         if(turnNumber <= 11) {
             return betaStoneWinnerStrategy;
         } else {

@@ -138,6 +138,11 @@ public class TestBetaStone {
     }
 
     @Test
+    public void whenBothHeroesHaveHealthAboveZeroNobodyWins() {
+        assertThat(game.getWinner() == null, is(true));
+    }
+
+    @Test
     public void ifPeddersenHealthIsZeroOrBelowFindusWins() {
         ((StandardHotStoneHero) game.getHero(Player.PEDDERSEN)).reduceHealth(GameConstants.HERO_MAX_HEALTH);
         assertThat(game.getWinner(),is(Player.FINDUS));

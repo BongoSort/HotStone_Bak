@@ -74,6 +74,11 @@ public class TestEpsilonStone {
     }
 
     @Test
+    public void whenNoPlayerHasAttackedForMinionToMinionSumGreaterThan7ThereIsNoWinner() {
+        assertThat(game.getWinner() == null, is(true));
+    }
+
+    @Test
     public void whenFindusHasAttackedPeddersensMinionsForGreaterThan7AttackFindusWins() {
         TestHelper.fieldUnoDosTresCuatroForFindusAndPeddersen(game);
         Card unoCardFindus = game.getCardInField(Player.FINDUS,3);
@@ -92,6 +97,29 @@ public class TestEpsilonStone {
         game.attackCard(Player.FINDUS,cuatroCardFindus,cuatroCardPeddersen);
 
         assertThat(game.getWinner(), is(Player.FINDUS));
+    }
+
+    @Test
+    public void whenPeddersenHasAttackedFindusMinionsForGreaterThan7AttackPeddersenWins() {
+        TestHelper.fieldUnoDosTresCuatroForFindusAndPeddersen(game);
+        game.endTurn();
+        Card unoCardPeddersen = game.getCardInField(Player.FINDUS,3);
+        Card dosCardPeddersen = game.getCardInField(Player.PEDDERSEN,2);
+        Card tresCardPeddersen = game.getCardInField(Player.PEDDERSEN,1);
+        Card cuatroCardPeddersen = game.getCardInField(Player.PEDDERSEN,0);
+
+        Card unoCardFindus = game.getCardInField(Player.FINDUS,3);
+        Card dosCardFindus = game.getCardInField(Player.FINDUS,2);
+        Card tresCardFindus = game.getCardInField(Player.FINDUS,1);
+        Card cuatroCardFindus = game.getCardInField(Player.FINDUS,0);
+
+
+        game.attackCard(Player.PEDDERSEN, unoCardPeddersen,unoCardFindus);
+        game.attackCard(Player.PEDDERSEN, dosCardPeddersen, dosCardFindus);
+        game.attackCard(Player.PEDDERSEN, tresCardPeddersen,tresCardFindus);
+        game.attackCard(Player.PEDDERSEN, cuatroCardPeddersen,cuatroCardFindus);
+
+        assertThat(game.getWinner(), is(Player.PEDDERSEN));
     }
 
     @Test
