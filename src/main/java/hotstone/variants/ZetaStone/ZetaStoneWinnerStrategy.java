@@ -4,11 +4,11 @@ import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.WinnerStrategy;
 import hotstone.variants.BetaStone.BetaStoneWinnerStrategy;
-import hotstone.variants.EpsilonStone.EpisilonStoneWinnerStrategy;
+import hotstone.variants.EpsilonStone.EpsilonStoneWinnerStrategy;
 
 public class ZetaStoneWinnerStrategy implements WinnerStrategy {
-    private WinnerStrategy winsByHealthDepletion = new BetaStoneWinnerStrategy();
-    private WinnerStrategy winsByMinionToMinionAttackOutput = new EpisilonStoneWinnerStrategy();
+    private WinnerStrategy betaStoneWinnerStrategy = new BetaStoneWinnerStrategy();
+    private WinnerStrategy epsilonWinnerStrategy = new EpsilonStoneWinnerStrategy();
 
     @Override
     public Player calculateWinner(Game game) {
@@ -21,10 +21,10 @@ public class ZetaStoneWinnerStrategy implements WinnerStrategy {
     }
 
     private WinnerStrategy setStrategyBasedOnTurnNumber(int turnNumber) {
-        if(turnNumber < 11) {
-            return winsByHealthDepletion;
+        if(turnNumber <= 11) {
+            return betaStoneWinnerStrategy;
         } else {
-            return winsByMinionToMinionAttackOutput;
+            return epsilonWinnerStrategy;
         }
     }
 }

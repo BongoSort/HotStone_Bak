@@ -1,14 +1,9 @@
 package hotstone.standard;
 
 
-import hotstone.framework.Card;
-import hotstone.framework.Game;
-import hotstone.framework.Player;
+import hotstone.framework.*;
 import hotstone.framework.strategies.DeckStrategy;
-import hotstone.utility.TestHelper;
-import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
-import hotstone.variants.AlphaStone.AlphaStoneManaProductionStrategy;
-import hotstone.variants.AlphaStone.AlphaStoneCardEffectStrategy;
+import hotstone.framework.strategies.WinnerStrategy;
 import hotstone.variants.ZetaStone.ZetaStoneWinnerStrategy;
 import hotstone.variants.ZetaStone.ZetaStoneDeckStrategy;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,14 +15,17 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 public class TestZetaStone {
     private DeckStrategy zetaStoneDeckStrategy;
-    private Game game;
+    private WinnerStrategy winnerStrategy;
+    private TestDoubleGame gameDouble;
+    private StandardHotStoneHero findusHero = new StandardHotStoneHero(Player.FINDUS, 3, GameConstants.BABY_HERO_TYPE);
+    private StandardHotStoneHero peddersenHero = new StandardHotStoneHero(Player.PEDDERSEN,3,GameConstants.BABY_HERO_TYPE);
 
-    /** Fixture for AlphaStone testing. */
+
     @BeforeEach
     public void setUp() {
         zetaStoneDeckStrategy = new ZetaStoneDeckStrategy();
-        game = new StandardHotStoneGame(new AlphaStoneManaProductionStrategy(),
-                new ZetaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), new ZetaStoneDeckStrategy(), new AlphaStoneCardEffectStrategy());
+        gameDouble = new TestDoubleGame();
+        winnerStrategy = new ZetaStoneWinnerStrategy();
     }
 
     @Test
@@ -56,38 +54,102 @@ public class TestZetaStone {
     }
 
     @Test
-    public void inRound5WinnerStrategyShouldBeByHealthDepletion(){
-        for(int i = 0 ; i < 5 ; i++) {
-           Card card = game.getCardInHand(Player.FINDUS,0);
-           game.playCard(Player.FINDUS,card);
-           TestHelper.advanceGameNRounds(game,1);
-        }
-
-        for(int i = 0 ; i < 5 ; i++) {
-            Card card = game.getCardInField(Player.FINDUS, i);
-            game.attackHero(Player.FINDUS, card);
-        }
-        assertThat(game.getWinner(), is(Player.FINDUS));
+    public void inRound6WinnerStrategyShouldBeByHealthDepletion() {
+        gameDouble.turnNumber = 11;
+        peddersenHero.reduceHealth(peddersenHero.getHealth());
+        assertThat(gameDouble.getWinner(),is(Player.FINDUS));
     }
 
     @Test
-    public void inRound7WinnerStrategyShouldBeMinionToMinionOutputAttack() {
-        TestHelper.advanceGameNRounds(game, 5);
-        for(int i = 0 ; i < 2; i++) {
-            Card card = game.getCardInHand(Player.FINDUS,0);
-            game.playCard(Player.FINDUS,card);
+    public void inRound6WinnerStrategyShouldBeMinionToMinionOutputAttack() {
+        gameDouble.turnNumber = 12;
+        winnerStrategy.attackingMinionsAttackValue(Player.FINDUS, gameDouble,8);
+        assertThat(gameDouble.getWinner(), is(Player.FINDUS));
+    }
 
-            game.endTurn();
+    private class TestDoubleGame implements Game {
+        public int turnNumber;
 
-            Card card1 = game.getCardInHand(Player.PEDDERSEN,0);
-            game.playCard(Player.PEDDERSEN,card);
-
-            game.endTurn();
-
-            game.attackCard(Player.FINDUS,card,card1);
+        @Override
+        public Player getPlayerInTurn() {
+            return null;
         }
 
-        assertThat(game.getWinner(),is(Player.FINDUS));
+        @Override
+        public Hero getHero(Player who) {
+            return (who == Player.FINDUS) ? findusHero : peddersenHero;
+        }
+
+        @Override
+        public Player getWinner() {
+            return winnerStrategy.calculateWinner(this);
+        }
+
+        @Override
+        public int getTurnNumber() {
+            return turnNumber;
+        }
+
+        @Override
+        public int getDeckSize(Player who) {
+            return 0;
+        }
+
+        @Override
+        public Card getCardInHand(Player who, int indexInHand) {
+            return null;
+        }
+
+        @Override
+        public Iterable<? extends Card> getHand(Player who) {
+            return null;
+        }
+
+        @Override
+        public int getHandSize(Player who) {
+            return 0;
+        }
+
+        @Override
+        public Card getCardInField(Player who, int indexInField) {
+            return null;
+        }
+
+        @Override
+        public Iterable<? extends Card> getField(Player who) {
+            return null;
+        }
+
+        @Override
+        public int getFieldSize(Player who) {
+            return 0;
+        }
+
+        @Override
+        public void endTurn() {
+
+        }
+
+        @Override
+        public Status playCard(Player who, Card card) {
+            return null;
+        }
+
+        @Override
+        public Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
+            return null;
+        }
+
+        @Override
+        public Status attackHero(Player playerAttacking, Card attackingCard) {
+            return null;
+        }
+
+        @Override
+        public Status usePower(Player who) {
+            return null;
+        }
     }
 }
+
 

@@ -6,10 +6,10 @@ import hotstone.framework.strategies.WinnerStrategy;
 
 import java.util.HashMap;
 
-public class EpisilonStoneWinnerStrategy implements WinnerStrategy {
+public class EpsilonStoneWinnerStrategy implements WinnerStrategy {
     private HashMap<Player,Integer> playersAttackSum = new HashMap<>();
 
-    public EpisilonStoneWinnerStrategy() {
+    public EpsilonStoneWinnerStrategy() {
         playersAttackSum.put(Player.FINDUS,0);
         playersAttackSum.put(Player.PEDDERSEN,0);
     }
