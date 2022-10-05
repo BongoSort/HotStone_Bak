@@ -3,10 +3,11 @@ package hotstone.standard;
 import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
-import hotstone.variants.AlphaStoneDeckStrategy;
-import hotstone.variants.GammaStoneHeroStrategy;
-import hotstone.variants.AlphaStoneManaProductionStrategy;
-import hotstone.variants.AlphaStoneWinnerStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneManaProductionStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
+import hotstone.variants.GammaStone.GammaStoneHeroStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneCardEffectStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +20,7 @@ public class TestGammaStone {
     /** Fixture for AlphaStone testing. */
     @BeforeEach
     public void setUp() {
-        game = new StandardHotStoneGame(new AlphaStoneManaProductionStrategy(), new AlphaStoneWinnerStrategy(), new GammaStoneHeroStrategy(), new AlphaStoneDeckStrategy());
+        game = new StandardHotStoneGame(new AlphaStoneManaProductionStrategy(), new AlphaStoneWinnerStrategy(), new GammaStoneHeroStrategy(), new AlphaStoneDeckStrategy(), new AlphaStoneCardEffectStrategy());
     }
 
     @Test
@@ -58,4 +59,19 @@ public class TestGammaStone {
         assertThat(minionFielded.getAttack(), is(1));
     }
 
+    @Test
+    public void thaiChefPowerEffectDescriptionIsCorrectDescription() {
+        //Description Should be:
+        //Opponent hero loses two health
+        //Findus owns the ThaiHero
+        assertThat(game.getHero(Player.FINDUS).getEffectDescription(), is(GameConstants.THAI_CHEF_EFFECT_DESCRIPTION));
+    }
+
+    @Test
+    public void danishChefPowerEffectDescriptionIsCorrectDescription() {
+        //Description Should be:
+        //"Fields a special minion "Sovs" with attackPower 1 and health 1"
+        //Peddersen owns the ThaiHero
+        assertThat(game.getHero(Player.PEDDERSEN).getEffectDescription(), is(GameConstants.DANISH_CHEF_EFFECT_DESCRIPTION));
+    }
 }

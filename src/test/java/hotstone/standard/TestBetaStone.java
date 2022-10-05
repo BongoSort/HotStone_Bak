@@ -1,13 +1,19 @@
 package hotstone.standard;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
 
+import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.ManaProductionStrategy;
 import hotstone.utility.TestHelper;
-import hotstone.variants.*;
-import org.junit.jupiter.api.*;
-import hotstone.framework.Game;
+import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
+import hotstone.variants.BetaStone.BetaStoneManaProductionStrategy;
+import hotstone.variants.BetaStone.BetaStoneWinnerStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneCardEffectStrategy;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 public class TestBetaStone {
     private Game game;
     private ManaProductionStrategy manaProduction;
@@ -15,7 +21,7 @@ public class TestBetaStone {
     @BeforeEach
     public void setUp() {
         manaProduction = new BetaStoneManaProductionStrategy();
-        game = new StandardHotStoneGame(manaProduction, new BetaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), new AlphaStoneDeckStrategy());
+        game = new StandardHotStoneGame(manaProduction, new BetaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), new AlphaStoneDeckStrategy(), new AlphaStoneCardEffectStrategy());
     }
 
     //Unit tests for manaProductionStrategy in BetaStone
@@ -129,6 +135,11 @@ public class TestBetaStone {
     public void ifFindusHealthIsZeroOrBelowPeddersenWins() {
         ((StandardHotStoneHero) game.getHero(Player.FINDUS)).reduceHealth(GameConstants.HERO_MAX_HEALTH);
         assertThat(game.getWinner(),is(Player.PEDDERSEN));
+    }
+
+    @Test
+    public void whenBothHeroesHaveHealthAboveZeroNobodyWins() {
+        assertThat(game.getWinner() == null, is(true));
     }
 
     @Test

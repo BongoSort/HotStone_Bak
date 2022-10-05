@@ -9,10 +9,11 @@ public class StandardHotStoneHero implements Hero {
     private String type;
     private boolean isActive;
     private int mana;
+    private String effectDescription;
 
     /** Constructor for a Hero
      *  @param owner the player which owns the hero
-     *  @param type
+     *  @param type The type of Hero
      */
     public StandardHotStoneHero(Player owner, int mana, String type) {
         this.owner = owner;
@@ -20,6 +21,18 @@ public class StandardHotStoneHero implements Hero {
         this.isActive = true;
         this.mana = mana;
         this.health = GameConstants.HERO_MAX_HEALTH;
+        this.effectDescription = generateEffectDescription();
+    }
+
+    private String generateEffectDescription() {
+        return switch (type) {
+            case GameConstants.BABY_HERO_TYPE -> GameConstants.BABY_EFFECT_DESCRIPTION;
+            case GameConstants.THAI_CHEF_HERO_TYPE -> GameConstants.THAI_CHEF_EFFECT_DESCRIPTION;
+            case GameConstants.DANISH_CHEF_HERO_TYPE -> GameConstants.DANISH_CHEF_EFFECT_DESCRIPTION;
+            case GameConstants.FRENCH_CHEF_HERO_TYPE -> GameConstants.FRENCH_CHEF_EFFECT_DESCRIPTION;
+            case GameConstants.ITALIAN_CHEF_HERO_TYPE -> GameConstants.ITALIAN_CHEF_EFFECT_DESCRIPTION;
+            default -> "Effect does not exist";
+        };
     }
 
     @Override
@@ -38,6 +51,10 @@ public class StandardHotStoneHero implements Hero {
      */
     public void reduceHealth(int damage) {
         this.health -= damage;
+    }
+
+    public void increaseHealth(int amount) {
+        this.health += amount;
     }
 
     @Override
@@ -76,5 +93,10 @@ public class StandardHotStoneHero implements Hero {
     @Override
     public Player getOwner() {
         return owner;
+    }
+
+    @Override
+    public String getEffectDescription() {
+        return effectDescription;
     }
 }

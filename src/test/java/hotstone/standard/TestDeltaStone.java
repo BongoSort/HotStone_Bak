@@ -6,12 +6,17 @@ import hotstone.framework.Player;
 import hotstone.framework.strategies.DeckStrategy;
 import hotstone.framework.strategies.ManaProductionStrategy;
 import hotstone.utility.TestHelper;
-import hotstone.variants.*;
-import org.junit.jupiter.api.*;
+import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
+import hotstone.variants.DeltaStone.DeltaStoneManaProductionStrategy;
+import hotstone.variants.DeltaStone.DeltaStoneDeckStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneCardEffectStrategy;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestDeltaStone {
@@ -23,91 +28,91 @@ public class TestDeltaStone {
     public void setUp() {
         deckStrategy = new DeltaStoneDeckStrategy();
         manaProductionStrategy = new DeltaStoneManaProductionStrategy();
-        game = new StandardHotStoneGame(manaProductionStrategy, new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), deckStrategy);
+        game = new StandardHotStoneGame(manaProductionStrategy, new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), deckStrategy, new AlphaStoneCardEffectStrategy());
 
     }
 
     //Unit tests for cardStrategy
     @Test
     public void CardBrownRiceShouldHaveAttributes1_1_2() {
-        Card card = new StandardHotStoneCard(GameConstants.BROWN_RICE_CARD,Player.FINDUS);
+        Card card = new StandardHotStoneCard(GameConstants.BROWN_RICE_CARD,Player.FINDUS, 1,1,2);
         assertThat(card.getManaCost(), is(1));
         assertThat(card.getAttack(),is(1));
         assertThat(card.getHealth(),is(2));
     }
     @Test
     public void CardFrenchFriesShouldHaveAttributes1_2_1() {
-        Card card = new StandardHotStoneCard(GameConstants.FRENCH_FRIES_CARD,Player.FINDUS);
+        Card card = new StandardHotStoneCard(GameConstants.FRENCH_FRIES_CARD,Player.FINDUS,1,2,1);
         assertThat(card.getManaCost(), is(1));
         assertThat(card.getAttack(),is(2));
         assertThat(card.getHealth(),is(1));
     }
     @Test
     public void CardGreenSaladShouldHaveAttributes2_2_3() {
-        Card card = new StandardHotStoneCard(GameConstants.GREEN_SALAD_CARD,Player.FINDUS);
+        Card card = new StandardHotStoneCard(GameConstants.GREEN_SALAD_CARD,Player.FINDUS,2,2,3);
         assertThat(card.getManaCost(), is(2));
         assertThat(card.getAttack(),is(2));
         assertThat(card.getHealth(),is(3));
     }
     @Test
     public void CardTomatoSaladShouldHaveAttributes2_3_2() {
-        Card card = new StandardHotStoneCard(GameConstants.TOMATO_SALAD_CARD,Player.FINDUS);
+        Card card = new StandardHotStoneCard(GameConstants.TOMATO_SALAD_CARD,Player.FINDUS,2,3,2);
         assertThat(card.getManaCost(), is(2));
         assertThat(card.getAttack(),is(3));
         assertThat(card.getHealth(),is(2));
     }
     @Test
     public void CardPokeBowlShouldHaveAttributes3_2_4() {
-        Card card = new StandardHotStoneCard(GameConstants.POKE_BOWL_CARD,Player.FINDUS);
+        Card card = new StandardHotStoneCard(GameConstants.POKE_BOWL_CARD,Player.FINDUS,3,2,4);
         assertThat(card.getManaCost(), is(3));
         assertThat(card.getAttack(),is(2));
         assertThat(card.getHealth(),is(4));
     }
     @Test
     public void CardPumpkinSoupShouldHaveAttributes4_2_7() {
-        Card card = new StandardHotStoneCard(GameConstants.PUMPKIN_SOUP_CARD,Player.FINDUS);
+        Card card = new StandardHotStoneCard(GameConstants.PUMPKIN_SOUP_CARD,Player.FINDUS,4,2,7);
         assertThat(card.getManaCost(), is(4));
         assertThat(card.getAttack(),is(2));
         assertThat(card.getHealth(),is(7));
     }
     @Test
     public void CardNoodleSoupShouldHaveAttributes4_5_3() {
-        Card card = new StandardHotStoneCard(GameConstants.NOODLE_SOUP_CARD,Player.FINDUS);
+        Card card = new StandardHotStoneCard(GameConstants.NOODLE_SOUP_CARD,Player.FINDUS,4,5,3);
         assertThat(card.getManaCost(), is(4));
         assertThat(card.getAttack(),is(5));
         assertThat(card.getHealth(),is(3));
     }
     @Test
     public void CardSpringRollsShouldHaveAttributes5_3_7() {
-        Card card = new StandardHotStoneCard(GameConstants.SPRING_ROLLS_CARD,Player.FINDUS);
+        Card card = new StandardHotStoneCard(GameConstants.SPRING_ROLLS_CARD,Player.FINDUS,5,3,7);
         assertThat(card.getManaCost(), is(5));
         assertThat(card.getAttack(),is(3));
         assertThat(card.getHealth(),is(7));
     }
     @Test
     public void CardBakedSalmonShouldHaveAttributes5_8_2() {
-        Card card = new StandardHotStoneCard(GameConstants.BAKED_SALMON_CARD,Player.FINDUS);
+        Card card = new StandardHotStoneCard(GameConstants.BAKED_SALMON_CARD,Player.FINDUS,5,8,2);
         assertThat(card.getManaCost(), is(5));
         assertThat(card.getAttack(),is(8));
         assertThat(card.getHealth(),is(2));
     }
     @Test
     public void CardChickenCurryShouldHaveAttributes6_8_4() {
-        Card card = new StandardHotStoneCard(GameConstants.CHICKEN_CURRY_CARD,Player.FINDUS);
+        Card card = new StandardHotStoneCard(GameConstants.CHICKEN_CURRY_CARD,Player.FINDUS,6,8,4);
         assertThat(card.getManaCost(), is(6));
         assertThat(card.getAttack(),is(8));
         assertThat(card.getHealth(),is(4));
     }
     @Test
     public void CardBeefBurgerShouldHaveAttributes6_5_6() {
-        Card card = new StandardHotStoneCard(GameConstants.BEEF_BURGER_CARD,Player.FINDUS);
+        Card card = new StandardHotStoneCard(GameConstants.BEEF_BURGER_CARD,Player.FINDUS,6,5,6);
         assertThat(card.getManaCost(), is(6));
         assertThat(card.getAttack(),is(5));
         assertThat(card.getHealth(),is(6));
     }
     @Test
     public void CardFiletMignonShouldHaveAttributes7_9_5() {
-        Card card = new StandardHotStoneCard(GameConstants.FILET_MIGNON_CARD,Player.FINDUS);
+        Card card = new StandardHotStoneCard(GameConstants.FILET_MIGNON_CARD,Player.FINDUS, 7,9,5);
         assertThat(card.getManaCost(), is(7));
         assertThat(card.getAttack(),is(9));
         assertThat(card.getHealth(),is(5));

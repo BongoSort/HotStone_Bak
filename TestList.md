@@ -167,4 +167,41 @@
 * **OK** Second card in hand should cost two mana or less for both players
 * **OK** third card in hand should cost three mana or less for both players
 * **OK** After either player plays first card in hand, mana should be 6
-* **OK** each players deck should contain 21 cards at start of game.
+* **OK** each player's deck should contain 21 cards at start of game.
+
+## EpsilonStone
+### Hero Tests
+* **OK** Findus is French Chef
+* **OK** Peddersen is Italian Chef
+
+### Hero Power Tests
+* **OK** French chef power "Red wine" picks a random minion on opponents field and decreases its health by 2
+* **OK** when French chef power kills a minion the minion is removed from its field.
+* **OK** Italian chef Power "Pasta" picks a random minion of his field and increases its attack by 2
+* **OK** Italian chef power has no effect when his field is empty. **Kan dette testes?**
+* **OK** French chef power has no effect when his field is empty **Kan dette testes?**
+
+### Winner Tests
+* **OK** The winner is the player that first exceeds a total “attack output” from minion-to-minion attacks of 7
+(that is, the sum of attack values of all minion-to-minion attacks performed by that player is greater than 7.)
+* 
+
+
+## ZetaStone
+### Deck Tests
+* **OK** The deck for both players consists of 7 Cinco cards with the properties from alphastone
+
+### Winner Tests
+* **OK** if round is below or equal to 6 the player that brings down the opponents hero health to 0 or below wins
+* **OK** if round is greater than 6 the first player that exceeds a total of minion-to-minion attacks greater than 7 wins counting from start of round 7
+
+## EtaStone
+### Card Effect Tests 
+* Cards from dishDeck are modified and augmented with card effect
+* card effects are performed when played from hand to field.
+### Card attribute Tests
+* **OK** Card Brown Rice should have Attributes (1,1,1)
+* **OK** Card Tomato Salad should have Attributes (2,2,2)
+* **OK** Card Noodle Soup should have Attributes (4,5,3)
+* **OK** Card Chicken Curry should have Attributes (6,4,4)
+* **OK** Card Beef Burger should have Attributes (6,8,6)

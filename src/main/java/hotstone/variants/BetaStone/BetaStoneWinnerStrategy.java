@@ -1,9 +1,8 @@
-package hotstone.variants;
+package hotstone.variants.BetaStone;
 
 import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.WinnerStrategy;
-import hotstone.standard.StandardHotStoneGame;
 
 public class BetaStoneWinnerStrategy implements WinnerStrategy {
 
@@ -17,5 +16,10 @@ public class BetaStoneWinnerStrategy implements WinnerStrategy {
             return Player.FINDUS;
         }
         return null;
+    }
+
+    @Override
+    public void attackingMinionsAttackValue(Player who, Game game, int value) {
+
     }
 }

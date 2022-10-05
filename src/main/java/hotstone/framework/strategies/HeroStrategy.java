@@ -17,4 +17,7 @@ public interface HeroStrategy {
      * @param who the player which hero is going to use its power
      */
     void useHeroPower(Game game, Player who);
+
+
+
 }

@@ -18,10 +18,7 @@
 package hotstone.standard;
 
 import hotstone.framework.*;
-import hotstone.framework.strategies.DeckStrategy;
-import hotstone.framework.strategies.HeroStrategy;
-import hotstone.framework.strategies.ManaProductionStrategy;
-import hotstone.framework.strategies.WinnerStrategy;
+import hotstone.framework.strategies.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,24 +49,26 @@ public class StandardHotStoneGame implements Game {
   private ManaProductionStrategy manaProductionStrategy;
   private WinnerStrategy winnerStrategy;
   private HeroStrategy heroStrategy;
-
   private DeckStrategy deckStrategy;
+  private CardEffectStrategy cardEffectStrategy;
   private int turnNumber;
   private HashMap<Player,ArrayList<Card>> playerDecks = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerFields = new HashMap<>();
   private HashMap<Player, Hero> playerHero = new HashMap<>();
 
+
   /**
    * Initializes a new HotStone game
    * Also initializes heroes decks, hands and fields.
    */
   public StandardHotStoneGame(ManaProductionStrategy manaProductionStrategy, WinnerStrategy winnerStrategy,
-                              HeroStrategy heroStrategy, DeckStrategy deckStrategy) {
+                              HeroStrategy heroStrategy, DeckStrategy deckStrategy, CardEffectStrategy cardEffectStrategy) {
     this.manaProductionStrategy = manaProductionStrategy;
     this.winnerStrategy = winnerStrategy;
     this.heroStrategy = heroStrategy;
     this.deckStrategy = deckStrategy;
+    this.cardEffectStrategy = cardEffectStrategy;
     this.playerInTurn = Player.FINDUS;
     this.turnNumber = 0;
 
@@ -168,15 +167,15 @@ public class StandardHotStoneGame implements Game {
    */
   private void setupMinionsOnFieldForNewTurn(Player who) {
     for(Card c : getField(who)) {
-    setMinionActive(c,true);
-   }
+      setMinionActive(c,true);
+    }
   }
 
   /**
    * Sets up the hero to be active and resets its mana
    * @param who the player for the hero.
    */
-  private void setupHeroForNewTurn(Player who){
+  private void setupHeroForNewTurn(Player who) {
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(who));
     hero.setActive(true);
     hero.setMana(manaProductionStrategy.calculateMana(turnNumber));
@@ -186,10 +185,10 @@ public class StandardHotStoneGame implements Game {
    *  Draws a card from the deck and puts it in the players hand
    *  @param who the player that draws the card
    */
-  private void drawCard(Player who) {
+  public void drawCard(Player who) {
     boolean playersDeckSizeIsGreaterThanZero = playerDecks.get(who).size() > 0;
     if(!playersDeckSizeIsGreaterThanZero) {
-      reduceHeroHealth(who,2);
+      reduceHeroHealth(who, GameConstants.HERO_HEALTH_PENALTY_ON_EMPTY_DECK);
     } else {
       Card res = playerDecks.get(who).remove(0);
       playerHands.get(who).add(0,res);
@@ -198,7 +197,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status playCard(Player who, Card card) {
-    Status status = canCardBeUsed(who,card);
+    Status status = canCardBeUsed(who, card);
     boolean statusIsOk = status == Status.OK;
     if(!statusIsOk) {
       return status;
@@ -207,8 +206,12 @@ public class StandardHotStoneGame implements Game {
     if(!heroHasEnoughMana) {
       return Status.NOT_ENOUGH_MANA;
     }
-    addNewCardToField(who, card);
+
     reduceHeroMana(who, card.getManaCost());
+    cardEffectStrategy.useCardEffect(this,who,card);
+    addNewCardToField(who, card);
+
+
     return status;
   }
 
@@ -238,6 +241,8 @@ public class StandardHotStoneGame implements Game {
     if(!statusIsOk) { return status; }
 
     executeAttack(attackingCard, defendingCard);
+
+    winnerStrategy.attackingMinionsAttackValue(playerAttacking, this, attackingCard.getAttack());
 
     return status;
   }
@@ -290,6 +295,18 @@ public class StandardHotStoneGame implements Game {
   }
 
   /**
+   * Removes a card(minion) from the field if the card has 0 or less health
+   * @param card The minion on the field
+   */
+  private void removeCardFromFieldIfHealthIsZeroOrBelow(Card card) {
+    boolean cardHasZeroOrBelowHealth = card.getHealth() <= 0;
+    if(cardHasZeroOrBelowHealth) {
+      playerFields.get(card.getOwner()).remove(card);
+    }
+  }
+
+
+  /**
    * Executing the hero power, spending mana and setting hero to inactive.
    * @param who the player that uses the heropower
    */
@@ -310,10 +327,10 @@ public class StandardHotStoneGame implements Game {
   private Status canAttackBeDone(Player playerAttacking, Card attackingCard, Card defendingCard) {
     Status status = canCardBeUsed(playerAttacking, attackingCard);
     boolean cardCanBeUsed = status == Status.OK;
-    if(!cardCanBeUsed) { return status; }
+    if(! cardCanBeUsed) { return status; }
 
-    boolean playerIsDefendingCardsOwner = playerAttacking == defendingCard.getOwner();
-    if (playerIsDefendingCardsOwner) { return Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION; }
+    boolean playerAttackingIsDefendingCardsOwner = playerAttacking == defendingCard.getOwner();
+    if (playerAttackingIsDefendingCardsOwner) { return Status.ATTACK_NOT_ALLOWED_ON_OWN_MINION; }
 
     boolean attackingCardIsActive = attackingCard.isActive();
     if (! attackingCardIsActive) { return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION; }
@@ -367,8 +384,8 @@ public class StandardHotStoneGame implements Game {
 
     setMinionActive(attackingCard,false);
 
-    removeCardIfMinionIsDead(defendingCard);
-    removeCardIfMinionIsDead(attackingCard);
+    removeCardFromFieldIfHealthIsZeroOrBelow(defendingCard);
+    removeCardFromFieldIfHealthIsZeroOrBelow(attackingCard);
   }
 
   private void setMinionActive(Card card, boolean active) {
@@ -382,17 +399,6 @@ public class StandardHotStoneGame implements Game {
    */
   private void reduceMinionHealth(Card minion, int amount) {
     castCardToStandardHotStoneCard(minion).reduceHealth(amount);
-  }
-
-  /**
-   * Removes a card(minion) from the field if the card has 0 or less health
-   * @param card The minion on the field
-   */
-  private void removeCardIfMinionIsDead(Card card) {
-    boolean cardHasZeroOrBelowHealth = card.getHealth() <= 0;
-    if(cardHasZeroOrBelowHealth) {
-      playerFields.get(card.getOwner()).remove(card);
-    }
   }
 
   /**  Casting a hero to StandardHotStoneHero

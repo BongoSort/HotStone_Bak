@@ -89,6 +89,20 @@ public class TestHelper {
             is("Dos"));
   }
 
+  /** Helper method for putting the Tres minion on the field for Findus and Dos for Peddersen
+   * @param game is the current game
+   */
+  public static void fieldTresForPeddersen(Game game) {
+    game.endTurn();
+
+    game.playCard(Player.PEDDERSEN, game.getCardInHand(Player.PEDDERSEN, 1));
+
+    game.endTurn();
+
+    assertThat(game.getCardInField(Player.PEDDERSEN, 0).getName(),
+            is("Tres"));
+  }
+
   /** Helper method for putting the Uno and Dos minions on the field for Findus and for Peddersen
    * @param game is the current game
    */
@@ -105,5 +119,43 @@ public class TestHelper {
     game.endTurn();
     assertThat(game.getCardInField(Player.PEDDERSEN, 0).getName(),
             is("Dos"));
+  }
+
+  public static void fieldUnoDosTresCuatroForFindusAndPeddersen(Game game) {
+    Card card = game.getCardInHand(Player.FINDUS, 2);
+    game.playCard(Player.FINDUS,card);
+
+    card = game.getCardInHand(Player.FINDUS, 1);
+    game.playCard(Player.FINDUS,card);
+
+    game.endTurn();
+
+    card = game.getCardInHand(Player.PEDDERSEN, 3);
+    game.playCard(Player.PEDDERSEN,card);
+
+    card = game.getCardInHand(Player.PEDDERSEN, 2);
+    game.playCard(Player.PEDDERSEN,card);
+
+    game.endTurn();
+
+    card = game.getCardInHand(Player.FINDUS, 1);
+    game.playCard(Player.FINDUS,card);
+
+    game.endTurn();
+
+    card = game.getCardInHand(Player.PEDDERSEN, 2); //TRES for peddersen
+    game.playCard(Player.PEDDERSEN,card);
+
+    game.endTurn();
+
+    card = game.getCardInHand(Player.FINDUS, 1); //CUATRO for Findus
+    game.playCard(Player.FINDUS,card);
+
+    game.endTurn();
+
+    card = game.getCardInHand(Player.PEDDERSEN, 2); //Cuatro for peddersen
+    game.playCard(Player.PEDDERSEN,card);
+
+    game.endTurn(); //then it is findus turn.
   }
 }
