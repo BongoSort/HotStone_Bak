@@ -275,7 +275,7 @@ public class StandardHotStoneGame implements Game {
    * @param value the value the health is reduced by
    */
   private void reduceHeroHealth(Player who, int value) {
-    castHeroToStandardHotStoneHero(getHero(who)).reduceHealth(value);
+    playerHero.get(who).reduceHealth(value);
   }
 
 
@@ -310,7 +310,7 @@ public class StandardHotStoneGame implements Game {
    * @param who the player that uses the heropower
    */
   private void executeHeroPower(Player who) {
-    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(playerHero.get(who));
+    MutableHero hero = playerHero.get(who);
     heroStrategy.useHeroPower(this,who);
     hero.reduceMana(GameConstants.HERO_POWER_COST);
     hero.setActive(false);
@@ -398,14 +398,6 @@ public class StandardHotStoneGame implements Game {
    */
   private void reduceMinionHealth(Card minion, int amount) {
     castCardToStandardHotStoneCard(minion).reduceHealth(amount);
-  }
-
-  /**  Casting a hero to StandardHotStoneHero
-   * @param hero the hero being casted
-   * @return the casted hero
-   */
-  private StandardHotStoneHero castHeroToStandardHotStoneHero(Hero hero) {
-    return (StandardHotStoneHero) hero;
   }
 
   /**  Casting a card to StandardHotStoneCard
