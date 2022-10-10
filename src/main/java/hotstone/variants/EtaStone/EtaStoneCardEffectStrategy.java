@@ -24,8 +24,8 @@ public class EtaStoneCardEffectStrategy implements CardEffectStrategy {
     @Override
     public void useCardEffect(Game game, Player who, Card card) {
         Player opponent = Utility.computeOpponent(who);
-
         int randomIndex = indexStrategy.calculateRandomNumber(game.getFieldSize(who));
+
         switch (card.getName()) {
             case GameConstants.BROWN_RICE_CARD -> {
                 ((StandardHotStoneHero) game.getHero(opponent)).reduceHealth(1);

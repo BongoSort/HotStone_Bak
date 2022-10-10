@@ -1,16 +1,18 @@
-package hotstone.variants.EpsilonStone;
+package hotstone.utility;
 
 import hotstone.framework.strategies.*;
 import hotstone.framework.strategies.IndexDecisionStrategies.IndexStrategy;
 import hotstone.framework.strategies.IndexDecisionStrategies.RandomIndexStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneCardEffectStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
-import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneManaProductionStrategy;
-import hotstone.variants.BetaStone.BetaStoneManaProductionStrategy;
-import hotstone.variants.BetaStone.BetaStoneWinnerStrategy;
+import hotstone.variants.EpsilonStone.EpsilonStoneHeroStrategy;
+import hotstone.variants.EpsilonStone.EpsilonStoneWinnerStrategy;
 
-public class EpsilonStoneFactoryStrategy implements FactoryStrategy {
+public class TestEpsilonStoneFactoryStrategy implements FactoryStrategy {
+
+    private FixedIndexStrategy fixedIndexStrategy = new FixedIndexStrategy();
+
     @Override
     public CardEffectStrategy createCardEffectStrategy() {
         return new AlphaStoneCardEffectStrategy();
@@ -23,7 +25,7 @@ public class EpsilonStoneFactoryStrategy implements FactoryStrategy {
 
     @Override
     public HeroStrategy createHeroStrategy() {
-        return new EpsilonStoneHeroStrategy(new RandomIndexStrategy());
+        return new EpsilonStoneHeroStrategy(fixedIndexStrategy);
     }
 
     @Override
@@ -34,5 +36,9 @@ public class EpsilonStoneFactoryStrategy implements FactoryStrategy {
     @Override
     public WinnerStrategy createWinnerStrategy() {
         return new EpsilonStoneWinnerStrategy();
+    }
+
+    public FixedIndexStrategy getFixedIndexStrategy() {
+        return fixedIndexStrategy;
     }
 }

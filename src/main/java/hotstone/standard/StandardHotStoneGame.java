@@ -62,13 +62,12 @@ public class StandardHotStoneGame implements Game {
    * Initializes a new HotStone game
    * Also initializes heroes decks, hands and fields.
    */
-  public StandardHotStoneGame(ManaProductionStrategy manaProductionStrategy, WinnerStrategy winnerStrategy,
-                              HeroStrategy heroStrategy, DeckStrategy deckStrategy, CardEffectStrategy cardEffectStrategy) {
-    this.manaProductionStrategy = manaProductionStrategy;
-    this.winnerStrategy = winnerStrategy;
-    this.heroStrategy = heroStrategy;
-    this.deckStrategy = deckStrategy;
-    this.cardEffectStrategy = cardEffectStrategy;
+  public StandardHotStoneGame(FactoryStrategy factoryStrategy) {
+    this.manaProductionStrategy = factoryStrategy.createManaProductionStrategy();
+    this.winnerStrategy = factoryStrategy.createWinnerStrategy();
+    this.heroStrategy = factoryStrategy.createHeroStrategy();
+    this.deckStrategy = factoryStrategy.createDeckStrategy();
+    this.cardEffectStrategy = factoryStrategy.createCardEffectStrategy();
     this.playerInTurn = Player.FINDUS;
     this.turnNumber = 0;
 
