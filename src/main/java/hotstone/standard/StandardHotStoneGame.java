@@ -55,7 +55,7 @@ public class StandardHotStoneGame implements Game {
   private HashMap<Player,ArrayList<Card>> playerDecks = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerFields = new HashMap<>();
-  private HashMap<Player, Hero> playerHero = new HashMap<>();
+  private HashMap<Player, MutableHero> playerHero = new HashMap<>();
 
 
   /**
@@ -175,7 +175,7 @@ public class StandardHotStoneGame implements Game {
    * @param who the player for the hero.
    */
   private void setupHeroForNewTurn(Player who) {
-    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(who));
+    MutableHero hero = playerHero.get(who);
     hero.setActive(true);
     hero.setMana(manaProductionStrategy.calculateMana(turnNumber));
   }
@@ -230,7 +230,7 @@ public class StandardHotStoneGame implements Game {
    * @param manaCost the value that's subtracted from the hero's mana.
    */
   private void reduceHeroMana(Player who, int manaCost){
-    castHeroToStandardHotStoneHero(getHero(who)).reduceHeroMana(manaCost);
+    playerHero.get(who).reduceMana(manaCost);
   }
 
   @Override
@@ -312,7 +312,7 @@ public class StandardHotStoneGame implements Game {
   private void executeHeroPower(Player who) {
     StandardHotStoneHero hero = castHeroToStandardHotStoneHero(playerHero.get(who));
     heroStrategy.useHeroPower(this,who);
-    hero.reduceHeroMana(GameConstants.HERO_POWER_COST);
+    hero.reduceMana(GameConstants.HERO_POWER_COST);
     hero.setActive(false);
   }
 
