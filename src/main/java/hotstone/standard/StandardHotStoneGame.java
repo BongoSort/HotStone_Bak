@@ -388,7 +388,7 @@ public class StandardHotStoneGame implements Game {
   }
 
   private void setMinionActive(Card card, boolean active) {
-    castCardToStandardHotStoneCard(card).setActive(active);
+    ((MutableCard) card).setActive(active);
   }
 
   /**
@@ -397,15 +397,6 @@ public class StandardHotStoneGame implements Game {
    * @param amount The amount of health minion is losing
    */
   private void reduceMinionHealth(Card minion, int amount) {
-    castCardToStandardHotStoneCard(minion).reduceHealth(amount);
-  }
-
-  /**  Casting a card to StandardHotStoneCard
-   *
-   * @param card the card being casted
-   * @return the casted card
-   */
-  private StandardHotStoneCard castCardToStandardHotStoneCard(Card card) {
-    return (StandardHotStoneCard) card;
+    ((MutableCard) minion).reduceHealth(amount);
   }
 }
