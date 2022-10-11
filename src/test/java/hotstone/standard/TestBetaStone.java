@@ -2,15 +2,10 @@ package hotstone.standard;
 
 import hotstone.framework.Game;
 import hotstone.framework.Player;
-import hotstone.framework.strategies.FactoryStrategy;
+import hotstone.framework.strategies.AbstractFactory;
 import hotstone.framework.strategies.ManaProductionStrategy;
 import hotstone.utility.TestHelper;
-import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
-import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
-import hotstone.variants.BetaStone.BetaStoneFactoryStrategy;
-import hotstone.variants.BetaStone.BetaStoneManaProductionStrategy;
-import hotstone.variants.BetaStone.BetaStoneWinnerStrategy;
-import hotstone.variants.AlphaStone.AlphaStoneCardEffectStrategy;
+import hotstone.variants.BetaStone.BetaStoneConcreteFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,9 +17,9 @@ public class TestBetaStone {
 
     @BeforeEach
     public void setUp() {
-        FactoryStrategy betaStoneFactoryStrategy = new BetaStoneFactoryStrategy();
-        manaProduction = betaStoneFactoryStrategy.createManaProductionStrategy();
-        game = new StandardHotStoneGame(betaStoneFactoryStrategy);
+        AbstractFactory betaStoneAbstractFactory = new BetaStoneConcreteFactory();
+        manaProduction = betaStoneAbstractFactory.createManaProductionStrategy();
+        game = new StandardHotStoneGame(betaStoneAbstractFactory);
     }
 
     //Unit tests for manaProductionStrategy in BetaStone

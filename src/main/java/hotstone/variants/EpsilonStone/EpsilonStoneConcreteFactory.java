@@ -1,16 +1,12 @@
 package hotstone.variants.EpsilonStone;
 
 import hotstone.framework.strategies.*;
-import hotstone.framework.strategies.IndexDecisionStrategies.IndexStrategy;
 import hotstone.framework.strategies.IndexDecisionStrategies.RandomIndexStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneCardEffectStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
-import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneManaProductionStrategy;
-import hotstone.variants.BetaStone.BetaStoneManaProductionStrategy;
-import hotstone.variants.BetaStone.BetaStoneWinnerStrategy;
 
-public class EpsilonStoneFactoryStrategy implements FactoryStrategy {
+public class EpsilonStoneConcreteFactory implements AbstractFactory {
     @Override
     public CardEffectStrategy createCardEffectStrategy() {
         return new AlphaStoneCardEffectStrategy();

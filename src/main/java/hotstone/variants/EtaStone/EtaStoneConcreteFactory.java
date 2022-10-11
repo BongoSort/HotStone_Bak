@@ -1,13 +1,12 @@
 package hotstone.variants.EtaStone;
 
 import hotstone.framework.strategies.*;
-import hotstone.framework.strategies.IndexDecisionStrategies.IndexStrategy;
 import hotstone.framework.strategies.IndexDecisionStrategies.RandomIndexStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
 import hotstone.variants.DeltaStone.DeltaStoneManaProductionStrategy;
 
-public class EtaStoneFactory implements FactoryStrategy {
+public class EtaStoneConcreteFactory implements AbstractFactory {
     @Override
     public CardEffectStrategy createCardEffectStrategy() {
         return new EtaStoneCardEffectStrategy(new RandomIndexStrategy());

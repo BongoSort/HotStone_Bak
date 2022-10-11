@@ -1,22 +1,23 @@
-package hotstone.variants.DeltaStone;
+package hotstone.utility;
 
 import hotstone.framework.strategies.*;
-import hotstone.variants.AlphaStone.AlphaStoneCardEffectStrategy;
-import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
-import hotstone.variants.BetaStone.BetaStoneManaProductionStrategy;
-import hotstone.variants.BetaStone.BetaStoneWinnerStrategy;
+import hotstone.variants.DeltaStone.DeltaStoneManaProductionStrategy;
+import hotstone.variants.EtaStone.EtaStoneCardEffectStrategy;
 
-public class DeltaStoneFactoryStrategy implements FactoryStrategy {
+public class TestEtaStoneConcreteFactory implements AbstractFactory {
+
+    private FixedIndexStrategy fixedIndexStrategy = new FixedIndexStrategy();
+
     @Override
     public CardEffectStrategy createCardEffectStrategy() {
-        return new AlphaStoneCardEffectStrategy();
+        return new EtaStoneCardEffectStrategy(fixedIndexStrategy);
     }
 
     @Override
     public DeckStrategy createDeckStrategy() {
-        return new DeltaStoneDeckStrategy();
+        return new TestDishDeckStrategy();
     }
 
     @Override
@@ -32,5 +33,9 @@ public class DeltaStoneFactoryStrategy implements FactoryStrategy {
     @Override
     public WinnerStrategy createWinnerStrategy() {
         return new AlphaStoneWinnerStrategy();
+    }
+
+    public FixedIndexStrategy getFixedIndexStrategy() {
+        return fixedIndexStrategy;
     }
 }

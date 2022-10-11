@@ -1,12 +1,8 @@
-package hotstone.variants.ZetaStone;
+package hotstone.variants.AlphaStone;
 
 import hotstone.framework.strategies.*;
-import hotstone.variants.AlphaStone.AlphaStoneCardEffectStrategy;
-import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
-import hotstone.variants.AlphaStone.AlphaStoneManaProductionStrategy;
 
-public class ZetaStoneFactoryStrategy implements FactoryStrategy {
-
+public class AlphaStoneConcreteFactory implements AbstractFactory {
     @Override
     public CardEffectStrategy createCardEffectStrategy() {
         return new AlphaStoneCardEffectStrategy();
@@ -14,7 +10,7 @@ public class ZetaStoneFactoryStrategy implements FactoryStrategy {
 
     @Override
     public DeckStrategy createDeckStrategy() {
-        return new ZetaStoneDeckStrategy();
+        return new AlphaStoneDeckStrategy();
     }
 
     @Override
@@ -29,6 +25,6 @@ public class ZetaStoneFactoryStrategy implements FactoryStrategy {
 
     @Override
     public WinnerStrategy createWinnerStrategy() {
-        return new ZetaStoneWinnerStrategy();
+        return new AlphaStoneWinnerStrategy();
     }
 }

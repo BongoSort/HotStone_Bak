@@ -1,8 +1,11 @@
-package hotstone.variants.AlphaStone;
+package hotstone.variants.BetaStone;
 
 import hotstone.framework.strategies.*;
+import hotstone.variants.AlphaStone.AlphaStoneCardEffectStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
+import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
 
-public class AlphaStoneFactoryStrategy implements FactoryStrategy {
+public class BetaStoneConcreteFactory implements AbstractFactory {
     @Override
     public CardEffectStrategy createCardEffectStrategy() {
         return new AlphaStoneCardEffectStrategy();
@@ -20,11 +23,11 @@ public class AlphaStoneFactoryStrategy implements FactoryStrategy {
 
     @Override
     public ManaProductionStrategy createManaProductionStrategy() {
-        return new AlphaStoneManaProductionStrategy();
+        return new BetaStoneManaProductionStrategy();
     }
 
     @Override
     public WinnerStrategy createWinnerStrategy() {
-        return new AlphaStoneWinnerStrategy();
+        return new BetaStoneWinnerStrategy();
     }
 }

@@ -1,6 +1,6 @@
 package hotstone.framework.strategies;
 
-public interface FactoryStrategy {
+public interface AbstractFactory {
 
     CardEffectStrategy createCardEffectStrategy();
 

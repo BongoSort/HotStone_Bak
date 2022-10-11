@@ -66,7 +66,7 @@ public class TestAlphaStone {
   /** Fixture for AlphaStone testing. */
   @BeforeEach
   public void setUp() {
-    game = new StandardHotStoneGame(new AlphaStoneFactoryStrategy());
+    game = new StandardHotStoneGame(new AlphaStoneConcreteFactory());
   }
 
   @Test

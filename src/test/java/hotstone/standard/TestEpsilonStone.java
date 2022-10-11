@@ -3,16 +3,9 @@ package hotstone.standard;
 import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
-import hotstone.framework.strategies.FactoryStrategy;
-import hotstone.framework.strategies.IndexDecisionStrategies.IndexStrategy;
 import hotstone.utility.FixedIndexStrategy;
-import hotstone.utility.TestEpsilonStoneFactoryStrategy;
+import hotstone.utility.TestEpsilonStoneConcreteFactory;
 import hotstone.utility.TestHelper;
-import hotstone.variants.AlphaStone.AlphaStoneDeckStrategy;
-import hotstone.variants.AlphaStone.AlphaStoneManaProductionStrategy;
-import hotstone.variants.EpsilonStone.EpsilonStoneWinnerStrategy;
-import hotstone.variants.EpsilonStone.EpsilonStoneHeroStrategy;
-import hotstone.variants.AlphaStone.AlphaStoneCardEffectStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +19,7 @@ public class TestEpsilonStone {
     /** Fixture for EpsilonStone testing. */
     @BeforeEach
     public void setUp() {
-        TestEpsilonStoneFactoryStrategy testEpsilonStoneFactory = new TestEpsilonStoneFactoryStrategy();
+        TestEpsilonStoneConcreteFactory testEpsilonStoneFactory = new TestEpsilonStoneConcreteFactory();
         fixedIndexStrategy = testEpsilonStoneFactory.getFixedIndexStrategy();
         game = new StandardHotStoneGame(testEpsilonStoneFactory);
     }
