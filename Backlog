@@ -1,10 +1,6 @@
 BACKLOG:
 
-Refactor all strategies names, to show functionality instead of HotStone version. I.e: DeltaStoneCardStrategy -> AlternatingDishDeckStrategy ect.
-
 Implementer String getEffectDescription() i Hero interfacet. samt implementerer det i StandardHotstoneHero
-
-Lav Game double til ZetaStoneWinner strategy (se også om de kan bruges andre steder)
 
 
 se om HeroStrategy og Card effects kan smides sammen til at være et interface.
@@ -18,4 +14,7 @@ vi skal også have kigger mere på det forskellige slags test doubles:
                  that may both serve as a stub and spy.
     Fake object: A double whose purpose is to be a high performance replacement
                  for a slow or expensive DOU.
+
+
+overvej hvorfor vi har gemt minionTominionAttackSum i en strategi istedet for en metode.
 

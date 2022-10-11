@@ -1,9 +1,6 @@
 package hotstone.variants.EtaStone;
 
-import hotstone.framework.Card;
-import hotstone.framework.Game;
-import hotstone.framework.Player;
-import hotstone.framework.Utility;
+import hotstone.framework.*;
 import hotstone.framework.strategies.CardEffectStrategy;
 import hotstone.framework.strategies.IndexDecisionStrategies.IndexStrategy;
 import hotstone.standard.GameConstants;
@@ -28,16 +25,16 @@ public class EtaStoneCardEffectStrategy implements CardEffectStrategy {
 
         switch (card.getName()) {
             case GameConstants.BROWN_RICE_CARD -> {
-                ((StandardHotStoneHero) game.getHero(opponent)).reduceHealth(1);
+                ((MutableHero) game.getHero(opponent)).reduceHealth(1);
             }
             case GameConstants.TOMATO_SALAD_CARD -> {
                 if(game.getFieldSize(who) <= 0) {
                     return;
                 }
-                    ((StandardHotStoneCard) game.getCardInField(who,randomIndex)).increaseAttack(1);
+                    ((MutableCard) game.getCardInField(who,randomIndex)).increaseAttack(1);
             }
             case GameConstants.POKE_BOWL_CARD -> {
-                ((StandardHotStoneHero) game.getHero(who)).increaseHealth(2);
+                ((MutableHero) game.getHero(who)).increaseHealth(2);
             }
 
             case GameConstants.NOODLE_SOUP_CARD -> {
@@ -47,14 +44,14 @@ public class EtaStoneCardEffectStrategy implements CardEffectStrategy {
                 if(game.getFieldSize(opponent) <= 0) {
                     return;
                 }
-                StandardHotStoneCard opponentCard = ((StandardHotStoneCard) game.getCardInField(opponent,randomIndex));
+                MutableCard opponentCard = ((MutableCard) game.getCardInField(opponent,randomIndex));
                 ((ArrayList<Card>) game.getField(opponent)).remove(opponentCard);
             }
             case GameConstants.BEEF_BURGER_CARD -> {
                 if(game.getFieldSize(opponent) <= 0) {
                     return;
                 }
-                ((StandardHotStoneCard) game.getCardInField(opponent,randomIndex)).increaseAttack(2);
+                ((MutableCard) game.getCardInField(opponent,randomIndex)).increaseAttack(2);
             }
         }
     }

@@ -184,7 +184,7 @@ public class StandardHotStoneGame implements Game {
    *  Draws a card from the deck and puts it in the players hand
    *  @param who the player that draws the card
    */
-  public void drawCard(Player who) {
+  public void drawCard(Player who) { //TODO: skal denne smides ud i et interface?
     boolean playersDeckSizeIsGreaterThanZero = playerDecks.get(who).size() > 0;
     if(!playersDeckSizeIsGreaterThanZero) {
       reduceHeroHealth(who, GameConstants.HERO_HEALTH_PENALTY_ON_EMPTY_DECK);

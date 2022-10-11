@@ -1,9 +1,6 @@
 package hotstone.variants.EpsilonStone;
 
-import hotstone.framework.Card;
-import hotstone.framework.Game;
-import hotstone.framework.Player;
-import hotstone.framework.Utility;
+import hotstone.framework.*;
 import hotstone.framework.strategies.HeroStrategy;
 import hotstone.framework.strategies.IndexDecisionStrategies.IndexStrategy;
 import hotstone.standard.GameConstants;
@@ -40,7 +37,7 @@ public class EpsilonStoneHeroStrategy implements HeroStrategy {
                     return;
                 }
 
-                StandardHotStoneCard card = (StandardHotStoneCard) game.getCardInField(opponent,randomNumber);
+                MutableCard card = (MutableCard) game.getCardInField(opponent,randomNumber);
                 card.reduceHealth(2);
 
                 if(card.getHealth() > 0) { return; }
@@ -51,7 +48,7 @@ public class EpsilonStoneHeroStrategy implements HeroStrategy {
                 if(game.getFieldSize(who) <= 0) {
                     return;
                 }
-                ((StandardHotStoneCard) game.getCardInField(who,randomNumber)).increaseAttack(2);
+                ((MutableCard) game.getCardInField(who,randomNumber)).increaseAttack(2);
             }
         }
     }
