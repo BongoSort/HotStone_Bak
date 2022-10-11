@@ -1,5 +1,5 @@
 package hotstone.framework.strategies.IndexDecisionStrategies;
 
 public interface IndexStrategy {
-    int calculateRandomNumber(int bound);
+    int calculateIndex(int bound);
 }

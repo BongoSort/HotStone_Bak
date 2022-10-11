@@ -4,8 +4,6 @@ import hotstone.framework.*;
 import hotstone.framework.strategies.HeroStrategy;
 import hotstone.framework.strategies.IndexDecisionStrategies.IndexStrategy;
 import hotstone.standard.GameConstants;
-import hotstone.standard.StandardHotStoneCard;
-import hotstone.standard.StandardHotStoneGame;
 
 import java.util.ArrayList;
 
@@ -27,7 +25,7 @@ public class EpsilonStoneHeroStrategy implements HeroStrategy {
 
     @Override
     public void useHeroPower(Game game, Player who) {
-        int randomNumber = indexStrategy.calculateRandomNumber(game.getFieldSize(who));
+        int randomNumber = indexStrategy.calculateIndex(game.getFieldSize(who));
 
         String playersHeroType = game.getHero(who).getType();
         switch(playersHeroType) {

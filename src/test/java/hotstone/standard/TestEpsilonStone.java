@@ -19,8 +19,8 @@ public class TestEpsilonStone {
     /** Fixture for EpsilonStone testing. */
     @BeforeEach
     public void setUp() {
-        TestEpsilonStoneConcreteFactory testEpsilonStoneFactory = new TestEpsilonStoneConcreteFactory();
-        fixedIndexStrategy = testEpsilonStoneFactory.getFixedIndexStrategy();
+        fixedIndexStrategy = new FixedIndexStrategy();
+        TestEpsilonStoneConcreteFactory testEpsilonStoneFactory = new TestEpsilonStoneConcreteFactory(fixedIndexStrategy);
         game = new StandardHotStoneGame(testEpsilonStoneFactory);
     }
 

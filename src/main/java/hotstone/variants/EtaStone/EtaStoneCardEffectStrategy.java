@@ -4,9 +4,7 @@ import hotstone.framework.*;
 import hotstone.framework.strategies.CardEffectStrategy;
 import hotstone.framework.strategies.IndexDecisionStrategies.IndexStrategy;
 import hotstone.standard.GameConstants;
-import hotstone.standard.StandardHotStoneCard;
 import hotstone.standard.StandardHotStoneGame;
-import hotstone.standard.StandardHotStoneHero;
 
 import java.util.ArrayList;
 
@@ -21,7 +19,7 @@ public class EtaStoneCardEffectStrategy implements CardEffectStrategy {
     @Override
     public void useCardEffect(Game game, Player who, Card card) {
         Player opponent = Utility.computeOpponent(who);
-        int randomIndex = indexStrategy.calculateRandomNumber(game.getFieldSize(who));
+        int randomIndex = indexStrategy.calculateIndex(game.getFieldSize(who));
 
         switch (card.getName()) {
             case GameConstants.BROWN_RICE_CARD -> {
