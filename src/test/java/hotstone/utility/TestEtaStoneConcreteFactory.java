@@ -5,8 +5,9 @@ import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
 import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
 import hotstone.variants.DeltaStone.DeltaStoneManaProductionStrategy;
 import hotstone.variants.EtaStone.EtaStoneCardEffectStrategy;
+import hotstone.variants.EtaStone.EtaStoneConcreteFactory;
 
-public class TestEtaStoneConcreteFactory implements AbstractFactory {
+public class TestEtaStoneConcreteFactory extends EtaStoneConcreteFactory {
 
     private FixedIndexStrategy fixedIndexStrategy = new FixedIndexStrategy();
 
@@ -18,21 +19,6 @@ public class TestEtaStoneConcreteFactory implements AbstractFactory {
     @Override
     public DeckStrategy createDeckStrategy() {
         return new TestDishDeckStrategy();
-    }
-
-    @Override
-    public HeroStrategy createHeroStrategy() {
-        return new AlphaStoneHeroStrategy();
-    }
-
-    @Override
-    public ManaProductionStrategy createManaProductionStrategy() {
-        return new DeltaStoneManaProductionStrategy();
-    }
-
-    @Override
-    public WinnerStrategy createWinnerStrategy() {
-        return new AlphaStoneWinnerStrategy();
     }
 
     public FixedIndexStrategy getFixedIndexStrategy() {
