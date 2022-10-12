@@ -13,13 +13,15 @@ import java.util.ArrayList;
 
 public class SemiStoneHeroStrategy implements HeroStrategy {
 
-    private GammaStoneHeroStrategy gammaStoneHeroStrategy = new GammaStoneHeroStrategy();
-    private EpsilonStoneHeroStrategy epsilonStoneHeroStrategy = new EpsilonStoneHeroStrategy(new RandomIndexStrategy());
+    private GammaStoneHeroStrategy gammaStoneHeroStrategy;
+    private EpsilonStoneHeroStrategy epsilonStoneHeroStrategy;
 
     private IndexStrategy indexStrategy;
 
     public SemiStoneHeroStrategy(IndexStrategy indexStrategy) {
         this.indexStrategy = indexStrategy;
+        epsilonStoneHeroStrategy = new EpsilonStoneHeroStrategy(indexStrategy);
+        gammaStoneHeroStrategy = new GammaStoneHeroStrategy();
     }
 
     @Override
