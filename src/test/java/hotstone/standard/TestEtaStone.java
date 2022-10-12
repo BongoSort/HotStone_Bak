@@ -5,7 +5,7 @@ import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.DeckStrategy;
 import hotstone.utility.FixedIndexStrategy;
-import hotstone.utility.TestEtaStoneConcreteFactory;
+import hotstone.utility.TestEtaStoneFactory;
 import hotstone.utility.TestHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ public class TestEtaStone {
 
     @BeforeEach
     public void setUp() {
-        TestEtaStoneConcreteFactory testEtaStoneFactoryStrategy = new TestEtaStoneConcreteFactory();
+        TestEtaStoneFactory testEtaStoneFactoryStrategy = new TestEtaStoneFactory();
         DeckStrategy deckStrategy = testEtaStoneFactoryStrategy.createDeckStrategy();
         deck = deckStrategy.deckInitialization(Player.FINDUS);
         fixedIndexStrategy = testEtaStoneFactoryStrategy.getFixedIndexStrategy();

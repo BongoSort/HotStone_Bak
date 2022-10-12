@@ -25,7 +25,7 @@ public class EpsilonStoneHeroStrategy implements HeroStrategy {
 
     @Override
     public void useHeroPower(Game game, Player who) {
-        int randomNumber = indexStrategy.calculateIndex(game.getFieldSize(who));
+
 
         String playersHeroType = game.getHero(who).getType();
         switch(playersHeroType) {
@@ -34,6 +34,8 @@ public class EpsilonStoneHeroStrategy implements HeroStrategy {
                 if(game.getFieldSize(opponent) <= 0) {
                     return;
                 }
+                int randomNumber = indexStrategy.calculateIndex(game.getFieldSize(opponent));
+
 
                 MutableCard card = (MutableCard) game.getCardInField(opponent,randomNumber);
                 card.reduceHealth(2);
@@ -46,6 +48,7 @@ public class EpsilonStoneHeroStrategy implements HeroStrategy {
                 if(game.getFieldSize(who) <= 0) {
                     return;
                 }
+                int randomNumber = indexStrategy.calculateIndex(game.getFieldSize(who));
                 ((MutableCard) game.getCardInField(who,randomNumber)).increaseAttack(2);
             }
         }

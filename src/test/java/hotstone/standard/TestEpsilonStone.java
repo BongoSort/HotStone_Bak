@@ -4,7 +4,7 @@ import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.utility.FixedIndexStrategy;
-import hotstone.utility.TestEpsilonStoneConcreteFactory;
+import hotstone.utility.TestEpsilonStoneFactory;
 import hotstone.utility.TestHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ public class TestEpsilonStone {
     @BeforeEach
     public void setUp() {
         fixedIndexStrategy = new FixedIndexStrategy();
-        TestEpsilonStoneConcreteFactory testEpsilonStoneFactory = new TestEpsilonStoneConcreteFactory(fixedIndexStrategy);
+        TestEpsilonStoneFactory testEpsilonStoneFactory = new TestEpsilonStoneFactory(fixedIndexStrategy);
         game = new StandardHotStoneGame(testEpsilonStoneFactory);
     }
 
