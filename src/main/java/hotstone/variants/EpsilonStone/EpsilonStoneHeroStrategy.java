@@ -26,28 +26,27 @@ public class EpsilonStoneHeroStrategy implements HeroStrategy {
     @Override
     public void useHeroPower(Game game, Player who) {
 
-
         String playersHeroType = game.getHero(who).getType();
         switch(playersHeroType) {
             case GameConstants.FRENCH_CHEF_HERO_TYPE -> {
                 Player opponent = Utility.computeOpponent(who);
-                if(game.getFieldSize(opponent) <= 0) {
-                    return;
-                }
+
+                if(game.getFieldSize(opponent) <= 0) { return; }
+
                 int randomNumber = indexStrategy.calculateIndex(game.getFieldSize(opponent));
 
 
                 MutableCard card = (MutableCard) game.getCardInField(opponent,randomNumber);
                 card.reduceHealth(2);
 
+
                 if(card.getHealth() > 0) { return; }
 
                 ((ArrayList<Card>) game.getField(opponent)).remove(card);
             }
             case GameConstants.ITALIAN_CHEF_HERO_TYPE -> {
-                if(game.getFieldSize(who) <= 0) {
-                    return;
-                }
+                if(game.getFieldSize(who) <= 0) { return; }
+
                 int randomNumber = indexStrategy.calculateIndex(game.getFieldSize(who));
                 ((MutableCard) game.getCardInField(who,randomNumber)).increaseAttack(2);
             }

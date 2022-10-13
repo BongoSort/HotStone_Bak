@@ -16,5 +16,4 @@ vi skal også have kigger mere på det forskellige slags test doubles:
                  for a slow or expensive DOU.
 
 
-overvej hvorfor vi har gemt minionTominionAttackSum i en strategi istedet for en metode.
-
+lav Role interface som håndtere public metoderne fra StandardHotStoneGame.
