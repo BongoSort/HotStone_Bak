@@ -55,20 +55,19 @@ public class StandardHotStoneGame implements Game {
   private HashMap<Player,ArrayList<Card>> playerDecks = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerFields = new HashMap<>();
-  private HashMap<Player, Hero> playerHero = new HashMap<>();
+  private HashMap<Player, MutableHero> playerHero = new HashMap<>();
 
 
   /**
    * Initializes a new HotStone game
    * Also initializes heroes decks, hands and fields.
    */
-  public StandardHotStoneGame(ManaProductionStrategy manaProductionStrategy, WinnerStrategy winnerStrategy,
-                              HeroStrategy heroStrategy, DeckStrategy deckStrategy, CardEffectStrategy cardEffectStrategy) {
-    this.manaProductionStrategy = manaProductionStrategy;
-    this.winnerStrategy = winnerStrategy;
-    this.heroStrategy = heroStrategy;
-    this.deckStrategy = deckStrategy;
-    this.cardEffectStrategy = cardEffectStrategy;
+  public StandardHotStoneGame(AbstractFactory abstractFactory) {
+    this.manaProductionStrategy = abstractFactory.createManaProductionStrategy();
+    this.winnerStrategy = abstractFactory.createWinnerStrategy();
+    this.heroStrategy = abstractFactory.createHeroStrategy();
+    this.deckStrategy = abstractFactory.createDeckStrategy();
+    this.cardEffectStrategy = abstractFactory.createCardEffectStrategy();
     this.playerInTurn = Player.FINDUS;
     this.turnNumber = 0;
 
@@ -176,7 +175,7 @@ public class StandardHotStoneGame implements Game {
    * @param who the player for the hero.
    */
   private void setupHeroForNewTurn(Player who) {
-    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(getHero(who));
+    MutableHero hero = playerHero.get(who);
     hero.setActive(true);
     hero.setMana(manaProductionStrategy.calculateMana(turnNumber));
   }
@@ -185,7 +184,7 @@ public class StandardHotStoneGame implements Game {
    *  Draws a card from the deck and puts it in the players hand
    *  @param who the player that draws the card
    */
-  public void drawCard(Player who) {
+  public void drawCard(Player who) { //TODO: skal denne smides ud i et interface?
     boolean playersDeckSizeIsGreaterThanZero = playerDecks.get(who).size() > 0;
     if(!playersDeckSizeIsGreaterThanZero) {
       reduceHeroHealth(who, GameConstants.HERO_HEALTH_PENALTY_ON_EMPTY_DECK);
@@ -231,7 +230,7 @@ public class StandardHotStoneGame implements Game {
    * @param manaCost the value that's subtracted from the hero's mana.
    */
   private void reduceHeroMana(Player who, int manaCost){
-    castHeroToStandardHotStoneHero(getHero(who)).reduceHeroMana(manaCost);
+    playerHero.get(who).reduceMana(manaCost);
   }
 
   @Override
@@ -276,7 +275,7 @@ public class StandardHotStoneGame implements Game {
    * @param value the value the health is reduced by
    */
   private void reduceHeroHealth(Player who, int value) {
-    castHeroToStandardHotStoneHero(getHero(who)).reduceHealth(value);
+    playerHero.get(who).reduceHealth(value);
   }
 
 
@@ -311,9 +310,9 @@ public class StandardHotStoneGame implements Game {
    * @param who the player that uses the heropower
    */
   private void executeHeroPower(Player who) {
-    StandardHotStoneHero hero = castHeroToStandardHotStoneHero(playerHero.get(who));
+    MutableHero hero = playerHero.get(who);
     heroStrategy.useHeroPower(this,who);
-    hero.reduceHeroMana(GameConstants.HERO_POWER_COST);
+    hero.reduceMana(GameConstants.HERO_POWER_COST);
     hero.setActive(false);
   }
 
@@ -389,7 +388,7 @@ public class StandardHotStoneGame implements Game {
   }
 
   private void setMinionActive(Card card, boolean active) {
-    castCardToStandardHotStoneCard(card).setActive(active);
+    ((MutableCard) card).setActive(active);
   }
 
   /**
@@ -398,23 +397,6 @@ public class StandardHotStoneGame implements Game {
    * @param amount The amount of health minion is losing
    */
   private void reduceMinionHealth(Card minion, int amount) {
-    castCardToStandardHotStoneCard(minion).reduceHealth(amount);
-  }
-
-  /**  Casting a hero to StandardHotStoneHero
-   * @param hero the hero being casted
-   * @return the casted hero
-   */
-  private StandardHotStoneHero castHeroToStandardHotStoneHero(Hero hero) {
-    return (StandardHotStoneHero) hero;
-  }
-
-  /**  Casting a card to StandardHotStoneCard
-   *
-   * @param card the card being casted
-   * @return the casted card
-   */
-  private StandardHotStoneCard castCardToStandardHotStoneCard(Card card) {
-    return (StandardHotStoneCard) card;
+    ((MutableCard) minion).reduceHealth(amount);
   }
 }

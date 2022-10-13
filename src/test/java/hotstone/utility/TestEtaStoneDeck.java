@@ -8,7 +8,7 @@ import hotstone.standard.StandardHotStoneCard;
 
 import java.util.ArrayList;
 
-public class TestDishDeckStrategy implements DeckStrategy {
+public class TestEtaStoneDeck implements DeckStrategy {
     @Override
     public ArrayList<Card> deckInitialization(Player who) {
         ArrayList<Card> deck = new ArrayList<>();

@@ -1,9 +1,10 @@
 package hotstone.standard;
 
 import hotstone.framework.Hero;
+import hotstone.framework.MutableHero;
 import hotstone.framework.Player;
 
-public class StandardHotStoneHero implements Hero {
+public class StandardHotStoneHero implements Hero, MutableHero {
     private int health;
     private Player owner;
     private String type;
@@ -45,14 +46,11 @@ public class StandardHotStoneHero implements Hero {
         return health;
     }
 
-    /** Reduce the health of a hero
-     *  Hero looses health equal to the attacking minions attackvalue
-     * @param damage the attackvalue of the attacking minion
-     */
+    @Override
     public void reduceHealth(int damage) {
         this.health -= damage;
     }
-
+    @Override
     public void increaseHealth(int amount) {
         this.health += amount;
     }
@@ -62,25 +60,17 @@ public class StandardHotStoneHero implements Hero {
         return isActive;
     }
 
-    /** Changes status of a hero
-     * An active hero can use its heropower, an inactive hero cannot use its heropower
-     * @param active sets a hero to be active (true) or inactive (false)
-     */
+    @Override
     public void setActive(Boolean active) {
         this.isActive = active;
     }
 
-    /** Reduce the mana of a hero
-     *
-     * @param mana is the amount of mana removed from the hero
-     */
-    public void reduceHeroMana(int mana) {
-        this.mana -= mana;
+    @Override
+    public void reduceMana(int amount) {
+        this.mana -= amount;
     }
 
-    /**
-     *  Reset the mana of a hero
-     */
+    @Override
     public void setMana(int mana) {
         this.mana = mana;
     }

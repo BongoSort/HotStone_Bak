@@ -205,3 +205,10 @@
 * **OK** Card Noodle Soup should have Attributes (4,5,3)
 * **OK** Card Chicken Curry should have Attributes (6,4,4)
 * **OK** Card Beef Burger should have Attributes (6,8,6)
+
+
+## SemiStone
+### Hero Tests
+* **OK** Each player should be able to be randomly assigned one og the following heroes Thai, Danish, French and Italian
+
+**De andre aspekter af semistone er blevet testet gennem de andre varianter**

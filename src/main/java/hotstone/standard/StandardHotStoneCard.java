@@ -1,11 +1,12 @@
 package hotstone.standard;
 
 import hotstone.framework.Card;
+import hotstone.framework.MutableCard;
 import hotstone.framework.Player;
 
 import java.util.ArrayList;
 
-public class StandardHotStoneCard implements Card {
+public class StandardHotStoneCard implements Card, MutableCard {
     private String cardName;
     private int manaCost;
     private int attack;
@@ -46,10 +47,12 @@ public class StandardHotStoneCard implements Card {
         return attack;
     }
 
+    @Override
     public void setAttack(int attack) {
         this.attack = attack;
     }
 
+    @Override
     public void increaseAttack(int amount) {
         attack += amount;
     }
@@ -58,14 +61,12 @@ public class StandardHotStoneCard implements Card {
     public int getHealth() {
         return health;
     }
-
+    @Override
     public void setHealth(int health) {
         this.health = health;
     }
 
-    /** Reduces health from a minion
-     * @param health the amount of health reduced from initial healthvalue
-     */
+    @Override
     public void reduceHealth(int health) {
         this.health -= health;
     }
@@ -75,9 +76,7 @@ public class StandardHotStoneCard implements Card {
         return isActive;
     }
 
-    /** Set a cards status
-     * @param isActive sets a card to be active (true) or inactive (false)
-     */
+    @Override
     public void setActive(Boolean isActive) {
         this.isActive = isActive;
     }

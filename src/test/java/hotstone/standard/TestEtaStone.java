@@ -5,13 +5,8 @@ import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.DeckStrategy;
 import hotstone.utility.FixedIndexStrategy;
-import hotstone.utility.TestDishDeckStrategy;
+import hotstone.utility.TestEtaStoneFactory;
 import hotstone.utility.TestHelper;
-import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
-import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
-import hotstone.variants.DeltaStone.DeltaStoneManaProductionStrategy;
-import hotstone.variants.EtaStone.EtaStoneCardEffectStrategy;
-import hotstone.variants.EtaStone.EtaStoneDeckStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,11 +22,11 @@ public class TestEtaStone {
 
     @BeforeEach
     public void setUp() {
-        DeckStrategy deckStrategy = new EtaStoneDeckStrategy();
+        TestEtaStoneFactory testEtaStoneFactoryStrategy = new TestEtaStoneFactory();
+        DeckStrategy deckStrategy = testEtaStoneFactoryStrategy.createDeckStrategy();
         deck = deckStrategy.deckInitialization(Player.FINDUS);
-        fixedIndexStrategy = new FixedIndexStrategy();
-        game = new StandardHotStoneGame(new DeltaStoneManaProductionStrategy(), new AlphaStoneWinnerStrategy(),
-                new AlphaStoneHeroStrategy(), new TestDishDeckStrategy(), new EtaStoneCardEffectStrategy(fixedIndexStrategy));
+        fixedIndexStrategy = testEtaStoneFactoryStrategy.getFixedIndexStrategy();
+        game = new StandardHotStoneGame(testEtaStoneFactoryStrategy);
     }
 
 

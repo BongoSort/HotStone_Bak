@@ -4,13 +4,10 @@ import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.DeckStrategy;
+import hotstone.framework.strategies.AbstractFactory;
 import hotstone.framework.strategies.ManaProductionStrategy;
 import hotstone.utility.TestHelper;
-import hotstone.variants.AlphaStone.AlphaStoneHeroStrategy;
-import hotstone.variants.AlphaStone.AlphaStoneWinnerStrategy;
-import hotstone.variants.DeltaStone.DeltaStoneManaProductionStrategy;
-import hotstone.variants.DeltaStone.DeltaStoneDeckStrategy;
-import hotstone.variants.AlphaStone.AlphaStoneCardEffectStrategy;
+import hotstone.variants.DeltaStone.DeltaStoneConcreteFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,10 +23,10 @@ public class TestDeltaStone {
 
     @BeforeEach
     public void setUp() {
-        deckStrategy = new DeltaStoneDeckStrategy();
-        manaProductionStrategy = new DeltaStoneManaProductionStrategy();
-        game = new StandardHotStoneGame(manaProductionStrategy, new AlphaStoneWinnerStrategy(), new AlphaStoneHeroStrategy(), deckStrategy, new AlphaStoneCardEffectStrategy());
-
+        AbstractFactory abstractFactory = new DeltaStoneConcreteFactory();
+        deckStrategy = abstractFactory.createDeckStrategy();
+        manaProductionStrategy = abstractFactory.createManaProductionStrategy();
+        game = new StandardHotStoneGame(abstractFactory);
     }
 
     //Unit tests for cardStrategy

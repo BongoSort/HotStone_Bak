@@ -10,7 +10,7 @@ public class FixedIndexStrategy implements IndexStrategy {
     }
 
     @Override
-    public int calculateRandomNumber(int bound) {
+    public int calculateIndex(int bound) {
         return value;
     }
 }

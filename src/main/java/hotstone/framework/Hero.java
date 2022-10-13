@@ -22,6 +22,7 @@ package hotstone.framework;
  * the internal state of a hero through the Game's mutator methods.
  */
 public interface Hero {
+
   /** Get the amount of mana this hero has available
    * for playing cards to the field.
    *

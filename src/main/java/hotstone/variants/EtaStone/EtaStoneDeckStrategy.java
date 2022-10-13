@@ -1,6 +1,7 @@
 package hotstone.variants.EtaStone;
 
 import hotstone.framework.Card;
+import hotstone.framework.MutableCard;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.DeckStrategy;
 import hotstone.standard.GameConstants;
@@ -14,12 +15,12 @@ public class EtaStoneDeckStrategy implements DeckStrategy {
     public ArrayList<Card> deckInitialization(Player who) {
         ArrayList<Card> deck = new DeltaStoneDeckStrategy().deckInitialization(who);
 
-        deck.forEach(card -> adjustCardAttributes((StandardHotStoneCard) card));
+        deck.forEach(card -> adjustCardAttributes((MutableCard) card));
 
         return deck;
     }
 
-    private void adjustCardAttributes(StandardHotStoneCard card) {
+    private void adjustCardAttributes(MutableCard card) {
         switch (card.getName()) {
             case GameConstants.BROWN_RICE_CARD -> {
                 card.setManaCost(1);
