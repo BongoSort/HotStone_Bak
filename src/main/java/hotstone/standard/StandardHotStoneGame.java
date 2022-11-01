@@ -19,6 +19,9 @@ package hotstone.standard;
 
 import hotstone.framework.*;
 import hotstone.framework.strategies.*;
+import hotstone.observer.GameObserver;
+import hotstone.observer.Observable;
+import hotstone.observer.ObserverHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +59,7 @@ public class StandardHotStoneGame implements Game, Observable {
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerFields = new HashMap<>();
   private HashMap<Player, MutableHero> playerHero = new HashMap<>();
+  private ObserverHandler observerHandler = new ObserverHandler();
 
 
   /**
@@ -181,6 +185,7 @@ public class StandardHotStoneGame implements Game, Observable {
     MutableHero hero = playerHero.get(who);
     hero.setActive(true);
     hero.setMana(manaProductionStrategy.calculateMana(turnNumber));
+    observerHandler.notifyHeroUpdate(who);
   }
 
   /**
@@ -194,6 +199,8 @@ public class StandardHotStoneGame implements Game, Observable {
     } else {
       Card res = playerDecks.get(who).remove(0);
       playerHands.get(who).add(0,res);
+
+      observerHandler.notifyCardDraw(who,res);
     }
   }
 
@@ -213,6 +220,7 @@ public class StandardHotStoneGame implements Game, Observable {
     cardEffectStrategy.useCardEffect(this,who,card);
     addNewCardToField(who, card);
 
+    observerHandler.notifyPlayCard(who, card);
 
     return status;
   }
@@ -234,6 +242,7 @@ public class StandardHotStoneGame implements Game, Observable {
    */
   private void reduceHeroMana(Player who, int manaCost){
     playerHero.get(who).reduceMana(manaCost);
+    observerHandler.notifyHeroUpdate(who);
   }
 
   @Override
@@ -245,6 +254,8 @@ public class StandardHotStoneGame implements Game, Observable {
     executeAttack(attackingCard, defendingCard);
 
     winnerStrategy.attackingMinionsAttackValue(playerAttacking, this, attackingCard.getAttack());
+
+    observerHandler.notifyAttackCard(playerAttacking,attackingCard,defendingCard);
 
     return status;
   }
@@ -269,6 +280,10 @@ public class StandardHotStoneGame implements Game, Observable {
 
     //Minion is then set to inactive state
     setMinionActive(attackingCard,false);
+
+    observerHandler.notifyAttackHero(playerAttacking, attackingCard);
+    observerHandler.notifyHeroUpdate(playerBeingAttacked);
+
     return Status.OK;
   }
 
@@ -279,6 +294,8 @@ public class StandardHotStoneGame implements Game, Observable {
    */
   private void reduceHeroHealth(Player who, int value) {
     playerHero.get(who).reduceHealth(value);
+
+    observerHandler.notifyHeroUpdate(who);
   }
 
 
@@ -304,6 +321,7 @@ public class StandardHotStoneGame implements Game, Observable {
     boolean cardHasZeroOrBelowHealth = card.getHealth() <= 0;
     if(cardHasZeroOrBelowHealth) {
       playerFields.get(card.getOwner()).remove(card);
+      observerHandler.notifyCardRemove(card.getOwner(),card);
     }
   }
 

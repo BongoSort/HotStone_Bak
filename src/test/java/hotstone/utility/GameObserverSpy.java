@@ -52,7 +52,7 @@ public class GameObserverSpy implements GameObserver {
      */
     @Override
     public void onAttackHero(Player playerAttacking, Card attackingCard) {
-
+        methodsCalled.add("onAttackHero");
     }
 
     /**
@@ -86,7 +86,7 @@ public class GameObserverSpy implements GameObserver {
      */
     @Override
     public void onCardUpdate(Card card) {
-
+        methodsCalled.add("onCardUpdate");
     }
 
     /**
@@ -110,7 +110,7 @@ public class GameObserverSpy implements GameObserver {
      */
     @Override
     public void onHeroUpdate(Player who) {
-
+        methodsCalled.add("onHeroUpdate");
     }
 
     /**
