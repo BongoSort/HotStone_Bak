@@ -158,6 +158,9 @@ public class StandardHotStoneGame implements Game, Observable {
     drawCard(playerInTurn);
     setupHeroForNewTurn(playerInTurn);
     setupMinionsOnFieldForNewTurn(playerInTurn);
+
+    observerHandler.notifyTurnChangeTo(playerInTurn);
+    observerHandler.notifyHeroUpdate(playerInTurn);
   }
 
   /**
@@ -289,7 +292,7 @@ public class StandardHotStoneGame implements Game, Observable {
     }
 
     executeHeroPower(who);
-
+    observerHandler.notifyUsePower(who);
     return status;
   }
 
@@ -388,6 +391,7 @@ public class StandardHotStoneGame implements Game, Observable {
   }
 
   private void setMinionActive(Card card, boolean active) {
+    observerHandler.notifyCardUpdate(card);
     ((MutableCard) card).setActive(active);
   }
 
@@ -397,6 +401,7 @@ public class StandardHotStoneGame implements Game, Observable {
    * @param amount The amount of health minion is losing
    */
   private void reduceMinionHealth(Card minion, int amount) {
+    observerHandler.notifyCardUpdate(minion);
     ((MutableCard) minion).reduceHealth(amount);
   }
 

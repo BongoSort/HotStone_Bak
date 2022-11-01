@@ -4,6 +4,9 @@ import hotstone.framework.Card;
 import hotstone.framework.Player;
 import hotstone.observer.GameObserver;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameObserverSpy implements GameObserver {
     private String lastMethodCalled;
 
@@ -26,7 +29,7 @@ public class GameObserverSpy implements GameObserver {
      */
     @Override
     public void onTurnChangeTo(Player playerBecomingActive) {
-
+        methodsCalled.add("onTurnChangeTo");
     }
 
     /**
@@ -59,7 +62,7 @@ public class GameObserverSpy implements GameObserver {
      */
     @Override
     public void onUsePower(Player who) {
-
+        methodsCalled.add("onUsePower");
     }
 
     /**
@@ -71,7 +74,7 @@ public class GameObserverSpy implements GameObserver {
      */
     @Override
     public void onCardDraw(Player who, Card drawnCard) {
-
+        methodsCalled.add("onCardDraw");
     }
 
     /**
@@ -95,7 +98,7 @@ public class GameObserverSpy implements GameObserver {
      */
     @Override
     public void onCardRemove(Player who, Card card) {
-
+        methodsCalled.add("onCardRemove");
     }
 
     /**
