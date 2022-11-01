@@ -44,7 +44,7 @@ import java.util.HashMap;
  * enable a lot of game variants. This is also
  * why it is not called 'AlphaGame'.
  */
-public class StandardHotStoneGame implements Game {
+public class StandardHotStoneGame implements Game, Observable {
   private Player playerInTurn;
   private ManaProductionStrategy manaProductionStrategy;
   private WinnerStrategy winnerStrategy;
@@ -398,5 +398,15 @@ public class StandardHotStoneGame implements Game {
    */
   private void reduceMinionHealth(Card minion, int amount) {
     ((MutableCard) minion).reduceHealth(amount);
+  }
+
+  /**
+   * Add an observer to a game.
+   *
+   * @param observer the observer to add
+   */
+  @Override
+  public void addObserver(GameObserver observer) {
+    observerHandler.addObserver(observer);
   }
 }
