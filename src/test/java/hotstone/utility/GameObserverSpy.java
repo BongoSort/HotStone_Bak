@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameObserverSpy implements GameObserver {
-    private String lastMethodCalled;
+    private ArrayList<String> methodsCalled = new ArrayList<>();
 
     /**
      * Invoked when playCard() returns OK.
@@ -18,7 +18,7 @@ public class GameObserverSpy implements GameObserver {
      */
     @Override
     public void onCardPlay(Player who, Card card) {
-        lastMethodCalled = "onCardPlay";
+        methodsCalled.add("onCardPlay");
     }
 
     /**
@@ -41,7 +41,7 @@ public class GameObserverSpy implements GameObserver {
      */
     @Override
     public void onAttackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
-
+        methodsCalled.add("onAttackCard");
     }
 
     /**
@@ -121,11 +121,11 @@ public class GameObserverSpy implements GameObserver {
      */
     @Override
     public void onGameWon(Player playerWinning) {
-        lastMethodCalled = "OnGameWon";
+        methodsCalled.add("OnGameWon");
     }
 
-    public String getLastMethodCalled() {
-        return lastMethodCalled;
+    public ArrayList<String> getLastMethodCalled() {
+        return methodsCalled;
     }
 
 
