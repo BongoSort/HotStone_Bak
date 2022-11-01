@@ -91,4 +91,8 @@ public class ObserverHandler {
         observerList
                 .forEach( gameObserver -> gameObserver.onCardDraw(who, drawnCard));
     }
+
+    public List<GameObserver> getObserverList() {
+        return observerList;
+    }
 }
