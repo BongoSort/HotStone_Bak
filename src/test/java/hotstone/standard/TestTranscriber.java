@@ -24,5 +24,5 @@ public class TestTranscriber {
         gameTranscriber.endTurn();
         assertThat(game.getPlayerInTurn(), is(Player.PEDDERSEN));
     }
-    
+
 }
