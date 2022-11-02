@@ -3,6 +3,7 @@ import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.utility.FixedIndexStrategy;
+import hotstone.utility.TestHelper;
 import hotstone.variants.AlphaStone.AlphaStoneConcreteFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,15 @@ public class TestTranscriber {
     public void testThatPlayCardPrints() {
         Card card = game.getCardInHand(Player.FINDUS,0);
         gameTranscriber.playCard(Player.FINDUS,card);
+        assertThat(game.getFieldSize(Player.FINDUS), is(1));
+    }
+
+    @Test
+    public void testThatAttackCardPrints() {
+        TestHelper.fieldTresForFindusAndDosForPeddersen(game);
+        Card findusCard = game.getCardInField(Player.FINDUS,0);
+        Card peddersensCard = game.getCardInField(Player.PEDDERSEN,0);
+        gameTranscriber.attackCard(Player.FINDUS,findusCard,peddersensCard);
         assertThat(game.getFieldSize(Player.FINDUS), is(1));
     }
 
