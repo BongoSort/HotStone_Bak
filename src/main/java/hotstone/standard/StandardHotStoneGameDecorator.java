@@ -88,4 +88,5 @@ public abstract class StandardHotStoneGameDecorator implements Game {
     public Status usePower(Player who) {
         return game.usePower(who);
     }
+
 }
