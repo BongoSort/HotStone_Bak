@@ -11,6 +11,13 @@ public class StandardHotStoneGameTranscriber extends StandardHotStoneGameDecorat
         list = new ArrayList<>();
     }
 
+    /**
+     * EndTurn
+     */
+    public void endTurn() {
+        list.add(super.getPlayerInTurn() + " ended their turn. Starting turn " + super.getTurnNumber());
+    }
+
     public Status playCard(Player who, Card card) {
         Status status = super.playCard(who, card);
         if(status == Status.OK) {
