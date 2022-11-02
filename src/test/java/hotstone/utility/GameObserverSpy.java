@@ -5,7 +5,6 @@ import hotstone.framework.Player;
 import hotstone.observer.GameObserver;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class GameObserverSpy implements GameObserver {
     private ArrayList<String> methodsCalled = new ArrayList<>();
@@ -124,7 +123,7 @@ public class GameObserverSpy implements GameObserver {
         methodsCalled.add("OnGameWon");
     }
 
-    public ArrayList<String> getLastMethodCalled() {
+    public ArrayList<String> getMethodsCalled() {
         return methodsCalled;
     }
 
