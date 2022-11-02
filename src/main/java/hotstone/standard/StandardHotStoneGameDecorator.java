@@ -9,6 +9,10 @@ public abstract class StandardHotStoneGameDecorator implements Game {
         this.game = game;
     }
 
+    public Game getGame() {
+        return game;
+    }
+
     @Override
     public Player getPlayerInTurn() {
         return game.getPlayerInTurn();
