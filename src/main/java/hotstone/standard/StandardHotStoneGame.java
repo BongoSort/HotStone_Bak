@@ -60,6 +60,7 @@ public class StandardHotStoneGame implements Game, Observable {
   private HashMap<Player,ArrayList<Card>> playerFields = new HashMap<>();
   private HashMap<Player, MutableHero> playerHero = new HashMap<>();
   private ObserverHandler observerHandler = new ObserverHandler();
+  private Boolean transcribe; //TODO perhaps toggle for transcripts
 
 
   /**
