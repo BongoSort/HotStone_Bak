@@ -2,26 +2,31 @@ package hotstone.standard;
 
 import hotstone.framework.*;
 
-import java.util.ArrayList;
 
 public class StandardHotStoneGameTranscriber extends StandardHotStoneGameDecorator{
-    private ArrayList<String> list;
     public StandardHotStoneGameTranscriber(Game game) {
         super(game);
-        list = new ArrayList<>();
     }
 
     /**
      * EndTurn
      */
     public void endTurn() {
-        list.add(super.getPlayerInTurn() + " ended their turn. Starting turn " + super.getTurnNumber());
+        Player playerBefore = super.getPlayerInTurn();
+        super.endTurn();
+        System.out.println(playerBefore + " ended their turn. Starting turn " + super.getTurnNumber());
     }
 
+    /**
+     * PlayCard
+     * @param who the player playing the card
+     * @param card the card to play to the field.
+     * @return status
+     */
     public Status playCard(Player who, Card card) {
         Status status = super.playCard(who, card);
         if(status == Status.OK) {
-            list.add(who.name() + " played card " + card.getName());
+            System.out.println(who.name() + " played card " + card.getName());
         }
         return status;
     }
@@ -33,7 +38,7 @@ public class StandardHotStoneGameTranscriber extends StandardHotStoneGameDecorat
         Status status = super.attackHero(playerAttacking, attackingCard);
         Player opponent = Utility.computeOpponent(playerAttacking);
         if(status == Status.OK) {
-            list.add(playerAttacking.name() + " has attacked " + opponent.name() + " hero with minion " + attackingCard.getName());
+            System.out.println(playerAttacking.name() + " has attacked " + opponent.name() + " hero with minion " + attackingCard.getName());
         }
         return status;
     }
@@ -45,7 +50,7 @@ public class StandardHotStoneGameTranscriber extends StandardHotStoneGameDecorat
     public Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
         Status status = super.attackCard(playerAttacking, attackingCard, defendingCard);
         if(status == Status.OK) {
-            list.add(playerAttacking.name() + " used minion " + attackingCard.getName() + " to attack minion " + defendingCard.getName());
+            System.out.println(playerAttacking.name() + " used minion " + attackingCard.getName() + " to attack minion " + defendingCard.getName());
         }
         return status;
     }
@@ -56,13 +61,9 @@ public class StandardHotStoneGameTranscriber extends StandardHotStoneGameDecorat
     public Status usePower(Player who) {
         Status status = super.usePower(who);
         if (status == Status.OK) {
-            list.add(who.name() + " used their hero power");
+            System.out.println(who.name() + " used their hero power");
         }
         return status;
-    }
-
-    public ArrayList<String> getList() {
-        return list;
     }
 
 }
