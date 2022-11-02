@@ -29,6 +29,10 @@ public class DeltaStoneDeckStrategy implements DeckStrategy {
             deck.add(new StandardHotStoneCard(GameConstants.FILET_MIGNON_CARD, who,7,9,5));
         }
 
+        return shuffleDeck(deck);
+    }
+
+    public ArrayList<Card> shuffleDeck(ArrayList<Card> deck) {
         Collections.shuffle(deck);
 
         Card firstCard = deck.stream().filter((c) -> c.getManaCost() == 1).findAny().orElse(null);

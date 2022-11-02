@@ -1,5 +1,16 @@
 BACKLOG:
 
+SPØRGSMÅL Iteration 7:
+
+Personalized decks:
+- coupling mellem deltastoneDeckStrategy og PersonalizedDeckStrategy
+   - Skal vi indfører en ny metode i strategien, således at alle deckStrategier har en mulighed for at blive shufflet?
+
+- Transcription:
+   - hvordan skal vi teste transcription ting.
+   - hvordan viser vi at toggle decoratoren fra og på?
+
+
 Iteration 7:
 
 lav test at getWinner() laver en notification "getWinner" i TestGameObserver
