@@ -87,6 +87,15 @@ public class StandardHotStoneGame implements Game, Observable {
   }
 
   /**
+   * TODO perhaps needed...
+   * Enables or disables transcript of the game
+   * @param transcribe true if transcipt on, false if transcript off
+   */
+  public void enableTranscription(Boolean transcribe) {
+    this.transcribe = transcribe;
+  }
+
+  /**
    * Makes the start hand of a player
    * @param who Player which hand is being made
    * @return the complete start hand
