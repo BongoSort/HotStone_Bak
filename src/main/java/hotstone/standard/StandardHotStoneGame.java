@@ -60,6 +60,7 @@ public class StandardHotStoneGame implements Game, Observable {
   private HashMap<Player,ArrayList<Card>> playerFields = new HashMap<>();
   private HashMap<Player, MutableHero> playerHero = new HashMap<>();
   private ObserverHandler observerHandler = new ObserverHandler();
+  private Boolean transcribe; //TODO perhaps toggle for transcripts
 
 
   /**
@@ -84,6 +85,15 @@ public class StandardHotStoneGame implements Game, Observable {
     playerDecks.put(who, deckStrategy.deckInitialization(who));
     playerHands.put(who,makeHand(who));
     playerFields.put(who, new ArrayList<>());
+  }
+
+  /**
+   * TODO perhaps needed...
+   * Enables or disables transcript of the game
+   * @param transcribe true if transcipt on, false if transcript off
+   */
+  public void enableTranscription(Boolean transcribe) {
+    this.transcribe = transcribe;
   }
 
   /**
