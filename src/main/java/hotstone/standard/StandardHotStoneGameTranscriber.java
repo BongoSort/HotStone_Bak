@@ -61,4 +61,8 @@ public class StandardHotStoneGameTranscriber extends StandardHotStoneGameDecorat
         return status;
     }
 
+    public ArrayList<String> getList() {
+        return list;
+    }
+
 }
