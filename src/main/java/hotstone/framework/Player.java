@@ -20,5 +20,14 @@ package hotstone.framework;
 /** Enum representing the two players in the game. */
 
 public enum Player {
-  FINDUS, PEDDERSEN
+  FINDUS, PEDDERSEN;
+
+  @Override
+  public String toString() {
+    if(this == FINDUS) {
+      return "Findus";
+    } else {
+      return "Peddersen";
+    }
+  }
 }
