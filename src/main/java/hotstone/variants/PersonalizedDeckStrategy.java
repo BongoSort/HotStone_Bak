@@ -12,10 +12,11 @@ import java.util.ArrayList;
 
 public class PersonalizedDeckStrategy implements DeckStrategy {
     PersonalDeckReader personalDeckReader;
-    DeltaStoneDeckStrategy deltaStoneDeckStrategy = new DeltaStoneDeckStrategy();
+    DeltaStoneDeckStrategy deltaStoneDeckStrategy;
 
     public PersonalizedDeckStrategy(PersonalDeckReader personalDeckReader) {
         this.personalDeckReader = personalDeckReader;
+        this.deltaStoneDeckStrategy = new DeltaStoneDeckStrategy();
     }
 
     @Override
