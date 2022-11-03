@@ -36,14 +36,15 @@ public class EtaStoneCardEffectStrategy implements CardEffectStrategy {
             }
 
             case GameConstants.NOODLE_SOUP_CARD -> {
-                ((StandardHotStoneGame) game).drawCard(who);
+                ((MutableGame) game).drawCard(who);
             }
             case GameConstants.CHICKEN_CURRY_CARD -> {
                 if(game.getFieldSize(opponent) <= 0) {
                     return;
                 }
                 MutableCard opponentCard = ((MutableCard) game.getCardInField(opponent,randomIndex));
-                ((ArrayList<Card>) game.getField(opponent)).remove(opponentCard);
+                opponentCard.setHealth(0);
+                ((MutableGame) game).removeCardFromFieldIfHealthIsZeroOrBelow(opponentCard);
             }
             case GameConstants.BEEF_BURGER_CARD -> {
                 if(game.getFieldSize(opponent) <= 0) {

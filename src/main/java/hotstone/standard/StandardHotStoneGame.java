@@ -47,7 +47,7 @@ import java.util.HashMap;
  * enable a lot of game variants. This is also
  * why it is not called 'AlphaGame'.
  */
-public class StandardHotStoneGame implements Game, Observable {
+public class StandardHotStoneGame implements Game, MutableGame, Observable {
   private Player playerInTurn;
   private ManaProductionStrategy manaProductionStrategy;
   private WinnerStrategy winnerStrategy;
@@ -60,7 +60,6 @@ public class StandardHotStoneGame implements Game, Observable {
   private HashMap<Player,ArrayList<Card>> playerFields = new HashMap<>();
   private HashMap<Player, MutableHero> playerHero = new HashMap<>();
   private ObserverHandler observerHandler = new ObserverHandler();
-  private Boolean transcribe; //TODO perhaps toggle for transcripts
 
 
   /**
@@ -85,15 +84,6 @@ public class StandardHotStoneGame implements Game, Observable {
     playerDecks.put(who, deckStrategy.deckInitialization(who));
     playerHands.put(who,makeHand(who));
     playerFields.put(who, new ArrayList<>());
-  }
-
-  /**
-   * TODO perhaps needed...
-   * Enables or disables transcript of the game
-   * @param transcribe true if transcipt on, false if transcript off
-   */
-  public void enableTranscription(Boolean transcribe) {
-    this.transcribe = transcribe;
   }
 
   /**
@@ -198,10 +188,7 @@ public class StandardHotStoneGame implements Game, Observable {
     observerHandler.notifyHeroUpdate(who);
   }
 
-  /**
-   *  Draws a card from the deck and puts it in the players hand
-   *  @param who the player that draws the card
-   */
+  @Override
   public void drawCard(Player who) { //TODO: skal denne smides ud i et interface?
     boolean playersDeckSizeIsGreaterThanZero = playerDecks.get(who).size() > 0;
     if(!playersDeckSizeIsGreaterThanZero) {
@@ -323,11 +310,8 @@ public class StandardHotStoneGame implements Game, Observable {
     return status;
   }
 
-  /**
-   * Removes a card(minion) from the field if the card has 0 or less health
-   * @param card The minion on the field
-   */
-  private void removeCardFromFieldIfHealthIsZeroOrBelow(Card card) {
+  @Override
+  public void removeCardFromFieldIfHealthIsZeroOrBelow(Card card) {
     boolean cardHasZeroOrBelowHealth = card.getHealth() <= 0;
     if(cardHasZeroOrBelowHealth) {
       playerFields.get(card.getOwner()).remove(card);
