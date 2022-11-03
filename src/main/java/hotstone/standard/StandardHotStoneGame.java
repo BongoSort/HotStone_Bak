@@ -19,6 +19,9 @@ package hotstone.standard;
 
 import hotstone.framework.*;
 import hotstone.framework.strategies.*;
+import hotstone.observer.GameObserver;
+import hotstone.observer.Observable;
+import hotstone.observer.ObserverHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,7 +47,7 @@ import java.util.HashMap;
  * enable a lot of game variants. This is also
  * why it is not called 'AlphaGame'.
  */
-public class StandardHotStoneGame implements Game {
+public class StandardHotStoneGame implements Game, Observable {
   private Player playerInTurn;
   private ManaProductionStrategy manaProductionStrategy;
   private WinnerStrategy winnerStrategy;
@@ -56,6 +59,8 @@ public class StandardHotStoneGame implements Game {
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerFields = new HashMap<>();
   private HashMap<Player, MutableHero> playerHero = new HashMap<>();
+  private ObserverHandler observerHandler = new ObserverHandler();
+  private Boolean transcribe; //TODO perhaps toggle for transcripts
 
 
   /**
@@ -80,6 +85,15 @@ public class StandardHotStoneGame implements Game {
     playerDecks.put(who, deckStrategy.deckInitialization(who));
     playerHands.put(who,makeHand(who));
     playerFields.put(who, new ArrayList<>());
+  }
+
+  /**
+   * TODO perhaps needed...
+   * Enables or disables transcript of the game
+   * @param transcribe true if transcipt on, false if transcript off
+   */
+  public void enableTranscription(Boolean transcribe) {
+    this.transcribe = transcribe;
   }
 
   /**
@@ -158,6 +172,9 @@ public class StandardHotStoneGame implements Game {
     drawCard(playerInTurn);
     setupHeroForNewTurn(playerInTurn);
     setupMinionsOnFieldForNewTurn(playerInTurn);
+
+    observerHandler.notifyTurnChangeTo(playerInTurn);
+    observerHandler.notifyHeroUpdate(playerInTurn);
   }
 
   /**
@@ -178,6 +195,7 @@ public class StandardHotStoneGame implements Game {
     MutableHero hero = playerHero.get(who);
     hero.setActive(true);
     hero.setMana(manaProductionStrategy.calculateMana(turnNumber));
+    observerHandler.notifyHeroUpdate(who);
   }
 
   /**
@@ -191,6 +209,8 @@ public class StandardHotStoneGame implements Game {
     } else {
       Card res = playerDecks.get(who).remove(0);
       playerHands.get(who).add(0,res);
+
+      observerHandler.notifyCardDraw(who,res);
     }
   }
 
@@ -210,6 +230,7 @@ public class StandardHotStoneGame implements Game {
     cardEffectStrategy.useCardEffect(this,who,card);
     addNewCardToField(who, card);
 
+    observerHandler.notifyPlayCard(who, card);
 
     return status;
   }
@@ -231,6 +252,7 @@ public class StandardHotStoneGame implements Game {
    */
   private void reduceHeroMana(Player who, int manaCost){
     playerHero.get(who).reduceMana(manaCost);
+    observerHandler.notifyHeroUpdate(who);
   }
 
   @Override
@@ -242,6 +264,8 @@ public class StandardHotStoneGame implements Game {
     executeAttack(attackingCard, defendingCard);
 
     winnerStrategy.attackingMinionsAttackValue(playerAttacking, this, attackingCard.getAttack());
+
+    observerHandler.notifyAttackCard(playerAttacking,attackingCard,defendingCard);
 
     return status;
   }
@@ -266,6 +290,10 @@ public class StandardHotStoneGame implements Game {
 
     //Minion is then set to inactive state
     setMinionActive(attackingCard,false);
+
+    observerHandler.notifyAttackHero(playerAttacking, attackingCard);
+    observerHandler.notifyHeroUpdate(playerBeingAttacked);
+
     return Status.OK;
   }
 
@@ -276,6 +304,8 @@ public class StandardHotStoneGame implements Game {
    */
   private void reduceHeroHealth(Player who, int value) {
     playerHero.get(who).reduceHealth(value);
+
+    observerHandler.notifyHeroUpdate(who);
   }
 
 
@@ -289,7 +319,7 @@ public class StandardHotStoneGame implements Game {
     }
 
     executeHeroPower(who);
-
+    observerHandler.notifyUsePower(who);
     return status;
   }
 
@@ -301,6 +331,7 @@ public class StandardHotStoneGame implements Game {
     boolean cardHasZeroOrBelowHealth = card.getHealth() <= 0;
     if(cardHasZeroOrBelowHealth) {
       playerFields.get(card.getOwner()).remove(card);
+      observerHandler.notifyCardRemove(card.getOwner(),card);
     }
   }
 
@@ -388,6 +419,7 @@ public class StandardHotStoneGame implements Game {
   }
 
   private void setMinionActive(Card card, boolean active) {
+    observerHandler.notifyCardUpdate(card);
     ((MutableCard) card).setActive(active);
   }
 
@@ -397,6 +429,17 @@ public class StandardHotStoneGame implements Game {
    * @param amount The amount of health minion is losing
    */
   private void reduceMinionHealth(Card minion, int amount) {
+    observerHandler.notifyCardUpdate(minion);
     ((MutableCard) minion).reduceHealth(amount);
+  }
+
+  /**
+   * Add an observer to a game.
+   *
+   * @param observer the observer to add
+   */
+  @Override
+  public void addObserver(GameObserver observer) {
+    observerHandler.addObserver(observer);
   }
 }

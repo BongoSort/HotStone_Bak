@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022. Henrik Bærbak Christensen, Aarhus University.
+ * Copyright (C) 2022. Henrik BÃ¦rbak Christensen, Aarhus University.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -15,19 +15,17 @@
  *
  */
 
-package hotstone.framework;
+package hotstone.observer;
 
-/** Enum representing the two players in the game. */
+import hotstone.observer.GameObserver;
 
-public enum Player {
-  FINDUS, PEDDERSEN;
-
-  @Override
-  public String toString() {
-    if(this == FINDUS) {
-      return "Findus";
-    } else {
-      return "Peddersen";
-    }
-  }
+/** The role of being the subject for observers
+ *
+ */
+public interface Observable {
+    /** Add an observer to a game.
+     *
+     * @param observer the observer to add
+     */
+    void addObserver(GameObserver observer);
 }
