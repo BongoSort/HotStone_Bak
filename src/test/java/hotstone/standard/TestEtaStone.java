@@ -80,7 +80,7 @@ public class TestEtaStone {
 
     @Test
     public void brownRiceCardReducesOpponentHeroHealthByOneWhenPlayed() {
-        Card card = game.getCardInHand(Player.FINDUS,0);
+        Card card = game.getCardInHand(Player.FINDUS,2);
         game.playCard(Player.FINDUS,card);
         assertThat(game.getHero(Player.PEDDERSEN).getHealth(), is(20));
     }
@@ -88,10 +88,10 @@ public class TestEtaStone {
     @Test
     public void tomatoSaladCardAddsOneAttackToOwnRandomMinion() {
         fixedIndexStrategy.setValue(0);
-        Card card = game.getCardInHand(Player.FINDUS,0);
+        Card card = game.getCardInHand(Player.FINDUS,2);
         game.playCard(Player.FINDUS,card);
 
-        card = game.getCardInHand(Player.FINDUS,0);
+        card = game.getCardInHand(Player.FINDUS,1);
         game.playCard(Player.FINDUS,card);
 
         assertThat(game.getCardInField(Player.FINDUS,1).getAttack(),is(2));
@@ -101,7 +101,7 @@ public class TestEtaStone {
     public void pokeBowlCardAdds2HealthToOwnHero() {
         ((StandardHotStoneHero) game.getHero(Player.FINDUS)).reduceHealth(2);
 
-        Card card = game.getCardInHand(Player.FINDUS,2);
+        Card card = game.getCardInHand(Player.FINDUS,0);
         game.playCard(Player.FINDUS,card);
         assertThat(game.getHero(Player.FINDUS).getHealth(),is(GameConstants.HERO_MAX_HEALTH));
     }
@@ -142,7 +142,7 @@ public class TestEtaStone {
     public void beefBurgerCardShouldIncreaseRandomOpponentCardAttackBy2() {
         fixedIndexStrategy.setValue(0);
         game.endTurn();
-        Card card = game.getCardInHand(Player.PEDDERSEN,1);
+        Card card = game.getCardInHand(Player.PEDDERSEN,3);
         game.playCard(Player.PEDDERSEN,card);
         game.endTurn();
 

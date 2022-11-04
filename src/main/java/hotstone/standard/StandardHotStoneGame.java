@@ -82,22 +82,19 @@ public class StandardHotStoneGame implements Game, MutableGame, Observable {
   private void initializeDeckHeroHandAndFieldForPlayer(Player who) {
     playerHero.put(who, new StandardHotStoneHero(who, manaProductionStrategy.calculateMana(turnNumber), heroStrategy.getType(who)));
     playerDecks.put(who, deckStrategy.deckInitialization(who));
-    playerHands.put(who,makeHand(who));
     playerFields.put(who, new ArrayList<>());
+    playerHands.put(who,new ArrayList<>());
+    makeHand(who);
   }
 
   /**
    * Makes the start hand of a player
    * @param who Player which hand is being made
-   * @return the complete start hand
    */
-  private ArrayList<Card> makeHand(Player who) {
-    ArrayList<Card> hand = new ArrayList<>();
+  private void makeHand(Player who) {
     for(int i = 0 ; i < 3 ; i++) {
-      Card card = playerDecks.get(who).remove(0);
-      hand.add(card);
+      drawCard(who);
     }
-    return hand;
   }
 
   @Override
@@ -189,7 +186,7 @@ public class StandardHotStoneGame implements Game, MutableGame, Observable {
   }
 
   @Override
-  public void drawCard(Player who) { //TODO: skal denne smides ud i et interface?
+  public void drawCard(Player who) {
     boolean playersDeckSizeIsGreaterThanZero = playerDecks.get(who).size() > 0;
     if(!playersDeckSizeIsGreaterThanZero) {
       reduceHeroHealth(who, GameConstants.HERO_HEALTH_PENALTY_ON_EMPTY_DECK);
