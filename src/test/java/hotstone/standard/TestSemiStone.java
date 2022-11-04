@@ -78,7 +78,7 @@ public class TestSemiStone {
         Game game = new StandardHotStoneGame(new TestSemiStoneFactory(indexStrategy));
 
         TestHelper.advanceGameNRounds(game,2);
-        Card card = game.getCardInHand(Player.FINDUS,4);
+        Card card = game.getCardInHand(Player.FINDUS,2);
         game.playCard(Player.FINDUS, card);
         game.endTurn();
 
