@@ -30,7 +30,7 @@ import java.util.List;
  * a real game's behaviour and verify that the UI responds correctly.
  */
 
-public class FakeObjectGame implements Game, Observable {
+public class FakeObjectGame implements Game {
   private List<Card> findusHand = new ArrayList<>();
   private Hero findus;
 
