@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 plugins {
-    // Tell Gradle that this is a java project
     id 'java'
     // and to use JaCoCo for code coverage computation
     id 'jacoco'
@@ -25,11 +23,14 @@ repositories {
     maven {
         url "https://s01.oss.sonatype.org/content/repositories/snapshots/"
     }
-    // Tell where to get libraries: from 'mvnrepository.com'
     mavenCentral()
 }
 
 dependencies {
+    // Depend on the MiniDraw library
+    implementation group: 'com.baerbak.maven',
+            name: 'minidraw', version: '3.0'
+
     // Use JUnit Jupiter API for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
     // Use JUnit Jupiter Engine for testing.
@@ -49,12 +50,141 @@ test {
 
 // Use gradle v 7
 wrapper {
-  gradleVersion = '7.4'
+    gradleVersion = '7.4'
 }
 
 // Use latest Jacoco test coverage tool
 jacoco {
-  toolVersion = "0.8.8"
+    toolVersion = "0.8.8"
 }
-sourceCompatibility = JavaVersion.VERSION_14
-targetCompatibility = JavaVersion.VERSION_14
+
+// === Execution tasks - for running visual tests for
+//      manual test-driving the MiniDraw framework customization.
+
+
+// Visual test cases for basic HotStone related 'Figure' types
+
+task text(type: JavaExec) {
+    group 'HotStone Figure Visual Tests'
+    description 'Demonstrate TextFigure'
+
+    mainClass = 'hotstone.figuretestcase.ShowTextFigure'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task button(type: JavaExec) {
+    group 'HotStone Figure Visual Tests'
+    description 'Demonstrate ButtonFigure'
+
+    mainClass = 'hotstone.figuretestcase.ShowButtonFigure'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task message(type: JavaExec) {
+    group 'HotStone Figure Visual Tests'
+    description 'Demonstrate Message System'
+
+    mainClass = 'hotstone.figuretestcase.ShowMessageSystem'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task hero(type: JavaExec) {
+    group 'HotStone Figure Visual Tests'
+    description 'Demonstrate HeroFigure and FigureType use'
+
+    mainClass = 'hotstone.figuretestcase.ShowHeroFigure'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task card(type: JavaExec) {
+    group 'HotStone Figure Visual Tests'
+    description 'Demonstrate CardFigure'
+
+    mainClass = 'hotstone.figuretestcase.ShowCardFigure'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task minion(type: JavaExec) {
+    group 'HotStone Figure Visual Tests'
+    description 'Demonstrate MinionFigure'
+
+    mainClass = 'hotstone.figuretestcase.ShowMinionFigure'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task minionupdate(type: JavaExec) {
+    group 'HotStone Figure Visual Tests'
+    description 'Demonstrate MinionFigure updating'
+
+    mainClass = 'hotstone.figuretestcase.ShowMinionFigureUpdate'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+
+// Demo and template for solving exercises that
+// extend HotStoneDrawing to reflect all Game changes.
+
+// The (Domain to UI) flow. ===============================
+
+task update(type: JavaExec) {
+    group 'HotStone Mandatory Exercise Visual Tests'
+    description 'Test-Drive the *Domain to UI* Integration (partially solved)'
+
+    mainClass = 'hotstone.visualtestcase.ShowUpdate'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+// Demo and template for solving exercises that
+// develop the MiniDraw tools to handle game mutator calls
+
+// The (UI to Domain) flow. ================================
+
+task endturn(type: JavaExec) {
+    group 'HotStone Mandatory Exercise Tools Tests'
+    description 'Test-Drive the *EndTurn Tool* Integration (solved)'
+
+    mainClass = 'hotstone.tooltestcase.ShowEndTurnTool'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task playcard(type: JavaExec) {
+    group 'HotStone Mandatory Exercise Tools Tests'
+    description 'Test-Drive the *PlayCard Tool* Integration (almost solved)'
+
+    mainClass = 'hotstone.tooltestcase.ShowPlayCardTool'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task minionattack(type: JavaExec) {
+    group 'HotStone Mandatory Exercise Tools Tests'
+    description 'Test-Drive the *MinionAttack Tool* Integration'
+
+    mainClass = 'hotstone.tooltestcase.ShowMinionAttackTool'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task usepower(type: JavaExec) {
+    group 'HotStone Mandatory Exercise Tools Tests'
+    description 'Test-Drive the *UsePower Tool* Integration'
+
+    mainClass = 'hotstone.tooltestcase.ShowUsePowerTool'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task hotseatstate(type: JavaExec) {
+    group 'HotStone Mandatory Exercise Tools Tests'
+    description 'Test-Drive the *HotSeatState Tool* Integration'
+
+    mainClass = 'hotstone.tooltestcase.ShowHotSeatStateTool'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+// Main - full system
+task hotseat(type: JavaExec) {
+    group 'HotStone Mandatory Exercise System Tests'
+    description 'System Testing: HotSeatStone - SemiStone as HotSeat play'
+
+    mainClass = 'hotstone.main.HotSeatStone'
+    classpath = sourceSets.main.runtimeClasspath
+    args variant
+}
