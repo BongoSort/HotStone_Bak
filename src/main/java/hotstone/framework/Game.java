@@ -17,10 +17,12 @@
 
 package hotstone.framework;
 
+import hotstone.observer.Observable;
+
 /** The role of a single HotStone game, allowing clients to access and
  * modify the state of a game.
  */
-public interface Game {
+public interface Game extends Observable {
   // === Accessors for Game state
 
   /** Get the player who currently can make actions (call mutators) on

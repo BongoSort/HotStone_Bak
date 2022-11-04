@@ -47,7 +47,7 @@ import java.util.HashMap;
  * enable a lot of game variants. This is also
  * why it is not called 'AlphaGame'.
  */
-public class StandardHotStoneGame implements Game, MutableGame, Observable {
+public class StandardHotStoneGame implements Game, MutableGame {
   private Player playerInTurn;
   private ManaProductionStrategy manaProductionStrategy;
   private WinnerStrategy winnerStrategy;

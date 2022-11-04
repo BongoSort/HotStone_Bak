@@ -152,7 +152,7 @@ public class HotStoneDrawing implements Drawing, GameObserver {
 
     // Listen to all events coming from the game to keep the
     // drawing updated with the game state
-    ((StandardHotStoneGame)game).addObserver(this); //TODO: dette har vi ændret husk at tjek
+    game.addObserver(this);
 
     // Initialize Figures for all (visible) game state
     createFiguresForButtons();
