@@ -375,7 +375,6 @@ public class HotStoneDrawing implements Drawing, GameObserver {
     // initiate the proper UI changes
     if (uiType == HotStoneDrawingType.HOTSEAT_MODE) {
       enterHotSeatState();
-      endHotSeatState();
     } else {
       // IFF we are not playing hotseat then 'playerShown' is the same value
       // throughout a game, namely the player that is 'owning' this UI, so
