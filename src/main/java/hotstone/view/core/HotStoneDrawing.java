@@ -428,7 +428,7 @@ public class HotStoneDrawing implements Drawing, GameObserver {
       createActorAndUpdateMapping(drawnCard, HotStoneFigureType.CARD_FIGURE);
       refreshHand(who);
     } else {
-      // TODO: update opponent's summary
+      opponentSummary.setText(computeHeroSummary(who));
     }
     addMessage(who + " draws a card.");
   }
@@ -445,7 +445,6 @@ public class HotStoneDrawing implements Drawing, GameObserver {
 
   @Override
   public void onCardRemove(Player who, Card card) {
-    // TODO: Remove the minion and refresh field
     // NOTE: be SURE to use the
     // right internal data structure manipulation method
     // so both the figure collection AND the actorMap
@@ -454,9 +453,6 @@ public class HotStoneDrawing implements Drawing, GameObserver {
     refreshField(who);
     addMessage(who.toString() + "'s minion " + card.getName()
             + " is killed.");
-
-    //addMessage("TODO: " + who.toString() + "'s minion " + card.getName()
-    //        + " is killed.");
   }
 
   @Override
