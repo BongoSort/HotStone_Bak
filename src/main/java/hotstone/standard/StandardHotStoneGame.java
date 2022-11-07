@@ -59,7 +59,7 @@ public class StandardHotStoneGame implements Game, MutableGame {
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerFields = new HashMap<>();
   private HashMap<Player, MutableHero> playerHero = new HashMap<>();
-  private ObserverHandler observerHandler = new ObserverHandler();
+  private ObserverHandler observerHandler;
 
 
   /**
@@ -74,6 +74,7 @@ public class StandardHotStoneGame implements Game, MutableGame {
     this.cardEffectStrategy = abstractFactory.createCardEffectStrategy();
     this.playerInTurn = Player.FINDUS;
     this.turnNumber = 0;
+    this.observerHandler = new ObserverHandler();
 
     initializeDeckHeroHandAndFieldForPlayer(Player.FINDUS);
     initializeDeckHeroHandAndFieldForPlayer(Player.PEDDERSEN);
@@ -155,12 +156,13 @@ public class StandardHotStoneGame implements Game, MutableGame {
   @Override
   public void endTurn() {
     playerInTurn = Utility.computeOpponent(playerInTurn);
+    observerHandler.notifyTurnChangeTo(playerInTurn);
+
     turnNumber++;
     drawCard(playerInTurn);
     setupHeroForNewTurn(playerInTurn);
     setupMinionsOnFieldForNewTurn(playerInTurn);
 
-    observerHandler.notifyTurnChangeTo(playerInTurn);
     observerHandler.notifyHeroUpdate(playerInTurn);
   }
 
@@ -171,6 +173,7 @@ public class StandardHotStoneGame implements Game, MutableGame {
   private void setupMinionsOnFieldForNewTurn(Player who) {
     for(Card c : getField(who)) {
       setMinionActive(c,true);
+      observerHandler.notifyCardUpdate(c);
     }
   }
 

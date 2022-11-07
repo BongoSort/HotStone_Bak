@@ -115,6 +115,7 @@ public class FakeObjectGame implements Game {
 
   @Override
   public void endTurn() {
+
     observerHandler.notifyTurnChangeTo(Player.FINDUS);
   }
 

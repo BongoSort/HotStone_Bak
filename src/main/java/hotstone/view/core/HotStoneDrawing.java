@@ -24,6 +24,7 @@ import hotstone.view.GfxConstants;
 import hotstone.view.figure.*;
 import hotstone.view.message.MessageFigure;
 import hotstone.view.message.MessageSystem;
+import hotstone.view.tool.EndTurnTool;
 import minidraw.framework.*;
 import minidraw.standard.StandardFigureCollection;
 import minidraw.standard.handlers.ForwardingFigureChangeHandler;
@@ -373,9 +374,10 @@ public class HotStoneDrawing implements Drawing, GameObserver {
             + "). Next is " + playerBecomingActive);
     // Now - depending upon if we play hot seat or dual UI
     // initiate the proper UI changes
-    if (uiType == HotStoneDrawingType.HOTSEAT_MODE)
+    if (uiType == HotStoneDrawingType.HOTSEAT_MODE) {
       enterHotSeatState();
-    else {
+      endHotSeatState();
+    } else {
       // IFF we are not playing hotseat then 'playerShown' is the same value
       // throughout a game, namely the player that is 'owning' this UI, so
       // we can determine action based upon this
@@ -428,8 +430,7 @@ public class HotStoneDrawing implements Drawing, GameObserver {
     // Opponent cards may not have an associated actor
     // for instance if they are in the hand.
     if (actor != null) {
-      // TODO: update the stats of the card/minion
-      addMessage("TODO: update card stats");
+      actor.updateStats();
     }
   }
 
@@ -446,7 +447,7 @@ public class HotStoneDrawing implements Drawing, GameObserver {
 
   @Override
   public void onHeroUpdate(Player playerInTurn) {
-    // TODO: Refresh the hero's stats
+    refreshHero(playerInTurn);
   }
 
   @Override

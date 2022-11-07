@@ -21,6 +21,8 @@ import hotstone.figuretestcase.doubles.FakeObjectGame;
 import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
+import hotstone.standard.StandardHotStoneGame;
+import hotstone.variants.AlphaStone.AlphaStoneConcreteFactory;
 import hotstone.view.core.HotStoneDrawingType;
 import hotstone.view.core.HotStoneFactory;
 import minidraw.framework.DrawingEditor;
@@ -35,7 +37,8 @@ import java.awt.event.MouseEvent;
  */
 public class ShowUpdate {
   public static void main(String[] args) {
-    Game game = new FakeObjectGame();
+    //Game game = new FakeObjectGame();
+    Game game = new StandardHotStoneGame(new AlphaStoneConcreteFactory());
 
     DrawingEditor editor =
       new MiniDrawApplication( "Click anywhere to progress in an update sequence...",
@@ -60,6 +63,39 @@ class TriggerGameUpdateTool extends NullTool {
   @Override
   public void mouseUp(MouseEvent e, int x, int y) {
     switch (count) {
+      case 0: {
+        editor.showStatus("Playing Findus Tres Card");
+        Card c = game.getCardInHand(Player.FINDUS, 0);
+        game.playCard(Player.FINDUS, c);
+        break;
+      }
+      case 1: {
+        editor.showStatus("Findus ends turn");
+        game.endTurn();
+        break;
+      }
+      case 2: {
+        editor.showStatus("Playing Peddersens Uno card");
+        Card c = game.getCardInHand(Player.PEDDERSEN, 3);
+        game.playCard(Player.PEDDERSEN, c);
+        break;
+      }
+      case 3: {
+        editor.showStatus("Peddersen ends turn");
+        game.endTurn();
+        break;
+      }
+      case 4: {
+        editor.showStatus("Findus attacks Peddersens card Cuatro with Tres");
+        Card findusCard = game.getCardInField(Player.FINDUS,0);
+        Card peddersensCard = game.getCardInField(Player.PEDDERSEN,0);
+        game.attackCard(Player.FINDUS,findusCard,peddersensCard);
+      }
+
+    }
+    count++;
+  }
+    /*switch (count) {
       case 0: {
         editor.showStatus("Playing Findus Card # 0");
         Card c = game.getCardInHand(Player.FINDUS, 0);
@@ -87,6 +123,9 @@ class TriggerGameUpdateTool extends NullTool {
         break;
       }
       case 4: {
+
+      }
+      case 5: {
         // TODO: keep adding to this 'list' until all game mutator calls
         // have been tested and verified that the UI responds correctly.
         editor.showStatus("TODO: ADD SOME MORE game.doSomething() and develop UI behaviour");
@@ -97,5 +136,5 @@ class TriggerGameUpdateTool extends NullTool {
       }
     }
     count++;
-  }
+  }*/
 }
