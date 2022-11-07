@@ -90,6 +90,19 @@ class TriggerGameUpdateTool extends NullTool {
         Card findusCard = game.getCardInField(Player.FINDUS,0);
         Card peddersensCard = game.getCardInField(Player.PEDDERSEN,0);
         game.attackCard(Player.FINDUS,findusCard,peddersensCard);
+        break;
+      }
+      case 5: {
+        editor.showStatus("Advance game one round so it is findus turn again");
+        game.endTurn();
+        game.endTurn();
+        break;
+      }
+      case 7: {
+        editor.showStatus("Findus attacks peddersenshero with Tres");
+        Card findusCard = game.getCardInField(Player.FINDUS,0);
+        game.attackHero(Player.FINDUS,findusCard);
+        break;
       }
     }
     count++;
