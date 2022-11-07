@@ -104,6 +104,11 @@ class TriggerGameUpdateTool extends NullTool {
         game.attackHero(Player.FINDUS,findusCard);
         break;
       }
+      case 7: {
+        editor.showStatus("Findus uses hero power");
+        game.usePower(Player.FINDUS);
+        break;
+      }
     }
     count++;
   }
