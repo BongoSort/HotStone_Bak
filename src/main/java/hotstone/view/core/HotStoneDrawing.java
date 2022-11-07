@@ -441,6 +441,7 @@ public class HotStoneDrawing implements Drawing, GameObserver {
     // right internal data structure manipulation method
     // so both the figure collection AND the actorMap
     // is updated
+    removeActorAndUpdateMapping(card);
     addMessage("TODO: " + who + "'s minion " + card.getName()
             + " is killed.");
   }
