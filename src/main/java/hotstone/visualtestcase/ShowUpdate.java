@@ -75,9 +75,11 @@ class TriggerGameUpdateTool extends NullTool {
         break;
       }
       case 2: {
-        editor.showStatus("Playing Peddersens Uno card");
-        Card c = game.getCardInHand(Player.PEDDERSEN, 3);
-        game.playCard(Player.PEDDERSEN, c);
+        editor.showStatus("Playing Peddersens Uno and Dos Card");
+        Card c1 = game.getCardInHand(Player.PEDDERSEN, 3);
+        Card c2 = game.getCardInHand(Player.PEDDERSEN, 2);
+        game.playCard(Player.PEDDERSEN, c1);
+        game.playCard(Player.PEDDERSEN,c2);
         break;
       }
       case 3: {
@@ -86,9 +88,9 @@ class TriggerGameUpdateTool extends NullTool {
         break;
       }
       case 4: {
-        editor.showStatus("Findus attacks Peddersens card Cuatro with Tres");
+        editor.showStatus("Findus attacks Peddersens card Uno with Tres");
         Card findusCard = game.getCardInField(Player.FINDUS,0);
-        Card peddersensCard = game.getCardInField(Player.PEDDERSEN,0);
+        Card peddersensCard = game.getCardInField(Player.PEDDERSEN,1);
         game.attackCard(Player.FINDUS,findusCard,peddersensCard);
         break;
       }
