@@ -426,7 +426,8 @@ public class HotStoneDrawing implements Drawing, GameObserver {
     // refresh the hand; otherwise just update the summary
     // of the opponent player
     if (who == playerShown) {
-      // TODO: add card to hand, refresh the hand Gfx
+      createActorAndUpdateMapping(drawnCard, HotStoneFigureType.CARD_FIGURE);
+      refreshHand(who);
     } else {
       // TODO: update opponent's summary
     }
@@ -451,6 +452,7 @@ public class HotStoneDrawing implements Drawing, GameObserver {
     // so both the figure collection AND the actorMap
     // is updated
     removeActorAndUpdateMapping(card);
+    refreshField(who);
     addMessage("TODO: " + who + "'s minion " + card.getName()
             + " is killed.");
   }
