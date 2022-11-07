@@ -400,21 +400,15 @@ public class HotStoneDrawing implements Drawing, GameObserver {
 
   @Override
   public void onAttackHero(Player playerAttacking, Card attackingCard) {
-    // TODO: Inform player
-    //opponentSummary.setText(computeHeroSummary(Utility.computeOpponent(playerShown)));
-
     refreshHero(Utility.computeOpponent(playerAttacking));
 
     addMessage(playerAttacking.toString() + " attacks " +
             Utility.computeOpponent(playerAttacking).toString() +
             " hero with " + attackingCard.getName());
-    //addMessage("TODO: tell about attack");
   }
 
   @Override
   public void onUsePower(Player who) {
-    // TODO: Inform player
-    //addMessage("TODO: tell about power");
     refreshHero(who);
     addMessage(who.toString() + " used hero power: " + game.getHero(who).getEffectDescription());
   }
