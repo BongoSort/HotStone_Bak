@@ -298,7 +298,6 @@ public class HotStoneDrawing implements Drawing, GameObserver {
     createHeroFigureAndUpdateMapping(playerShown);
 
     Hero hero = game.getHero(playerShown);
-    // TODO: Add the text figure for the shown player's power
     TextFigure myHeroPowerText = new TextFigure(hero.getEffectDescription(),
             GfxConstants.MY_HERO_POWER_DESCRIPTION_POSITION,
             Color.YELLOW, GfxConstants.SMALL_FONT_SIZE);
@@ -453,8 +452,11 @@ public class HotStoneDrawing implements Drawing, GameObserver {
     // is updated
     removeActorAndUpdateMapping(card);
     refreshField(who);
-    addMessage("TODO: " + who + "'s minion " + card.getName()
+    addMessage(who.toString() + "'s minion " + card.getName()
             + " is killed.");
+
+    //addMessage("TODO: " + who.toString() + "'s minion " + card.getName()
+    //        + " is killed.");
   }
 
   @Override
