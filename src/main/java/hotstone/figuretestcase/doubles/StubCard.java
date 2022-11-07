@@ -81,6 +81,11 @@ public class StubCard implements Card {
     return owner;
   }
 
+  @Override
+  public String getEffectDescription() {
+    return "something about an effect, i don't know i am just a stub";
+  }
+
   public void setHealth(int newValue) {
     health = newValue;
   }

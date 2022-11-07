@@ -14,6 +14,13 @@ public class StandardHotStoneCard implements Card, MutableCard {
     private boolean isActive;
     private Player owner;
 
+    private String effectDescription;
+
+    public StandardHotStoneCard(String cardName, Player owner, int manaCost, int attack, int health, String effectDescription) {
+        this(cardName, owner, manaCost, attack, health);
+        this.effectDescription = effectDescription;
+    }
+
     /** Constructor for a card
      *
      * @param cardName the name of the card
@@ -84,5 +91,10 @@ public class StandardHotStoneCard implements Card, MutableCard {
     @Override
     public Player getOwner() {
         return owner;
+    }
+
+    @Override
+    public String getEffectDescription() {
+        return null;
     }
 }
