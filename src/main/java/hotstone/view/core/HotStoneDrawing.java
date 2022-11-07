@@ -299,7 +299,7 @@ public class HotStoneDrawing implements Drawing, GameObserver {
 
     Hero hero = game.getHero(playerShown);
     // TODO: Add the text figure for the shown player's power
-    TextFigure myHeroPowerText = new TextFigure("(HERO POWER TEXT)",
+    TextFigure myHeroPowerText = new TextFigure(hero.getEffectDescription(),
             GfxConstants.MY_HERO_POWER_DESCRIPTION_POSITION,
             Color.YELLOW, GfxConstants.SMALL_FONT_SIZE);
     add(myHeroPowerText);
@@ -308,7 +308,7 @@ public class HotStoneDrawing implements Drawing, GameObserver {
 
     // Opponent power
     hero = game.getHero(Utility.computeOpponent(playerShown));
-    TextFigure oppHeroPowerText = new TextFigure("(HERO POWER TEXT)",
+    TextFigure oppHeroPowerText = new TextFigure(hero.getEffectDescription(),
             GfxConstants.OPPONENT_HERO_POWER_DESCRIPTION_POSITION,
             Color.YELLOW, GfxConstants.SMALL_FONT_SIZE);
     add(oppHeroPowerText);
