@@ -173,7 +173,6 @@ public class StandardHotStoneGame implements Game, MutableGame {
   private void setupMinionsOnFieldForNewTurn(Player who) {
     for(Card c : getField(who)) {
       setMinionActive(c,true);
-      observerHandler.notifyCardUpdate(c);
     }
   }
 
@@ -403,8 +402,8 @@ public class StandardHotStoneGame implements Game, MutableGame {
   }
 
   private void setMinionActive(Card card, boolean active) {
-    observerHandler.notifyCardUpdate(card);
     ((MutableCard) card).setActive(active);
+    observerHandler.notifyCardUpdate(card);
   }
 
   /**

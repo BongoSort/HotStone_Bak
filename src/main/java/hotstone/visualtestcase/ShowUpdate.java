@@ -91,7 +91,6 @@ class TriggerGameUpdateTool extends NullTool {
         Card peddersensCard = game.getCardInField(Player.PEDDERSEN,0);
         game.attackCard(Player.FINDUS,findusCard,peddersensCard);
       }
-
     }
     count++;
   }
