@@ -98,7 +98,7 @@ class TriggerGameUpdateTool extends NullTool {
         game.endTurn();
         break;
       }
-      case 7: {
+      case 6: {
         editor.showStatus("Findus attacks peddersenshero with Tres");
         Card findusCard = game.getCardInField(Player.FINDUS,0);
         game.attackHero(Player.FINDUS,findusCard);
