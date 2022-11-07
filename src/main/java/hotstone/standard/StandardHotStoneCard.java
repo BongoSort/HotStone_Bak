@@ -89,12 +89,17 @@ public class StandardHotStoneCard implements Card, MutableCard {
     }
 
     @Override
+    public void setEffectDescription(String effectDescription) {
+        this.effectDescription = effectDescription;
+    }
+
+    @Override
     public Player getOwner() {
         return owner;
     }
 
     @Override
     public String getEffectDescription() {
-        return null;
+        return effectDescription;
     }
 }

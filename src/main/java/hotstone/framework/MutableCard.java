@@ -19,4 +19,6 @@ public interface MutableCard extends Card {
      * @param isActive sets a card to be active (true) or inactive (false)
      */
     void setActive(Boolean isActive);
+
+    void setEffectDescription(String effectDescription);
 }
