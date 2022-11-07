@@ -351,9 +351,10 @@ public class HotStoneDrawing implements Drawing, GameObserver {
 
   @Override
   public void onCardPlay(Player who, Card card) {
-    addMessage("" + who + " plays " + card.getName() + ".");
-    // TODO: Add another message if the card has an effect
-
+      addMessage("" + who + " plays " + card.getName() + ".");
+    if(card.getEffectDescription() != null) {
+      addMessage(card.getName() + " applies effect: " + card.getEffectDescription());
+    }
     // As this direct mutator call has known side effects which are
     // not represented by the indirect observer notifications, the
     // card/minion updates are effected here: Remove the card figure
