@@ -15,36 +15,39 @@
  *
  */
 
-package hotstone.main;
+package hotstone.tooltestcase;
 
 import hotstone.figuretestcase.doubles.FakeObjectGame;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.standard.StandardHotStoneGame;
 import hotstone.variants.AlphaStone.AlphaStoneConcreteFactory;
-import hotstone.variants.SemiStone.SemiStoneConcreteFactory;
 import hotstone.view.core.HotStoneDrawingType;
 import hotstone.view.core.HotStoneFactory;
-import hotstone.view.tool.HotSeatStateTool;
+import hotstone.view.tool.MinionAttackTool;
 import minidraw.framework.DrawingEditor;
 import minidraw.standard.MiniDrawApplication;
 import minidraw.standard.SelectionTool;
 
-/** A single jvm application which uses a 'hotseat' to allow both players to
- * alternate play.
- */
-public class HotSeatStone {
-  public static void main(String[] args) {
-    //System.out.println("=== Starting HotSeat on game variant: " + args[0] + " ===");
-    // TODO: Do some switching on args[0] to make the right game variant
-    Game game = new StandardHotStoneGame(new SemiStoneConcreteFactory());
+/** Visual test program to develop minion attack tool */
+public class ShowMinionAttackTool {
+    public static void main(String[] args) {
+        Game game = new StandardHotStoneGame(new AlphaStoneConcreteFactory());
 
-    DrawingEditor editor =
-            new MiniDrawApplication( "HotSeat: Variant ",
-                    new HotStoneFactory(game, Player.FINDUS,
-                            HotStoneDrawingType.HOTSEAT_MODE) );
-    editor.open();
-    // TODO: Change to the hotseat state tool
-    editor.setTool(new HotSeatStateTool(editor,game));
-  }
+        // To enable any testing, we need to field a Card for
+        // Findus.
+        game.playCard(Player.FINDUS,
+                game.getCardInHand(Player.FINDUS, 0));
+        game.endTurn();
+        game.playCard(Player.PEDDERSEN, game.getCardInHand(Player.PEDDERSEN,3));
+        game.endTurn();
+
+        DrawingEditor editor =
+                new MiniDrawApplication("Drag Minions to perform attacks...",
+                        new HotStoneFactory(game, Player.FINDUS,
+                                HotStoneDrawingType.HOTSEAT_MODE));
+        editor.open();
+        // TODO: Solve exercise by developing a MinionAttackTool
+        editor.setTool(new MinionAttackTool(editor,game,Player.FINDUS));
+    }
 }
