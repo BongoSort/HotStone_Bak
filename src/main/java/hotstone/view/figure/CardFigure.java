@@ -52,7 +52,7 @@ public class CardFigure extends HotStoneActorFigure implements HotStoneFigure  {
       manaText = new TextFigure("" + associatedCard.getManaCost(),
               manaPos, Color.WHITE, 16);
       add(manaText);
-      
+
       Point effectPos = (Point) position.clone();
       effectPos.translate(positions.get(FigureType.EFFECT_FIGURE).x,
               positions.get(FigureType.EFFECT_FIGURE).y);

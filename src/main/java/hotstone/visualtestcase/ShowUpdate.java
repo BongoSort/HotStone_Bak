@@ -63,50 +63,43 @@ class TriggerGameUpdateTool extends NullTool {
   @Override
   public void mouseUp(MouseEvent e, int x, int y) {
     switch (count) {
-      case 0: {
+      case 0 -> {
         editor.showStatus("Playing Findus Tres Card");
         Card c = game.getCardInHand(Player.FINDUS, 0);
         game.playCard(Player.FINDUS, c);
-        break;
       }
-      case 1: {
+      case 1 -> {
         editor.showStatus("Findus ends turn");
         game.endTurn();
-        break;
       }
-      case 2: {
+      case 2 -> {
         editor.showStatus("Playing Peddersens Uno and Dos Card");
         Card c1 = game.getCardInHand(Player.PEDDERSEN, 3);
         Card c2 = game.getCardInHand(Player.PEDDERSEN, 2);
         game.playCard(Player.PEDDERSEN, c1);
-        game.playCard(Player.PEDDERSEN,c2);
-        break;
+        game.playCard(Player.PEDDERSEN, c2);
       }
-      case 3: {
+      case 3 -> {
         editor.showStatus("Peddersen ends turn");
         game.endTurn();
-        break;
       }
-      case 4: {
+      case 4 -> {
         editor.showStatus("Findus attacks Peddersens card Uno with Tres");
-        Card findusCard = game.getCardInField(Player.FINDUS,0);
-        Card peddersensCard = game.getCardInField(Player.PEDDERSEN,1);
-        game.attackCard(Player.FINDUS,findusCard,peddersensCard);
-        break;
+        Card findusCard = game.getCardInField(Player.FINDUS, 0);
+        Card peddersensCard = game.getCardInField(Player.PEDDERSEN, 1);
+        game.attackCard(Player.FINDUS, findusCard, peddersensCard);
       }
-      case 5: {
+      case 5 -> {
         editor.showStatus("Advance game one round so it is findus turn again");
         game.endTurn();
         game.endTurn();
-        break;
       }
-      case 6: {
+      case 6 -> {
         editor.showStatus("Findus attacks peddersenshero with Tres");
-        Card findusCard = game.getCardInField(Player.FINDUS,0);
-        game.attackHero(Player.FINDUS,findusCard);
-        break;
+        Card findusCard = game.getCardInField(Player.FINDUS, 0);
+        game.attackHero(Player.FINDUS, findusCard);
       }
-      case 7: {
+      case 7 -> {
         editor.showStatus("Findus uses hero power");
         game.usePower(Player.FINDUS);
         break;
@@ -114,46 +107,4 @@ class TriggerGameUpdateTool extends NullTool {
     }
     count++;
   }
-    /*switch (count) {
-      case 0: {
-        editor.showStatus("Playing Findus Card # 0");
-        Card c = game.getCardInHand(Player.FINDUS, 0);
-        game.playCard(Player.FINDUS, c);
-        break;
-      }
-      case 1: {
-        editor.showStatus("Playing Findus Card # 1");
-        Card c = game.getCardInHand(Player.FINDUS, 0);
-        game.playCard(Player.FINDUS, c);
-        break;
-      }
-      case 2: {
-        editor.showStatus("Playing Findus Card # 2");
-        Card c = game.getCardInHand(Player.FINDUS, 0);
-        game.playCard(Player.FINDUS, c);
-        break;
-      }
-      case 3: {
-        Card attacker = game.getCardInField(Player.FINDUS, 2);
-        Card defender = game.getCardInField(Player.PEDDERSEN, 0);
-        editor.showStatus("Attack/Findus with " + attacker.getName() + " on " + defender.getName()
-                + "; Findus Card REMOVED; Peddersen's card Health reduced.");
-        game.attackCard(Player.FINDUS, attacker, defender);
-        break;
-      }
-      case 4: {
-
-      }
-      case 5: {
-        // TODO: keep adding to this 'list' until all game mutator calls
-        // have been tested and verified that the UI responds correctly.
-        editor.showStatus("TODO: ADD SOME MORE game.doSomething() and develop UI behaviour");
-        break;
-      }
-      default: {
-        editor.showStatus("No more events in the list...");
-      }
-    }
-    count++;
-  }*/
 }

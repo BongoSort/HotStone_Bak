@@ -39,7 +39,6 @@ import java.awt.event.MouseEvent;
  * card could NOT be played (status != Status.OK).
  */
 
-// TODO: Finish the implementation of PlayCard tool
 public class CardPlayTool extends NullTool {
   private DrawingEditor editor;
   private Game game;

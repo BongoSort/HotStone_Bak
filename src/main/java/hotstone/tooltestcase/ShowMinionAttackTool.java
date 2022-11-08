@@ -47,7 +47,6 @@ public class ShowMinionAttackTool {
                         new HotStoneFactory(game, Player.FINDUS,
                                 HotStoneDrawingType.HOTSEAT_MODE));
         editor.open();
-        // TODO: Solve exercise by developing a MinionAttackTool
         editor.setTool(new MinionAttackTool(editor,game,Player.FINDUS));
     }
 }

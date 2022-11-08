@@ -38,7 +38,6 @@ public class ShowPlayCardTool {
                     new HotStoneFactory(game, Player.FINDUS,
                             HotStoneDrawingType.HOTSEAT_MODE) );
     editor.open();
-    // TODO: Solve exercise by developing a PlayCardTool
     editor.setTool(new CardPlayTool(editor, game, Player.FINDUS));
   }
 }

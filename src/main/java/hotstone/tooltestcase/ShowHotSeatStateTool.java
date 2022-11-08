@@ -36,7 +36,6 @@ public class ShowHotSeatStateTool {
                     new HotStoneFactory(game, Player.FINDUS,
                             HotStoneDrawingType.HOTSEAT_MODE));
     editor.open();
-    // TODO: Solve exercise by developing a HotSeatStateTool
     editor.setTool(new HotSeatStateTool(editor, game));
   }
 }

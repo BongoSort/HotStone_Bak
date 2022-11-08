@@ -44,7 +44,6 @@ public class HotSeatStone {
 
 
     System.out.println("=== Starting HotSeat on game variant: " + args[0] + " ===");
-    // TODO: Do some switching on args[0] to make the right game variant
     Game game;
     switch (args[0]) {
       case "alpha" -> game = new StandardHotStoneGame(new AlphaStoneConcreteFactory());
@@ -64,7 +63,6 @@ public class HotSeatStone {
                     new HotStoneFactory(game, Player.FINDUS,
                             HotStoneDrawingType.HOTSEAT_MODE) );
     editor.open();
-    // TODO: Change to the hotseat state tool
     editor.setTool(new HotSeatStateTool(editor,game));
   }
 }
