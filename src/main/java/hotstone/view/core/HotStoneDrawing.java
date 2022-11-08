@@ -364,6 +364,15 @@ public class HotStoneDrawing implements Drawing, GameObserver {
 
     refreshField(who);
 
+    if(card.getEffectDescription() != null) {
+      Player opponent = Utility.computeOpponent(who);
+      refreshField(opponent);
+      refreshHero(opponent);
+
+      refreshHero(who);
+    }
+
+
     opponentSummary.setText(computeHeroSummary(
             Utility.computeOpponent(playerShown)));
   }
