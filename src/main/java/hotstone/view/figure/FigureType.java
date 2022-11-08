@@ -22,5 +22,5 @@ package hotstone.view.figure;
  */
 public enum FigureType {
   MANA_FIGURE, ATTACK_FIGURE, HEALTH_FIGURE, EMBLEM_FIGURE,
-  ACTIVE_FIGURE,
+  ACTIVE_FIGURE, EFFECT_FIGURE
 }
