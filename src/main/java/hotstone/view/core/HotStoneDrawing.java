@@ -372,7 +372,6 @@ public class HotStoneDrawing implements Drawing, GameObserver {
       refreshHero(who);
     }
 
-
     opponentSummary.setText(computeHeroSummary(
             Utility.computeOpponent(playerShown)));
   }

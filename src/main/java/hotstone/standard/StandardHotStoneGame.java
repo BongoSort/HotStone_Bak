@@ -216,6 +216,15 @@ public class StandardHotStoneGame implements Game, MutableGame {
     cardEffectStrategy.useCardEffect(this,who,card);
     addNewCardToField(who, card);
 
+    for(Card c : getField(who)) {
+      observerHandler.notifyCardUpdate(c);
+    }
+
+    Player opponent = Utility.computeOpponent(who);
+    for(Card c : getField(opponent)) {
+      observerHandler.notifyCardUpdate(c);
+    }
+
     observerHandler.notifyPlayCard(who, card);
 
     return status;
