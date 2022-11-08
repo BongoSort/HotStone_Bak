@@ -354,8 +354,8 @@ public class StandardHotStoneGame implements Game, MutableGame {
    * @param who the player that uses the heropower
    */
   private void executeHeroPower(Player who) {
-    MutableHero hero = playerHero.get(who);
     heroStrategy.useHeroPower(this,who);
+    MutableHero hero = playerHero.get(who);
     hero.reduceMana(GameConstants.HERO_POWER_COST);
     hero.setActive(false);
   }
