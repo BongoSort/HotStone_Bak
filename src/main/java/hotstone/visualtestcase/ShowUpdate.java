@@ -43,7 +43,7 @@ public class ShowUpdate {
     DrawingEditor editor =
       new MiniDrawApplication( "Click anywhere to progress in an update sequence...",
                                new HotStoneFactory(game, Player.FINDUS,
-                                       HotStoneDrawingType.HOTSEAT_MODE) );
+                                       HotStoneDrawingType.OPPONENT_MODE) );
     editor.open();
     editor.setTool( new TriggerGameUpdateTool(editor, game) );
   }
