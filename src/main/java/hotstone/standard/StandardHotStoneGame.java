@@ -445,8 +445,8 @@ public class StandardHotStoneGame implements Game, MutableGame {
    * @param amount The amount of health minion is losing
    */
   private void reduceMinionHealth(Card minion, int amount) {
-    observerHandler.notifyCardUpdate(minion);
     ((MutableCard) minion).reduceHealth(amount);
+    observerHandler.notifyCardUpdate(minion);
   }
 
   /**
