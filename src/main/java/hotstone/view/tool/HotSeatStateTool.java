@@ -60,7 +60,7 @@ public class HotSeatStateTool extends NullTool {
         case TURN_BUTTON, SWAP_BUTTON -> state = new EndTurnTool(editor, game);
         case MINION_FIGURE -> state = new MinionAttackTool(editor,game,game.getPlayerInTurn());
         case HERO_FIGURE -> state = new UsePowerTool(editor,game);
-        case WIN_BUTTON -> state = theNullTool;
+        case WIN_BUTTON -> state = new EndGameTool(editor);
       }
     }
     state.mouseDown(e, x, y);

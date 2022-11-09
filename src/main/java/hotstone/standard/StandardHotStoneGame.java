@@ -334,6 +334,7 @@ public class StandardHotStoneGame implements Game, MutableGame {
 
     notifyAllCardsInField(who);
     notifyAllCardsInField(Utility.computeOpponent(who));
+    observerHandler.notifyHeroUpdate(Utility.computeOpponent(who));
 
     updateWinner();
     return status;

@@ -408,8 +408,6 @@ public class HotStoneDrawing implements Drawing, GameObserver {
 
   @Override
   public void onAttackHero(Player playerAttacking, Card attackingCard) {
-    refreshHero(Utility.computeOpponent(playerAttacking));
-
     addMessage(playerAttacking.toString() + " attacks " +
             Utility.computeOpponent(playerAttacking).toString() +
             " hero with " + attackingCard.getName());
@@ -417,12 +415,6 @@ public class HotStoneDrawing implements Drawing, GameObserver {
 
   @Override
   public void onUsePower(Player who) {
-    refreshHero(who);
-    refreshHero(Utility.computeOpponent(who));
-
-    refreshField(who);
-    refreshField(Utility.computeOpponent(who));
-
     addMessage(who.toString() + " used hero power: " + game.getHero(who).getEffectDescription());
   }
 
