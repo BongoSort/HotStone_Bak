@@ -171,11 +171,13 @@ public class StandardHotStoneGame implements Game, MutableGame {
 
     turnNumber++;
     drawCard(playerInTurn);
+
     setupHeroForNewTurn(playerInTurn);
+    observerHandler.notifyHeroUpdate(playerInTurn);
+
     setupMinionsOnFieldForNewTurn(playerInTurn);
 
     updateWinner();
-    observerHandler.notifyHeroUpdate(playerInTurn);
   }
 
   /**
@@ -302,7 +304,6 @@ public class StandardHotStoneGame implements Game, MutableGame {
     setMinionActive(attackingCard,false);
 
     observerHandler.notifyAttackHero(playerAttacking, attackingCard);
-    observerHandler.notifyHeroUpdate(playerBeingAttacked);
     updateWinner();
 
     return Status.OK;
@@ -445,8 +446,8 @@ public class StandardHotStoneGame implements Game, MutableGame {
    * @param amount The amount of health minion is losing
    */
   private void reduceMinionHealth(Card minion, int amount) {
-    observerHandler.notifyCardUpdate(minion);
     ((MutableCard) minion).reduceHealth(amount);
+    observerHandler.notifyCardUpdate(minion);
   }
 
   /**
