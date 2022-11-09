@@ -39,13 +39,19 @@ public class GameConstants {
 
   // Hero power Effect Descriptions
   public static final String BABY_EFFECT_DESCRIPTION = "Cute";
-  public static final String THAI_CHEF_EFFECT_DESCRIPTION = "Opponent hero loses two health";
-  public static final String DANISH_CHEF_EFFECT_DESCRIPTION = "Fields a special minion Sovs with attackPower 1 and health 1";
-  public static final String FRENCH_CHEF_EFFECT_DESCRIPTION = "Pick a random opponent minion (on the field) and decrease its health by 2. " +
-          "In case no minions are on the field, the power has no effect";
-  public static final String ITALIAN_CHEF_EFFECT_DESCRIPTION = "Pick a random minion of his own (on the field), and increase its attack by 2." +
-          "In case no minions are on the field, the power has no effect";
+  public static final String THAI_CHEF_EFFECT_DESCRIPTION = "Opp H: (0,-2)";
+  public static final String DANISH_CHEF_EFFECT_DESCRIPTION = "Field Sovs";
+  public static final String FRENCH_CHEF_EFFECT_DESCRIPTION = "Opp M: (0,-2)";
+  public static final String ITALIAN_CHEF_EFFECT_DESCRIPTION = "M: (+2,0)";
 
+
+  // Card Effect Descriptions
+  public static final String BROWN_RICE_EFFECT_DESCRIPTION = "Opp H: (0,-1)";
+  public static final String TOMATO_SALAD_EFFECT_DESCRIPTION = "M: (+1,0)";
+  public static final String POKE_BOWL_EFFECT_DESCRIPTION = "H: (0,+2)";
+  public static final String NOODLE_SOUP_EFFECT_DESCRIPTION = "Draw Card";
+  public static final String CHICKEN_CURRY_EFFECT_DESCRIPTION = "Kill opp M";
+  public static final String BEEF_BURGER_EFFECT_DESCRIPTION = "Opp M: (+2,0)";
 
   // Card names for Alpha
   public static final String DOS_CARD = "Dos";

@@ -38,11 +38,7 @@ public class EpsilonStoneHeroStrategy implements HeroStrategy {
 
                 MutableCard card = (MutableCard) game.getCardInField(opponent,randomNumber);
                 card.reduceHealth(2);
-
-
-                if(card.getHealth() > 0) { return; }
-
-                ((ArrayList<Card>) game.getField(opponent)).remove(card);
+                ((MutableGame) game).removeCardFromFieldIfHealthIsZeroOrBelow(card);
             }
             case GameConstants.ITALIAN_CHEF_HERO_TYPE -> {
                 if(game.getFieldSize(who) <= 0) { return; }

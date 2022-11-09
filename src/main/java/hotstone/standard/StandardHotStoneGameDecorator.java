@@ -1,6 +1,7 @@
 package hotstone.standard;
 
 import hotstone.framework.*;
+import hotstone.observer.GameObserver;
 
 public abstract class StandardHotStoneGameDecorator implements Game {
     private Game game;
@@ -91,6 +92,11 @@ public abstract class StandardHotStoneGameDecorator implements Game {
     @Override
     public Status usePower(Player who) {
         return game.usePower(who);
+    }
+
+    @Override
+    public void addObserver(GameObserver observer) {
+        game.addObserver(observer);
     }
 
 }

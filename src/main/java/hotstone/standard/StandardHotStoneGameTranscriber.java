@@ -1,6 +1,7 @@
 package hotstone.standard;
 
 import hotstone.framework.*;
+import hotstone.observer.GameObserver;
 
 
 public class StandardHotStoneGameTranscriber extends StandardHotStoneGameDecorator{
@@ -66,4 +67,8 @@ public class StandardHotStoneGameTranscriber extends StandardHotStoneGameDecorat
         return status;
     }
 
+    @Override
+    public void addObserver(GameObserver observer) {
+        super.addObserver(observer);
+    }
 }

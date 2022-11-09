@@ -78,7 +78,7 @@ public class TestSemiStone {
         Game game = new StandardHotStoneGame(new TestSemiStoneFactory(indexStrategy));
 
         TestHelper.advanceGameNRounds(game,2);
-        Card card = game.getCardInHand(Player.FINDUS,4);
+        Card card = game.getCardInHand(Player.FINDUS,2);
         game.playCard(Player.FINDUS, card);
         game.endTurn();
 
@@ -93,7 +93,7 @@ public class TestSemiStone {
         indexStrategy.setValue(3); //Italian hero is on index 3 in the herotypes array from HeroStrategy
         Game game = new StandardHotStoneGame(new TestSemiStoneFactory(indexStrategy));
 
-        Card card = game.getCardInHand(Player.FINDUS,0);
+        Card card = game.getCardInHand(Player.FINDUS,2);
         game.playCard(Player.FINDUS,card);
         TestHelper.advanceGameNRounds(game,1);
 

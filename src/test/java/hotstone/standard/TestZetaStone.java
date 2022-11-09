@@ -4,6 +4,7 @@ package hotstone.standard;
 import hotstone.framework.*;
 import hotstone.framework.strategies.DeckStrategy;
 import hotstone.framework.strategies.WinnerStrategy;
+import hotstone.observer.GameObserver;
 import hotstone.variants.ZetaStone.ZetaStoneWinnerStrategy;
 import hotstone.variants.ZetaStone.ZetaStoneDeckStrategy;
 import org.junit.jupiter.api.BeforeEach;
@@ -148,6 +149,11 @@ public class TestZetaStone {
         @Override
         public Status usePower(Player who) {
             return null;
+        }
+
+        @Override
+        public void addObserver(GameObserver observer) {
+
         }
     }
 }

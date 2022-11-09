@@ -193,13 +193,13 @@ public class TestDeltaStone {
         assertThat(game.getDeckSize(Player.PEDDERSEN), is(21));
     }
     @Test
-    public void firstCardInHandShouldBeOneManaCostForFindus() {
-        assertThat(game.getCardInHand(Player.FINDUS, 0).getManaCost(), is(1));
+    public void thirdCardInHandShouldBeOneManaCostForFindus() {
+        assertThat(game.getCardInHand(Player.FINDUS, 2).getManaCost(), is(1));
     }
 
     @Test
-    public void firstCardInHandShouldBeOneManaCostForPeddersen() {
-        assertThat(game.getCardInHand(Player.PEDDERSEN, 0).getManaCost(), is(1));
+    public void thirdCardInHandShouldBeOneManaCostForPeddersen() {
+        assertThat(game.getCardInHand(Player.PEDDERSEN, 2).getManaCost(), is(1));
     }
     @Test
     public void secondCardInHandShouldBeTwoOrLessManaCostForFindus() {
@@ -222,21 +222,21 @@ public class TestDeltaStone {
     }
 
     @Test
-    public void findusPlaysFirstCardShouldHaveSixManaLeft() {
+    public void findusPlaysBrownRiceShouldHaveSixManaLeft() {
         // Given a DeltaGame
         // When findus plays a one mana card
-        game.playCard(Player.FINDUS, game.getCardInHand(Player.FINDUS, 0));
+        game.playCard(Player.FINDUS, game.getCardInHand(Player.FINDUS, 2));
         // Then findus should have six mana left
         assertThat(game.getHero(Player.FINDUS).getMana(), is(6));
     }
 
     @Test
-    public void peddersenPlaysSecondCardShouldHaveSixManaLeft() {
+    public void peddersenPlaysBrownRiceShouldHaveSixManaLeft() {
         // Given a DeltaGame
         // When it is peddersens turn
         game.endTurn();
         // Peddersen plays a one mana card
-        game.playCard(Player.PEDDERSEN, game.getCardInHand(Player.PEDDERSEN, 1));
+        game.playCard(Player.PEDDERSEN, game.getCardInHand(Player.PEDDERSEN, 3));
         // Then Peddersen should have six mana left
         assertThat(game.getHero(Player.PEDDERSEN).getMana(), is(6));
     }

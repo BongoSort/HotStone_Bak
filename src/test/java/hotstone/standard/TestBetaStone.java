@@ -1,5 +1,6 @@
 package hotstone.standard;
 
+import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
 import hotstone.framework.strategies.AbstractFactory;
@@ -131,7 +132,11 @@ public class TestBetaStone {
 
     @Test
     public void ifFindusHealthIsZeroOrBelowPeddersenWins() {
-        ((StandardHotStoneHero) game.getHero(Player.FINDUS)).reduceHealth(GameConstants.HERO_MAX_HEALTH);
+        TestHelper.fieldUnoDosTresCuatroForFindusAndPeddersen(game);
+        ((StandardHotStoneHero) game.getHero(Player.FINDUS)).reduceHealth(GameConstants.HERO_MAX_HEALTH - 1);
+        game.endTurn();
+        Card peddersensCard = game.getCardInField(Player.PEDDERSEN,0);
+        game.attackHero(Player.PEDDERSEN,peddersensCard);
         assertThat(game.getWinner(),is(Player.PEDDERSEN));
     }
 
@@ -142,7 +147,10 @@ public class TestBetaStone {
 
     @Test
     public void ifPeddersenHealthIsZeroOrBelowFindusWins() {
+        TestHelper.fieldUnoDosTresCuatroForFindusAndPeddersen(game);
         ((StandardHotStoneHero) game.getHero(Player.PEDDERSEN)).reduceHealth(GameConstants.HERO_MAX_HEALTH);
+        Card findusCard = game.getCardInField(Player.FINDUS,0);
+        game.attackHero(Player.FINDUS,findusCard);
         assertThat(game.getWinner(),is(Player.FINDUS));
     }
 

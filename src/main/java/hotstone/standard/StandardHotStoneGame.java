@@ -47,7 +47,7 @@ import java.util.HashMap;
  * enable a lot of game variants. This is also
  * why it is not called 'AlphaGame'.
  */
-public class StandardHotStoneGame implements Game, MutableGame, Observable {
+public class StandardHotStoneGame implements Game, MutableGame {
   private Player playerInTurn;
   private ManaProductionStrategy manaProductionStrategy;
   private WinnerStrategy winnerStrategy;
@@ -59,7 +59,8 @@ public class StandardHotStoneGame implements Game, MutableGame, Observable {
   private HashMap<Player,ArrayList<Card>> playerHands = new HashMap<>();
   private HashMap<Player,ArrayList<Card>> playerFields = new HashMap<>();
   private HashMap<Player, MutableHero> playerHero = new HashMap<>();
-  private ObserverHandler observerHandler = new ObserverHandler();
+  private ObserverHandler observerHandler;
+  private Player winner;
 
 
   /**
@@ -74,6 +75,8 @@ public class StandardHotStoneGame implements Game, MutableGame, Observable {
     this.cardEffectStrategy = abstractFactory.createCardEffectStrategy();
     this.playerInTurn = Player.FINDUS;
     this.turnNumber = 0;
+    this.observerHandler = new ObserverHandler();
+    this.winner = null;
 
     initializeDeckHeroHandAndFieldForPlayer(Player.FINDUS);
     initializeDeckHeroHandAndFieldForPlayer(Player.PEDDERSEN);
@@ -82,22 +85,19 @@ public class StandardHotStoneGame implements Game, MutableGame, Observable {
   private void initializeDeckHeroHandAndFieldForPlayer(Player who) {
     playerHero.put(who, new StandardHotStoneHero(who, manaProductionStrategy.calculateMana(turnNumber), heroStrategy.getType(who)));
     playerDecks.put(who, deckStrategy.deckInitialization(who));
-    playerHands.put(who,makeHand(who));
     playerFields.put(who, new ArrayList<>());
+    playerHands.put(who,new ArrayList<>());
+    makeHand(who);
   }
 
   /**
    * Makes the start hand of a player
    * @param who Player which hand is being made
-   * @return the complete start hand
    */
-  private ArrayList<Card> makeHand(Player who) {
-    ArrayList<Card> hand = new ArrayList<>();
+  private void makeHand(Player who) {
     for(int i = 0 ; i < 3 ; i++) {
-      Card card = playerDecks.get(who).remove(0);
-      hand.add(card);
+      drawCard(who);
     }
-    return hand;
   }
 
   @Override
@@ -112,7 +112,16 @@ public class StandardHotStoneGame implements Game, MutableGame, Observable {
 
   @Override
   public Player getWinner() {
-    return winnerStrategy.calculateWinner(this);
+    return winner;
+  }
+
+  private void updateWinner() {
+    Player winningPlayer = winnerStrategy.calculateWinner(this);
+    if(winningPlayer == null) {
+      return;
+    }
+    winner = winningPlayer;
+    observerHandler.notifyGameWon(winningPlayer);
   }
 
   @Override
@@ -158,12 +167,14 @@ public class StandardHotStoneGame implements Game, MutableGame, Observable {
   @Override
   public void endTurn() {
     playerInTurn = Utility.computeOpponent(playerInTurn);
+    observerHandler.notifyTurnChangeTo(playerInTurn);
+
     turnNumber++;
     drawCard(playerInTurn);
     setupHeroForNewTurn(playerInTurn);
     setupMinionsOnFieldForNewTurn(playerInTurn);
 
-    observerHandler.notifyTurnChangeTo(playerInTurn);
+    updateWinner();
     observerHandler.notifyHeroUpdate(playerInTurn);
   }
 
@@ -189,7 +200,7 @@ public class StandardHotStoneGame implements Game, MutableGame, Observable {
   }
 
   @Override
-  public void drawCard(Player who) { //TODO: skal denne smides ud i et interface?
+  public void drawCard(Player who) {
     boolean playersDeckSizeIsGreaterThanZero = playerDecks.get(who).size() > 0;
     if(!playersDeckSizeIsGreaterThanZero) {
       reduceHeroHealth(who, GameConstants.HERO_HEALTH_PENALTY_ON_EMPTY_DECK);
@@ -217,9 +228,20 @@ public class StandardHotStoneGame implements Game, MutableGame, Observable {
     cardEffectStrategy.useCardEffect(this,who,card);
     addNewCardToField(who, card);
 
+    notifyAllCardsInField(who);
+
+    Player opponent = Utility.computeOpponent(who);
+    notifyAllCardsInField(opponent);
+
     observerHandler.notifyPlayCard(who, card);
 
     return status;
+  }
+
+  private void notifyAllCardsInField(Player who) {
+    for(Card c : getField(who)) {
+      observerHandler.notifyCardUpdate(c);
+    }
   }
 
   /**
@@ -254,6 +276,7 @@ public class StandardHotStoneGame implements Game, MutableGame, Observable {
 
     observerHandler.notifyAttackCard(playerAttacking,attackingCard,defendingCard);
 
+    updateWinner();
     return status;
   }
 
@@ -280,6 +303,7 @@ public class StandardHotStoneGame implements Game, MutableGame, Observable {
 
     observerHandler.notifyAttackHero(playerAttacking, attackingCard);
     observerHandler.notifyHeroUpdate(playerBeingAttacked);
+    updateWinner();
 
     return Status.OK;
   }
@@ -307,6 +331,14 @@ public class StandardHotStoneGame implements Game, MutableGame, Observable {
 
     executeHeroPower(who);
     observerHandler.notifyUsePower(who);
+
+    notifyAllCardsInField(who);
+    observerHandler.notifyHeroUpdate(who);
+
+    notifyAllCardsInField(Utility.computeOpponent(who));
+    observerHandler.notifyHeroUpdate(Utility.computeOpponent(who));
+
+    updateWinner();
     return status;
   }
 
@@ -325,8 +357,8 @@ public class StandardHotStoneGame implements Game, MutableGame, Observable {
    * @param who the player that uses the heropower
    */
   private void executeHeroPower(Player who) {
-    MutableHero hero = playerHero.get(who);
     heroStrategy.useHeroPower(this,who);
+    MutableHero hero = playerHero.get(who);
     hero.reduceMana(GameConstants.HERO_POWER_COST);
     hero.setActive(false);
   }
@@ -403,8 +435,8 @@ public class StandardHotStoneGame implements Game, MutableGame, Observable {
   }
 
   private void setMinionActive(Card card, boolean active) {
-    observerHandler.notifyCardUpdate(card);
     ((MutableCard) card).setActive(active);
+    observerHandler.notifyCardUpdate(card);
   }
 
   /**
