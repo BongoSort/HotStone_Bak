@@ -171,11 +171,13 @@ public class StandardHotStoneGame implements Game, MutableGame {
 
     turnNumber++;
     drawCard(playerInTurn);
+
     setupHeroForNewTurn(playerInTurn);
+    observerHandler.notifyHeroUpdate(playerInTurn);
+
     setupMinionsOnFieldForNewTurn(playerInTurn);
 
     updateWinner();
-    observerHandler.notifyHeroUpdate(playerInTurn);
   }
 
   /**
@@ -302,7 +304,6 @@ public class StandardHotStoneGame implements Game, MutableGame {
     setMinionActive(attackingCard,false);
 
     observerHandler.notifyAttackHero(playerAttacking, attackingCard);
-    observerHandler.notifyHeroUpdate(playerBeingAttacked);
     updateWinner();
 
     return Status.OK;
