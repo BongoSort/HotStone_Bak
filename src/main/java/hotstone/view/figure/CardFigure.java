@@ -29,6 +29,7 @@ import static java.util.Map.entry;
  */
 public class CardFigure extends HotStoneActorFigure implements HotStoneFigure  {
   private final TextFigure manaText;
+  private final TextFigure effectText;
 
   public CardFigure(Card associatedCard, Point position) {
     super(HotStoneFigureType.CARD_FIGURE,
@@ -39,7 +40,8 @@ public class CardFigure extends HotStoneActorFigure implements HotStoneFigure  {
                     entry(FigureType.ATTACK_FIGURE, new Point(20,188+22)),
                     entry(FigureType.HEALTH_FIGURE, new Point(149,190+22)),
                     entry(FigureType.EMBLEM_FIGURE, new Point(41,6)),
-                    entry(FigureType.ACTIVE_FIGURE, new Point(52,110))));
+                    entry(FigureType.ACTIVE_FIGURE, new Point(52,110)),
+                    entry(FigureType.EFFECT_FIGURE, new Point(55,170))));
 
     writeLock().lock();
     try {
@@ -51,7 +53,17 @@ public class CardFigure extends HotStoneActorFigure implements HotStoneFigure  {
               manaPos, Color.WHITE, 16);
       add(manaText);
 
-      // TODO: Add the Effect label
+      Point effectPos = (Point) position.clone();
+      effectPos.translate(positions.get(FigureType.EFFECT_FIGURE).x,
+              positions.get(FigureType.EFFECT_FIGURE).y);
+      if(associatedCard.getEffectDescription() != null) {
+        effectText = new TextFigure("" + associatedCard.getEffectDescription(),
+                effectPos, Color.WHITE, 16);
+      } else {
+        effectText = new TextFigure("",
+                effectPos, Color.WHITE, 16);
+      }
+      add(effectText);
       
     } finally {
       writeLock().unlock();

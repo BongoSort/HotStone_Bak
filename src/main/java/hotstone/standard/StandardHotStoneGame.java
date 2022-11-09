@@ -60,6 +60,7 @@ public class StandardHotStoneGame implements Game, MutableGame {
   private HashMap<Player,ArrayList<Card>> playerFields = new HashMap<>();
   private HashMap<Player, MutableHero> playerHero = new HashMap<>();
   private ObserverHandler observerHandler;
+  private Player winner;
 
 
   /**
@@ -75,6 +76,7 @@ public class StandardHotStoneGame implements Game, MutableGame {
     this.playerInTurn = Player.FINDUS;
     this.turnNumber = 0;
     this.observerHandler = new ObserverHandler();
+    this.winner = null;
 
     initializeDeckHeroHandAndFieldForPlayer(Player.FINDUS);
     initializeDeckHeroHandAndFieldForPlayer(Player.PEDDERSEN);
@@ -110,7 +112,16 @@ public class StandardHotStoneGame implements Game, MutableGame {
 
   @Override
   public Player getWinner() {
-    return winnerStrategy.calculateWinner(this);
+    return winner;
+  }
+
+  private void updateWinner() {
+    Player winningPlayer = winnerStrategy.calculateWinner(this);
+    if(winningPlayer == null) {
+      return;
+    }
+    winner = winningPlayer;
+    observerHandler.notifyGameWon(winningPlayer);
   }
 
   @Override
@@ -163,6 +174,7 @@ public class StandardHotStoneGame implements Game, MutableGame {
     setupHeroForNewTurn(playerInTurn);
     setupMinionsOnFieldForNewTurn(playerInTurn);
 
+    updateWinner();
     observerHandler.notifyHeroUpdate(playerInTurn);
   }
 
@@ -216,9 +228,20 @@ public class StandardHotStoneGame implements Game, MutableGame {
     cardEffectStrategy.useCardEffect(this,who,card);
     addNewCardToField(who, card);
 
+    notifyAllCardsInField(who);
+
+    Player opponent = Utility.computeOpponent(who);
+    notifyAllCardsInField(opponent);
+
     observerHandler.notifyPlayCard(who, card);
 
     return status;
+  }
+
+  private void notifyAllCardsInField(Player who) {
+    for(Card c : getField(who)) {
+      observerHandler.notifyCardUpdate(c);
+    }
   }
 
   /**
@@ -253,6 +276,7 @@ public class StandardHotStoneGame implements Game, MutableGame {
 
     observerHandler.notifyAttackCard(playerAttacking,attackingCard,defendingCard);
 
+    updateWinner();
     return status;
   }
 
@@ -279,6 +303,7 @@ public class StandardHotStoneGame implements Game, MutableGame {
 
     observerHandler.notifyAttackHero(playerAttacking, attackingCard);
     observerHandler.notifyHeroUpdate(playerBeingAttacked);
+    updateWinner();
 
     return Status.OK;
   }
@@ -306,6 +331,14 @@ public class StandardHotStoneGame implements Game, MutableGame {
 
     executeHeroPower(who);
     observerHandler.notifyUsePower(who);
+
+    notifyAllCardsInField(who);
+    observerHandler.notifyHeroUpdate(who);
+
+    notifyAllCardsInField(Utility.computeOpponent(who));
+    observerHandler.notifyHeroUpdate(Utility.computeOpponent(who));
+
+    updateWinner();
     return status;
   }
 
@@ -324,8 +357,8 @@ public class StandardHotStoneGame implements Game, MutableGame {
    * @param who the player that uses the heropower
    */
   private void executeHeroPower(Player who) {
-    MutableHero hero = playerHero.get(who);
     heroStrategy.useHeroPower(this,who);
+    MutableHero hero = playerHero.get(who);
     hero.reduceMana(GameConstants.HERO_POWER_COST);
     hero.setActive(false);
   }

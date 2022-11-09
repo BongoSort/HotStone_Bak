@@ -55,18 +55,12 @@ public class HotSeatStateTool extends NullTool {
     Figure figureAtPosition = model.findFigure(e.getX(), e.getY());
     if (figureAtPosition instanceof HotStoneFigure) {
       HotStoneFigure hsf = (HotStoneFigure) figureAtPosition;
-      // TODO: Complete this state selection
-      if (hsf.getType() == HotStoneFigureType.CARD_FIGURE) {
-        state = new CardPlayTool(editor, game, game.getPlayerInTurn());
-      } else if (hsf.getType() == HotStoneFigureType.TURN_BUTTON ||
-              hsf.getType() == HotStoneFigureType.SWAP_BUTTON) {
-        state = new EndTurnTool(editor, game);
-      } else if (hsf.getType() == HotStoneFigureType.MINION_FIGURE) {
-        state = theNullTool;
-      } else if (hsf.getType() == HotStoneFigureType.HERO_FIGURE) {
-        state = theNullTool;
-      } else if (hsf.getType() == HotStoneFigureType.WIN_BUTTON) {
-        state = theNullTool; // Have to kill the window to restart.
+      switch (hsf.getType()) {
+        case CARD_FIGURE -> state = new CardPlayTool(editor, game, game.getPlayerInTurn());
+        case TURN_BUTTON, SWAP_BUTTON -> state = new EndTurnTool(editor, game);
+        case MINION_FIGURE -> state = new MinionAttackTool(editor,game,game.getPlayerInTurn());
+        case HERO_FIGURE -> state = new UsePowerTool(editor,game);
+        case WIN_BUTTON -> state = new EndGameTool(editor);
       }
     }
     state.mouseDown(e, x, y);

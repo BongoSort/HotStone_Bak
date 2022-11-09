@@ -39,7 +39,6 @@ import java.awt.event.MouseEvent;
  * card could NOT be played (status != Status.OK).
  */
 
-// TODO: Finish the implementation of PlayCard tool
 public class CardPlayTool extends NullTool {
   private DrawingEditor editor;
   private Game game;
@@ -62,8 +61,10 @@ public class CardPlayTool extends NullTool {
     Figure figureAtPosition = model.findFigure(e.getX(), e.getY());
     draggedActor = (HotStoneActorFigure) figureAtPosition;
     model.zOrder(draggedActor, ZOrder.TO_TOP);
-    lastX = x; lastY = y;
-    orgX = x; orgY = y;
+    lastX = x;
+    lastY = y;
+    orgX = x;
+    orgY = y;
   }
 
   @Override
@@ -71,7 +72,8 @@ public class CardPlayTool extends NullTool {
     // compute relative movement
     draggedActor.moveBy(x - lastX, y - lastY);
     // update last position
-    lastX = x; lastY = y;
+    lastX = x;
+    lastY = y;
   }
 
   @Override
@@ -83,18 +85,16 @@ public class CardPlayTool extends NullTool {
 
     if (isDraggingAnActor && isHittingField) {
       Card associatedCard = draggedActor.getAssociatedCard();
-      // TODO: Do the actual call instead of this fake code
-      System.out.println("TODO: Do the actual call to the domain code...");
-      Status status = Status.NOT_ENOUGH_MANA;
+      Status status = game.playCard(associatedCard.getOwner(), associatedCard);
       if (status == Status.OK) {
         moveCardBack = false;
       }
       editor.showStatus("Draw card from hand. Result =" + status);
+      if (moveCardBack) {
+        // move back to original position
+        draggedActor.moveBy(orgX - x, orgY - y);
+      }
+      draggedActor = null;
     }
-    if (moveCardBack) {
-      // move back to original position
-      draggedActor.moveBy(orgX - x, orgY - y);
-    }
-    draggedActor = null;
   }
 }

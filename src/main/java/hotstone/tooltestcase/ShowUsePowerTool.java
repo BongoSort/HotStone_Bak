@@ -20,8 +20,11 @@ package hotstone.tooltestcase;
 import hotstone.figuretestcase.doubles.FakeObjectGame;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
+import hotstone.standard.StandardHotStoneGame;
+import hotstone.variants.AlphaStone.AlphaStoneConcreteFactory;
 import hotstone.view.core.HotStoneDrawingType;
 import hotstone.view.core.HotStoneFactory;
+import hotstone.view.tool.UsePowerTool;
 import minidraw.framework.DrawingEditor;
 import minidraw.standard.MiniDrawApplication;
 import minidraw.standard.SelectionTool;
@@ -29,14 +32,13 @@ import minidraw.standard.SelectionTool;
 /** Visual test program to develop use power tool */
 public class ShowUsePowerTool {
   public static void main(String[] args) {
-    Game game = new FakeObjectGame();
+    Game game = new StandardHotStoneGame(new AlphaStoneConcreteFactory());
 
     DrawingEditor editor =
             new MiniDrawApplication("Click Hero to use power...",
                     new HotStoneFactory(game, Player.FINDUS,
                             HotStoneDrawingType.HOTSEAT_MODE));
     editor.open();
-    // TODO: Solve exercise by developing a UsePowerTool
-    editor.setTool(new SelectionTool(editor));
+    editor.setTool(new UsePowerTool(editor,game));
   }
 }

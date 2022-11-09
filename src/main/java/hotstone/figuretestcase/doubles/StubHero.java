@@ -58,7 +58,7 @@ public class StubHero implements Hero {
 
   @Override
   public String getEffectDescription() {
-    return null;
+    return "null";
   }
 
   public void deltaMana(int delta) {

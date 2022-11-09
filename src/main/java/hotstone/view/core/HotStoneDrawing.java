@@ -351,9 +351,10 @@ public class HotStoneDrawing implements Drawing, GameObserver {
 
   @Override
   public void onCardPlay(Player who, Card card) {
-    addMessage("" + who + " plays " + card.getName() + ".");
-    // TODO: Add another message if the card has an effect
-
+      addMessage("" + who + " plays " + card.getName() + ".");
+    if(card.getEffectDescription() != null) {
+      addMessage(card.getName() + " applies effect: " + card.getEffectDescription());
+    }
     // As this direct mutator call has known side effects which are
     // not represented by the indirect observer notifications, the
     // card/minion updates are effected here: Remove the card figure
@@ -362,6 +363,14 @@ public class HotStoneDrawing implements Drawing, GameObserver {
     createActorAndUpdateMapping(card, HotStoneFigureType.MINION_FIGURE);
 
     refreshField(who);
+
+    if(card.getEffectDescription() != null) {
+      Player opponent = Utility.computeOpponent(who);
+      refreshField(opponent);
+      refreshHero(opponent);
+
+      refreshHero(who);
+    }
 
     opponentSummary.setText(computeHeroSummary(
             Utility.computeOpponent(playerShown)));
@@ -375,7 +384,6 @@ public class HotStoneDrawing implements Drawing, GameObserver {
     // initiate the proper UI changes
     if (uiType == HotStoneDrawingType.HOTSEAT_MODE) {
       enterHotSeatState();
-      endHotSeatState();
     } else {
       // IFF we are not playing hotseat then 'playerShown' is the same value
       // throughout a game, namely the player that is 'owning' this UI, so
@@ -400,8 +408,6 @@ public class HotStoneDrawing implements Drawing, GameObserver {
 
   @Override
   public void onAttackHero(Player playerAttacking, Card attackingCard) {
-    refreshHero(Utility.computeOpponent(playerAttacking));
-
     addMessage(playerAttacking.toString() + " attacks " +
             Utility.computeOpponent(playerAttacking).toString() +
             " hero with " + attackingCard.getName());
@@ -409,7 +415,6 @@ public class HotStoneDrawing implements Drawing, GameObserver {
 
   @Override
   public void onUsePower(Player who) {
-    refreshHero(who);
     addMessage(who.toString() + " used hero power: " + game.getHero(who).getEffectDescription());
   }
 

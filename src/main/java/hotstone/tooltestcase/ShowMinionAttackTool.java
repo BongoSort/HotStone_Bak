@@ -20,28 +20,33 @@ package hotstone.tooltestcase;
 import hotstone.figuretestcase.doubles.FakeObjectGame;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
+import hotstone.standard.StandardHotStoneGame;
+import hotstone.variants.AlphaStone.AlphaStoneConcreteFactory;
 import hotstone.view.core.HotStoneDrawingType;
 import hotstone.view.core.HotStoneFactory;
+import hotstone.view.tool.MinionAttackTool;
 import minidraw.framework.DrawingEditor;
 import minidraw.standard.MiniDrawApplication;
 import minidraw.standard.SelectionTool;
 
 /** Visual test program to develop minion attack tool */
 public class ShowMinionAttackTool {
-  public static void main(String[] args) {
-    Game game = new FakeObjectGame();
+    public static void main(String[] args) {
+        Game game = new StandardHotStoneGame(new AlphaStoneConcreteFactory());
 
-    // To enable any testing, we need to field a Card for
-    // Findus.
-    game.playCard(Player.FINDUS,
-            game.getCardInHand(Player.FINDUS, 0));
+        // To enable any testing, we need to field a Card for
+        // Findus.
+        game.playCard(Player.FINDUS,
+                game.getCardInHand(Player.FINDUS, 0));
+        game.endTurn();
+        game.playCard(Player.PEDDERSEN, game.getCardInHand(Player.PEDDERSEN,3));
+        game.endTurn();
 
-    DrawingEditor editor =
-            new MiniDrawApplication("Drag Minions to perform attacks...",
-                    new HotStoneFactory(game, Player.FINDUS,
-                            HotStoneDrawingType.HOTSEAT_MODE));
-    editor.open();
-    // TODO: Solve exercise by developing a MinionAttackTool
-    editor.setTool(new SelectionTool(editor));
-  }
+        DrawingEditor editor =
+                new MiniDrawApplication("Drag Minions to perform attacks...",
+                        new HotStoneFactory(game, Player.FINDUS,
+                                HotStoneDrawingType.HOTSEAT_MODE));
+        editor.open();
+        editor.setTool(new MinionAttackTool(editor,game,Player.FINDUS));
+    }
 }

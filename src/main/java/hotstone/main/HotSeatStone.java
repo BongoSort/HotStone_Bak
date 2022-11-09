@@ -20,8 +20,18 @@ package hotstone.main;
 import hotstone.figuretestcase.doubles.FakeObjectGame;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
+import hotstone.standard.StandardHotStoneGame;
+import hotstone.variants.AlphaStone.AlphaStoneConcreteFactory;
+import hotstone.variants.BetaStone.BetaStoneConcreteFactory;
+import hotstone.variants.DeltaStone.DeltaStoneConcreteFactory;
+import hotstone.variants.EpsilonStone.EpsilonStoneConcreteFactory;
+import hotstone.variants.EtaStone.EtaStoneConcreteFactory;
+import hotstone.variants.GammaStone.GammaStoneConcreteFactory;
+import hotstone.variants.SemiStone.SemiStoneConcreteFactory;
+import hotstone.variants.ZetaStone.ZetaStoneConcreteFactory;
 import hotstone.view.core.HotStoneDrawingType;
 import hotstone.view.core.HotStoneFactory;
+import hotstone.view.tool.HotSeatStateTool;
 import minidraw.framework.DrawingEditor;
 import minidraw.standard.MiniDrawApplication;
 import minidraw.standard.SelectionTool;
@@ -32,16 +42,27 @@ import minidraw.standard.SelectionTool;
 public class HotSeatStone {
   public static void main(String[] args) {
 
+
     System.out.println("=== Starting HotSeat on game variant: " + args[0] + " ===");
-    // TODO: Do some switching on args[0] to make the right game variant
-    Game game = new FakeObjectGame();
+    Game game;
+    switch (args[0]) {
+      case "alpha" -> game = new StandardHotStoneGame(new AlphaStoneConcreteFactory());
+      case "beta" -> game = new StandardHotStoneGame(new BetaStoneConcreteFactory());
+      case "delta" -> game = new StandardHotStoneGame(new DeltaStoneConcreteFactory());
+      case "epsilon" -> game = new StandardHotStoneGame(new EpsilonStoneConcreteFactory());
+      case "eta" -> game = new StandardHotStoneGame(new EtaStoneConcreteFactory());
+      case "gamma" -> game = new StandardHotStoneGame(new GammaStoneConcreteFactory());
+      case "zeta" -> game = new StandardHotStoneGame(new ZetaStoneConcreteFactory());
+      case "semi" -> game = new StandardHotStoneGame(new SemiStoneConcreteFactory());
+      default -> game = null;
+    };
+
 
     DrawingEditor editor =
             new MiniDrawApplication( "HotSeat: Variant " + args[0],
                     new HotStoneFactory(game, Player.FINDUS,
                             HotStoneDrawingType.HOTSEAT_MODE) );
     editor.open();
-    // TODO: Change to the hotseat state tool
-    editor.setTool(new SelectionTool(editor));
+    editor.setTool(new HotSeatStateTool(editor,game));
   }
 }
