@@ -20,6 +20,7 @@ package hotstone.broker.doubles;
 import frds.broker.Servant;
 import hotstone.framework.*;
 import hotstone.observer.GameObserver;
+import hotstone.standard.GameConstants;
 
 /** A Test Stub for game, to make easily recognizable output
  * to assert on in the Broker test cases. Some methods have
@@ -44,7 +45,6 @@ public class StubGameForBroker implements Game, Servant {
   public Hero getHero(Player who) {
     return null;
   }
-
 
   @Override
   public int getDeckSize(Player who) {
@@ -88,7 +88,7 @@ public class StubGameForBroker implements Game, Servant {
 
   @Override
   public Status playCard(Player who, Card card) {
-    return null;
+    return Status.OK;
   }
 
   @Override
@@ -103,7 +103,7 @@ public class StubGameForBroker implements Game, Servant {
 
   @Override
   public Status usePower(Player who) {
-    return null;
+    return Status.OK;
   }
 
   @Override

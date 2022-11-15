@@ -81,7 +81,10 @@ public class GameClientProxy implements Game, ClientProxy {
 
   @Override
   public int getHandSize(Player who) {
-    return 0;
+    int handSize = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_GET_HAND_SIZE,
+            Integer.class, who);
+    return handSize;
   }
 
   @Override
@@ -109,7 +112,10 @@ public class GameClientProxy implements Game, ClientProxy {
 
   @Override
   public Status playCard(Player who, Card card) {
-    return null;
+    Status playCardStatus = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_PLAY_CARD,
+            Status.class, who, card);
+    return playCardStatus;
   }
 
   @Override
