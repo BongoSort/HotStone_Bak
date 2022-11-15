@@ -72,11 +72,10 @@ public class TestGameBroker {
     game = new GameClientProxy(requestor);
   }
 
-  /*
+
   @Test
   public void shouldHaveTurnNumber312() { //TODO: we should make sure this tests work when we begin implementation of broker
     // Test stub hard codes the turn number to 312
     assertThat(game.getTurnNumber(), is(312));
   }
-   */
 }
