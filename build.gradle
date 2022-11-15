@@ -27,6 +27,15 @@ repositories {
 }
 
 dependencies {
+
+    // The FRDS.Broker lib
+    implementation group: 'com.baerbak.maven',
+            name: 'broker', version: '3.0.1'
+
+    // Bind SLF4J it to the Log4J logging framework
+    implementation group: 'org.slf4j', name: 'slf4j-log4j12',
+            version: '1.7.36'
+
     // Depend on the MiniDraw library
     implementation group: 'com.baerbak.maven',
             name: 'minidraw', version: '3.0'
@@ -188,3 +197,23 @@ task hotseat(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     args variant
 }
+
+// === Distributed HotStone - executing targets
+
+task hotstoneServer(type: JavaExec) {
+    group 'SWEA Distribution'
+    description 'Run HotStone server'
+
+    mainClass = 'hotstone.broker.main.HotStoneServer'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task hotstoneStorytest(type: JavaExec) {
+    group 'SWEA Distribution'
+    description 'Run a HotStone Story as a MANUAL TEST client '
+
+    mainClass = 'hotstone.broker.main.HotStoneStoryTest'
+    classpath = sourceSets.main.runtimeClasspath
+    args host
+}
+
