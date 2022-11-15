@@ -16,8 +16,10 @@
  */
 package hotstone.broker;
 
+import hotstone.figuretestcase.doubles.StubCard;
 import hotstone.framework.*;
 
+import hotstone.standard.StandardHotStoneCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -74,8 +76,65 @@ public class TestGameBroker {
 
 
   @Test
-  public void shouldHaveTurnNumber312() { //TODO: we should make sure this tests work when we begin implementation of broker
+  public void shouldHaveTurnNumber312() {
     // Test stub hard codes the turn number to 312
     assertThat(game.getTurnNumber(), is(312));
   }
+
+  @Test
+  public void playerInTurnShouldBeFindus() {
+    assertThat(game.getPlayerInTurn(), is(Player.FINDUS));
+  }
+
+  @Test
+  public void winnerShoudlBePeddersen() {
+    assertThat(game.getWinner(), is(Player.PEDDERSEN));
+  }
+
+  @Test
+  public void deckSizeShouldBe500() {
+    assertThat(game.getDeckSize(Player.PEDDERSEN), is(500));
+  }
+
+  @Test
+  public void handSizeShouldBe10() {
+    assertThat(game.getHandSize(Player.FINDUS),is(10));
+  }
+
+  @Test
+  public void fieldSizeShouldBe11() {
+    assertThat(game.getFieldSize(Player.FINDUS), is(11));
+  }
+
+  @Test
+  public void peddersenIsAllowedToPlayACard() {
+    Card peddersenscard = new StandardHotStoneCard("pølse", Player.PEDDERSEN,0,1,1);
+    assertThat(game.playCard(Player.PEDDERSEN, peddersenscard), is(Status.OK));
+  }
+
+
+  @Test
+  public void findusAttacksPeddersenCardPølseWithCardTingel() {
+    Card peddersenscard = new StandardHotStoneCard("pølse", Player.PEDDERSEN,0,1,1);
+    ((MutableCard) peddersenscard).setActive(true);
+
+    Card findusCard = new StandardHotStoneCard("Tingel", Player.PEDDERSEN,0,1,1);
+    ((MutableCard) findusCard).setActive(true);
+
+
+    assertThat(game.attackCard(Player.FINDUS,peddersenscard,findusCard),is(Status.NOT_OWNER));
+  }
+
+  @Test
+  public void findusAttacksPeddersensHero() {
+    Card card = new StandardHotStoneCard("faceSmasher", Player.PEDDERSEN, 0,2,2);
+
+    assertThat(game.attackHero(Player.FINDUS, card), is(Status.OK));
+  }
+
+  @Test
+  public void peddersenIsAllowedToUseHeroPower() {
+    assertThat(game.usePower(Player.PEDDERSEN), is(Status.OK));
+  }
+
 }

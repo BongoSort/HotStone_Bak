@@ -48,7 +48,7 @@ public class StubGameForBroker implements Game, Servant {
 
   @Override
   public int getDeckSize(Player who) {
-    return 0;
+    return 500;
   }
 
   @Override
@@ -63,7 +63,7 @@ public class StubGameForBroker implements Game, Servant {
 
   @Override
   public int getHandSize(Player who) {
-    return 0;
+    return 10;
   }
 
   @Override
@@ -78,7 +78,7 @@ public class StubGameForBroker implements Game, Servant {
 
   @Override
   public int getFieldSize(Player who) {
-    return 0;
+    return 11;
   }
 
   @Override
@@ -93,7 +93,7 @@ public class StubGameForBroker implements Game, Servant {
 
   @Override
   public Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
-    return null;
+    return Status.NOT_OWNER;
   }
 
   @Override

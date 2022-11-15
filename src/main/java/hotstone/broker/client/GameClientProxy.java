@@ -38,13 +38,15 @@ public class GameClientProxy implements Game, ClientProxy {
   public int getTurnNumber() {
     int turnNumber = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
             OperationNames.GAME_GET_TURN_NUMBER,
-            int.class);
+            Integer.class);
     return turnNumber;
   }
 
   @Override
   public Player getPlayerInTurn() {
-    return null;
+    Player player = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_GET_PLAYER_IN_TURN, Player.class);
+    return player;
   }
 
   @Override
@@ -54,12 +56,17 @@ public class GameClientProxy implements Game, ClientProxy {
 
   @Override
   public Player getWinner() {
-    return null;
+    Player player = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_GET_WINNER, Player.class);
+    return player;
   }
 
   @Override
   public int getDeckSize(Player who) {
-    return 0;
+    int deckSize = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_GET_DECK_SIZE,
+            Integer.class, who);
+    return deckSize;
   }
 
   @Override
@@ -89,7 +96,10 @@ public class GameClientProxy implements Game, ClientProxy {
 
   @Override
   public int getFieldSize(Player who) {
-    return 0;
+    int fieldSize = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_GET_FIELD_SIZE,
+            Integer.class, who);
+    return fieldSize;
   }
 
   @Override
@@ -104,17 +114,25 @@ public class GameClientProxy implements Game, ClientProxy {
 
   @Override
   public Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
-    return null;
+    Status status = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_ATTACK_CARD,
+            Status.class, playerAttacking, attackingCard, defendingCard);
+    return status;
   }
 
   @Override
   public Status attackHero(Player playerAttacking, Card attackingCard) {
-    return null;
+    Status attackCardAllowed = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_ATTACK_HERO, Status.class, playerAttacking, attackingCard);
+    return attackCardAllowed;
   }
 
   @Override
   public Status usePower(Player who) {
-    return null;
+    Status usePowerStatus = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_USE_POWER,
+            Status.class, who);
+    return usePowerStatus;
   }
 
   @Override

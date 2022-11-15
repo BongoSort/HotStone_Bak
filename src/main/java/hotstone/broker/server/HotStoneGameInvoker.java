@@ -24,7 +24,11 @@ import frds.broker.Invoker;
 import frds.broker.ReplyObject;
 import frds.broker.RequestObject;
 import hotstone.broker.common.OperationNames;
+import hotstone.framework.Card;
 import hotstone.framework.Game;
+import hotstone.framework.Player;
+import hotstone.framework.Status;
+import hotstone.standard.StandardHotStoneCard;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -51,6 +55,64 @@ public class HotStoneGameInvoker implements Invoker {
       case OperationNames.GAME_GET_TURN_NUMBER -> {
         int turnNumber = game.getTurnNumber();
         reply = new ReplyObject(HttpServletResponse.SC_CREATED, gson.toJson(turnNumber));
+      }
+      case OperationNames.GAME_GET_PLAYER_IN_TURN -> {
+        Player player = game.getPlayerInTurn();
+        reply = new ReplyObject(HttpServletResponse.SC_CREATED,gson.toJson(player));
+      }
+      case OperationNames.GAME_GET_WINNER -> {
+        Player player = game.getWinner();
+        reply = new ReplyObject(HttpServletResponse.SC_CREATED,gson.toJson(player));
+      }
+      case OperationNames.GAME_GET_DECK_SIZE -> {
+        Player who = gson.fromJson(array.get(0), Player.class);
+        int deckSize = game.getDeckSize(who);
+
+        reply = new ReplyObject(HttpServletResponse.SC_CREATED,gson.toJson(deckSize));
+      }
+      case OperationNames.GAME_GET_HAND_SIZE -> {
+        Player who = gson.fromJson(array.get(0), Player.class);
+        int handSize = game.getHandSize(who);
+
+        reply = new ReplyObject(HttpServletResponse.SC_CREATED,gson.toJson(handSize));
+      }
+      case OperationNames.GAME_GET_FIELD_SIZE -> {
+        Player who = gson.fromJson(array.get(0), Player.class);
+        int fieldSize = game.getFieldSize(who);
+
+        reply = new ReplyObject(HttpServletResponse.SC_CREATED,gson.toJson(fieldSize));
+      }
+      case OperationNames.GAME_PLAY_CARD -> {
+        Player who = gson.fromJson(array.get(0), Player.class);
+        Card card = gson.fromJson(array.get(1), StandardHotStoneCard.class);
+
+        Status playCardStatus = game.playCard(who, card);
+
+        reply = new ReplyObject(HttpServletResponse.SC_CREATED,gson.toJson(playCardStatus));
+      }
+
+      case OperationNames.GAME_ATTACK_CARD -> {
+        Player playerAttacking = gson.fromJson(array.get(0), Player.class);
+        Card attackingCard = gson.fromJson(array.get(1), StandardHotStoneCard.class);
+        Card defendingCard = gson.fromJson(array.get(2), StandardHotStoneCard.class);
+
+        Status status = game.attackCard(playerAttacking,attackingCard,defendingCard);
+
+        reply = new ReplyObject(HttpServletResponse.SC_CREATED,gson.toJson(status));
+      }
+      case OperationNames.GAME_ATTACK_HERO -> {
+        Player playerAttacking = gson.fromJson(array.get(0), Player.class);
+        Card attackingCard = gson.fromJson(array.get(1), StandardHotStoneCard.class);
+        Status status = game.attackHero(playerAttacking, attackingCard);
+
+        reply = new ReplyObject(HttpServletResponse.SC_CREATED, gson.toJson(status));
+      }
+      case OperationNames.GAME_USE_POWER -> {
+        Player who = gson.fromJson(array.get(0), Player.class);
+
+        Status usePowerStatus = game.usePower(who);
+
+        reply = new ReplyObject(HttpServletResponse.SC_CREATED,gson.toJson(usePowerStatus));
       }
       default -> reply = null;
     }
