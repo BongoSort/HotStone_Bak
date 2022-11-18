@@ -114,13 +114,12 @@ public class TestGameBroker {
 
 
   @Test
-  public void findusAttacksPeddersenCardPølseWithCardTingel() {
-    Card peddersenscard = new StandardHotStoneCard("pølse", Player.PEDDERSEN,0,1,1);
-    ((MutableCard) peddersenscard).setActive(true);
+  public void findusAttacksPeddersenCardPoelseWithCardTingel() {
+    MutableCard peddersenscard = new StandardHotStoneCard("pølse", Player.PEDDERSEN,0,1,1);
+    peddersenscard.setActive(true);
 
-    Card findusCard = new StandardHotStoneCard("Tingel", Player.PEDDERSEN,0,1,1);
-    ((MutableCard) findusCard).setActive(true);
-
+    MutableCard findusCard = new StandardHotStoneCard("Tingel", Player.PEDDERSEN,0,1,1);
+    findusCard.setActive(true);
 
     assertThat(game.attackCard(Player.FINDUS,peddersenscard,findusCard),is(Status.NOT_OWNER));
   }

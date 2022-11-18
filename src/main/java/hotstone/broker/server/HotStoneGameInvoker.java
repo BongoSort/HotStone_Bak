@@ -24,10 +24,8 @@ import frds.broker.Invoker;
 import frds.broker.ReplyObject;
 import frds.broker.RequestObject;
 import hotstone.broker.common.OperationNames;
-import hotstone.framework.Card;
-import hotstone.framework.Game;
-import hotstone.framework.Player;
-import hotstone.framework.Status;
+import hotstone.broker.doubles.StubHeroForBroker;
+import hotstone.framework.*;
 import hotstone.standard.StandardHotStoneCard;
 
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +33,10 @@ import javax.servlet.http.HttpServletResponse;
 public class HotStoneGameInvoker implements Invoker {
   private final Game game;
   private final Gson gson;
+  private Hero fakeitHero = new StubHeroForBroker();
+  private Hero lookupHero(String ObjectId) {
+    return fakeitHero;
+  }
 
   public HotStoneGameInvoker(Game servant) {
     this.game = servant;
@@ -46,6 +48,7 @@ public class HotStoneGameInvoker implements Invoker {
     // Do the demarshalling
     RequestObject requestObject =
             gson.fromJson(request, RequestObject.class);
+    String objectId = requestObject.getObjectId();
     JsonArray array =
             JsonParser.parseString(requestObject.getPayload()).getAsJsonArray();
 
@@ -113,6 +116,15 @@ public class HotStoneGameInvoker implements Invoker {
         Status usePowerStatus = game.usePower(who);
 
         reply = new ReplyObject(HttpServletResponse.SC_CREATED,gson.toJson(usePowerStatus));
+      }
+      case OperationNames.HERO_GET_MANA -> {
+        int mana = fakeitHero.getMana();
+        reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(mana));
+      }
+      case OperationNames.HERO_GET_HEALTH -> {
+        Hero hero = lookupHero(objectId);
+        int health = hero.getHealth();
+        reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(health));
       }
       default -> reply = null;
     }
