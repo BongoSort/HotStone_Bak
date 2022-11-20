@@ -126,6 +126,11 @@ public class HotStoneGameInvoker implements Invoker {
         int health = hero.getHealth();
         reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(health));
       }
+      case OperationNames.HERO_IS_ACTIVE -> {
+        Hero hero = lookupHero(objectId);
+        boolean active = hero.isActive();
+        reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(active));
+      }
       default -> reply = null;
     }
     return  gson.toJson(reply);

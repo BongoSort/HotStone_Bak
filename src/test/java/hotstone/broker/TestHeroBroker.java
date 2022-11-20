@@ -38,4 +38,7 @@ public class TestHeroBroker {
     public void heroHealthShouldBe2345() {
         assertThat(hero.getHealth(), is(2345));
     }
+
+    @Test
+    public void heroShouldReturnActive() { assertThat(hero.isActive(), is(true)); }
 }

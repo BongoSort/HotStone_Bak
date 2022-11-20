@@ -17,7 +17,7 @@ public class StubHeroForBroker implements Hero, Servant {
 
     @Override
     public boolean isActive() {
-        return false;
+        return true;
     }
 
     @Override

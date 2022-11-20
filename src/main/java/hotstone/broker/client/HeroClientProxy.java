@@ -30,7 +30,9 @@ public class HeroClientProxy implements Hero, ClientProxy {
 
     @Override
     public boolean isActive() {
-        return false;
+        boolean active = requestor.sendRequestAndAwaitReply(HERO_ID,
+                OperationNames.HERO_IS_ACTIVE, Boolean.class);
+        return active;
     }
 
     @Override
