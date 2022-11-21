@@ -150,6 +150,21 @@ public class HotStoneGameInvoker implements Invoker {
         String effectDesc = hero.getEffectDescription();
         reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(effectDesc));
       }
+      case OperationNames.CARD_GET_NAME -> {
+        Card card = lookupCard(objectId);
+        String cardName = card.getName();
+        reply = new ReplyObject(HttpServletResponse.SC_OK,gson.toJson(cardName));
+      }
+      case OperationNames.CARD_GET_MANA_COST -> {
+        Card card = lookupCard(objectId);
+        int cardManaCost = card.getManaCost();
+        reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(cardManaCost));
+      }
+      case OperationNames.CARD_GET_ATTACK -> {
+        Card card = lookupCard(objectId);
+        int cardAttackPower = card.getAttack();
+        reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(cardAttackPower));
+      }
       default -> reply = null;
     }
     return  gson.toJson(reply);

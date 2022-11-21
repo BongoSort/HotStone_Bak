@@ -42,4 +42,5 @@ public class TestCardBroker {
     public void attackShouldBe80085() {
         assertThat(card.getAttack(), is(80085));
     }
+    
 }
