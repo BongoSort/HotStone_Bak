@@ -165,6 +165,26 @@ public class HotStoneGameInvoker implements Invoker {
         int cardAttackPower = card.getAttack();
         reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(cardAttackPower));
       }
+      case OperationNames.CARD_GET_HEALTH -> {
+        Card card = lookupCard(objectId);
+        int cardHealth = card.getHealth();
+        reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(cardHealth));
+      }
+      case OperationNames.CARD_IS_ACTIVE -> {
+        Card card = lookupCard(objectId);
+        boolean cardIsActive = card.isActive();
+        reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(cardIsActive));
+      }
+      case OperationNames.CARD_GET_OWNER -> {
+        Card card = lookupCard(objectId);
+        Player cardOwner = card.getOwner();
+        reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(cardOwner));
+      }
+      case OperationNames.CARD_GET_EFFECT_DESCRIPTION -> {
+        Card card = lookupCard(objectId);
+        String effectDescription = card.getEffectDescription();
+        reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(effectDescription));
+      }
       default -> reply = null;
     }
     return  gson.toJson(reply);

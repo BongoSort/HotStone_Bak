@@ -39,7 +39,9 @@ public class CardClientProxy implements Card, ClientProxy {
 
     @Override
     public int getHealth() {
-        return 0;
+        int cardHealth = requestor.sendRequestAndAwaitReply(CARD_OBJECTID,
+                OperationNames.CARD_GET_HEALTH, Integer.class);
+        return cardHealth;
     }
 
     @Override
@@ -51,7 +53,9 @@ public class CardClientProxy implements Card, ClientProxy {
 
     @Override
     public Player getOwner() {
-        return null;
+        Player player = requestor.sendRequestAndAwaitReply(CARD_OBJECTID,
+                OperationNames.CARD_GET_OWNER, Player.class);
+        return player;
     }
 
     @Override

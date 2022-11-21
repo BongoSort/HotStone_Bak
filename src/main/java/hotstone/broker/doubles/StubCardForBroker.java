@@ -22,7 +22,7 @@ public class StubCardForBroker implements Card, Servant {
 
     @Override
     public int getHealth() {
-        return 0;
+        return 10101;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class StubCardForBroker implements Card, Servant {
 
     @Override
     public Player getOwner() {
-        return null;
+        return Player.PEDDERSEN;
     }
 
     @Override
