@@ -32,6 +32,6 @@ public class StubHeroForBroker implements Hero, Servant {
 
     @Override
     public String getEffectDescription() {
-        return null;
+        return "Crushing skulls of their enemies, MUHAHAHA";
     }
 }
