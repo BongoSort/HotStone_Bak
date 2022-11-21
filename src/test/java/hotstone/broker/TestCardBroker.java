@@ -42,5 +42,24 @@ public class TestCardBroker {
     public void attackShouldBe80085() {
         assertThat(card.getAttack(), is(80085));
     }
-    
+
+    @Test
+    public void healthShouldBe10101() {
+        assertThat(card.getHealth(), is(10101));
+    }
+
+    @Test
+    public void isActiveShouldBeTrue() {
+        assertThat(card.isActive(), is(true));
+    }
+
+    @Test
+    public void ownerShouldBeThePeddersen() {
+        assertThat(card.getOwner(), is(Player.PEDDERSEN));
+    }
+
+    @Test
+    public void getEffectDescriptionShouldBeIAmTheGOAT() {
+        assertThat(card.getEffectDescription(), is("I am the GOAT"));
+    }
 }

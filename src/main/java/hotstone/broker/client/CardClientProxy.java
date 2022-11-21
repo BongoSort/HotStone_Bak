@@ -44,7 +44,9 @@ public class CardClientProxy implements Card, ClientProxy {
 
     @Override
     public boolean isActive() {
-        return false;
+        boolean active = requestor.sendRequestAndAwaitReply(CARD_OBJECTID,
+                OperationNames.CARD_IS_ACTIVE, Boolean.class);
+        return active;
     }
 
     @Override
@@ -54,6 +56,8 @@ public class CardClientProxy implements Card, ClientProxy {
 
     @Override
     public String getEffectDescription() {
-        return null;
+        String effectDescription = requestor.sendRequestAndAwaitReply(CARD_OBJECTID,
+                OperationNames.CARD_GET_EFFECT_DESCRIPTION, String.class);
+        return effectDescription;
     }
 }

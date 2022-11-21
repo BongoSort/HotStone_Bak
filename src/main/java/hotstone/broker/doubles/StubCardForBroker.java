@@ -27,7 +27,7 @@ public class StubCardForBroker implements Card, Servant {
 
     @Override
     public boolean isActive() {
-        return false;
+        return true;
     }
 
     @Override
@@ -37,6 +37,6 @@ public class StubCardForBroker implements Card, Servant {
 
     @Override
     public String getEffectDescription() {
-        return null;
+        return "I am the GOAT";
     }
 }
