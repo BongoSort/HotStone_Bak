@@ -128,12 +128,12 @@ public class TestGameBroker {
   public void findusAttacksPeddersensHero() {
     Card card = new StandardHotStoneCard("faceSmasher", Player.PEDDERSEN, 0,2,2);
 
-    assertThat(game.attackHero(Player.FINDUS, card), is(Status.OK));
+    assertThat(game.attackHero(Player.FINDUS, card), is(Status.NOT_PLAYER_IN_TURN));
   }
 
   @Test
   public void peddersenIsAllowedToUseHeroPower() {
-    assertThat(game.usePower(Player.PEDDERSEN), is(Status.OK));
+    assertThat(game.usePower(Player.PEDDERSEN), is(Status.NOT_ENOUGH_MANA));
   }
 
 }

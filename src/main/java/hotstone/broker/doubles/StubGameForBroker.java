@@ -98,12 +98,12 @@ public class StubGameForBroker implements Game, Servant {
 
   @Override
   public Status attackHero(Player playerAttacking, Card attackingCard) {
-    return Status.OK;
+    return Status.NOT_PLAYER_IN_TURN;
   }
 
   @Override
   public Status usePower(Player who) {
-    return Status.OK;
+    return Status.NOT_ENOUGH_MANA;
   }
 
   @Override
