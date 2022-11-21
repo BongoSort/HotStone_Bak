@@ -24,6 +24,7 @@ import frds.broker.Invoker;
 import frds.broker.ReplyObject;
 import frds.broker.RequestObject;
 import hotstone.broker.common.OperationNames;
+import hotstone.broker.doubles.StubCardForBroker;
 import hotstone.broker.doubles.StubHeroForBroker;
 import hotstone.framework.*;
 import hotstone.standard.StandardHotStoneCard;
@@ -37,6 +38,9 @@ public class HotStoneGameInvoker implements Invoker {
   private Hero lookupHero(String ObjectId) {
     return fakeitHero;
   }
+
+  private Card fakeitCard = new StubCardForBroker();
+  private Card lookupCard(String ObjectId) {return fakeitCard;}
 
   public HotStoneGameInvoker(Game servant) {
     this.game = servant;

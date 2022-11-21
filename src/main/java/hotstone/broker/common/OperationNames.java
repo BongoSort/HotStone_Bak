@@ -55,6 +55,7 @@ public class OperationNames {
   public static final String CARD_GET_HEALTH = CARD_PREFIX + SEPARATOR + "get-health";
   public static final String CARD_IS_ACTIVE = CARD_PREFIX + SEPARATOR + "is-active";
   public static final String CARD_GET_OWNER = CARD_PREFIX + SEPARATOR + "get-owner";
+  public static final String CARD_GET_EFFECT_DESCRIPTION = CARD_PREFIX + SEPARATOR + "get-effect-description";
 
   // Hero methods
   public static final String HERO_GET_TYPE = HERO_PREFIX + SEPARATOR + "get-type";
