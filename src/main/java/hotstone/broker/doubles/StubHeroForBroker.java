@@ -22,12 +22,12 @@ public class StubHeroForBroker implements Hero, Servant {
 
     @Override
     public String getType() {
-        return null;
+        return "StubHero123";
     }
 
     @Override
     public Player getOwner() {
-        return null;
+        return Player.PEDDERSEN;
     }
 
     @Override

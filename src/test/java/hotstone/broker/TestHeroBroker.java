@@ -12,6 +12,7 @@ import hotstone.broker.doubles.StubHeroForBroker;
 import hotstone.broker.server.HotStoneGameInvoker;
 import hotstone.framework.Game;
 import hotstone.framework.Hero;
+import hotstone.framework.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.hamcrest.CoreMatchers.*;
@@ -40,5 +41,22 @@ public class TestHeroBroker {
     }
 
     @Test
-    public void heroShouldReturnActive() { assertThat(hero.isActive(), is(true)); }
+    public void heroShouldReturnActive() {
+        assertThat(hero.isActive(), is(true));
+    }
+
+    @Test
+    public void heroTypeShouldBeStubHero123() {
+        assertThat(hero.getType(), is("StubHero123"));
+    }
+
+    @Test
+    public void heroEffectDescriptionIsCrushingSkullsOfTheirEnemies() {
+        assertThat(hero.getEffectDescription(), is("Crushing skulls of their enemies, MUHAHAHA"));
+    }
+
+    @Test
+    public void HeroOwnerShouldBePeddersen() {
+        assertThat(hero.getOwner(), is(Player.PEDDERSEN));
+    }
 }

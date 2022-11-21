@@ -62,5 +62,6 @@ public class OperationNames {
   public static final String HERO_GET_HEALTH = HERO_PREFIX + SEPARATOR + "get-health";
   public static final String HERO_IS_ACTIVE = HERO_PREFIX + SEPARATOR + "is-active";
   public static final String HERO_GET_OWNER = HERO_PREFIX + SEPARATOR + "get-owner";
+  public static final String HERO_GET_EFFECT_DESCRIPTION = HERO_PREFIX + SEPARATOR + "get-effect-description";
 
 }
