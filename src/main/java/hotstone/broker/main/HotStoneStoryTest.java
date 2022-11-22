@@ -21,10 +21,14 @@ import frds.broker.ClientRequestHandler;
 import frds.broker.Requestor;
 import frds.broker.ipc.http.UriTunnelClientRequestHandler;
 import frds.broker.marshall.json.StandardJSONRequestor;
+import hotstone.broker.client.CardClientProxy;
 import hotstone.broker.client.GameClientProxy;
+import hotstone.broker.client.HeroClientProxy;
 import hotstone.broker.common.BrokerConstants;
 import hotstone.broker.doubles.StubCardForBroker;
+import hotstone.framework.Card;
 import hotstone.framework.Game;
+import hotstone.framework.Hero;
 import hotstone.framework.Player;
 import hotstone.standard.GameConstants;
 
@@ -44,10 +48,13 @@ public class HotStoneStoryTest {
     Requestor requestor = new StandardJSONRequestor(clientRequestHandler);
 
     Game game = new GameClientProxy(requestor);
-    testSimpleMethods(game);
+    Card card = new CardClientProxy(requestor);
+    Hero hero = new HeroClientProxy(requestor);
+
+    testSimpleMethods(game,card,hero);
   }
 
-  private void testSimpleMethods(Game game) {
+  private void testSimpleMethods(Game game, Card card, Hero hero) {
     System.out.println("=== Testing pass-by-value methods of Game ===");
     System.out.println(" --> Game turnNumber            " + game.getTurnNumber());
     System.out.println(" --> Game playerInTurn          " + game.getPlayerInTurn());
@@ -61,7 +68,22 @@ public class HotStoneStoryTest {
     System.out.println(" --> Game FindusUsesPower       " + game.usePower(Player.FINDUS));
     System.out.println("=== End ===");
 
-    //TODO: en Player er fint
-    //TODO: husk også at lave for Card og Hero ting.
+    System.out.println("=== Testing pass-by-reference methods of Card ===");
+    System.out.println(" --> Card getManaCost            " + card.getManaCost());
+    System.out.println(" --> Card getHealth              " + card.getHealth());
+    System.out.println(" --> Card getAttack              " + card.getAttack());
+    System.out.println(" --> Card isActive               " + card.isActive());
+    System.out.println(" --> Card getOwner               " + card.getOwner());
+    System.out.println(" --> Card getEffectDescription   " + card.getEffectDescription());
+    System.out.println("=== End ===");
+
+    System.out.println("=== Testing pass-by-reference methods of Hero ===");
+    System.out.println(" --> Hero getMana              " + hero.getMana());
+    System.out.println(" --> Hero getHealth            " + hero.getHealth());
+    System.out.println(" --> Hero isActive             " + hero.isActive());
+    System.out.println(" --> Hero getType              " + hero.getType());
+    System.out.println(" --> Hero getOwner             " + hero.getOwner());
+    System.out.println(" --> Hero getEffectDescription " + hero.getEffectDescription());
+    System.out.println("=== End ===");
   }
 }
