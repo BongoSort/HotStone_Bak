@@ -75,5 +75,8 @@ public class HotStoneStoryTest {
     System.out.println(" --> Game FindusCardInField     " + game.getCardInField(Player.FINDUS, 0)); //TODO? index ok?
     System.out.println(" --> Game PeddersendCardInField " + game.getCardInField(Player.PEDDERSEN, 0)); //TODO? index ok?
     System.out.println("=== End ===");
+
+    //TODO: en Player er fint
+    //TODO: husk også at lave for Card og Hero ting.
   }
 }
