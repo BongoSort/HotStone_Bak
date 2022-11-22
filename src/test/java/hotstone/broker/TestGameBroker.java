@@ -115,7 +115,7 @@ public class TestGameBroker {
 
   @Test
   public void findusAttacksPeddersenCardPoelseWithCardTingel() {
-    MutableCard peddersenscard = new StandardHotStoneCard("pølse", Player.PEDDERSEN,0,1,1);
+    MutableCard peddersenscard = new StandardHotStoneCard("poelse", Player.PEDDERSEN,0,1,1);
     peddersenscard.setActive(true);
 
     MutableCard findusCard = new StandardHotStoneCard("Tingel", Player.PEDDERSEN,0,1,1);
@@ -134,6 +134,12 @@ public class TestGameBroker {
   @Test
   public void peddersenIsAllowedToUseHeroPower() {
     assertThat(game.usePower(Player.PEDDERSEN), is(Status.NOT_ENOUGH_MANA));
+  }
+
+  @Test
+  public void afterEndTurnTurnNumberIs313() {
+    game.endTurn();
+    assertThat(game.getTurnNumber(), is(313));
   }
 
 }

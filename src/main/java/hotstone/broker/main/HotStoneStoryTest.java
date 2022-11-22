@@ -68,5 +68,8 @@ public class HotStoneStoryTest {
     System.out.println(" --> Game PeddersenUsesPower    " + game.usePower(Player.PEDDERSEN));
     // TODO - add calls to the rest of the implemented methods
     System.out.println("=== End ===");
+
+    //TODO: en Player er fint
+    //TODO: husk også at lave for Card og Hero ting.
   }
 }

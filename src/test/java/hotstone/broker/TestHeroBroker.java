@@ -51,12 +51,12 @@ public class TestHeroBroker {
     }
 
     @Test
-    public void heroEffectDescriptionIsCrushingSkullsOfTheirEnemies() {
-        assertThat(hero.getEffectDescription(), is("Crushing skulls of their enemies, MUHAHAHA"));
+    public void HeroOwnerShouldBePeddersen() {
+        assertThat(hero.getOwner(), is(Player.PEDDERSEN));
     }
 
     @Test
-    public void HeroOwnerShouldBePeddersen() {
-        assertThat(hero.getOwner(), is(Player.PEDDERSEN));
+    public void heroEffectDescriptionIsCrushingSkullsOfTheirEnemies() {
+        assertThat(hero.getEffectDescription(), is("Crushing skulls of their enemies, MUHAHAHA"));
     }
 }
