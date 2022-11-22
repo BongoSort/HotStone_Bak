@@ -59,14 +59,6 @@ public class HotStoneStoryTest {
     System.out.println(" --> Game FindusAttacksCard     " + game.attackCard(Player.FINDUS, new StubCardForBroker(), new StubCardForBroker()));
     System.out.println(" --> Game FindusAttacksHero     " + game.attackHero(Player.FINDUS, new StubCardForBroker()));
     System.out.println(" --> Game FindusUsesPower       " + game.usePower(Player.FINDUS));
-    // TODO - add calls to the rest of the implemented methods
-    System.out.println(" --> Game FindusHand            " + game.getHand(Player.FINDUS));
-    System.out.println(" --> Game PeddersendHand        " + game.getHand(Player.PEDDERSEN));
-    System.out.println(" --> Game FindusField           " + game.getField(Player.FINDUS));
-    System.out.println(" --> Game PeddersendField       " + game.getField(Player.PEDDERSEN));
-    System.out.println(" --> Game PeddersendField       " + game.getField(Player.PEDDERSEN));
-    System.out.println(" --> Game FindusCardInField     " + game.getCardInField(Player.FINDUS, 0)); //TODO? index ok?
-    System.out.println(" --> Game PeddersendCardInField " + game.getCardInField(Player.PEDDERSEN, 0)); //TODO? index ok?
     System.out.println("=== End ===");
 
     //TODO: en Player er fint
