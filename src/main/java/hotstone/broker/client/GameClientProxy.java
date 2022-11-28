@@ -120,7 +120,18 @@ public class GameClientProxy implements Game, ClientProxy {
 
   @Override
   public Iterable<? extends Card> getField(Player who) {
-    return null;
+    Type collectionType = new TypeToken<List<String>>(){}.getType();
+    List<String> theIDList = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_GET_FIELD,
+            collectionType,
+            who);
+    List<CardClientProxy> list = new ArrayList<>();
+    for(String s : theIDList) {
+      CardClientProxy cardClientProxy = new CardClientProxy(s, requestor);
+      list.add(cardClientProxy);
+    }
+
+    return list;
   }
 
   @Override
@@ -148,7 +159,7 @@ public class GameClientProxy implements Game, ClientProxy {
   public Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
     Status status = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
             OperationNames.GAME_ATTACK_CARD,
-            Status.class, playerAttacking, attackingCard, defendingCard);
+            Status.class, playerAttacking, attackingCard.getId(), defendingCard.getId());
     return status;
   }
 

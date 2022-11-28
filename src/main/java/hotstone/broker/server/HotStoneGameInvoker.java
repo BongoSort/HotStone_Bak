@@ -107,8 +107,10 @@ public class HotStoneGameInvoker implements Invoker {
       }
       case OperationNames.GAME_ATTACK_CARD -> {
         Player playerAttacking = gson.fromJson(array.get(0), Player.class);
-        Card attackingCard = gson.fromJson(array.get(1), StandardHotStoneCard.class);
-        Card defendingCard = gson.fromJson(array.get(2), StandardHotStoneCard.class);
+        String attackerId = gson.fromJson(array.get(1), String.class);
+        String defenderId = gson.fromJson(array.get(2), String.class);
+        Card attackingCard = lookupCard(attackerId);
+        Card defendingCard = lookupCard(defenderId);
 
         Status status = game.attackCard(playerAttacking,attackingCard,defendingCard);
 
@@ -159,6 +161,16 @@ public class HotStoneGameInvoker implements Invoker {
         Card card = game.getCardInField(who,indexInHand);
         cardNameService.putCard(card.getId(),card);
         reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(card.getId()));
+      }
+      case OperationNames.GAME_GET_FIELD -> {
+        Player who = gson.fromJson(array.get(0), Player.class);
+        Iterable<? extends Card> tis = game.getField(who);
+        List<String> list = new ArrayList<>();
+        for(Card c : tis) {
+          cardNameService.putCard(c.getId(), c);
+          list.add(c.getId());
+        }
+        reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(list));
       }
 
       //Hero methods

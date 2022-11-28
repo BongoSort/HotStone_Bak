@@ -3,6 +3,7 @@ import hotstone.framework.*;
 
 import hotstone.standard.StandardHotStoneCard;
 import hotstone.standard.StandardHotStoneGame;
+import hotstone.utility.TestHelper;
 import hotstone.variants.AlphaStone.AlphaStoneConcreteFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -88,11 +89,27 @@ public class TestGamePassByReferenceMethods {
         assertThat(c.getName(), is("Tres"));
         assertThat(c.getAttack(),is(3));
     }
+
+    @Test
+    public void shouldGetField() {
+        game.playCard(Player.FINDUS,game.getCardInHand(Player.FINDUS,1));
+        game.playCard(Player.FINDUS,game.getCardInHand(Player.FINDUS,1));
+
+        Iterable<? extends Card> cards = game.getField(Player.FINDUS);
+        cards.forEach(c -> assertThat(c, is(notNullValue())));
+    }
+
+    @Test
+    public void shouldAttackCard() {
+        TestHelper.fieldTresForFindusAndDosForPeddersen(game);
+        Card findusCard = game.getCardInField(Player.FINDUS,0);
+        Card peddersenCard = game.getCardInField(Player.PEDDERSEN,0);
+        Status status = game.attackCard(Player.FINDUS,findusCard,peddersenCard);
+        assertThat(status, is(Status.OK));
+    }
+
+
     /*
-    Card getCardInField(Player who, int indexInField);
-
-    Iterable<? extends Card> getField(Player who);
-
     Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard);
     */
 }
