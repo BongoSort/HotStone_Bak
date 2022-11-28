@@ -233,7 +233,7 @@ public class HotStoneDrawing implements Drawing, GameObserver {
   public void requestUpdate() {
     removeAllFigures();
     createAndAddFiguresForGameState();
-    listenerHandler.fireDrawingRequestUpdate(this);
+    //listenerHandler.fireDrawingRequestUpdate(this);
   }
 
   // === Delegation methods for the Selection handling

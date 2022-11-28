@@ -42,6 +42,7 @@ import hotstone.variants.SemiStone.SemiStoneConcreteFactory;
 import hotstone.variants.ZetaStone.ZetaStoneConcreteFactory;
 import hotstone.view.core.HotStoneDrawingType;
 import hotstone.view.core.HotStoneFactory;
+import hotstone.view.tool.DualUserInterfaceTool;
 import hotstone.view.tool.HotSeatStateTool;
 import minidraw.framework.DrawingEditor;
 import minidraw.standard.MiniDrawApplication;
@@ -50,12 +51,20 @@ import minidraw.standard.NullTool;
 public class HotStoneStoryTest {
   public static void main(String[] args)  {
     // Get the name of the host from the commandline parameters
-    String host = "localhost";//args[0];
+    String host = args[0];
+    Player whoToPlay;
+    if(args[1].equals("findus") || args[1].equals("Findus")) {
+      whoToPlay = Player.FINDUS;
+    } else {
+      whoToPlay = Player.PEDDERSEN;
+    }
+    String gameId = GameClientProxy.GAME_OBJECTID;
+
     // and execute the story test, talking to the server with that name
-    new HotStoneStoryTest(host);
+    new HotStoneStoryTest(host,whoToPlay,gameId);
   }
 
-  public HotStoneStoryTest(String host) {
+  public HotStoneStoryTest(String host, Player whoToPlay, String gameId) {
     // Create the client side Broker roles
     UriTunnelClientRequestHandler clientRequestHandler
             = new UriTunnelClientRequestHandler(host, BrokerConstants.HOTSTONE_PORT,
@@ -68,10 +77,10 @@ public class HotStoneStoryTest {
 
     DrawingEditor editor =
             new MiniDrawApplication( "HotSeat: Variant ",
-                    new HotStoneFactory(game, Player.FINDUS,
+                    new HotStoneFactory(game, whoToPlay,
                             HotStoneDrawingType.OPPONENT_MODE));
     editor.open();
-    editor.setTool(new HotSeatStateTool(editor, game));
+    editor.setTool(new DualUserInterfaceTool(editor,game,whoToPlay));
   }
 
   private void testSimpleMethods(Game game) {
@@ -84,10 +93,5 @@ public class HotStoneStoryTest {
     System.out.println(" --> Game FindusFieldSize       " + game.getFieldSize(Player.FINDUS));
     System.out.println(" --> Game FindusPlaysCard       " + game.playCard(Player.FINDUS, game.getCardInHand(Player.FINDUS,0)));
     System.out.println("=== End ===");
-  }
-
-
-  private void startGUIstuff(Game game) {
-
   }
 }
