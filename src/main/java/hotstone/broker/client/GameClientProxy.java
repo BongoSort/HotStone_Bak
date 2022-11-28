@@ -17,12 +17,19 @@
 
 package hotstone.broker.client;
 
+import com.google.gson.reflect.TypeToken;
 import frds.broker.ClientProxy;
+import frds.broker.IPCException;
 import frds.broker.Requestor;
 import hotstone.broker.common.OperationNames;
 import hotstone.framework.*;
 import hotstone.observer.GameObserver;
 import hotstone.standard.StandardHotStoneCard;
+
+import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /** Template/starter code for your ClientProxy of Game.
  */
@@ -72,15 +79,29 @@ public class GameClientProxy implements Game, ClientProxy {
 
   @Override
   public Card getCardInHand(Player who, int indexInHand) { //TODO: denne skal implementeres
-    Card card = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
-            OperationNames.GAME_GET_CARD_IN_HAND, StandardHotStoneCard.class,who,indexInHand);
-    return card;
+    String id = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_GET_CARD_IN_HAND, String.class, who, indexInHand);
+    CardClientProxy cardClientProxy = new CardClientProxy(id, requestor);
+    return cardClientProxy;
   }
 
   @Override
   public Iterable<? extends Card> getHand(Player who) {
-    return null;
+    Type collectionType = new TypeToken<List<String>>(){}.getType();
+    List<String> theIDList = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_GET_HAND,
+            collectionType,
+            who);
+
+    List<CardClientProxy> list = new ArrayList<>();
+    for(String s : theIDList) {
+      CardClientProxy cardClientProxy = new CardClientProxy(s, requestor);
+      list.add(cardClientProxy);
+    }
+
+    return list;
   }
+
 
   @Override
   public int getHandSize(Player who) {
@@ -92,7 +113,9 @@ public class GameClientProxy implements Game, ClientProxy {
 
   @Override
   public Card getCardInField(Player who, int indexInField) {
-    return null;
+    String id = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_GET_CARD_IN_FIELD, String.class, who, indexInField);
+    return new CardClientProxy(id, requestor);
   }
 
   @Override
@@ -117,7 +140,7 @@ public class GameClientProxy implements Game, ClientProxy {
   public Status playCard(Player who, Card card) {
     Status playCardStatus = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
             OperationNames.GAME_PLAY_CARD,
-            Status.class, who, card);
+            Status.class, who, card.getId());
     return playCardStatus;
   }
 

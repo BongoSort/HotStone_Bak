@@ -32,6 +32,8 @@ import hotstone.framework.*;
 import hotstone.standard.StandardHotStoneCard;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HotStoneGameInvoker implements Invoker {
   private final Game game;
@@ -96,7 +98,8 @@ public class HotStoneGameInvoker implements Invoker {
       }
       case OperationNames.GAME_PLAY_CARD -> {
         Player who = gson.fromJson(array.get(0), Player.class);
-        Card card = gson.fromJson(array.get(1), StandardHotStoneCard.class);
+        String id = gson.fromJson(array.get(1), String.class);
+        Card card = lookupCard(id);
 
         Status playCardStatus = game.playCard(who, card);
 
@@ -129,6 +132,7 @@ public class HotStoneGameInvoker implements Invoker {
         game.endTurn();
         reply = new ReplyObject(HttpServletResponse.SC_OK, null);
       }
+      // Pass by reference methods for Game
       case OperationNames.GAME_GET_CARD_IN_HAND -> {
         Player who = gson.fromJson(array.get(0), Player.class);
         int indexInHand = gson.fromJson(array.get(1), Integer.class);
@@ -136,8 +140,28 @@ public class HotStoneGameInvoker implements Invoker {
 
         cardNameService.putCard(card.getId(),card);
 
-        reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(card));
+        reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(card.getId()));
       }
+      case OperationNames.GAME_GET_HAND -> {
+        Player who = gson.fromJson(array.get(0), Player.class);
+        Iterable<? extends Card> tis = game.getHand(who);
+        List<String> list = new ArrayList<>();
+        for(Card c : tis) {
+          cardNameService.putCard(c.getId(), c);
+          list.add(c.getId());
+        }
+
+        reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(list));
+      }
+      case OperationNames.GAME_GET_CARD_IN_FIELD -> {
+        Player who = gson.fromJson(array.get(0), Player.class);
+        int indexInHand = gson.fromJson(array.get(1), Integer.class);
+        Card card = game.getCardInField(who,indexInHand);
+        cardNameService.putCard(card.getId(),card);
+        reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(card.getId()));
+      }
+
+      //Hero methods
       case OperationNames.HERO_GET_MANA -> {
         int mana = fakeitHero.getMana();
         reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(mana));

@@ -19,6 +19,10 @@ import hotstone.broker.client.GameClientProxy;
 import hotstone.broker.doubles.LocalMethodClientRequestHandler;
 import hotstone.broker.doubles.StubGameForBroker;
 import hotstone.broker.server.HotStoneGameInvoker;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class TestGamePassByReferenceMethods {
     private Game game;
 
@@ -62,11 +66,29 @@ public class TestGamePassByReferenceMethods {
         assertThat(card.getName(), is("Tres"));
         assertThat(card.getAttack(), is(3));
     }
+
+    @Test
+    public void shouldGetHand() {
+        Iterable<? extends Card> cards = game.getHand(Player.FINDUS);
+        cards.forEach(c -> assertThat(c, is(notNullValue())));
+    }
+
+    @Test
+    public void shouldPlayCard() {
+        Status status = game.playCard(Player.FINDUS,game.getCardInHand(Player.FINDUS,0));
+        assertThat(status, is(Status.OK));
+    }
+
+    @Test
+    public void shouldGetCardInField() {
+        game.playCard(Player.FINDUS,game.getCardInHand(Player.FINDUS,0));
+
+        Card c = game.getCardInField(Player.FINDUS,0);
+        assertThat(c, is(notNullValue()));
+        assertThat(c.getName(), is("Tres"));
+        assertThat(c.getAttack(),is(3));
+    }
     /*
-    Card getCardInHand(Player who, int indexInHand);
-
-    Iterable<? extends Card> getHand(Player who);
-
     Card getCardInField(Player who, int indexInField);
 
     Iterable<? extends Card> getField(Player who);
