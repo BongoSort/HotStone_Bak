@@ -70,7 +70,7 @@ public class GameClientProxy implements Game, ClientProxy {
   }
 
   @Override
-  public Card getCardInHand(Player who, int indexInHand) {
+  public Card getCardInHand(Player who, int indexInHand) { //TODO: denne skal implementeres
     return null;
   }
 

@@ -26,7 +26,7 @@ package hotstone.framework;
  * a card, and the interfaces only talks in terms of cards.
  */
 
-public interface Card {
+public interface Card extends Id {
   /** Get the name of the card.
    *
    * @return the name

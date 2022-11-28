@@ -64,4 +64,9 @@ public class CardClientProxy implements Card, ClientProxy {
                 OperationNames.CARD_GET_EFFECT_DESCRIPTION, String.class);
         return effectDescription;
     }
+
+    @Override
+    public String getId() { //TODO: denne skal implementeres
+        return null;
+    }
 }

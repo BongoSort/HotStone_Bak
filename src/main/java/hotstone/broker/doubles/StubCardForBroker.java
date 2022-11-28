@@ -39,4 +39,9 @@ public class StubCardForBroker implements Card, Servant {
     public String getEffectDescription() {
         return "I am the GOAT";
     }
+
+    @Override
+    public String getId() { //TODO: denne skal måske implementeres
+        return null;
+    }
 }

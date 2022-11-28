@@ -5,8 +5,10 @@ import hotstone.framework.MutableCard;
 import hotstone.framework.Player;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class StandardHotStoneCard implements Card, MutableCard {
+    private String cardId;
     private String cardName;
     private int manaCost;
     private int attack;
@@ -33,6 +35,7 @@ public class StandardHotStoneCard implements Card, MutableCard {
         this.manaCost = manaCost;
         this.attack = attack;
         this.health = health;
+        this.cardId = UUID.randomUUID().toString();
     }
 
     @Override
@@ -101,5 +104,10 @@ public class StandardHotStoneCard implements Card, MutableCard {
     @Override
     public String getEffectDescription() {
         return effectDescription;
+    }
+
+    @Override
+    public String getId() {
+        return cardId;
     }
 }
