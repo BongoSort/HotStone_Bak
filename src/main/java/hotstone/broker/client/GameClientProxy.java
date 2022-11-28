@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class GameClientProxy implements Game, ClientProxy {
 
-  private static final String GAME_OBJECTID = "singleton";
+  public static final String GAME_OBJECTID = "singleton";
   private Requestor requestor;
 
   public GameClientProxy(Requestor requestor) {

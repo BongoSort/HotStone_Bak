@@ -31,6 +31,21 @@ import hotstone.framework.Game;
 import hotstone.framework.Hero;
 import hotstone.framework.Player;
 import hotstone.standard.GameConstants;
+import hotstone.standard.StandardHotStoneGame;
+import hotstone.variants.AlphaStone.AlphaStoneConcreteFactory;
+import hotstone.variants.BetaStone.BetaStoneConcreteFactory;
+import hotstone.variants.DeltaStone.DeltaStoneConcreteFactory;
+import hotstone.variants.EpsilonStone.EpsilonStoneConcreteFactory;
+import hotstone.variants.EtaStone.EtaStoneConcreteFactory;
+import hotstone.variants.GammaStone.GammaStoneConcreteFactory;
+import hotstone.variants.SemiStone.SemiStoneConcreteFactory;
+import hotstone.variants.ZetaStone.ZetaStoneConcreteFactory;
+import hotstone.view.core.HotStoneDrawingType;
+import hotstone.view.core.HotStoneFactory;
+import hotstone.view.tool.HotSeatStateTool;
+import minidraw.framework.DrawingEditor;
+import minidraw.standard.MiniDrawApplication;
+import minidraw.standard.NullTool;
 
 public class HotStoneStoryTest {
   public static void main(String[] args)  {
@@ -49,7 +64,14 @@ public class HotStoneStoryTest {
 
     Game game = new GameClientProxy(requestor);
 
-    testSimpleMethods(game);
+    //testSimpleMethods(game);
+
+    DrawingEditor editor =
+            new MiniDrawApplication( "HotSeat: Variant ",
+                    new HotStoneFactory(game, Player.FINDUS,
+                            HotStoneDrawingType.OPPONENT_MODE));
+    editor.open();
+    editor.setTool(new HotSeatStateTool(editor, game));
   }
 
   private void testSimpleMethods(Game game) {
@@ -62,5 +84,10 @@ public class HotStoneStoryTest {
     System.out.println(" --> Game FindusFieldSize       " + game.getFieldSize(Player.FINDUS));
     System.out.println(" --> Game FindusPlaysCard       " + game.playCard(Player.FINDUS, game.getCardInHand(Player.FINDUS,0)));
     System.out.println("=== End ===");
+  }
+
+
+  private void startGUIstuff(Game game) {
+
   }
 }
