@@ -108,8 +108,16 @@ public class TestGamePassByReferenceMethods {
         assertThat(status, is(Status.OK));
     }
 
+    @Test
+    public void shouldGetHero() {
 
-    /*
-    Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard);
-    */
+    }
+    @Test
+    public void shouldAttackHero() {
+        TestHelper.fieldTresForFindusAndDosForPeddersen(game);
+        Card findusCard = game.getCardInField(Player.FINDUS,0);
+        Card peddersenCard = game.getCardInField(Player.PEDDERSEN,0);
+        Status status = game.attackCard(Player.FINDUS,findusCard,peddersenCard);
+        assertThat(status, is(Status.OK));
+    }
 }

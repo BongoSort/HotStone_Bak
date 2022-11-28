@@ -27,7 +27,7 @@ public class TestHeroBroker {
         Invoker invoker = new HotStoneGameInvoker(servant);
         ClientRequestHandler crh = new LocalMethodClientRequestHandler(invoker);
         Requestor requestor = new StandardJSONRequestor(crh);
-        hero = new HeroClientProxy(requestor);
+        hero = new HeroClientProxy("tingel", requestor); //TODO: fakeIt
     }
 
     @Test
