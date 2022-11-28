@@ -38,13 +38,10 @@ public class DualUserInterfaceTool extends NullTool {
                 case MINION_FIGURE -> state = new MinionAttackTool(editor,game,whoToPlay);
                 case HERO_FIGURE -> state = new UsePowerTool(editor,game);
                 case WIN_BUTTON -> state = new EndGameTool(editor);
+                case OPPONENT_ACTION_BUTTON -> state = new OpponentActionTool(editor);
             }
         }
         state.mouseDown(e, x, y);
-        if(state == theNullTool) {
-            Drawing drawing = editor.drawing();
-            drawing.requestUpdate();
-        }
     }
 
     @Override
@@ -59,19 +56,11 @@ public class DualUserInterfaceTool extends NullTool {
 
     @Override
     public void mouseDrag(MouseEvent e, int x, int y) {
-        if(state == theNullTool) {
-            Drawing drawing = editor.drawing();
-            drawing.requestUpdate();
-        }
         state.mouseDrag(e, x, y);
     }
 
     @Override
     public void mouseMove(MouseEvent e, int x, int y) {
-        if(state == theNullTool) {
-            Drawing drawing = editor.drawing();
-            drawing.requestUpdate();
-        }
         state.mouseMove(e, x, y);
     }
 }
