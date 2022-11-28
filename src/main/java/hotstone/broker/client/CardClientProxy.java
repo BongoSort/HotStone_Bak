@@ -9,11 +9,12 @@ import hotstone.framework.Player;
 
 public class CardClientProxy implements Card, ClientProxy {
 
-    private static final String CARD_OBJECTID = "CardIDPending";
+    private String CARD_OBJECTID;
     private Requestor requestor;
 
-    public CardClientProxy(Requestor requestor) {
+    public CardClientProxy(String objectId, Requestor requestor) {
         this.requestor = requestor;
+        this.CARD_OBJECTID = objectId;
     }
 
     @Override
@@ -66,7 +67,7 @@ public class CardClientProxy implements Card, ClientProxy {
     }
 
     @Override
-    public String getId() { //TODO: denne skal implementeres
-        return null;
+    public String getId() {
+        return CARD_OBJECTID;
     }
 }

@@ -48,7 +48,7 @@ public class HotStoneStoryTest {
     Requestor requestor = new StandardJSONRequestor(clientRequestHandler);
 
     Game game = new GameClientProxy(requestor);
-    Card card = new CardClientProxy(requestor);
+    Card card = new CardClientProxy("CardIDPending", requestor); //TODO: this is fakeIt so we can compile project. find fix later
     Hero hero = new HeroClientProxy(requestor);
 
     testSimpleMethods(game,card,hero);

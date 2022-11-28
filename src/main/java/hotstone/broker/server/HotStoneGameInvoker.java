@@ -26,6 +26,8 @@ import frds.broker.RequestObject;
 import hotstone.broker.common.OperationNames;
 import hotstone.broker.doubles.StubCardForBroker;
 import hotstone.broker.doubles.StubHeroForBroker;
+import hotstone.broker.service.CardNameService;
+import hotstone.broker.service.CardNameServiceImpl;
 import hotstone.framework.*;
 import hotstone.standard.StandardHotStoneCard;
 
@@ -34,17 +36,20 @@ import javax.servlet.http.HttpServletResponse;
 public class HotStoneGameInvoker implements Invoker {
   private final Game game;
   private final Gson gson;
+  private final CardNameService cardNameService;
   private Hero fakeitHero = new StubHeroForBroker();
   private Hero lookupHero(String ObjectId) {
     return fakeitHero;
   }
 
-  private Card fakeitCard = new StubCardForBroker();
-  private Card lookupCard(String ObjectId) {return fakeitCard;}
+  private Card lookupCard(String objectId) {
+    return cardNameService.getCard(objectId);
+  }
 
   public HotStoneGameInvoker(Game servant) {
     this.game = servant;
     gson = new Gson();
+    this.cardNameService = new CardNameServiceImpl();
   }
 
   @Override
@@ -97,7 +102,6 @@ public class HotStoneGameInvoker implements Invoker {
 
         reply = new ReplyObject(HttpServletResponse.SC_CREATED,gson.toJson(playCardStatus));
       }
-
       case OperationNames.GAME_ATTACK_CARD -> {
         Player playerAttacking = gson.fromJson(array.get(0), Player.class);
         Card attackingCard = gson.fromJson(array.get(1), StandardHotStoneCard.class);
@@ -124,6 +128,15 @@ public class HotStoneGameInvoker implements Invoker {
       case OperationNames.GAME_END_OF_TURN -> {
         game.endTurn();
         reply = new ReplyObject(HttpServletResponse.SC_OK, null);
+      }
+      case OperationNames.GAME_GET_CARD_IN_HAND -> {
+        Player who = gson.fromJson(array.get(0), Player.class);
+        int indexInHand = gson.fromJson(array.get(1), Integer.class);
+        Card card = game.getCardInHand(who,indexInHand);
+
+        cardNameService.putCard(card.getId(),card);
+
+        reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(card));
       }
       case OperationNames.HERO_GET_MANA -> {
         int mana = fakeitHero.getMana();

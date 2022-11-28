@@ -22,6 +22,7 @@ import frds.broker.Requestor;
 import hotstone.broker.common.OperationNames;
 import hotstone.framework.*;
 import hotstone.observer.GameObserver;
+import hotstone.standard.StandardHotStoneCard;
 
 /** Template/starter code for your ClientProxy of Game.
  */
@@ -71,7 +72,9 @@ public class GameClientProxy implements Game, ClientProxy {
 
   @Override
   public Card getCardInHand(Player who, int indexInHand) { //TODO: denne skal implementeres
-    return null;
+    Card card = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_GET_CARD_IN_HAND, StandardHotStoneCard.class,who,indexInHand);
+    return card;
   }
 
   @Override

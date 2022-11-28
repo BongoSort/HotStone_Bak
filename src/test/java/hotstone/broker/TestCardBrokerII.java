@@ -5,6 +5,7 @@ import frds.broker.Invoker;
 import frds.broker.Requestor;
 import frds.broker.marshall.json.StandardJSONRequestor;
 import hotstone.broker.client.CardClientProxy;
+import hotstone.broker.client.GameClientProxy;
 import hotstone.broker.client.HeroClientProxy;
 import hotstone.broker.doubles.LocalMethodClientRequestHandler;
 import hotstone.broker.doubles.StubGameForBroker;
@@ -12,55 +13,53 @@ import hotstone.broker.server.HotStoneGameInvoker;
 import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
+import hotstone.standard.StandardHotStoneGame;
+import hotstone.variants.AlphaStone.AlphaStoneConcreteFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class TestCardBroker {
+public class TestCardBrokerII {
     private Card card;
 
     @BeforeEach
     public void setup() {
-        Game servant = new StubGameForBroker();
+        Game servant = new StandardHotStoneGame(new AlphaStoneConcreteFactory());
         Invoker invoker = new HotStoneGameInvoker(servant);
         ClientRequestHandler crh = new LocalMethodClientRequestHandler(invoker);
         Requestor requestor = new StandardJSONRequestor(crh);
-        card = new CardClientProxy("CardIDPending", requestor);
+        Game proxy = new GameClientProxy(requestor);
+        card = proxy.getCardInHand(Player.FINDUS,0);
     }
 
     @Test
     public void cardNameShouldBeIHaveAName() {
-        assertThat(card.getName(), is("I have a name"));
+        assertThat(card.getName(), is("Tres"));
     }
 
     @Test
     public void manaCostShouldBe6969() {
-        assertThat(card.getManaCost(), is(6969));
+        assertThat(card.getManaCost(), is(3));
     }
 
     @Test
     public void attackShouldBe80085() {
-        assertThat(card.getAttack(), is(80085));
+        assertThat(card.getAttack(), is(3));
     }
 
     @Test
     public void healthShouldBe10101() {
-        assertThat(card.getHealth(), is(10101));
+        assertThat(card.getHealth(), is(3));
     }
 
     @Test
     public void isActiveShouldBeTrue() {
-        assertThat(card.isActive(), is(true));
+        assertThat(card.isActive(), is(false));
     }
 
     @Test
     public void ownerShouldBeThePeddersen() {
-        assertThat(card.getOwner(), is(Player.PEDDERSEN));
-    }
-
-    @Test
-    public void getEffectDescriptionShouldBeIAmTheGOAT() {
-        assertThat(card.getEffectDescription(), is("I am the GOAT"));
+        assertThat(card.getOwner(), is(Player.FINDUS));
     }
 }
