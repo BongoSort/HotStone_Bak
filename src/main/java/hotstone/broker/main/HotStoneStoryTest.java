@@ -35,7 +35,7 @@ import hotstone.standard.GameConstants;
 public class HotStoneStoryTest {
   public static void main(String[] args)  {
     // Get the name of the host from the commandline parameters
-    String host = args[0];
+    String host = "localhost";//args[0];
     // and execute the story test, talking to the server with that name
     new HotStoneStoryTest(host);
   }
@@ -48,13 +48,11 @@ public class HotStoneStoryTest {
     Requestor requestor = new StandardJSONRequestor(clientRequestHandler);
 
     Game game = new GameClientProxy(requestor);
-    Card card = new CardClientProxy("CardIDPending", requestor); //TODO: this is fakeIt so we can compile project. find fix later
-    Hero hero = new HeroClientProxy("tis", requestor);
 
-    testSimpleMethods(game,card,hero);
+    testSimpleMethods(game);
   }
 
-  private void testSimpleMethods(Game game, Card card, Hero hero) {
+  private void testSimpleMethods(Game game) {
     System.out.println("=== Testing pass-by-value methods of Game ===");
     System.out.println(" --> Game turnNumber            " + game.getTurnNumber());
     System.out.println(" --> Game playerInTurn          " + game.getPlayerInTurn());
@@ -62,28 +60,7 @@ public class HotStoneStoryTest {
     System.out.println(" --> Game FindusDeckSize        " + game.getDeckSize(Player.FINDUS));
     System.out.println(" --> Game FindusHandSize        " + game.getHandSize(Player.FINDUS));
     System.out.println(" --> Game FindusFieldSize       " + game.getFieldSize(Player.FINDUS));
-    System.out.println(" --> Game FindusPlaysCard       " + game.playCard(Player.FINDUS, new StubCardForBroker()));
-    System.out.println(" --> Game FindusAttacksCard     " + game.attackCard(Player.FINDUS, new StubCardForBroker(), new StubCardForBroker()));
-    System.out.println(" --> Game FindusAttacksHero     " + game.attackHero(Player.FINDUS, new StubCardForBroker()));
-    System.out.println(" --> Game FindusUsesPower       " + game.usePower(Player.FINDUS));
-    System.out.println("=== End ===");
-
-    System.out.println("=== Testing pass-by-reference methods of Card ===");
-    System.out.println(" --> Card getManaCost            " + card.getManaCost());
-    System.out.println(" --> Card getHealth              " + card.getHealth());
-    System.out.println(" --> Card getAttack              " + card.getAttack());
-    System.out.println(" --> Card isActive               " + card.isActive());
-    System.out.println(" --> Card getOwner               " + card.getOwner());
-    System.out.println(" --> Card getEffectDescription   " + card.getEffectDescription());
-    System.out.println("=== End ===");
-
-    System.out.println("=== Testing pass-by-reference methods of Hero ===");
-    System.out.println(" --> Hero getMana              " + hero.getMana());
-    System.out.println(" --> Hero getHealth            " + hero.getHealth());
-    System.out.println(" --> Hero isActive             " + hero.isActive());
-    System.out.println(" --> Hero getType              " + hero.getType());
-    System.out.println(" --> Hero getOwner             " + hero.getOwner());
-    System.out.println(" --> Hero getEffectDescription " + hero.getEffectDescription());
+    System.out.println(" --> Game FindusPlaysCard       " + game.playCard(Player.FINDUS, game.getCardInHand(Player.FINDUS,0)));
     System.out.println("=== End ===");
   }
 }

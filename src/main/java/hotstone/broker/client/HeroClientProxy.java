@@ -59,6 +59,6 @@ public class HeroClientProxy implements Hero, ClientProxy {
 
     @Override
     public String getId() {
-        return null;
+        return HERO_ID;
     }
 }

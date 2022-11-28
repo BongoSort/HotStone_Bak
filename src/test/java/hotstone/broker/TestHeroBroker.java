@@ -10,6 +10,8 @@ import hotstone.broker.doubles.LocalMethodClientRequestHandler;
 import hotstone.broker.doubles.StubGameForBroker;
 import hotstone.broker.doubles.StubHeroForBroker;
 import hotstone.broker.server.HotStoneGameInvoker;
+import hotstone.broker.service.CardNameServiceImpl;
+import hotstone.broker.service.HeroNameServiceImpl;
 import hotstone.framework.Game;
 import hotstone.framework.Hero;
 import hotstone.framework.Player;
@@ -24,7 +26,7 @@ public class TestHeroBroker {
     @BeforeEach
     public void setup() {
         Game servant = new StubGameForBroker();
-        Invoker invoker = new HotStoneGameInvoker(servant);
+        Invoker invoker = new HotStoneGameInvoker(servant, new CardNameServiceImpl(), new HeroNameServiceImpl());
         ClientRequestHandler crh = new LocalMethodClientRequestHandler(invoker);
         Requestor requestor = new StandardJSONRequestor(crh);
         hero = new HeroClientProxy("tingel", requestor); //TODO: fakeIt

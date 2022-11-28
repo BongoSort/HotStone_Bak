@@ -5,7 +5,7 @@ import hotstone.framework.Hero;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HeroNameImpl implements HeroNameService{
+public class HeroNameServiceImpl implements HeroNameService{
     private Map<String,Hero> heroMap = new HashMap<>();
     @Override
     public Hero getHero(String objectId) {

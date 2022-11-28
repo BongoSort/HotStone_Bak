@@ -59,7 +59,9 @@ public class GameClientProxy implements Game, ClientProxy {
 
   @Override
   public Hero getHero(Player who) {
-    return null;
+    String id = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_GET_HERO, String.class,who);
+    return new HeroClientProxy(id,requestor);
   }
 
   @Override
@@ -78,7 +80,7 @@ public class GameClientProxy implements Game, ClientProxy {
   }
 
   @Override
-  public Card getCardInHand(Player who, int indexInHand) { //TODO: denne skal implementeres
+  public Card getCardInHand(Player who, int indexInHand) {
     String id = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
             OperationNames.GAME_GET_CARD_IN_HAND, String.class, who, indexInHand);
     CardClientProxy cardClientProxy = new CardClientProxy(id, requestor);
@@ -166,7 +168,7 @@ public class GameClientProxy implements Game, ClientProxy {
   @Override
   public Status attackHero(Player playerAttacking, Card attackingCard) {
     Status attackCardAllowed = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
-            OperationNames.GAME_ATTACK_HERO, Status.class, playerAttacking, attackingCard);
+            OperationNames.GAME_ATTACK_HERO, Status.class, playerAttacking, attackingCard.getId());
     return attackCardAllowed;
   }
 

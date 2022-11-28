@@ -103,7 +103,7 @@ public class StubCard implements Card {
   }
 
   @Override
-  public String getId() { //TODO: denne skal måske implementeres
+  public String getId() {
     return null;
   }
 }

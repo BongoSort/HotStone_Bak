@@ -41,7 +41,7 @@ public class StubCardForBroker implements Card, Servant {
     }
 
     @Override
-    public String getId() { //TODO: denne skal måske implementeres
+    public String getId() {
         return null;
     }
 }

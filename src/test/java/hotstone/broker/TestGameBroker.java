@@ -16,6 +16,8 @@
  */
 package hotstone.broker;
 
+import hotstone.broker.service.CardNameServiceImpl;
+import hotstone.broker.service.HeroNameServiceImpl;
 import hotstone.figuretestcase.doubles.StubCard;
 import hotstone.framework.*;
 
@@ -54,7 +56,7 @@ public class TestGameBroker {
     Game servant = new StubGameForBroker();
     // Which is injected into the dedicated Invoker which you must
     // develop
-    Invoker invoker = new HotStoneGameInvoker(servant);
+    Invoker invoker = new HotStoneGameInvoker(servant, new CardNameServiceImpl(), new HeroNameServiceImpl());
 
     // === Next define the client side of the pattern:
     // the client request handler, the requestor, and the client proxy

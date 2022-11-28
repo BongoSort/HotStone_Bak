@@ -28,6 +28,8 @@ import hotstone.broker.doubles.StubCardForBroker;
 import hotstone.broker.doubles.StubHeroForBroker;
 import hotstone.broker.service.CardNameService;
 import hotstone.broker.service.CardNameServiceImpl;
+import hotstone.broker.service.HeroNameService;
+import hotstone.broker.service.HeroNameServiceImpl;
 import hotstone.framework.*;
 import hotstone.standard.StandardHotStoneCard;
 
@@ -39,19 +41,20 @@ public class HotStoneGameInvoker implements Invoker {
   private final Game game;
   private final Gson gson;
   private final CardNameService cardNameService;
-  private Hero fakeitHero = new StubHeroForBroker();
-  private Hero lookupHero(String ObjectId) {
-    return fakeitHero;
+  private final HeroNameServiceImpl heroNameService;
+  private Hero lookupHero(String objectId) {
+    return heroNameService.getHero(objectId);
   }
 
   private Card lookupCard(String objectId) {
     return cardNameService.getCard(objectId);
   }
 
-  public HotStoneGameInvoker(Game servant) {
+  public HotStoneGameInvoker(Game servant, CardNameService cardNameService, HeroNameServiceImpl heroNameService) {
     this.game = servant;
     gson = new Gson();
-    this.cardNameService = new CardNameServiceImpl();
+    this.cardNameService = cardNameService;
+    this.heroNameService = heroNameService;
   }
 
   @Override
@@ -116,9 +119,16 @@ public class HotStoneGameInvoker implements Invoker {
 
         reply = new ReplyObject(HttpServletResponse.SC_OK,gson.toJson(status));
       }
+      case OperationNames.GAME_GET_HERO -> {
+        Player who = gson.fromJson(array.get(0), Player.class);
+        Hero hero = game.getHero(who);
+        heroNameService.putHero(hero.getId(),hero);
+        reply = new ReplyObject(HttpServletResponse.SC_OK,gson.toJson(hero.getId()));
+      }
       case OperationNames.GAME_ATTACK_HERO -> {
         Player playerAttacking = gson.fromJson(array.get(0), Player.class);
-        Card attackingCard = gson.fromJson(array.get(1), StandardHotStoneCard.class);
+        String id = gson.fromJson(array.get(1), String.class);
+        Card attackingCard = lookupCard(id);
         Status status = game.attackHero(playerAttacking, attackingCard);
 
         reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(status));
@@ -175,7 +185,7 @@ public class HotStoneGameInvoker implements Invoker {
 
       //Hero methods
       case OperationNames.HERO_GET_MANA -> {
-        int mana = fakeitHero.getMana();
+        int mana = lookupHero(objectId).getMana();
         reply = new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(mana));
       }
       case OperationNames.HERO_GET_HEALTH -> {

@@ -1,4 +1,6 @@
 package hotstone.broker;
+import hotstone.broker.service.CardNameServiceImpl;
+import hotstone.broker.service.HeroNameServiceImpl;
 import hotstone.framework.*;
 
 import hotstone.standard.StandardHotStoneCard;
@@ -36,7 +38,7 @@ public class TestGamePassByReferenceMethods {
         Game servant = new StandardHotStoneGame(new AlphaStoneConcreteFactory());
         // Which is injected into the dedicated Invoker which you must
         // develop
-        Invoker invoker = new HotStoneGameInvoker(servant);
+        Invoker invoker = new HotStoneGameInvoker(servant, new CardNameServiceImpl(), new HeroNameServiceImpl());
 
         // === Next define the client side of the pattern:
         // the client request handler, the requestor, and the client proxy
@@ -110,14 +112,15 @@ public class TestGamePassByReferenceMethods {
 
     @Test
     public void shouldGetHero() {
+        Hero hero = game.getHero(Player.FINDUS);
 
+        assertThat(hero.getOwner(), is(Player.FINDUS));
     }
     @Test
     public void shouldAttackHero() {
         TestHelper.fieldTresForFindusAndDosForPeddersen(game);
         Card findusCard = game.getCardInField(Player.FINDUS,0);
-        Card peddersenCard = game.getCardInField(Player.PEDDERSEN,0);
-        Status status = game.attackCard(Player.FINDUS,findusCard,peddersenCard);
+        Status status = game.attackHero(Player.FINDUS,findusCard);
         assertThat(status, is(Status.OK));
     }
 }

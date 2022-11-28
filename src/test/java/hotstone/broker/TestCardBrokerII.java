@@ -10,6 +10,8 @@ import hotstone.broker.client.HeroClientProxy;
 import hotstone.broker.doubles.LocalMethodClientRequestHandler;
 import hotstone.broker.doubles.StubGameForBroker;
 import hotstone.broker.server.HotStoneGameInvoker;
+import hotstone.broker.service.CardNameServiceImpl;
+import hotstone.broker.service.HeroNameServiceImpl;
 import hotstone.framework.Card;
 import hotstone.framework.Game;
 import hotstone.framework.Player;
@@ -26,7 +28,7 @@ public class TestCardBrokerII {
     @BeforeEach
     public void setup() {
         Game servant = new StandardHotStoneGame(new AlphaStoneConcreteFactory());
-        Invoker invoker = new HotStoneGameInvoker(servant);
+        Invoker invoker = new HotStoneGameInvoker(servant, new CardNameServiceImpl(), new HeroNameServiceImpl());
         ClientRequestHandler crh = new LocalMethodClientRequestHandler(invoker);
         Requestor requestor = new StandardJSONRequestor(crh);
         Game proxy = new GameClientProxy(requestor);
