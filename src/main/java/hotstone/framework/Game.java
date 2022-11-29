@@ -128,7 +128,7 @@ public interface Game extends Observable {
   // === Mutators
 
   /** Perform end of turn for current player, to prepare for the
-   * opponent's turn.  PRECONDITION: The client MUST ensure thatgr
+   * opponent's turn.  PRECONDITION: The client MUST ensure that
    * endTurn() is never called by the player which is NOT in turn.
    */
   void endTurn();

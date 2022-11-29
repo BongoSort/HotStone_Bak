@@ -109,24 +109,6 @@ public class TestGameBroker {
   }
 
   @Test
-  public void peddersenIsAllowedToPlayACard() {
-    Card peddersenscard = new StandardHotStoneCard("pølse", Player.PEDDERSEN,0,1,1);
-    assertThat(game.playCard(Player.PEDDERSEN, peddersenscard), is(Status.OK));
-  }
-
-
-  @Test
-  public void findusAttacksPeddersenCardPoelseWithCardTingel() {
-    MutableCard peddersenscard = new StandardHotStoneCard("poelse", Player.PEDDERSEN,0,1,1);
-    peddersenscard.setActive(true);
-
-    MutableCard findusCard = new StandardHotStoneCard("Tingel", Player.PEDDERSEN,0,1,1);
-    findusCard.setActive(true);
-
-    assertThat(game.attackCard(Player.FINDUS,peddersenscard,findusCard),is(Status.NOT_OWNER));
-  }
-
-  @Test
   public void findusAttacksPeddersensHero() {
     Card card = new StandardHotStoneCard("faceSmasher", Player.PEDDERSEN, 0,2,2);
 
