@@ -58,13 +58,11 @@ public class HotStoneStoryTest {
     } else {
       whoToPlay = Player.PEDDERSEN;
     }
-    String gameId = GameClientProxy.GAME_OBJECTID;
-
     // and execute the story test, talking to the server with that name
-    new HotStoneStoryTest(host,whoToPlay,gameId);
+    new HotStoneStoryTest(host,whoToPlay);
   }
 
-  public HotStoneStoryTest(String host, Player whoToPlay, String gameId) {
+  public HotStoneStoryTest(String host, Player whoToPlay) {
     // Create the client side Broker roles
     UriTunnelClientRequestHandler clientRequestHandler
             = new UriTunnelClientRequestHandler(host, BrokerConstants.HOTSTONE_PORT,
@@ -73,25 +71,11 @@ public class HotStoneStoryTest {
 
     Game game = new GameClientProxy(requestor);
 
-    //testSimpleMethods(game);
-
     DrawingEditor editor =
-            new MiniDrawApplication( "HotSeat: Variant ",
+            new MiniDrawApplication( "HotSeat: Variant semi",
                     new HotStoneFactory(game, whoToPlay,
                             HotStoneDrawingType.OPPONENT_MODE));
     editor.open();
     editor.setTool(new DualUserInterfaceTool(editor,game,whoToPlay));
-  }
-
-  private void testSimpleMethods(Game game) {
-    System.out.println("=== Testing pass-by-value methods of Game ===");
-    System.out.println(" --> Game turnNumber            " + game.getTurnNumber());
-    System.out.println(" --> Game playerInTurn          " + game.getPlayerInTurn());
-    System.out.println(" --> Game winner                " + game.getWinner());
-    System.out.println(" --> Game FindusDeckSize        " + game.getDeckSize(Player.FINDUS));
-    System.out.println(" --> Game FindusHandSize        " + game.getHandSize(Player.FINDUS));
-    System.out.println(" --> Game FindusFieldSize       " + game.getFieldSize(Player.FINDUS));
-    System.out.println(" --> Game FindusPlaysCard       " + game.playCard(Player.FINDUS, game.getCardInHand(Player.FINDUS,0)));
-    System.out.println("=== End ===");
   }
 }
