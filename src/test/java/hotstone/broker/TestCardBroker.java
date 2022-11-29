@@ -36,32 +36,32 @@ public class TestCardBroker {
     }
 
     @Test
-    public void cardNameShouldBeIHaveAName() {
+    public void cardNameShouldTres() {
         assertThat(card.getName(), is("Tres"));
     }
 
     @Test
-    public void manaCostShouldBe6969() {
+    public void manaCostShouldBe3() {
         assertThat(card.getManaCost(), is(3));
     }
 
     @Test
-    public void attackShouldBe80085() {
+    public void attackShouldBe3() {
         assertThat(card.getAttack(), is(3));
     }
 
     @Test
-    public void healthShouldBe10101() {
+    public void healthShouldBe3() {
         assertThat(card.getHealth(), is(3));
     }
 
     @Test
-    public void isActiveShouldBeTrue() {
+    public void isActiveShouldBeFalse() {
         assertThat(card.isActive(), is(false));
     }
 
     @Test
-    public void ownerShouldBeThePeddersen() {
+    public void ownerShouldBeTheFindus() {
         assertThat(card.getOwner(), is(Player.FINDUS));
     }
 }
