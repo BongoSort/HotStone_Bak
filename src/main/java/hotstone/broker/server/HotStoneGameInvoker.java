@@ -156,9 +156,9 @@ public class HotStoneGameInvoker implements Invoker {
       }
       case OperationNames.GAME_GET_HAND -> {
         Player who = gson.fromJson(array.get(0), Player.class);
-        Iterable<? extends Card> tis = game.getHand(who);
+        Iterable<? extends Card> playerHand = game.getHand(who);
         List<String> list = new ArrayList<>();
-        for(Card c : tis) {
+        for(Card c : playerHand) {
           cardNameService.putCard(c.getId(), c);
           list.add(c.getId());
         }
