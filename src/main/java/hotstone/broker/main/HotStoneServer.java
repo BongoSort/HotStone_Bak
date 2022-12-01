@@ -22,7 +22,13 @@ import frds.broker.ipc.http.UriTunnelServerRequestHandler;
 import hotstone.broker.common.BrokerConstants;
 import hotstone.broker.doubles.StubGameForBroker;
 import hotstone.broker.server.HotStoneGameInvoker;
+import hotstone.broker.service.CardNameServiceImpl;
+import hotstone.broker.service.HeroNameServiceImpl;
 import hotstone.framework.Game;
+import hotstone.standard.StandardHotStoneGame;
+import hotstone.variants.AlphaStone.AlphaStoneConcreteFactory;
+import hotstone.variants.BetaStone.BetaStoneConcreteFactory;
+import hotstone.variants.SemiStone.SemiStoneConcreteFactory;
 
 /** The main program running the HotStone Server,
  * using the FRDS.Broker library's ServerRequestHandler
@@ -36,10 +42,10 @@ public class HotStoneServer {
   public HotStoneServer() {
     int port = BrokerConstants.HOTSTONE_PORT;
     // Define the server side root servant
-    Game servant = new StubGameForBroker();
+    Game servant = new StandardHotStoneGame(new SemiStoneConcreteFactory());
 
     // Create server side implementation of Broker roles
-    Invoker invoker = new HotStoneGameInvoker(servant);
+    Invoker invoker = new HotStoneGameInvoker(servant, new CardNameServiceImpl(), new HeroNameServiceImpl());
     UriTunnelServerRequestHandler srh =
             new UriTunnelServerRequestHandler(invoker, port,
                     BrokerConstants.HOTSTONE_TUNNEL_PATH);

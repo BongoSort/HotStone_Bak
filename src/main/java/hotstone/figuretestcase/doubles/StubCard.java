@@ -101,4 +101,9 @@ public class StubCard implements Card {
   public void deltaAttack(int delta) {
     attack += delta;
   }
+
+  @Override
+  public String getId() {
+    return null;
+  }
 }

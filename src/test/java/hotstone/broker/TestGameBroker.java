@@ -16,6 +16,8 @@
  */
 package hotstone.broker;
 
+import hotstone.broker.service.CardNameServiceImpl;
+import hotstone.broker.service.HeroNameServiceImpl;
 import hotstone.figuretestcase.doubles.StubCard;
 import hotstone.framework.*;
 
@@ -54,7 +56,7 @@ public class TestGameBroker {
     Game servant = new StubGameForBroker();
     // Which is injected into the dedicated Invoker which you must
     // develop
-    Invoker invoker = new HotStoneGameInvoker(servant);
+    Invoker invoker = new HotStoneGameInvoker(servant, new CardNameServiceImpl(), new HeroNameServiceImpl());
 
     // === Next define the client side of the pattern:
     // the client request handler, the requestor, and the client proxy
@@ -104,24 +106,6 @@ public class TestGameBroker {
   @Test
   public void fieldSizeShouldBe11() {
     assertThat(game.getFieldSize(Player.FINDUS), is(11));
-  }
-
-  @Test
-  public void peddersenIsAllowedToPlayACard() {
-    Card peddersenscard = new StandardHotStoneCard("pølse", Player.PEDDERSEN,0,1,1);
-    assertThat(game.playCard(Player.PEDDERSEN, peddersenscard), is(Status.OK));
-  }
-
-
-  @Test
-  public void findusAttacksPeddersenCardPoelseWithCardTingel() {
-    MutableCard peddersenscard = new StandardHotStoneCard("poelse", Player.PEDDERSEN,0,1,1);
-    peddersenscard.setActive(true);
-
-    MutableCard findusCard = new StandardHotStoneCard("Tingel", Player.PEDDERSEN,0,1,1);
-    findusCard.setActive(true);
-
-    assertThat(game.attackCard(Player.FINDUS,peddersenscard,findusCard),is(Status.NOT_OWNER));
   }
 
   @Test

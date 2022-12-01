@@ -214,6 +214,6 @@ task hotstoneStorytest(type: JavaExec) {
 
     mainClass = 'hotstone.broker.main.HotStoneStoryTest'
     classpath = sourceSets.main.runtimeClasspath
-    args host
+    args host, who
 }
 

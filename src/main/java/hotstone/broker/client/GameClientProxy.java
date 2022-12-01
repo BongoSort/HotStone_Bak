@@ -17,17 +17,25 @@
 
 package hotstone.broker.client;
 
+import com.google.gson.reflect.TypeToken;
 import frds.broker.ClientProxy;
+import frds.broker.IPCException;
 import frds.broker.Requestor;
 import hotstone.broker.common.OperationNames;
 import hotstone.framework.*;
 import hotstone.observer.GameObserver;
+import hotstone.standard.StandardHotStoneCard;
+
+import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /** Template/starter code for your ClientProxy of Game.
  */
 public class GameClientProxy implements Game, ClientProxy {
 
-  private static final String GAME_OBJECTID = "singleton";
+  public static final String GAME_OBJECTID = "singleton";
   private Requestor requestor;
 
   public GameClientProxy(Requestor requestor) {
@@ -51,7 +59,9 @@ public class GameClientProxy implements Game, ClientProxy {
 
   @Override
   public Hero getHero(Player who) {
-    return null;
+    String id = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_GET_HERO, String.class,who);
+    return new HeroClientProxy(id,requestor);
   }
 
   @Override
@@ -71,13 +81,29 @@ public class GameClientProxy implements Game, ClientProxy {
 
   @Override
   public Card getCardInHand(Player who, int indexInHand) {
-    return null;
+    String id = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_GET_CARD_IN_HAND, String.class, who, indexInHand);
+    CardClientProxy cardClientProxy = new CardClientProxy(id, requestor);
+    return cardClientProxy;
   }
 
   @Override
   public Iterable<? extends Card> getHand(Player who) {
-    return null;
+    Type collectionType = new TypeToken<List<String>>(){}.getType();
+    List<String> theIDList = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_GET_HAND,
+            collectionType,
+            who);
+
+    List<CardClientProxy> list = new ArrayList<>();
+    for(String s : theIDList) {
+      CardClientProxy cardClientProxy = new CardClientProxy(s, requestor);
+      list.add(cardClientProxy);
+    }
+
+    return list;
   }
+
 
   @Override
   public int getHandSize(Player who) {
@@ -89,12 +115,25 @@ public class GameClientProxy implements Game, ClientProxy {
 
   @Override
   public Card getCardInField(Player who, int indexInField) {
-    return null;
+    String id = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_GET_CARD_IN_FIELD, String.class, who, indexInField);
+    return new CardClientProxy(id, requestor);
   }
 
   @Override
   public Iterable<? extends Card> getField(Player who) {
-    return null;
+    Type collectionType = new TypeToken<List<String>>(){}.getType();
+    List<String> theIDList = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+            OperationNames.GAME_GET_FIELD,
+            collectionType,
+            who);
+    List<CardClientProxy> list = new ArrayList<>();
+    for(String s : theIDList) {
+      CardClientProxy cardClientProxy = new CardClientProxy(s, requestor);
+      list.add(cardClientProxy);
+    }
+
+    return list;
   }
 
   @Override
@@ -114,7 +153,7 @@ public class GameClientProxy implements Game, ClientProxy {
   public Status playCard(Player who, Card card) {
     Status playCardStatus = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
             OperationNames.GAME_PLAY_CARD,
-            Status.class, who, card);
+            Status.class, who, card.getId());
     return playCardStatus;
   }
 
@@ -122,14 +161,14 @@ public class GameClientProxy implements Game, ClientProxy {
   public Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
     Status status = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
             OperationNames.GAME_ATTACK_CARD,
-            Status.class, playerAttacking, attackingCard, defendingCard);
+            Status.class, playerAttacking, attackingCard.getId(), defendingCard.getId());
     return status;
   }
 
   @Override
   public Status attackHero(Player playerAttacking, Card attackingCard) {
     Status attackCardAllowed = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
-            OperationNames.GAME_ATTACK_HERO, Status.class, playerAttacking, attackingCard);
+            OperationNames.GAME_ATTACK_HERO, Status.class, playerAttacking, attackingCard.getId());
     return attackCardAllowed;
   }
 

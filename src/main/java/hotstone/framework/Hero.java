@@ -21,7 +21,7 @@ package hotstone.framework;
  * read-only view of the hero to respect that a client may only alter
  * the internal state of a hero through the Game's mutator methods.
  */
-public interface Hero {
+public interface Hero extends Id{
 
   /** Get the amount of mana this hero has available
    * for playing cards to the field.

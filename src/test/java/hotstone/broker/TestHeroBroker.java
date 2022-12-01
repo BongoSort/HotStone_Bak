@@ -10,9 +10,13 @@ import hotstone.broker.doubles.LocalMethodClientRequestHandler;
 import hotstone.broker.doubles.StubGameForBroker;
 import hotstone.broker.doubles.StubHeroForBroker;
 import hotstone.broker.server.HotStoneGameInvoker;
+import hotstone.broker.service.CardNameServiceImpl;
+import hotstone.broker.service.HeroNameServiceImpl;
 import hotstone.framework.Game;
 import hotstone.framework.Hero;
 import hotstone.framework.Player;
+import hotstone.standard.StandardHotStoneGame;
+import hotstone.variants.AlphaStone.AlphaStoneConcreteFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.hamcrest.CoreMatchers.*;
@@ -23,21 +27,22 @@ public class TestHeroBroker {
 
     @BeforeEach
     public void setup() {
-        Game servant = new StubGameForBroker();
-        Invoker invoker = new HotStoneGameInvoker(servant);
+        Game servant = new StandardHotStoneGame(new AlphaStoneConcreteFactory());
+        Invoker invoker = new HotStoneGameInvoker(servant, new CardNameServiceImpl(), new HeroNameServiceImpl());
         ClientRequestHandler crh = new LocalMethodClientRequestHandler(invoker);
         Requestor requestor = new StandardJSONRequestor(crh);
-        hero = new HeroClientProxy(requestor);
+        Game proxy = new GameClientProxy(requestor);
+        hero = proxy.getHero(Player.FINDUS);
     }
 
     @Test
-    public void heroManaShouldReturn1234() {
-        assertThat(hero.getMana(), is(1234));
+    public void heroManaShouldReturn3() {
+        assertThat(hero.getMana(), is(3));
     }
 
     @Test
-    public void heroHealthShouldBe2345() {
-        assertThat(hero.getHealth(), is(2345));
+    public void heroHealthShouldBe21() {
+        assertThat(hero.getHealth(), is(21));
     }
 
     @Test
@@ -46,17 +51,17 @@ public class TestHeroBroker {
     }
 
     @Test
-    public void heroTypeShouldBeStubHero123() {
-        assertThat(hero.getType(), is("StubHero123"));
+    public void heroTypeShouldBeBaby() {
+        assertThat(hero.getType(), is("Baby"));
     }
 
     @Test
-    public void HeroOwnerShouldBePeddersen() {
-        assertThat(hero.getOwner(), is(Player.PEDDERSEN));
+    public void HeroOwnerShouldBeFindus() {
+        assertThat(hero.getOwner(), is(Player.FINDUS));
     }
 
     @Test
-    public void heroEffectDescriptionIsCrushingSkullsOfTheirEnemies() {
-        assertThat(hero.getEffectDescription(), is("Crushing skulls of their enemies, MUHAHAHA"));
+    public void heroEffectDescriptionIsCute() {
+        assertThat(hero.getEffectDescription(), is("Cute"));
     }
 }

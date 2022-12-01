@@ -4,6 +4,8 @@ import hotstone.framework.Hero;
 import hotstone.framework.MutableHero;
 import hotstone.framework.Player;
 
+import java.util.UUID;
+
 public class StandardHotStoneHero implements Hero, MutableHero {
     private int health;
     private Player owner;
@@ -11,6 +13,8 @@ public class StandardHotStoneHero implements Hero, MutableHero {
     private boolean isActive;
     private int mana;
     private String effectDescription;
+
+    private String id;
 
     /** Constructor for a Hero
      *  @param owner the player which owns the hero
@@ -23,6 +27,7 @@ public class StandardHotStoneHero implements Hero, MutableHero {
         this.mana = mana;
         this.health = GameConstants.HERO_MAX_HEALTH;
         this.effectDescription = generateEffectDescription();
+        this.id = UUID.randomUUID().toString();
     }
 
     private String generateEffectDescription() {
@@ -88,5 +93,10 @@ public class StandardHotStoneHero implements Hero, MutableHero {
     @Override
     public String getEffectDescription() {
         return effectDescription;
+    }
+
+    @Override
+    public String getId() {
+        return id;
     }
 }

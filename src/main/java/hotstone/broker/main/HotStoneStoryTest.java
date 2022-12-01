@@ -31,16 +31,38 @@ import hotstone.framework.Game;
 import hotstone.framework.Hero;
 import hotstone.framework.Player;
 import hotstone.standard.GameConstants;
+import hotstone.standard.StandardHotStoneGame;
+import hotstone.variants.AlphaStone.AlphaStoneConcreteFactory;
+import hotstone.variants.BetaStone.BetaStoneConcreteFactory;
+import hotstone.variants.DeltaStone.DeltaStoneConcreteFactory;
+import hotstone.variants.EpsilonStone.EpsilonStoneConcreteFactory;
+import hotstone.variants.EtaStone.EtaStoneConcreteFactory;
+import hotstone.variants.GammaStone.GammaStoneConcreteFactory;
+import hotstone.variants.SemiStone.SemiStoneConcreteFactory;
+import hotstone.variants.ZetaStone.ZetaStoneConcreteFactory;
+import hotstone.view.core.HotStoneDrawingType;
+import hotstone.view.core.HotStoneFactory;
+import hotstone.view.tool.DualUserInterfaceTool;
+import hotstone.view.tool.HotSeatStateTool;
+import minidraw.framework.DrawingEditor;
+import minidraw.standard.MiniDrawApplication;
+import minidraw.standard.NullTool;
 
 public class HotStoneStoryTest {
   public static void main(String[] args)  {
     // Get the name of the host from the commandline parameters
     String host = args[0];
+    Player whoToPlay;
+    if(args[1].equals("findus") || args[1].equals("Findus")) {
+      whoToPlay = Player.FINDUS;
+    } else {
+      whoToPlay = Player.PEDDERSEN;
+    }
     // and execute the story test, talking to the server with that name
-    new HotStoneStoryTest(host);
+    new HotStoneStoryTest(host,whoToPlay);
   }
 
-  public HotStoneStoryTest(String host) {
+  public HotStoneStoryTest(String host, Player whoToPlay) {
     // Create the client side Broker roles
     UriTunnelClientRequestHandler clientRequestHandler
             = new UriTunnelClientRequestHandler(host, BrokerConstants.HOTSTONE_PORT,
@@ -48,42 +70,12 @@ public class HotStoneStoryTest {
     Requestor requestor = new StandardJSONRequestor(clientRequestHandler);
 
     Game game = new GameClientProxy(requestor);
-    Card card = new CardClientProxy(requestor);
-    Hero hero = new HeroClientProxy(requestor);
 
-    testSimpleMethods(game,card,hero);
-  }
-
-  private void testSimpleMethods(Game game, Card card, Hero hero) {
-    System.out.println("=== Testing pass-by-value methods of Game ===");
-    System.out.println(" --> Game turnNumber            " + game.getTurnNumber());
-    System.out.println(" --> Game playerInTurn          " + game.getPlayerInTurn());
-    System.out.println(" --> Game winner                " + game.getWinner());
-    System.out.println(" --> Game FindusDeckSize        " + game.getDeckSize(Player.FINDUS));
-    System.out.println(" --> Game FindusHandSize        " + game.getHandSize(Player.FINDUS));
-    System.out.println(" --> Game FindusFieldSize       " + game.getFieldSize(Player.FINDUS));
-    System.out.println(" --> Game FindusPlaysCard       " + game.playCard(Player.FINDUS, new StubCardForBroker()));
-    System.out.println(" --> Game FindusAttacksCard     " + game.attackCard(Player.FINDUS, new StubCardForBroker(), new StubCardForBroker()));
-    System.out.println(" --> Game FindusAttacksHero     " + game.attackHero(Player.FINDUS, new StubCardForBroker()));
-    System.out.println(" --> Game FindusUsesPower       " + game.usePower(Player.FINDUS));
-    System.out.println("=== End ===");
-
-    System.out.println("=== Testing pass-by-reference methods of Card ===");
-    System.out.println(" --> Card getManaCost            " + card.getManaCost());
-    System.out.println(" --> Card getHealth              " + card.getHealth());
-    System.out.println(" --> Card getAttack              " + card.getAttack());
-    System.out.println(" --> Card isActive               " + card.isActive());
-    System.out.println(" --> Card getOwner               " + card.getOwner());
-    System.out.println(" --> Card getEffectDescription   " + card.getEffectDescription());
-    System.out.println("=== End ===");
-
-    System.out.println("=== Testing pass-by-reference methods of Hero ===");
-    System.out.println(" --> Hero getMana              " + hero.getMana());
-    System.out.println(" --> Hero getHealth            " + hero.getHealth());
-    System.out.println(" --> Hero isActive             " + hero.isActive());
-    System.out.println(" --> Hero getType              " + hero.getType());
-    System.out.println(" --> Hero getOwner             " + hero.getOwner());
-    System.out.println(" --> Hero getEffectDescription " + hero.getEffectDescription());
-    System.out.println("=== End ===");
+    DrawingEditor editor =
+            new MiniDrawApplication( "HotSeat: Variant semi",
+                    new HotStoneFactory(game, whoToPlay,
+                            HotStoneDrawingType.OPPONENT_MODE));
+    editor.open();
+    editor.setTool(new DualUserInterfaceTool(editor,game,whoToPlay));
   }
 }

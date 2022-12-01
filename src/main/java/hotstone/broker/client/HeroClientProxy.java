@@ -7,11 +7,12 @@ import hotstone.framework.Hero;
 import hotstone.framework.Player;
 
 public class HeroClientProxy implements Hero, ClientProxy {
-    private static String HERO_ID = "HeroIDPending";
+    private String HERO_ID;
     private Requestor requestor;
 
-    public HeroClientProxy(Requestor requestor) {
+    public HeroClientProxy(String objectId, Requestor requestor) {
         this.requestor = requestor;
+        this.HERO_ID = objectId;
     }
 
     @Override
@@ -54,5 +55,10 @@ public class HeroClientProxy implements Hero, ClientProxy {
         String effectDesc = requestor.sendRequestAndAwaitReply(HERO_ID,
                 OperationNames.HERO_GET_EFFECT_DESCRIPTION, String.class);
         return effectDesc;
+    }
+
+    @Override
+    public String getId() {
+        return HERO_ID;
     }
 }
