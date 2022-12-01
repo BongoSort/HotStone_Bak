@@ -36,12 +36,12 @@ public class TestHeroBroker {
     }
 
     @Test
-    public void heroManaShouldReturn1234() {
+    public void heroManaShouldReturn3() {
         assertThat(hero.getMana(), is(3));
     }
 
     @Test
-    public void heroHealthShouldBe2345() {
+    public void heroHealthShouldBe21() {
         assertThat(hero.getHealth(), is(21));
     }
 
@@ -51,17 +51,17 @@ public class TestHeroBroker {
     }
 
     @Test
-    public void heroTypeShouldBeStubHero123() {
+    public void heroTypeShouldBeBaby() {
         assertThat(hero.getType(), is("Baby"));
     }
 
     @Test
-    public void HeroOwnerShouldBePeddersen() {
+    public void HeroOwnerShouldBeFindus() {
         assertThat(hero.getOwner(), is(Player.FINDUS));
     }
 
     @Test
-    public void heroEffectDescriptionIsCrushingSkullsOfTheirEnemies() {
+    public void heroEffectDescriptionIsCute() {
         assertThat(hero.getEffectDescription(), is("Cute"));
     }
 }
