@@ -4,8 +4,8 @@ gradle/
 .idea/
 out/
 
-gradlew
-gradlew.bat
+# gradlew
+# gradlew.bat
 
 *~
 *.bak
