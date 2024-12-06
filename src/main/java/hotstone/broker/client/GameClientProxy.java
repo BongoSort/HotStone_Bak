@@ -73,16 +73,22 @@ public class GameClientProxy implements Game, ClientProxy {
 
   @Override
   public int getDeckSize(Player who) {
-    int deckSize = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+    int deckSize = requestor.sendRequestAndAwaitReply(
+            GAME_OBJECTID,
             OperationNames.GAME_GET_DECK_SIZE,
-            Integer.class, who);
+            Integer.class,
+            who);
     return deckSize;
   }
 
   @Override
   public Card getCardInHand(Player who, int indexInHand) {
-    String id = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
-            OperationNames.GAME_GET_CARD_IN_HAND, String.class, who, indexInHand);
+    String id = requestor.sendRequestAndAwaitReply(
+            GAME_OBJECTID,
+            OperationNames.GAME_GET_CARD_IN_HAND,
+            String.class,
+            who,
+            indexInHand);
     CardClientProxy cardClientProxy = new CardClientProxy(id, requestor);
     return cardClientProxy;
   }
@@ -90,7 +96,8 @@ public class GameClientProxy implements Game, ClientProxy {
   @Override
   public Iterable<? extends Card> getHand(Player who) {
     Type collectionType = new TypeToken<List<String>>(){}.getType();
-    List<String> theIDList = requestor.sendRequestAndAwaitReply(GAME_OBJECTID,
+    List<String> theIDList = requestor.sendRequestAndAwaitReply(
+            GAME_OBJECTID,
             OperationNames.GAME_GET_HAND,
             collectionType,
             who);
